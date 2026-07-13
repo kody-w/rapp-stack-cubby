@@ -106,7 +106,9 @@ class ControllerAdoptionTests(unittest.TestCase):
                             lambda python, runtime_source, model, token: model
                         ),
                         "_process_start_identity": lambda pid: "c" * 64,
-                        "_wait_health": lambda port, instance, timeout: True,
+                        "_wait_health": (
+                            lambda port, instance, timeout, child, start_identity: True
+                        ),
                     },
                 ):
                     started = decoded(
@@ -265,7 +267,7 @@ class ControllerAdoptionTests(unittest.TestCase):
                             lambda selected=None: str(selected)
                         ),
                         "_wait_health": (
-                            lambda port, instance, timeout: True
+                            lambda port, instance, timeout, child, start_identity: True
                         ),
                     },
                 ):
@@ -384,7 +386,9 @@ class ControllerAdoptionTests(unittest.TestCase):
                             lambda python, runtime_source, model, token: model
                         ),
                         "_process_start_identity": lambda pid: "d" * 64,
-                        "_wait_health": lambda port, instance, timeout: True,
+                        "_wait_health": (
+                            lambda port, instance, timeout, child, start_identity: True
+                        ),
                     },
                 ):
                     started = decoded(

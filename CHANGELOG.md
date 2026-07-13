@@ -3,6 +3,18 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc9 — release candidate
+
+### Fixed
+
+- Release run `29287233724` reached a ready global controller, adopted the
+  verified installed bytes, and launched a child with empty stdout/stderr, but
+  the controller's hardcoded 12-second health timeout expired at child start.
+  Child readiness now uses the named 75-second cold-runner budget already
+  proven by installed attestation, with bounded process-aware polling and fast
+  process-exit and identity-mismatch failure. Content-free controller status,
+  start receipts, and child-start diagnostics report the applied timeout.
+
 ## 0.1.0rc8 — release candidate
 
 ### Fixed

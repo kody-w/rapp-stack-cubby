@@ -95,6 +95,11 @@
           "minLength": 1,
           "type": "string"
         },
+        "health_timeout_seconds": {
+          "maximum": 90,
+          "minimum": 75,
+          "type": "number"
+        },
         "process_category": {
           "enum": [
             "running",
@@ -181,6 +186,11 @@
               "maximum": 300,
               "type": "number"
             },
+            "health_timeout_seconds": {
+              "maximum": 90,
+              "minimum": 75,
+              "type": "number"
+            },
             "signed_only": {
               "const": true
             },
@@ -200,6 +210,7 @@
             "model",
             "attestation_mode",
             "provider_timeout",
+            "health_timeout_seconds",
             "signed_only"
           ],
           "type": "object"

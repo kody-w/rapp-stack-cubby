@@ -207,7 +207,9 @@ _MAX_CHAT_BYTES = 2 * 1024 * 1024
 _MAX_MESSAGE_CHARS = 1024 * 1024
 _MAX_LOG_BYTES = 1024 * 1024
 _LOG_BACKUPS = 3
-_HEALTH_TIMEOUT = 12.0
+_CHILD_COLD_START_BUDGET_SECONDS = 75.0
+_CHILD_STARTUP_POLL_INTERVAL_SECONDS = 1.0
+_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS = 2.0
 _CHILD_PROVIDER_TIMEOUT = 30.0
 _ATTESTATION_MODE = "offline-self-test"
 _ATTESTATION_MODEL = "attestation-self-test/1.0"
@@ -4178,6 +4180,7 @@ def _child_process_diagnostics(child, workspace, *, launch_failed=False):
         Path(workspace) / "logs" / "stderr.log"
     )
     return {
+        "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
         "process_return_code": return_code,
         "process_category": category,
         "stdout_size": stdout["size"],
@@ -4236,10 +4239,13 @@ def _http_json(port, method, path, payload=None, timeout=_HTTP_TIMEOUT):
     return decoded
 
 
-def _health_probe(port):
+def _health_probe(port, timeout=_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS):
     try:
         payload = _http_json(
-            port, "GET", "/health", timeout=min(_HTTP_TIMEOUT, 2.0)
+            port,
+            "GET",
+            "/health",
+            timeout=min(_HTTP_TIMEOUT, float(timeout)),
         )
         return payload
     except RuntimeError:
@@ -4268,18 +4274,95 @@ def _health_matches(process):
     )
 
 
-def _wait_health(port, instance_id, timeout):
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        payload = _health_probe(port)
+def _startup_process_intact(child, start_identity):
+    if child is None:
+        return True
+    try:
+        return_code = child.poll()
+    except Exception:
+        _error("process_identity_mismatch")
+    if return_code is not None:
+        return False
+    if start_identity is None:
+        return True
+    if (
+        not isinstance(start_identity, str)
+        or _process_start_identity(child.pid) != start_identity
+    ):
+        if child.poll() is not None:
+            return False
+        _error("process_identity_mismatch")
+    try:
+        process_group = os.getpgid(child.pid)
+    except ProcessLookupError:
+        if child.poll() is not None:
+            return False
+        _error("process_identity_mismatch")
+    except OSError:
+        _error("process_identity_mismatch")
+    if process_group != child.pid:
+        _error("process_identity_mismatch")
+    return True
+
+
+def _wait_health(
+    port,
+    instance_id,
+    timeout,
+    child=None,
+    start_identity=None,
+    *,
+    clock=time.monotonic,
+    probe=None,
+    pause=None,
+):
+    def health_probe(remaining):
+        return _health_probe(
+            port,
+            timeout=min(
+                _CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS,
+                remaining,
+            ),
+        )
+
+    def wait_for_process(delay):
+        if child is None:
+            time.sleep(delay)
+            return
+        try:
+            child.wait(timeout=delay)
+        except subprocess.TimeoutExpired:
+            return
+
+    readiness_probe = probe or health_probe
+    wait_for_retry = pause or wait_for_process
+    deadline = clock() + timeout
+    while True:
+        if not _startup_process_intact(child, start_identity):
+            return False
+        remaining = deadline - clock()
+        if remaining <= 0:
+            break
+        payload = readiness_probe(remaining)
         if (
             payload
             and payload.get("status") == "ok"
             and payload.get("ready") is True
             and payload.get("instance_id") == instance_id
         ):
-            return True
-        time.sleep(0.1)
+            if not _startup_process_intact(child, start_identity):
+                return False
+            return clock() <= deadline
+        if not _startup_process_intact(child, start_identity):
+            return False
+        remaining = deadline - clock()
+        if remaining <= 0:
+            break
+        wait_for_retry(
+            min(_CHILD_STARTUP_POLL_INTERVAL_SECONDS, remaining)
+        )
+    if not _startup_process_intact(child, start_identity):
+        return False
     return False
 
 
@@ -4659,6 +4742,7 @@ def _start_locked(
             "already_running": True,
             "instance_id": state["process"]["instance_id"],
             "port": state["process"]["port"],
+            "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
             "model": state["process"]["model"],
             "attestation_mode": state["process"].get(
                 "attestation_mode"
@@ -4870,6 +4954,7 @@ def _start_locked(
             "model": model,
             "attestation_mode": attestation_mode,
             "provider_timeout": _CHILD_PROVIDER_TIMEOUT,
+            "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
             "signed_only": True,
         }
         starting = dict(state)
@@ -4881,7 +4966,13 @@ def _start_locked(
         starting = _write_state(twin_directory, starting)
         if phase_callback is not None:
             phase_callback("starting", process=process)
-        if not _wait_health(selected_port, instance_id, _HEALTH_TIMEOUT):
+        if not _wait_health(
+            selected_port,
+            instance_id,
+            _CHILD_COLD_START_BUDGET_SECONDS,
+            child,
+            start_identity,
+        ):
             _error("health_failed")
         if (
             _process_start_identity(child.pid) != start_identity
@@ -4932,6 +5023,7 @@ def _start_locked(
         "instance_id": instance_id,
         "port": selected_port,
         "command_sha256": command_digest,
+        "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
         "model": model,
         "attestation_mode": attestation_mode,
         "signed_only": True,
@@ -5383,6 +5475,7 @@ def _safe_state_summary(state, location, observed=None):
         "hatch_profile": state.get("hatch_profile"),
         "model": state.get("selected_model"),
         "attestation_mode": state.get("attestation_mode"),
+        "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
         "signed_only": state.get("signed_only") is True,
         "child_transport_key_id": transport.get("child_key_id"),
         "controller_transport_key_id": transport.get("controller_key_id"),
@@ -6281,6 +6374,9 @@ class RappStackCubbyController(BasicAgent):
                         state.get("process") or {}
                     ).get("instance_id"),
                     port=(state.get("process") or {}).get("port"),
+                    health_timeout_seconds=(
+                        _CHILD_COLD_START_BUDGET_SECONDS
+                    ),
                     model=model,
                     attestation_mode=attestation_mode,
                     signed_only=True,

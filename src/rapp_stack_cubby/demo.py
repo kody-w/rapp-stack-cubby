@@ -99,6 +99,7 @@ class _AttestationDiagnostics:
     controller_log_sha256: str = hashlib.sha256(b"").hexdigest()
     child_process_return_code: int | None = None
     child_process_category: str = "not_started"
+    child_health_timeout_seconds: float | None = None
     child_stdout_size: int = 0
     child_stdout_sha256: str = hashlib.sha256(b"").hexdigest()
     child_stderr_size: int = 0
@@ -187,6 +188,21 @@ class _AttestationDiagnostics:
             if isinstance(state, dict)
             else None
         )
+        process = state.get("process") if isinstance(state, dict) else None
+        timeout_source = (
+            failure
+            if isinstance(failure, dict)
+            else process
+            if isinstance(process, dict)
+            else {}
+        )
+        health_timeout = timeout_source.get("health_timeout_seconds")
+        if (
+            isinstance(health_timeout, (int, float))
+            and not isinstance(health_timeout, bool)
+            and 75 <= health_timeout <= 90
+        ):
+            self.child_health_timeout_seconds = float(health_timeout)
         if isinstance(failure, dict):
             category = failure.get("process_category")
             return_code = failure.get("process_return_code")
@@ -214,6 +230,9 @@ class _AttestationDiagnostics:
         return {
             "child_process_category": self.child_process_category,
             "child_process_return_code": self.child_process_return_code,
+            "child_health_timeout_seconds": (
+                self.child_health_timeout_seconds
+            ),
             "child_stage": self.child_stage,
             "child_stderr_sha256": self.child_stderr_sha256,
             "child_stderr_size": self.child_stderr_size,

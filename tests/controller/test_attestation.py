@@ -310,7 +310,9 @@ class OfflineAttestationTests(unittest.TestCase):
                         side_effect=AssertionError("live preflight called")
                     ),
                     "_process_start_identity": lambda pid: "d" * 64,
-                    "_wait_health": lambda port, instance, timeout: True,
+                    "_wait_health": (
+                        lambda port, instance, timeout, child, start_identity: True
+                    ),
                 },
             ):
                 result = decoded(
