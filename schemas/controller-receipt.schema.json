@@ -28,6 +28,11 @@
     "identity_hash": {
       "$ref": "#/$defs/hex64"
     },
+    "health_timeout_seconds": {
+      "maximum": 90,
+      "minimum": 75,
+      "type": "number"
+    },
     "instance_rappid": {
       "pattern": "^rappid:@[a-z0-9][a-z0-9-]{0,62}/[a-z0-9][a-z0-9-]{0,62}:[0-9a-f]{64}$",
       "type": "string"

@@ -45,6 +45,18 @@
             }
           ]
         },
+        "child_health_timeout_seconds": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": 75,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "child_stderr_sha256": {
           "pattern": "^[0-9a-f]{64}$",
           "type": "string"
@@ -123,6 +135,7 @@
         "child_stage",
         "child_process_return_code",
         "child_process_category",
+        "child_health_timeout_seconds",
         "child_stdout_size",
         "child_stdout_sha256",
         "child_stderr_size",

@@ -16,6 +16,132 @@ from ._support import (
 
 
 class ControllerProcessTests(unittest.TestCase):
+    def test_child_readiness_allows_cold_start_after_legacy_window(self):
+        elapsed = 0.0
+        probe_times = []
+        child = Mock()
+        child.poll.return_value = None
+
+        def clock():
+            return elapsed
+
+        def pause(delay):
+            nonlocal elapsed
+            elapsed += delay
+
+        def probe(remaining):
+            self.assertGreater(remaining, 0.0)
+            probe_times.append(elapsed)
+            return {
+                "status": "ok",
+                "ready": elapsed > 12.0,
+                "instance_id": "cold-child",
+            }
+
+        with ControllerEnvironment() as environment:
+            budget = environment.globals[
+                "_CHILD_COLD_START_BUDGET_SECONDS"
+            ]
+            ready = environment.globals["_wait_health"](
+                43200,
+                "cold-child",
+                budget,
+                child,
+                clock=clock,
+                probe=probe,
+                pause=pause,
+            )
+
+        self.assertTrue(ready)
+        self.assertGreater(elapsed, 12.0)
+        self.assertLess(elapsed, budget)
+        self.assertEqual(probe_times[-1], elapsed)
+
+    def test_child_readiness_times_out_at_named_cold_start_bound(self):
+        elapsed = 0.0
+        child = Mock()
+        child.poll.return_value = None
+        probe = Mock(return_value=None)
+
+        def clock():
+            return elapsed
+
+        def pause(delay):
+            nonlocal elapsed
+            elapsed += delay
+
+        with ControllerEnvironment() as environment:
+            budget = environment.globals[
+                "_CHILD_COLD_START_BUDGET_SECONDS"
+            ]
+            ready = environment.globals["_wait_health"](
+                43201,
+                "never-ready-child",
+                budget,
+                child,
+                clock=clock,
+                probe=probe,
+                pause=pause,
+            )
+
+        self.assertFalse(ready)
+        self.assertEqual(elapsed, budget)
+        self.assertEqual(probe.call_count, int(budget))
+
+    def test_child_readiness_fails_fast_when_process_exits(self):
+        child = Mock()
+        child.poll.return_value = 9
+        probe = Mock(side_effect=AssertionError("probe must not run"))
+        pause = Mock(side_effect=AssertionError("pause must not run"))
+
+        with ControllerEnvironment() as environment:
+            ready = environment.globals["_wait_health"](
+                43202,
+                "exited-child",
+                environment.globals[
+                    "_CHILD_COLD_START_BUDGET_SECONDS"
+                ],
+                child,
+                clock=lambda: 0.0,
+                probe=probe,
+                pause=pause,
+            )
+
+        self.assertFalse(ready)
+        probe.assert_not_called()
+        pause.assert_not_called()
+
+    def test_child_readiness_fails_fast_on_identity_mismatch(self):
+        child = Mock()
+        child.pid = 54320
+        child.poll.return_value = None
+        probe = Mock(side_effect=AssertionError("probe must not run"))
+        pause = Mock(side_effect=AssertionError("pause must not run"))
+
+        with ControllerEnvironment() as environment:
+            with patch.dict(
+                environment.globals,
+                {"_process_start_identity": lambda pid: "b" * 64},
+            ):
+                with self.assertRaisesRegex(
+                    RuntimeError, "process_identity_mismatch"
+                ):
+                    environment.globals["_wait_health"](
+                        43203,
+                        "reused-child",
+                        environment.globals[
+                            "_CHILD_COLD_START_BUDGET_SECONDS"
+                        ],
+                        child,
+                        "a" * 64,
+                        clock=lambda: 0.0,
+                        probe=probe,
+                        pause=pause,
+                    )
+
+        probe.assert_not_called()
+        pause.assert_not_called()
+
     def test_start_requires_explicit_model_before_process_creation(self):
         with ControllerEnvironment() as environment:
             environment.create_twin()
@@ -75,6 +201,7 @@ class ControllerProcessTests(unittest.TestCase):
         fake_child.pid = 54321
         fake_child.poll.return_value = None
         popen = Mock(return_value=fake_child)
+        wait_health = Mock(return_value=True)
         with ControllerEnvironment() as environment:
             environment.create_twin()
             provider_token = environment.create_provider_token()
@@ -103,7 +230,7 @@ class ControllerProcessTests(unittest.TestCase):
                         lambda python, source, model, token_file: model
                     ),
                     "_process_start_identity": lambda pid: "c" * 64,
-                    "_wait_health": lambda port, instance, timeout: True,
+                    "_wait_health": wait_health,
                 },
             ), patch.object(
                 environment.globals["os"], "getpgid", side_effect=lambda pid: pid
@@ -137,6 +264,32 @@ class ControllerProcessTests(unittest.TestCase):
                 for path in environment.controller_data.rglob("*")
                 if path.is_file()
             )
+            receipt = json.loads(
+                (
+                    environment.controller_data
+                    / "receipts"
+                    / f"{result['receipt_id']}.json"
+                ).read_text(encoding="utf-8")
+            )
+            with patch.dict(
+                environment.globals,
+                {
+                    "_reconcile_runtime": lambda path, value: value,
+                    "_observed_runtime": lambda value: {
+                        "runtime_status": "running",
+                        "healthy": True,
+                        "identity_verified": True,
+                    },
+                },
+            ):
+                status = decoded(
+                    environment.agent,
+                    action="status",
+                    rappid=RAPPID,
+                )
+            health_timeout = environment.globals[
+                "_CHILD_COLD_START_BUDGET_SECONDS"
+            ]
 
         self.assertTrue(result["ok"])
         self.assertEqual(result["status"], "running")
@@ -167,6 +320,11 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(
             argv[argv.index("--provider-timeout") + 1], "30.0"
         )
+        wait_arguments = wait_health.call_args.args
+        self.assertEqual(wait_arguments[0], 43210)
+        self.assertEqual(wait_arguments[2], health_timeout)
+        self.assertIs(wait_arguments[3], fake_child)
+        self.assertEqual(wait_arguments[4], "c" * 64)
         self.assertIs(popen.call_args.kwargs["shell"], False)
         self.assertTrue(popen.call_args.kwargs["start_new_session"])
         self.assertNotIn(
@@ -181,6 +339,13 @@ class ControllerProcessTests(unittest.TestCase):
             str(status_path),
         )
         self.assertEqual(state["process"]["command_sha256"], result["command_sha256"])
+        self.assertEqual(
+            state["process"]["health_timeout_seconds"],
+            health_timeout,
+        )
+        self.assertEqual(result["health_timeout_seconds"], health_timeout)
+        self.assertEqual(status["health_timeout_seconds"], health_timeout)
+        self.assertEqual(receipt["health_timeout_seconds"], health_timeout)
         self.assertNotIn("command", state["process"])
         serialized_state = json.dumps(state)
         self.assertNotIn(str(provider_token), serialized_state)
@@ -210,8 +375,10 @@ class ControllerProcessTests(unittest.TestCase):
             provider_token = environment.create_provider_token()
             observed_starting = {}
 
-            def fail_health(port, instance, timeout):
-                del port, instance, timeout
+            def fail_health(
+                port, instance, timeout, child, start_identity
+            ):
+                del port, instance, timeout, child, start_identity
                 state = json.loads(
                     (
                         environment.controller_data
@@ -269,6 +436,12 @@ class ControllerProcessTests(unittest.TestCase):
             observed_starting["process"]["start_identity"], "c" * 64
         )
         failure = state["last_start_failure"]
+        self.assertEqual(
+            failure["health_timeout_seconds"],
+            environment.globals[
+                "_CHILD_COLD_START_BUDGET_SECONDS"
+            ],
+        )
         self.assertEqual(failure["process_return_code"], 17)
         self.assertEqual(
             failure["process_category"], "exited_nonzero"

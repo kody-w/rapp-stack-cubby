@@ -34,7 +34,7 @@ class PromotionEvidenceTests(unittest.TestCase):
         self.trust = self.source / "RELEASE_TRUST.json"
         self.evidence = self.workspace.root / "promotion-evidence"
         self.evidence.mkdir(mode=0o700)
-        self.tag = "v0.1.0-rc.8"
+        self.tag = "v0.1.0-rc.9"
         self.commit = "a" * 40
         self.manifest_sha = "b" * 64
         self.timestamp = "2026-07-13T00:00:00Z"

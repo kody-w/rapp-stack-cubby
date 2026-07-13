@@ -297,6 +297,7 @@ class InstalledAttestationTests(unittest.TestCase):
                 json.dumps(
                     {
                         "last_start_failure": {
+                            "health_timeout_seconds": 75.0,
                             "process_category": "exited_nonzero",
                             "process_return_code": 72,
                         }
@@ -315,6 +316,9 @@ class InstalledAttestationTests(unittest.TestCase):
             public["child_process_category"], "exited_nonzero"
         )
         self.assertEqual(public["child_process_return_code"], 72)
+        self.assertEqual(
+            public["child_health_timeout_seconds"], 75.0
+        )
         self.assertEqual(
             public["child_stdout_size"], len(secret_stdout)
         )
@@ -703,6 +707,7 @@ class InstalledAttestationTests(unittest.TestCase):
             set(diagnostic),
             {
                 "child_stage",
+                "child_health_timeout_seconds",
                 "child_process_category",
                 "child_process_return_code",
                 "child_stdout_size",
@@ -718,6 +723,7 @@ class InstalledAttestationTests(unittest.TestCase):
         )
         self.assertEqual(diagnostic["stage_code"], "controller_readiness")
         self.assertEqual(diagnostic["child_stage"], "not_adopted")
+        self.assertIsNone(diagnostic["child_health_timeout_seconds"])
         self.assertEqual(
             diagnostic["child_process_category"], "not_started"
         )
