@@ -3,6 +3,18 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc7 — release candidate
+
+### Fixed
+
+- Release run `29275520997` failed installed offline attestation while the
+  global controller remained running with an empty log beyond the fixed
+  15-second readiness window; the exact artifact attests locally. Controller
+  startup now uses a named 75-second cold-runner budget with efficient,
+  process-aware polling and fast exit detection. Attestation controller and
+  child diagnostics are unbuffered, while timeout evidence remains
+  content-free and limited to log size/digest and process return category.
+
 ## 0.1.0rc6 — release candidate
 
 ### Fixed
