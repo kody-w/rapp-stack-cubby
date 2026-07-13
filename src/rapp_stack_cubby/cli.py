@@ -139,6 +139,9 @@ def build_parser() -> argparse.ArgumentParser:
         "--install-root", required=True, type=Path
     )
     installed_attestation_parser.add_argument(
+        "--host-python", required=True, type=Path
+    )
+    installed_attestation_parser.add_argument(
         "--controller-dir", required=True, type=Path
     )
     installed_attestation_parser.add_argument(
@@ -988,14 +991,25 @@ def _command_manifest_command(args: argparse.Namespace) -> int:
 
 
 def _attest_installed_command(args: argparse.Namespace) -> int:
-    from .demo import DemoError, run_installed_attestation
+    from .demo import (
+        DemoError,
+        InstalledAttestationError,
+        run_installed_attestation,
+    )
 
     try:
         value = run_installed_attestation(
             args.install_root,
             args.controller_dir,
+            host_controller_python=args.host_python,
             receipt_path=args.receipt,
         )
+    except InstalledAttestationError as error:
+        print(
+            json.dumps(error.diagnostics, separators=(",", ":"), sort_keys=True),
+            file=sys.stderr,
+        )
+        return 2
     except DemoError as error:
         raise RappStackCubbyError(str(error)) from error
     print(json.dumps(value, indent=2, sort_keys=True))

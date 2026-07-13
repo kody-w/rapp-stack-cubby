@@ -9,15 +9,107 @@
     "attestation_model": {
       "const": "attestation-self-test/1.0"
     },
+    "diagnostics": {
+      "additionalProperties": false,
+      "properties": {
+        "child_stage": {
+          "enum": [
+            "not_adopted",
+            "adopted",
+            "running",
+            "attested",
+            "stopped",
+            "archived",
+            "unarchived",
+            "purged"
+          ]
+        },
+        "controller_log_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "controller_log_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "process_category": {
+          "enum": [
+            "not_started",
+            "running",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "timed_out",
+            "invalid_output",
+            "status_unavailable"
+          ]
+        },
+        "process_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stage_code": {
+          "enum": [
+            "initialization",
+            "host_python_validation",
+            "install_static_verification",
+            "installed_python_probe",
+            "controller_auth",
+            "controller_spawn",
+            "controller_readiness",
+            "installed_adoption",
+            "child_start",
+            "signed_self_test",
+            "child_stop",
+            "child_archive",
+            "child_unarchive",
+            "child_status",
+            "child_purge",
+            "lifecycle_verification",
+            "complete"
+          ]
+        }
+      },
+      "required": [
+        "stage_code",
+        "process_return_code",
+        "process_category",
+        "controller_log_size",
+        "controller_log_sha256",
+        "child_stage"
+      ],
+      "type": "object"
+    },
     "imessage_sent": {
       "const": false
     },
     "installed_source_digest": {
-      "pattern": "^[0-9a-f]{64}$",
-      "type": "string"
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "orphan_count": {
-      "const": 0
+      "anyOf": [
+        {
+          "const": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "published": {
       "const": false
@@ -29,7 +121,7 @@
       "const": true
     },
     "verified": {
-      "const": true
+      "type": "boolean"
     }
   },
   "required": [
@@ -42,6 +134,25 @@
     "orphan_count",
     "published",
     "imessage_sent"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verified": {
+            "const": false
+          }
+        },
+        "required": [
+          "verified"
+        ]
+      },
+      "then": {
+        "required": [
+          "diagnostics"
+        ]
+      }
+    }
   ],
   "title": "Installed-byte offline signed attestation",
   "type": "object"

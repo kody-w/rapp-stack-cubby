@@ -51,7 +51,10 @@ overwrites an identity and rolls staging back on failure. `adopt_install`
 accepts only that verified immutable install, records its artifact/source
 digests, binds its venv, copies only manifest-listed source, creates new private
 pairing/instance identity, and can start those exact bytes without refetching
-Git. Start requires an explicit preflighted model, persists `starting`
+Git. Offline release attestation may run only the global controller/auth/CLI
+from an explicit trusted host CPython after static install verification and an
+isolated installed-Python launch probe; adopted signed-only child start still
+uses the copied measured installed venv/source. Start requires an explicit preflighted model, persists `starting`
 PID/PGID/OS-start/instance/command identity immediately after spawn, and always
 passes signed-only ingress. Signed local controller-child transport is
 implemented; live/public attestation and non-loopback control remain future.

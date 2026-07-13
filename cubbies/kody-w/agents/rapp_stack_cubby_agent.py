@@ -2599,51 +2599,6 @@ def _verify_installed_records(root, records, *, links=False):
             _error("adopt_invalid")
 
 
-def _probe_installed_dependencies(python, root):
-    expected = {
-        "cffi": "2.1.0",
-        "cryptography": "49.0.0",
-        "pycparser": "3.0",
-    }
-    environment = {
-        "HOME": str(Path(root) / "state" / "home"),
-        "LANG": "C.UTF-8",
-        "LC_ALL": "C.UTF-8",
-        "PATH": str(Path(root) / "venv" / "bin") + ":/usr/bin:/bin",
-        "PYTHONDONTWRITEBYTECODE": "1",
-        "PYTHONHASHSEED": "0",
-    }
-    try:
-        result = subprocess.run(
-            [
-                str(python),
-                "-I",
-                "-c",
-                (
-                    "import importlib.metadata,json;"
-                    "print(json.dumps({n:importlib.metadata.version(n) for n in "
-                    "('cffi','cryptography','pycparser')},sort_keys=True))"
-                ),
-            ],
-            shell=False,
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            env=environment,
-            timeout=30,
-            check=False,
-        )
-    except (OSError, subprocess.SubprocessError):
-        _error("adopt_invalid")
-    try:
-        observed = json.loads(result.stdout.decode("utf-8"))
-    except (UnicodeError, json.JSONDecodeError):
-        _error("adopt_invalid")
-    if result.returncode != 0 or observed != expected:
-        _error("adopt_invalid")
-    return expected
-
-
 def _validate_installed_venv(root):
     base = Path(root) / "venv"
     allowed_links = {
@@ -3199,7 +3154,6 @@ def _verify_installed_root(
     ):
         _error("adopt_invalid")
     _validate_installed_venv(root)
-    _probe_installed_dependencies(python, root)
     external_release_digest = release_verification.get(
         "release_manifest_sha256"
     )

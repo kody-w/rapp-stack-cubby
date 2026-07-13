@@ -28,6 +28,17 @@
         {
           "action": "_StoreAction",
           "choices": null,
+          "dest": "host_python",
+          "flags": [
+            "--host-python"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
           "dest": "install_root",
           "flags": [
             "--install-root"

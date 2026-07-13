@@ -1,7 +1,7 @@
 # Release checklist
 
-Candidate: `0.1.0rc5`
-Expected tag: `v0.1.0-rc.5`
+Candidate: `0.1.0rc6`
+Expected tag: `v0.1.0-rc.6`
 Current status: **unreleased**
 
 ## Phase A — source/CI candidate and offline product proof
@@ -24,8 +24,10 @@ Current status: **unreleased**
       exact `SHA256SUMS`, and source bindings.
 - [ ] Hatch offline and run `verify-install`.
 - [ ] Run `scripts/attest-installed-offline.sh`; require installed-source
-      digest equality, explicit attestation mode/model, signed-only child,
-      signed global `/chat` SelfTest, stop, and `orphan_count:0`.
+      digest equality, explicit host CPython for global control, static install
+      verification plus isolated installed-Python launch probe, explicit
+      attestation mode/model, signed-only installed-runtime child, signed
+      global `/chat` SelfTest, stop, and `orphan_count:0`.
 - [ ] Run `scripts/scan-publication.sh --phase candidate` over the exact
       source/history, generated Pages, and release assets. Require zero
       findings; detached-sign and verify
