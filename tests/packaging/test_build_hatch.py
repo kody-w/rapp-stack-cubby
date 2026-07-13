@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import inspect
 import os
 import shutil
 import unittest
@@ -27,6 +28,7 @@ from rapp_stack_cubby.packaging.hatch import (
     uninstall_twin,
     verify_install,
 )
+from rapp_stack_cubby.packaging import hatch as hatch_module
 from rapp_stack_cubby.packaging.source import (
     scan_source_tree,
     validate_source_manifest,
@@ -37,6 +39,35 @@ from ._support import PackagingWorkspace, create_fake_installed_environment
 
 class BuildAndHatchTests(unittest.TestCase):
     EPOCH = 1783892570
+
+    def test_production_venv_uses_copied_python_for_self_containment(self):
+        source = inspect.getsource(hatch_module._create_environment)
+        self.assertIn('"--copies"', source)
+        self.assertIn('"--without-pip"', source)
+        self.assertIn('"--target"', source)
+        self.assertIn('"--no-compile"', source)
+
+    def test_target_install_removes_dependency_console_scripts(self):
+        site = self.workspace.root / "target-site"
+        dist_info = site / "example-1.0.dist-info"
+        scripts = site / "bin"
+        dist_info.mkdir(parents=True)
+        scripts.mkdir()
+        (scripts / "example-cli").write_text("not executed\n", encoding="utf-8")
+        record = dist_info / "RECORD"
+        record.write_text(
+            "../../bin/example-cli,,\n"
+            "example-1.0.dist-info/RECORD,,\n",
+            encoding="utf-8",
+        )
+
+        hatch_module._remove_target_scripts(site)
+
+        self.assertFalse(scripts.exists())
+        self.assertEqual(
+            record.read_text(encoding="utf-8"),
+            "example-1.0.dist-info/RECORD,,\n",
+        )
 
     def setUp(self):
         self.workspace = PackagingWorkspace()

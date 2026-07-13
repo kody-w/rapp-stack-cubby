@@ -5,8 +5,10 @@ from __future__ import annotations
 import base64
 import csv
 import hashlib
+import io
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -42,7 +44,7 @@ _EXPECTED_VERSIONS = {
     "cryptography": "49.0.0",
     "pycparser": "3.0",
 }
-_ALLOWED_DISTRIBUTIONS = frozenset({*_EXPECTED_VERSIONS, "pip", "setuptools"})
+_ALLOWED_DISTRIBUTIONS = frozenset(_EXPECTED_VERSIONS)
 _INVENTORY_EXCLUSIONS = frozenset(
     {"hatch-receipt.json", "installed-twin.json"}
 )
@@ -201,7 +203,15 @@ def _create_environment(
     environment = _safe_environment(private_home)
     _probe_python(python, private_home, runner=runner)
     _run(
-        [str(python), "-I", "-m", "venv", str(venv)],
+        [
+            str(python),
+            "-I",
+            "-m",
+            "venv",
+            "--without-pip",
+            "--copies",
+            str(venv),
+        ],
         env=environment,
         timeout=120,
         runner=runner,
@@ -209,10 +219,12 @@ def _create_environment(
     venv_python = venv / "bin/python"
     if not venv_python.exists():
         raise PackagingError("venv did not create its Python executable")
+    site_packages = venv / "lib/python3.11/site-packages"
+    site_packages.mkdir(parents=True, exist_ok=True, mode=0o700)
     pip_environment = _safe_environment(private_home, venv / "bin")
     _run(
         [
-            str(venv_python),
+            str(python),
             "-I",
             "-m",
             "pip",
@@ -224,6 +236,8 @@ def _create_environment(
             str(application / "wheelhouse"),
             "--require-hashes",
             "--no-compile",
+            "--target",
+            str(site_packages),
             "-r",
             str(application / "requirements.lock"),
         ],
@@ -231,7 +245,53 @@ def _create_environment(
         timeout=300,
         runner=runner,
     )
+    _remove_target_scripts(site_packages)
     return _dependency_versions(_distribution_inventory(stage, require_all=True))
+
+
+def _remove_target_scripts(site_packages: Path) -> None:
+    """Remove wheel console scripts; the runtime exposes no dependency CLIs."""
+
+    script_pattern = re.compile(r"^(?:\.\./)+bin/([A-Za-z0-9._-]+)$")
+    for record_path in sorted(
+        site_packages.glob("*.dist-info/RECORD"),
+        key=lambda path: path.name,
+    ):
+        try:
+            rows = list(
+                csv.reader(record_path.read_text(encoding="utf-8").splitlines())
+            )
+        except (OSError, UnicodeError, csv.Error) as error:
+            raise PackagingError("installed wheel RECORD is invalid") from error
+        retained: list[list[str]] = []
+        for row in rows:
+            if len(row) != 3:
+                raise PackagingError("installed wheel RECORD row is invalid")
+            if ".." not in PurePosixPath(row[0]).parts:
+                retained.append(row)
+                continue
+            match = script_pattern.fullmatch(row[0])
+            if match is None:
+                raise PackagingError("wheel RECORD path escapes the install")
+            script = site_packages / "bin" / match.group(1)
+            if script.is_symlink():
+                raise PackagingError("installed dependency script is invalid")
+            if script.exists():
+                if not script.is_file():
+                    raise PackagingError("installed dependency script is invalid")
+                script.unlink()
+        output = io.StringIO(newline="")
+        writer = csv.writer(output, lineterminator="\n")
+        writer.writerows(retained)
+        atomic_write(record_path, output.getvalue().encode("utf-8"), mode=0o644)
+    scripts = site_packages / "bin"
+    if scripts.exists():
+        if scripts.is_symlink() or not scripts.is_dir():
+            raise PackagingError("installed dependency script directory is invalid")
+        try:
+            scripts.rmdir()
+        except OSError as error:
+            raise PackagingError("unexpected installed dependency script remains") from error
 
 
 def _install_imsg(

@@ -151,7 +151,7 @@
       "executable": false,
       "mode": "0644",
       "path": "PROVENANCE.json",
-      "sha256": "4cb72816a649a1f0a67fbc279856ddeb91a1a6d4b0043bd075bfe9be9bd59c98",
+      "sha256": "90c6212e99d9a5ebf6a02a809432d0962c8976b6addf67b72d35961101b91270",
       "size": 170512
     },
     {
@@ -221,7 +221,7 @@
       "executable": false,
       "mode": "0644",
       "path": "STACK_LOCK.json",
-      "sha256": "7205dcae51731f87703d1ea6c9003586698d15054d19ee9322d3510bf9144cdd",
+      "sha256": "9626927c56e42c4334c8ad61af74138128b802f8eeb5ac3b02a4c12c0ff18c50",
       "size": 69388
     },
     {
@@ -515,7 +515,7 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/status.json",
-      "sha256": "7b25689908c2f66d1ec754458014cc6b4759e05dee1c0444b8f5b1ceb8628f38",
+      "sha256": "f3b5c452b34284ad4c2c676cd24f996c8c9dfddb00988a17b0c9f49bf75e6067",
       "size": 3884
     },
     {
@@ -767,7 +767,7 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/index.html",
-      "sha256": "7beaa9e5245286461f2e287c950a073f6f00f10a42db5f7647f527fb5e8f9aab",
+      "sha256": "fc4cc6c96dafb873537576ac017ef32479c052745ba393d1b4e752f0324a05e1",
       "size": 23581
     },
     {
@@ -893,7 +893,7 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/pages-manifest.json",
-      "sha256": "4ac9ece0650142062a866817f322b53cc2fd865818786ef91f64032e6928eac4",
+      "sha256": "455e4902bb2684d789cfe204d157b5917ddbad75df4a5c3ed299c10d22806df7",
       "size": 15963
     },
     {
@@ -1915,8 +1915,8 @@
       "executable": false,
       "mode": "0644",
       "path": "src/rapp_stack_cubby/packaging/hatch.py",
-      "sha256": "5bccddadba742550c4cff11a6bd36153b8ad1080c4feb0a78afe37f3a697031a",
-      "size": 46426
+      "sha256": "7986551078bd4c6042e82ceb94fdfed15b7e67e346a861cc55dba424e52436c0",
+      "size": 48769
     },
     {
       "executable": false,
@@ -2370,8 +2370,8 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/packaging/test_build_hatch.py",
-      "sha256": "261bfa0e8277e62c50d8ef7e071c207ab373ff983bc17e8683d7315c9dcdac02",
-      "size": 22974
+      "sha256": "812000364978576ce7ceeec68aa5138145172f4c9d5a0416cbd9b74c9a48009f",
+      "size": 24148
     },
     {
       "executable": false,
@@ -2670,6 +2670,6 @@
   ],
   "repository_url": "https://github.com/kody-w/rapp-stack-cubby.git",
   "schema": "rapp-release-source-manifest/1.0",
-  "source_tree_digest": "4a89d00deed23577a31a92027f7c4472f788f074839d60042cd73111abb8bfd0",
-  "total_bytes": 7598104
+  "source_tree_digest": "d691559db866526444f89ac3252d7b394df2c4499aac44d12d51d29ac0006a29",
+  "total_bytes": 7601621
 }

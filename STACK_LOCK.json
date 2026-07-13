@@ -801,7 +801,7 @@
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "7b25689908c2f66d1ec754458014cc6b4759e05dee1c0444b8f5b1ceb8628f38"
+          "sha256": "f3b5c452b34284ad4c2c676cd24f996c8c9dfddb00988a17b0c9f49bf75e6067"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -826,7 +826,7 @@
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "7beaa9e5245286461f2e287c950a073f6f00f10a42db5f7647f527fb5e8f9aab"
+          "sha256": "fc4cc6c96dafb873537576ac017ef32479c052745ba393d1b4e752f0324a05e1"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -846,7 +846,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "4ac9ece0650142062a866817f322b53cc2fd865818786ef91f64032e6928eac4"
+          "sha256": "455e4902bb2684d789cfe204d157b5917ddbad75df4a5c3ed299c10d22806df7"
         },
         {
           "path": "docs/robots.txt",
@@ -944,7 +944,7 @@
           "sha256": "3d9e432baa0b0a20ad8cf1f2708994778bd674dbacdca07268a944443ef27d86"
         }
       ],
-      "manifest_sha256": "b9e4697649ae749fcb9f5e1af073d13b2be827e0b76cab5fe5be153bf52042ee",
+      "manifest_sha256": "c03457e99b58c44c21638af13e40ad8251911391a9707c51554a4a2eb70c2402",
       "release_status": "pending",
       "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
     },

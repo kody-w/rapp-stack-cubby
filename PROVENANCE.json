@@ -1622,7 +1622,7 @@
         {
           "path": "src/rapp_stack_cubby/packaging/hatch.py",
           "provenance": "original_new",
-          "sha256": "5bccddadba742550c4cff11a6bd36153b8ad1080c4feb0a78afe37f3a697031a"
+          "sha256": "7986551078bd4c6042e82ceb94fdfed15b7e67e346a861cc55dba424e52436c0"
         },
         {
           "path": "src/rapp_stack_cubby/packaging/identity.py",
@@ -1662,7 +1662,7 @@
         {
           "path": "tests/packaging/test_build_hatch.py",
           "provenance": "original_new",
-          "sha256": "261bfa0e8277e62c50d8ef7e071c207ab373ff983bc17e8683d7315c9dcdac02"
+          "sha256": "812000364978576ce7ceeec68aa5138145172f4c9d5a0416cbd9b74c9a48009f"
         },
         {
           "path": "tests/packaging/test_dependencies.py",
@@ -1799,7 +1799,7 @@
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "7b25689908c2f66d1ec754458014cc6b4759e05dee1c0444b8f5b1ceb8628f38"
+          "sha256": "f3b5c452b34284ad4c2c676cd24f996c8c9dfddb00988a17b0c9f49bf75e6067"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -1824,7 +1824,7 @@
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "7beaa9e5245286461f2e287c950a073f6f00f10a42db5f7647f527fb5e8f9aab"
+          "sha256": "fc4cc6c96dafb873537576ac017ef32479c052745ba393d1b4e752f0324a05e1"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -1844,7 +1844,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "4ac9ece0650142062a866817f322b53cc2fd865818786ef91f64032e6928eac4"
+          "sha256": "455e4902bb2684d789cfe204d157b5917ddbad75df4a5c3ed299c10d22806df7"
         },
         {
           "path": "docs/robots.txt",
@@ -1942,7 +1942,7 @@
           "sha256": "3d9e432baa0b0a20ad8cf1f2708994778bd674dbacdca07268a944443ef27d86"
         }
       ],
-      "pages_manifest_sha256": "b9e4697649ae749fcb9f5e1af073d13b2be827e0b76cab5fe5be153bf52042ee",
+      "pages_manifest_sha256": "c03457e99b58c44c21638af13e40ad8251911391a9707c51554a4a2eb70c2402",
       "planned_use": "New clean-room runtime, integration code, tests, schemas, build logic, and documentation authored specifically for the public target.",
       "repository_url": "https://github.com/kody-w/rapp-stack-cubby",
       "review": {
@@ -2106,7 +2106,7 @@
           {
             "path": "STACK_LOCK.json",
             "provenance": "original_new",
-            "sha256": "7205dcae51731f87703d1ea6c9003586698d15054d19ee9322d3510bf9144cdd"
+            "sha256": "9626927c56e42c4334c8ad61af74138128b802f8eeb5ac3b02a4c12c0ff18c50"
           },
           {
             "path": "STORE_INDEX.json",
@@ -2320,7 +2320,7 @@
           {
             "path": "docs/api/v1/status.json",
             "provenance": "generated_local",
-            "sha256": "7b25689908c2f66d1ec754458014cc6b4759e05dee1c0444b8f5b1ceb8628f38"
+            "sha256": "f3b5c452b34284ad4c2c676cd24f996c8c9dfddb00988a17b0c9f49bf75e6067"
           },
           {
             "path": "docs/assets/favicon.svg",
@@ -2500,7 +2500,7 @@
           {
             "path": "docs/index.html",
             "provenance": "original_new",
-            "sha256": "7beaa9e5245286461f2e287c950a073f6f00f10a42db5f7647f527fb5e8f9aab"
+            "sha256": "fc4cc6c96dafb873537576ac017ef32479c052745ba393d1b4e752f0324a05e1"
           },
           {
             "path": "docs/operations/CONTEXT_MAINTENANCE.md",
@@ -2590,7 +2590,7 @@
           {
             "path": "docs/pages-manifest.json",
             "provenance": "generated_local",
-            "sha256": "4ac9ece0650142062a866817f322b53cc2fd865818786ef91f64032e6928eac4"
+            "sha256": "455e4902bb2684d789cfe204d157b5917ddbad75df4a5c3ed299c10d22806df7"
           },
           {
             "path": "docs/research/AUDIT_MANIFEST.json",
@@ -3338,7 +3338,7 @@
           {
             "path": "src/rapp_stack_cubby/packaging/hatch.py",
             "provenance": "original_new",
-            "sha256": "5bccddadba742550c4cff11a6bd36153b8ad1080c4feb0a78afe37f3a697031a"
+            "sha256": "7986551078bd4c6042e82ceb94fdfed15b7e67e346a861cc55dba424e52436c0"
           },
           {
             "path": "src/rapp_stack_cubby/packaging/identity.py",
@@ -3663,7 +3663,7 @@
           {
             "path": "tests/packaging/test_build_hatch.py",
             "provenance": "original_new",
-            "sha256": "261bfa0e8277e62c50d8ef7e071c207ab373ff983bc17e8683d7315c9dcdac02"
+            "sha256": "812000364978576ce7ceeec68aa5138145172f4c9d5a0416cbd9b74c9a48009f"
           },
           {
             "path": "tests/packaging/test_dependencies.py",
