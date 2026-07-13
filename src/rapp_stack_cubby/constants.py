@@ -2,7 +2,7 @@
 
 from typing import Final
 
-__version__: Final = "0.1.0rc1"
+__version__: Final = "0.1.0rc2"
 DISTRIBUTION_NAME: Final = "rapp-stack-cubby"
 SOURCE_PACKAGE_NAME: Final = "rapp_stack_cubby"
 

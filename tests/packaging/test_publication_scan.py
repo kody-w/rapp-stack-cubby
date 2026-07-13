@@ -353,7 +353,6 @@ class PublicationScanTests(unittest.TestCase):
             REPOSITORY_ROOT,
             policy_path=self.policy,
             pages_root=REPOSITORY_ROOT / "docs",
-            release_assets_root=REPOSITORY_ROOT / "dist",
             phase="development",
         )
         self.assertEqual(receipt["result"], "pass", receipt["findings"])

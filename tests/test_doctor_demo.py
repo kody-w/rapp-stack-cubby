@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -63,7 +64,7 @@ class DoctorTests(unittest.TestCase):
             ):
                 result = run_doctor(
                     REPOSITORY_ROOT,
-                    python=Path("/opt/homebrew/bin/python3.11"),
+                    python=Path(sys.executable).resolve(),
                     work_dir=directories["work"],
                     dependency_cache=directories["cache"],
                     install_dir=directories["install"],
@@ -73,7 +74,7 @@ class DoctorTests(unittest.TestCase):
                 with self.assertRaises(DoctorError):
                     run_doctor(
                         REPOSITORY_ROOT,
-                        python=Path("/opt/homebrew/bin/python3.11"),
+                        python=Path(sys.executable).resolve(),
                         work_dir=directories["work"],
                         dependency_cache=directories["cache"],
                         install_dir=directories["install"],
@@ -154,7 +155,7 @@ class DoctorTests(unittest.TestCase):
             ):
                 result = run_doctor(
                     REPOSITORY_ROOT,
-                    python=Path("/opt/homebrew/bin/python3.11"),
+                    python=Path(sys.executable).resolve(),
                     work_dir=directories["work"],
                     dependency_cache=directories["cache"],
                     install_dir=directories["install"],
@@ -212,7 +213,7 @@ class ProductDemoTests(unittest.TestCase):
                 for _attempt in range(2):
                     result = run_demo(
                         source,
-                        python=Path("/opt/homebrew/bin/python3.11"),
+                        python=Path(sys.executable).resolve(),
                         work_dir=work,
                         dependency_cache=cache,
                         install_dir=install,
