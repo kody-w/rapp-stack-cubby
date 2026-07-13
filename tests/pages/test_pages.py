@@ -252,7 +252,7 @@ class PagesApiTests(unittest.TestCase):
                     checksums=output / "SHA256SUMS",
                     source_root=source,
                     github_attestation=attestation,
-                    release_tag="v0.1.0-rc.7",
+                    release_tag="v0.1.0-rc.8",
                 )
 
     def test_rendering_is_deterministic(self) -> None:
@@ -760,12 +760,12 @@ class VersionTests(unittest.TestCase):
             )["product_version"],
         ]
 
-        self.assertEqual(version, "0.1.0rc7")
+        self.assertEqual(version, "0.1.0rc8")
         self.assertEqual(values, [version] * len(values))
         status = json.loads(
             (REPOSITORY_ROOT / "RELEASE_STATUS.json").read_text()
         )
-        self.assertEqual(status["tag"], "v0.1.0-rc.7")
+        self.assertEqual(status["tag"], "v0.1.0-rc.8")
 
 
 if __name__ == "__main__":

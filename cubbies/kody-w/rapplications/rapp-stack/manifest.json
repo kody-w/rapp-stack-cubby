@@ -102,8 +102,8 @@
   "controller": {
     "mode": "0644",
     "path": "singleton/rapp_stack_cubby_agent.py",
-    "sha256": "9b064c2165684ceed4184c799ed32ae1c991a782aa6aea4efda3841d7b3230e1",
-    "size": 237509
+    "sha256": "31ee36d3818ce52a99f7ce962ea4a44af00405368f460829ce0fbc1e2a607ead",
+    "size": 253195
   },
   "dependencies": {
     "archive_count": 4,
@@ -144,5 +144,5 @@
   },
   "source_binding": "rapp-release-source-manifest.json",
   "streamable_agent_count": 1,
-  "version": "0.1.0rc7"
+  "version": "0.1.0rc8"
 }

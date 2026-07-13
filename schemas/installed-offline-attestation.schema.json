@@ -24,6 +24,43 @@
             "purged"
           ]
         },
+        "child_process_category": {
+          "enum": [
+            "not_started",
+            "running",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "status_unavailable"
+          ]
+        },
+        "child_process_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "child_stderr_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "child_stderr_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "child_stdout_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "child_stdout_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
         "controller_log_sha256": {
           "pattern": "^[0-9a-f]{64}$",
           "type": "string"
@@ -83,7 +120,13 @@
         "process_category",
         "controller_log_size",
         "controller_log_sha256",
-        "child_stage"
+        "child_stage",
+        "child_process_return_code",
+        "child_process_category",
+        "child_stdout_size",
+        "child_stdout_sha256",
+        "child_stderr_size",
+        "child_stderr_sha256"
       ],
       "type": "object"
     },

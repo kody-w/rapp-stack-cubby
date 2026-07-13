@@ -97,6 +97,12 @@ class _AttestationDiagnostics:
     process_category: str = "not_started"
     controller_log_size: int = 0
     controller_log_sha256: str = hashlib.sha256(b"").hexdigest()
+    child_process_return_code: int | None = None
+    child_process_category: str = "not_started"
+    child_stdout_size: int = 0
+    child_stdout_sha256: str = hashlib.sha256(b"").hexdigest()
+    child_stderr_size: int = 0
+    child_stderr_sha256: str = hashlib.sha256(b"").hexdigest()
     installed_source_digest: str | None = None
 
     def observe_error(self, error: BaseException) -> None:
@@ -124,7 +130,8 @@ class _AttestationDiagnostics:
             self.process_return_code = return_code
             self.process_category = _process_category(return_code)
 
-    def capture_log(self, path: Path) -> None:
+    @staticmethod
+    def _measure_log(path: Path) -> tuple[int, str]:
         digest = hashlib.sha256()
         size = 0
         descriptor = None
@@ -135,7 +142,7 @@ class _AttestationDiagnostics:
             )
             details = os.fstat(descriptor)
             if not stat.S_ISREG(details.st_mode):
-                return
+                return 0, hashlib.sha256(b"").hexdigest()
             while True:
                 chunk = os.read(descriptor, 128 * 1024)
                 if not chunk:
@@ -143,16 +150,75 @@ class _AttestationDiagnostics:
                 size += len(chunk)
                 digest.update(chunk)
         except OSError:
-            return
+            return 0, hashlib.sha256(b"").hexdigest()
         finally:
             if descriptor is not None:
                 os.close(descriptor)
+        return size, digest.hexdigest()
+
+    def capture_log(self, path: Path) -> None:
+        size, digest = self._measure_log(path)
         self.controller_log_size = size
-        self.controller_log_sha256 = digest.hexdigest()
+        self.controller_log_sha256 = digest
+
+    def capture_child_start(
+        self,
+        state_root: Path,
+        instance_rappid: str,
+    ) -> None:
+        identity_hash = instance_rappid.rsplit(":", 1)[-1]
+        if (
+            len(identity_hash) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in identity_hash
+            )
+        ):
+            return
+        twin = Path(state_root) / "twins" / "active" / identity_hash
+        try:
+            state = json.loads(
+                (twin / "state.json").read_text(encoding="utf-8")
+            )
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            state = {}
+        failure = (
+            state.get("last_start_failure")
+            if isinstance(state, dict)
+            else None
+        )
+        if isinstance(failure, dict):
+            category = failure.get("process_category")
+            return_code = failure.get("process_return_code")
+            if category in {
+                "running",
+                "exited_zero",
+                "exited_nonzero",
+                "signaled",
+                "launch_failed",
+                "status_unavailable",
+            }:
+                self.child_process_category = category
+            if isinstance(return_code, int) and not isinstance(
+                return_code, bool
+            ):
+                self.child_process_return_code = return_code
+        self.child_stdout_size, self.child_stdout_sha256 = (
+            self._measure_log(twin / "workspace/logs/stdout.log")
+        )
+        self.child_stderr_size, self.child_stderr_sha256 = (
+            self._measure_log(twin / "workspace/logs/stderr.log")
+        )
 
     def public(self) -> dict[str, Any]:
         return {
+            "child_process_category": self.child_process_category,
+            "child_process_return_code": self.child_process_return_code,
             "child_stage": self.child_stage,
+            "child_stderr_sha256": self.child_stderr_sha256,
+            "child_stderr_size": self.child_stderr_size,
+            "child_stdout_sha256": self.child_stdout_sha256,
+            "child_stdout_size": self.child_stdout_size,
             "controller_log_sha256": self.controller_log_sha256,
             "controller_log_size": self.controller_log_size,
             "process_category": self.process_category,
@@ -542,6 +608,8 @@ def _run_installed_lifecycle(
             ATTESTATION_MODEL,
             "--attestation-mode",
             ATTESTATION_MODE,
+            "--attestation-python",
+            str(controller_python),
         ]
         if trusted_development:
             adopt_command.append("--trusted-development")
@@ -766,6 +834,13 @@ def _run_installed_lifecycle(
             "purged": purged,
         }
     except Exception as error:
+        if (
+            diagnostic.stage_code == "child_start"
+            and instance_rappid is not None
+        ):
+            diagnostic.capture_child_start(
+                state_root, instance_rappid
+            )
         diagnostic.observe_error(error)
         diagnostic.observe_process(process)
         raise
@@ -1276,8 +1351,13 @@ def _validate_host_controller_python(
         running = Path(sys.executable).resolve(strict=True)
     except OSError as error:
         raise DemoError("host controller Python is unavailable") from error
+    try:
+        details = os.lstat(resolved)
+    except OSError as error:
+        raise DemoError("host controller Python is unavailable") from error
     if (
-        not resolved.is_file()
+        not stat.S_ISREG(details.st_mode)
+        or stat.S_ISLNK(details.st_mode)
         or not os.access(resolved, os.X_OK)
         or not os.path.samefile(resolved, running)
     ):
@@ -1285,7 +1365,7 @@ def _validate_host_controller_python(
             "host controller Python must be the attest-installed process"
         )
     _run_content_free_python_probe(
-        path,
+        resolved,
         source=home,
         home=home,
         program=(
@@ -1296,7 +1376,7 @@ def _validate_host_controller_python(
         ),
         runner=runner,
     )
-    return path
+    return resolved
 
 
 def _probe_installed_python(

@@ -154,6 +154,7 @@ class IMessageBridgeTests(unittest.TestCase):
             bridge._subscription = 7
             fixture["params"]["future_additive"] = {"safe": True}
             fixture["params"]["message"]["future_additive"] = ["ignored"]
+            fixture["params"]["message"]["created_at"] = ""
             bridge._on_notification(fixture["method"], fixture["params"])
             deadline = time.monotonic() + 2
             while (
@@ -500,6 +501,7 @@ class IMessageBridgeTests(unittest.TestCase):
             )
             bridge._refresh_chat_catalog(CatalogClient())
             first = dict(notification["params"]["message"])
+            first["created_at"] = ""
             self.assertNotIn("account_id", first)
             self.assertEqual(bridge.process_message(first), "send_unknown")
             self.assertEqual(bridge.process_message(first), "duplicate")
@@ -610,6 +612,7 @@ class IMessageBridgeTests(unittest.TestCase):
             bridge._started = True
             bridge._on_ready(Client(catalog))
             message = dict(notification["params"]["message"])
+            message["created_at"] = ""
             self.assertNotIn("account_id", message)
             self.assertEqual(bridge.process_message(message), "replied")
 

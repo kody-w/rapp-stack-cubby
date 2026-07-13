@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import importlib
 import os
+import stat
 import threading
+from pathlib import Path
 from typing import Any
 
 from .config import (
@@ -35,6 +38,77 @@ _AGENT_ENVIRONMENT_KEYS = (
 )
 _MISSING = object()
 _PROCESS_CONTEXT_GUARD = threading.Lock()
+_ATTESTATION_DEPENDENCIES = ("cryptography", "cffi", "pycparser")
+
+
+def _verified_module_origin(
+    name: str,
+    root: Path,
+    *,
+    loader: Any = importlib.import_module,
+) -> None:
+    try:
+        trusted = root.resolve(strict=True)
+        root_details = os.lstat(root)
+        module = loader(name)
+        raw_origin = getattr(module, "__file__", None)
+        origin = Path(raw_origin).resolve(strict=True)
+        relative = origin.relative_to(trusted)
+    except (
+        AttributeError,
+        ImportError,
+        OSError,
+        TypeError,
+        ValueError,
+    ) as error:
+        raise RuntimeConfigurationError(
+            "attestation module origin verification failed"
+        ) from error
+    if (
+        stat.S_ISLNK(root_details.st_mode)
+        or not stat.S_ISDIR(root_details.st_mode)
+        or not relative.parts
+    ):
+        raise RuntimeConfigurationError(
+            "attestation module origin verification failed"
+        )
+    current = trusted
+    try:
+        for index, part in enumerate(relative.parts):
+            current /= part
+            details = os.lstat(current)
+            if stat.S_ISLNK(details.st_mode):
+                raise RuntimeConfigurationError(
+                    "attestation module origin verification failed"
+                )
+            if index < len(relative.parts) - 1:
+                if not stat.S_ISDIR(details.st_mode):
+                    raise RuntimeConfigurationError(
+                        "attestation module origin verification failed"
+                    )
+            elif not stat.S_ISREG(details.st_mode):
+                raise RuntimeConfigurationError(
+                    "attestation module origin verification failed"
+                )
+    except OSError as error:
+        raise RuntimeConfigurationError(
+            "attestation module origin verification failed"
+        ) from error
+
+
+def verify_attestation_module_origins(
+    source_root: Path,
+    site_packages: Path,
+    *,
+    loader: Any = importlib.import_module,
+) -> None:
+    """Prove product and dependency modules resolve only to installed roots."""
+
+    _verified_module_origin(
+        "rapp_stack_cubby", source_root, loader=loader
+    )
+    for name in _ATTESTATION_DEPENDENCIES:
+        _verified_module_origin(name, site_packages, loader=loader)
 
 
 class RuntimeApp:
@@ -113,6 +187,23 @@ class RuntimeApp:
     def validate_startup(self) -> RegistrySnapshot:
         """Fail before binding if the soul or trusted agent set is invalid."""
 
+        if (
+            self.config.attestation_mode is not None
+            and os.environ.get("RAPP_STACK_ATTESTATION_ORIGIN_CHECK") == "1"
+        ):
+            source_root = os.environ.get(
+                "RAPP_STACK_ATTESTATION_SOURCE_ROOT"
+            )
+            site_packages = os.environ.get(
+                "RAPP_STACK_ATTESTATION_SITE_PACKAGES"
+            )
+            if not source_root or not site_packages:
+                raise RuntimeConfigurationError(
+                    "attestation module origin verification failed"
+                )
+            verify_attestation_module_origins(
+                Path(source_root), Path(site_packages)
+            )
         self.orchestrator.load_soul()
         snapshot = self.registry.load()
         if self.config.controller_route_enabled:

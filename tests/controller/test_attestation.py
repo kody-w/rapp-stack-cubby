@@ -1,9 +1,15 @@
 from __future__ import annotations
 
+import json
 import os
+import subprocess
+import sys
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
+from rapp_stack_cubby.cli import _controller_command, build_parser
+from rapp_stack_cubby.errors import RappStackCubbyError
 from rapp_stack_cubby.runtime.config import SignedIngressConfig
 from rapp_stack_cubby.runtime.orchestrator import Orchestrator
 from rapp_stack_cubby.runtime.provider import (
@@ -27,6 +33,144 @@ SOUL = (
 
 
 class OfflineAttestationTests(unittest.TestCase):
+    def test_isolated_bootstrap_loads_runner_fixture_dependencies_from_install(
+        self,
+    ):
+        with ControllerEnvironment() as environment:
+            source = environment.root / "install/source/src"
+            site_packages = (
+                environment.root
+                / "install/venv/lib/python3.11/site-packages"
+            )
+            package = source / "rapp_stack_cubby"
+            package.mkdir(parents=True)
+            (package / "__init__.py").write_text("", encoding="utf-8")
+            output = environment.root / "origins.json"
+            (package / "__main__.py").write_text(
+                "import importlib,json,pathlib,sys\n"
+                "names=('cryptography','cffi','pycparser')\n"
+                "origins={name:importlib.import_module(name).__file__ "
+                "for name in names}\n"
+                "pathlib.Path(sys.argv[1]).write_text("
+                "json.dumps({'origins':origins,'path':sys.path[:2]}),"
+                "encoding='utf-8')\n",
+                encoding="utf-8",
+            )
+            for name in ("cryptography", "cffi", "pycparser"):
+                dependency = site_packages / name / "__init__.py"
+                dependency.parent.mkdir(parents=True, exist_ok=True)
+                dependency.write_text("", encoding="utf-8")
+            result = subprocess.run(
+                [
+                    str(Path(sys.executable).resolve(strict=True)),
+                    "-I",
+                    "-S",
+                    "-c",
+                    environment.globals["_ATTESTATION_BOOTSTRAP"],
+                    str(source),
+                    str(site_packages),
+                    "rapp_stack_cubby",
+                    str(output),
+                ],
+                shell=False,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env={
+                    "HOME": str(environment.root),
+                    "LANG": "C.UTF-8",
+                    "LC_ALL": "C.UTF-8",
+                    "PATH": "/usr/bin:/bin",
+                },
+                timeout=15,
+                check=False,
+            )
+            observed = json.loads(output.read_text(encoding="utf-8"))
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            observed["path"], [str(source), str(site_packages)]
+        )
+        for origin in observed["origins"].values():
+            Path(origin).relative_to(site_packages)
+
+    def test_attestation_python_override_is_rejected_outside_mode(self):
+        host_python = str(Path(sys.executable).resolve(strict=True))
+        with ControllerEnvironment() as environment:
+            result = decoded(
+                environment.agent,
+                action="adopt_install",
+                install_root=str(environment.root / "unused-install"),
+                attestation_python=host_python,
+                idempotency_key="override-without-mode",
+            )
+
+        self.assertFalse(result["ok"])
+        self.assertEqual(
+            result["error"]["code"], "attestation_python_invalid"
+        )
+        with ControllerEnvironment() as environment:
+            wrong_action = decoded(
+                environment.agent,
+                action="start",
+                attestation_mode="offline-self-test",
+                attestation_python=host_python,
+                idempotency_key="override-wrong-action",
+            )
+        self.assertEqual(
+            wrong_action["error"]["code"],
+            "attestation_python_invalid",
+        )
+
+        args = build_parser().parse_args(
+            [
+                "controller",
+                "--auth-token-file",
+                str(Path("/unused/auth")),
+                "--idempotency-key",
+                "cli-override-without-mode",
+                "adopt",
+                "--install-root",
+                str(Path("/unused/install")),
+                "--attestation-python",
+                host_python,
+            ]
+        )
+        with self.assertRaisesRegex(
+            RappStackCubbyError,
+            "--attestation-python requires",
+        ):
+            _controller_command(args)
+
+    def test_attestation_python_must_be_absolute_regular_host_cpython(self):
+        host_python = Path(sys.executable).resolve(strict=True)
+        with ControllerEnvironment() as environment:
+            linked = environment.root / "linked-python"
+            linked.symlink_to(host_python)
+            invalid_values = (
+                "python3.11",
+                "/bin/sh",
+                str(linked),
+            )
+            for index, value in enumerate(invalid_values):
+                with self.subTest(value=value):
+                    result = decoded(
+                        environment.agent,
+                        action="adopt_install",
+                        install_root=str(
+                            environment.root / "unused-install"
+                        ),
+                        model=ATTESTATION_MODEL,
+                        attestation_mode="offline-self-test",
+                        attestation_python=value,
+                        idempotency_key=f"invalid-python-{index}",
+                    )
+                    self.assertFalse(result["ok"])
+                    self.assertEqual(
+                        result["error"]["code"],
+                        "attestation_python_invalid",
+                    )
+
     def test_attestation_child_diagnostics_are_unbuffered(self):
         with ControllerEnvironment() as environment:
             twin = environment.create_twin()

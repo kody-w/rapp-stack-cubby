@@ -5,6 +5,7 @@ import os
 import hashlib
 import stat
 import subprocess
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -126,12 +127,39 @@ class ControllerAdoptionTests(unittest.TestCase):
                     popen.call_args.args[0][0],
                     str(active / "runtime/venv/bin/python"),
                 )
+                self.assertEqual(
+                    popen.call_args.args[0][1:4],
+                    ["-m", "rapp_stack_cubby", "serve"],
+                )
+                self.assertEqual(
+                    popen.call_args.kwargs["env"]["PYTHONPATH"],
+                    str(active / "source/src"),
+                )
+                self.assertNotIn(
+                    "RAPP_STACK_ATTESTATION_ORIGIN_CHECK",
+                    popen.call_args.kwargs["env"],
+                )
                 controller_state = json.loads(
                     (active / "state.json").read_text(encoding="utf-8")
                 )
                 self.assertEqual(
                     controller_state["adopted_install"]["python_relative"],
                     "runtime/venv/bin/python",
+                )
+                self.assertIsNone(
+                    controller_state["attestation_python"]
+                )
+                self.assertEqual(
+                    controller_state["adopted_install"][
+                        "installed_python"
+                    ]["path"],
+                    "venv/bin/python",
+                )
+                self.assertGreater(
+                    controller_state["adopted_install"][
+                        "installed_inventory"
+                    ]["record_count"],
+                    0,
                 )
                 self.assertEqual(
                     (active / "runtime/venv/bin/python").read_bytes(),
@@ -166,6 +194,124 @@ class ControllerAdoptionTests(unittest.TestCase):
                 self.assertEqual(
                     blocked_start["error"]["code"], "source_mismatch"
                 )
+
+    def test_runner_framework_attestation_uses_verified_host_python_and_installed_paths(
+        self,
+    ):
+        def copied_framework_fixture(
+            stage: Path,
+            python: Path,
+            application: Path,
+        ):
+            versions = create_fake_installed_environment(
+                stage, python, application
+            )
+            copied = stage / "venv/bin/python"
+            copied.write_text("#!/bin/sh\nexit 86\n", encoding="utf-8")
+            copied.chmod(0o700)
+            return versions
+
+        with PackagingWorkspace() as packaging:
+            source, cache = packaging.copy_repository_with_fake_dependencies()
+            artifacts = packaging.root / "framework-artifacts"
+            build_release(
+                source,
+                cache,
+                artifacts,
+                source_date_epoch=1783892570,
+                source_revision="WORKTREE",
+            )
+            install = packaging.root / "framework-install"
+            hatch_egg(
+                artifacts / EGG_ARCHIVE_NAME,
+                install,
+                Path(os.path.realpath(os.sys.executable)),
+                expected_egg_sha256=hashlib.sha256(
+                    (artifacts / EGG_ARCHIVE_NAME).read_bytes()
+                ).hexdigest(),
+                test_seam=HatchTestSeam(copied_framework_fixture),
+            )
+            host_python = Path(sys.executable).resolve(strict=True)
+            with ControllerEnvironment() as environment, patch.dict(
+                environment.globals,
+                {
+                    "_process_start_identity": lambda pid: "e" * 64,
+                },
+            ):
+                adopted = decoded(
+                    environment.agent,
+                    action="adopt_install",
+                    install_root=str(install),
+                    model="attestation-self-test/1.0",
+                    attestation_mode="offline-self-test",
+                    attestation_python=str(host_python),
+                    idempotency_key="framework-adopt",
+                )
+                self.assertTrue(adopted["ok"], adopted)
+                child = Mock(pid=60124)
+                child.poll.return_value = None
+                with patch.object(
+                    environment.globals["subprocess"],
+                    "Popen",
+                    return_value=child,
+                ) as popen, patch.object(
+                    environment.globals["os"],
+                    "getpgid",
+                    return_value=60124,
+                ), patch.dict(
+                    environment.globals,
+                    {
+                        "_validate_python": (
+                            lambda selected=None: str(selected)
+                        ),
+                        "_wait_health": (
+                            lambda port, instance, timeout: True
+                        ),
+                    },
+                ):
+                    started = decoded(
+                        environment.agent,
+                        action="start",
+                        rappid=adopted["instance_rappid"],
+                        model="attestation-self-test/1.0",
+                        attestation_mode="offline-self-test",
+                        idempotency_key="framework-start",
+                    )
+                active = (
+                    environment.controller_data
+                    / "twins/active"
+                    / adopted["identity_hash"]
+                )
+                state = json.loads(
+                    (active / "state.json").read_text(encoding="utf-8")
+                )
+
+        self.assertTrue(started["ok"], started)
+        argv = popen.call_args.args[0]
+        self.assertEqual(argv[0], str(host_python))
+        self.assertEqual(argv[1:4], ["-I", "-S", "-c"])
+        self.assertNotEqual(argv[0], str(active / "runtime/venv/bin/python"))
+        expected_paths = (
+            str(install / "source/src"),
+            str(install / "venv/lib/python3.11/site-packages"),
+        )
+        self.assertEqual(tuple(argv[5:7]), expected_paths)
+        child_environment = popen.call_args.kwargs["env"]
+        self.assertEqual(
+            tuple(child_environment["PYTHONPATH"].split(os.pathsep)),
+            expected_paths,
+        )
+        self.assertEqual(
+            child_environment["RAPP_STACK_ATTESTATION_ORIGIN_CHECK"],
+            "1",
+        )
+        self.assertEqual(
+            state["attestation_python"]["sha256"],
+            hashlib.sha256(host_python.read_bytes()).hexdigest(),
+        )
+        self.assertEqual(
+            state["attestation_python"]["start_identity"], "e" * 64
+        )
 
     def test_unverified_install_path_is_rejected(self):
         with ControllerEnvironment() as environment:

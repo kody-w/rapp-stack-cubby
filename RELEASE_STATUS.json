@@ -3,7 +3,7 @@
   "schema": "rapp-release-status/1.0",
   "source_commit": null,
   "status": "pending",
-  "tag": "v0.1.0-rc.7",
+  "tag": "v0.1.0-rc.8",
   "truth": "Installed-byte verification, publication scanning, offline signed attestation, and this-host content-free live provider proof are implemented; exact-public-product provider repetition, live iMessage, signed public scans, public redownload, and released Pages remain external gates.",
-  "version": "0.1.0rc7"
+  "version": "0.1.0rc8"
 }

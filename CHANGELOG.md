@@ -3,6 +3,20 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc8 — release candidate
+
+### Fixed
+
+- Release run `29280172743` reached a ready global controller and adopted the
+  verified install, but its signed-only child could not start from GitHub's
+  copied framework-venv Python; the exact artifact continued to attest
+  locally. Offline installed attestation now binds an explicit, matching host
+  CPython 3.11 only in `offline-self-test` mode, launches it with isolated
+  verified installed source and dependency paths, and proves dependency
+  origins before readiness. Installed runtime measurements remain distinct
+  and authoritative for normal/live starts. Child-start failures expose only
+  process status and stdout/stderr size/digests.
+
 ## 0.1.0rc7 — release candidate
 
 ### Fixed

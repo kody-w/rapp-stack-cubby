@@ -18,6 +18,7 @@ import signal
 import socket
 import stat
 import subprocess
+import sys
 import threading
 import time
 import urllib.parse
@@ -219,6 +220,19 @@ _MODEL_PREFLIGHT_TIMEOUT = 60.0
 _TRANSACTION_LEASE_SECONDS = 30
 _GIT_EXECUTABLE = "/usr/bin/git"
 _PS_EXECUTABLE = "/bin/ps"
+_INSTALL_INVENTORY_EXCLUSIONS = frozenset(
+    {"hatch-receipt.json", "installed-twin.json"}
+)
+_ATTESTATION_BOOTSTRAP = (
+    "import os,runpy,sys;"
+    "p=sys.argv[1:3];"
+    "sys.path[:]=p+[x for x in sys.path if x and not "
+    "{'site-packages','dist-packages'}.intersection("
+    "x.replace('\\\\','/').split('/'))];"
+    "os.environ['PYTHONPATH']=os.pathsep.join(p);"
+    "sys.argv=sys.argv[3:];"
+    "runpy.run_module('rapp_stack_cubby',run_name='__main__',alter_sys=True)"
+)
 _INTERNAL_AGENT_RELATIVE = Path(
     "cubbies/kody-w/rapplications/rapp-stack/twin/agents"
 )
@@ -342,6 +356,9 @@ _DEVELOPMENT_EXECUTABLES = frozenset(
 _ERROR_MESSAGES = {
     "archive_exists": "An archived twin with this identity already exists.",
     "adopt_invalid": "The explicit installed twin is not verified and immutable.",
+    "attestation_python_invalid": (
+        "Offline attestation requires the validated controller CPython 3.11."
+    ),
     "busy": "A conflicting controller transition is already in progress.",
     "commit_invalid": "Commit must be exactly 40 lowercase hexadecimal characters.",
     "confirmation_required": "Purge confirmation must equal the full RAPPID.",
@@ -380,6 +397,7 @@ _ERROR_MESSAGES = {
 }
 _THREAD_LOCK_GUARD = threading.Lock()
 _THREAD_LOCKS = {}
+_UNSET = object()
 
 
 def _json(value):
@@ -2599,6 +2617,69 @@ def _verify_installed_records(root, records, *, links=False):
             _error("adopt_invalid")
 
 
+def _measured_installed_inventory(root):
+    base = Path(root)
+    try:
+        paths = sorted(
+            base.rglob("*"),
+            key=lambda item: item.relative_to(base).as_posix().encode(
+                "utf-8"
+            ),
+        )
+        root_mode = f"{stat.S_IMODE(base.stat().st_mode):04o}"
+    except OSError:
+        _error("adopt_invalid")
+    records = []
+    scopes = {}
+    for path in paths:
+        relative = path.relative_to(base).as_posix()
+        if relative in _INSTALL_INVENTORY_EXCLUSIONS:
+            continue
+        try:
+            details = os.lstat(path)
+        except OSError:
+            _error("adopt_invalid")
+        mode = f"{stat.S_IMODE(details.st_mode):04o}"
+        scope = relative.split("/", 1)[0]
+        if stat.S_ISDIR(details.st_mode):
+            record = {
+                "mode": mode,
+                "path": relative,
+                "type": "directory",
+            }
+        elif stat.S_ISLNK(details.st_mode):
+            try:
+                target = os.readlink(path)
+            except OSError:
+                _error("adopt_invalid")
+            record = {
+                "mode": mode,
+                "path": relative,
+                "target": target,
+                "type": "symlink",
+            }
+        elif stat.S_ISREG(details.st_mode):
+            record = {
+                "mode": mode,
+                "path": relative,
+                "sha256": _sha256_file(path),
+                "size": details.st_size,
+                "type": "file",
+            }
+        else:
+            _error("adopt_invalid")
+        records.append(record)
+        scopes[scope] = scopes.get(scope, 0) + 1
+    return {
+        "excluded_self_records": sorted(_INSTALL_INVENTORY_EXCLUSIONS),
+        "record_count": len(records),
+        "records": records,
+        "root_mode": root_mode,
+        "scopes": dict(sorted(scopes.items())),
+        "sha256": hashlib.sha256(_canonical_bytes(records)).hexdigest(),
+    }
+
+
 def _validate_installed_venv(root):
     base = Path(root) / "venv"
     allowed_links = {
@@ -2945,6 +3026,12 @@ def _verify_installed_root(
         }
     ):
         _error("adopt_invalid")
+    immutable_inventory = manifest.get("immutable_inventory")
+    if (
+        not isinstance(immutable_inventory, dict)
+        or _measured_installed_inventory(root) != immutable_inventory
+    ):
+        _error("adopt_invalid")
     try:
         product = parse_rappid(manifest.get("product_rappid"))
         installed_instance = parse_rappid(
@@ -3165,6 +3252,15 @@ def _verify_installed_root(
     result = {
         "root": str(root),
         "python": str(python),
+        "installed_python": {
+            "path": python_identity["path"],
+            "sha256": python_identity["sha256"],
+            "size": python_identity["size"],
+        },
+        "installed_inventory": {
+            "record_count": immutable_inventory["record_count"],
+            "sha256": immutable_inventory["sha256"],
+        },
         "product_identity": product,
         "source_revision": revision,
         "source_tree_digest": source_profile["source_tree_digest"],
@@ -3207,6 +3303,9 @@ def _verify_installed_root(
             "trusted_development"
         ):
             _error("adopt_invalid")
+        for name in ("installed_python", "installed_inventory"):
+            if result.get(name) != expected.get(name):
+                _error("adopt_invalid")
     return result
 
 
@@ -3288,6 +3387,7 @@ def _prepare_twin(
         "hatch_profile": profile["profile"],
         "selected_model": None,
         "attestation_mode": None,
+        "attestation_python": None,
         "signed_only": True,
         "created_at": created_at,
         "updated_at": created_at,
@@ -3392,6 +3492,26 @@ def _load_state(twin_directory, expected_hash=None):
         )
     ):
         _error("state_invalid")
+    attestation_python = state.get("attestation_python")
+    if attestation_python is not None:
+        if (
+            not isinstance(attestation_python, dict)
+            or set(attestation_python)
+            != {"path", "sha256", "size", "start_identity"}
+            or not isinstance(attestation_python.get("path"), str)
+            or not Path(attestation_python["path"]).is_absolute()
+            or ".." in Path(attestation_python["path"]).parts
+            or not _HEX_64_RE.fullmatch(
+                str(attestation_python.get("sha256", ""))
+            )
+            or not isinstance(attestation_python.get("size"), int)
+            or isinstance(attestation_python.get("size"), bool)
+            or attestation_python["size"] <= 0
+            or not _HEX_64_RE.fullmatch(
+                str(attestation_python.get("start_identity", ""))
+            )
+        ):
+            _error("state_invalid")
     adoption = state.get("adopted_install")
     if adoption is not None:
         if (
@@ -3406,6 +3526,8 @@ def _load_state(twin_directory, expected_hash=None):
                 "source_revision",
                 "python_relative",
                 "runtime_tree_sha256",
+                "installed_python",
+                "installed_inventory",
                 "trusted_development",
             }
             or adoption.get("python_relative")
@@ -3422,6 +3544,34 @@ def _load_state(twin_directory, expected_hash=None):
                     )
                 )
             )
+            or not isinstance(adoption.get("installed_python"), dict)
+            or set(adoption["installed_python"])
+            != {"path", "sha256", "size"}
+            or adoption["installed_python"].get("path")
+            != "venv/bin/python"
+            or not _HEX_64_RE.fullmatch(
+                str(adoption["installed_python"].get("sha256", ""))
+            )
+            or not isinstance(
+                adoption["installed_python"].get("size"), int
+            )
+            or isinstance(
+                adoption["installed_python"].get("size"), bool
+            )
+            or adoption["installed_python"]["size"] <= 0
+            or not isinstance(adoption.get("installed_inventory"), dict)
+            or set(adoption["installed_inventory"])
+            != {"record_count", "sha256"}
+            or not _HEX_64_RE.fullmatch(
+                str(adoption["installed_inventory"].get("sha256", ""))
+            )
+            or not isinstance(
+                adoption["installed_inventory"].get("record_count"), int
+            )
+            or isinstance(
+                adoption["installed_inventory"].get("record_count"), bool
+            )
+            or adoption["installed_inventory"]["record_count"] <= 0
             or any(
                 not isinstance(adoption.get(name), str)
                 or not _HEX_64_RE.fullmatch(adoption[name])
@@ -3440,6 +3590,8 @@ def _load_state(twin_directory, expected_hash=None):
                 candidate / "runtime/venv",
                 expected="directory",
             )
+    elif attestation_python is not None:
+        _error("state_invalid")
     return state
 
 
@@ -3580,6 +3732,91 @@ def _validate_python(selected=None):
     if result.returncode != 0 or result.stdout.strip() != b"3.11":
         _error("python_invalid")
     return str(path)
+
+
+def _validate_attestation_python(value, attestation_mode, expected=None):
+    if value is None:
+        if expected is not None:
+            _error("attestation_python_invalid")
+        return None
+    if (
+        attestation_mode != _ATTESTATION_MODE
+        or not isinstance(value, str)
+        or not value
+        or len(value) > 4096
+    ):
+        _error("attestation_python_invalid")
+    path = Path(value)
+    if not path.is_absolute() or ".." in path.parts:
+        _error("attestation_python_invalid")
+    current = Path(path.anchor)
+    try:
+        for part in path.parts[1:]:
+            current /= part
+            details = os.lstat(current)
+            if stat.S_ISLNK(details.st_mode):
+                _error("attestation_python_invalid")
+        details = os.lstat(path)
+        running = Path(sys.executable).resolve(strict=True)
+    except (OSError, RuntimeError):
+        _error("attestation_python_invalid")
+    if (
+        not stat.S_ISREG(details.st_mode)
+        or not os.access(path, os.X_OK)
+    ):
+        _error("attestation_python_invalid")
+    try:
+        same_executable = os.path.samefile(path, running)
+    except OSError:
+        _error("attestation_python_invalid")
+    if not same_executable:
+        _error("attestation_python_invalid")
+    if expected is None:
+        environment = {
+            "HOME": os.environ.get("HOME", "/"),
+            "LANG": "C.UTF-8",
+            "LC_ALL": "C.UTF-8",
+            "PATH": "/usr/bin:/bin",
+            "PYTHONDONTWRITEBYTECODE": "1",
+        }
+        try:
+            result = subprocess.run(
+                [
+                    str(path),
+                    "-I",
+                    "-S",
+                    "-c",
+                    (
+                        "import platform,sys;"
+                        "raise SystemExit(0 if "
+                        "platform.python_implementation()=='CPython' and "
+                        "sys.version_info[:2]==(3,11) else 1)"
+                    ),
+                ],
+                shell=False,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                env=environment,
+                timeout=_PYTHON_PROBE_TIMEOUT,
+                check=False,
+            )
+        except (OSError, subprocess.SubprocessError):
+            _error("attestation_python_invalid")
+        if result.returncode != 0:
+            _error("attestation_python_invalid")
+    start_identity = _process_start_identity(os.getpid())
+    if start_identity is None:
+        _error("attestation_python_invalid")
+    identity = {
+        "path": str(path),
+        "sha256": _sha256_file(path),
+        "size": details.st_size,
+        "start_identity": start_identity,
+    }
+    if expected is not None and identity != expected:
+        _error("attestation_python_invalid")
+    return identity
 
 
 def _validate_model(value):
@@ -3728,7 +3965,38 @@ def _select_port(value=None):
         listener.close()
 
 
-def _child_environment(twin_directory, state):
+def _attestation_runtime_paths(twin_directory, state):
+    del twin_directory
+    if (
+        not isinstance(state.get("adopted_install"), dict)
+        or not isinstance(state.get("attestation_python"), dict)
+    ):
+        return None
+    install = Path(state["adopted_install"].get("root", ""))
+    source = install / "source" / "src"
+    site_packages = (
+        install
+        / "venv"
+        / "lib"
+        / "python3.11"
+        / "site-packages"
+    )
+    try:
+        trusted = install.resolve(strict=True)
+        _validate_beneath(trusted, source, expected="directory")
+        _validate_beneath(
+            trusted, site_packages, expected="directory"
+        )
+    except (OSError, RuntimeError):
+        _error("state_invalid")
+    return str(source), str(site_packages)
+
+
+def _child_environment(
+    twin_directory,
+    state,
+    attestation_mode=_UNSET,
+):
     allowed = {
         "HOME",
         "LANG",
@@ -3753,9 +4021,16 @@ def _child_environment(twin_directory, state):
     environment.pop("RAPP_STACK_IMESSAGE_CONFIG", None)
     source = Path(twin_directory) / "source"
     workspace = Path(twin_directory) / "workspace"
+    selected_attestation_mode = (
+        state.get("attestation_mode")
+        if attestation_mode is _UNSET
+        else attestation_mode
+    )
     environment.update(
         {
             "PYTHONPATH": str(source / "src"),
+            "PYTHONNOUSERSITE": "1",
+            "PYTHONSAFEPATH": "1",
             "PYTHONDONTWRITEBYTECODE": "1",
             "RAPP_STACK_ROOT": str(source),
             "RAPP_STACK_DATA_DIR": str(workspace / "data"),
@@ -3772,8 +4047,23 @@ def _child_environment(twin_directory, state):
             ),
         }
     )
-    if state.get("attestation_mode") == _ATTESTATION_MODE:
+    if selected_attestation_mode == _ATTESTATION_MODE:
         environment["PYTHONUNBUFFERED"] = "1"
+        runtime_paths = _attestation_runtime_paths(
+            twin_directory, state
+        )
+        if runtime_paths is not None:
+            source_path, site_packages = runtime_paths
+            environment.update(
+                {
+                    "PYTHONPATH": os.pathsep.join(
+                        (source_path, site_packages)
+                    ),
+                    "RAPP_STACK_ATTESTATION_ORIGIN_CHECK": "1",
+                    "RAPP_STACK_ATTESTATION_SITE_PACKAGES": site_packages,
+                    "RAPP_STACK_ATTESTATION_SOURCE_ROOT": source_path,
+                }
+            )
     return environment
 
 
@@ -3825,6 +4115,76 @@ def _open_log(path):
         if parent_descriptor is not None:
             with contextlib.suppress(OSError):
                 os.close(parent_descriptor)
+
+
+def _content_free_log_summary(path):
+    digest = hashlib.sha256()
+    size = 0
+    descriptor = None
+    try:
+        descriptor = os.open(
+            Path(path),
+            os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+        )
+        details = os.fstat(descriptor)
+        if not stat.S_ISREG(details.st_mode):
+            raise OSError
+        while True:
+            chunk = os.read(descriptor, 128 * 1024)
+            if not chunk:
+                break
+            size += len(chunk)
+            digest.update(chunk)
+    except OSError:
+        return {
+            "sha256": hashlib.sha256(b"").hexdigest(),
+            "size": 0,
+        }
+    finally:
+        if descriptor is not None:
+            with contextlib.suppress(OSError):
+                os.close(descriptor)
+    return {"sha256": digest.hexdigest(), "size": size}
+
+
+def _child_process_diagnostics(child, workspace, *, launch_failed=False):
+    if launch_failed:
+        return_code = None
+        category = "launch_failed"
+    else:
+        try:
+            return_code = child.poll()
+        except Exception:
+            return_code = None
+            category = "status_unavailable"
+        else:
+            if return_code is None:
+                category = "running"
+            elif not isinstance(return_code, int) or isinstance(
+                return_code, bool
+            ):
+                return_code = None
+                category = "status_unavailable"
+            elif return_code < 0:
+                category = "signaled"
+            elif return_code == 0:
+                category = "exited_zero"
+            else:
+                category = "exited_nonzero"
+    stdout = _content_free_log_summary(
+        Path(workspace) / "logs" / "stdout.log"
+    )
+    stderr = _content_free_log_summary(
+        Path(workspace) / "logs" / "stderr.log"
+    )
+    return {
+        "process_return_code": return_code,
+        "process_category": category,
+        "stdout_size": stdout["size"],
+        "stdout_sha256": stdout["sha256"],
+        "stderr_size": stderr["size"],
+        "stderr_sha256": stderr["sha256"],
+    }
 
 
 def _http_json(port, method, path, payload=None, timeout=_HTTP_TIMEOUT):
@@ -4314,8 +4674,22 @@ def _start_locked(
         state["transport"] = transport_state
         state = _write_state(twin_directory, state)
     source = Path(twin_directory) / "source"
+    model, attestation_mode = _validate_provider_selection(
+        model,
+        attestation_mode,
+        required=True,
+    )
     adoption = state.get("adopted_install")
+    uses_attestation_python = False
     if isinstance(adoption, dict):
+        _verify_installed_root(
+            adoption.get("root"),
+            expected=adoption,
+            allow_trusted_development=adoption.get(
+                "trusted_development"
+            )
+            is True,
+        )
         python_path = (
             Path(twin_directory)
             / adoption.get("python_relative", "")
@@ -4332,13 +4706,20 @@ def _start_locked(
         ):
             _error("adopt_invalid")
         python = _validate_python(python_path)
+        attestation_python = state.get("attestation_python")
+        if (
+            attestation_mode == _ATTESTATION_MODE
+            and isinstance(attestation_python, dict)
+        ):
+            validated = _validate_attestation_python(
+                attestation_python.get("path"),
+                attestation_mode,
+                expected=attestation_python,
+            )
+            python = validated["path"]
+            uses_attestation_python = True
     else:
         python = _validate_python()
-    model, attestation_mode = _validate_provider_selection(
-        model,
-        attestation_mode,
-        required=True,
-    )
     if attestation_mode is None:
         github_token_file = _validate_github_token_file(
             github_token_file,
@@ -4357,9 +4738,7 @@ def _start_locked(
     if not _INSTANCE_RE.fullmatch(instance_id):
         _error("start_failed")
     workspace = Path(twin_directory) / "workspace"
-    command = [
-        python,
-        "-m",
+    runtime_arguments = [
         "rapp_stack_cubby",
         "serve",
         "--soul",
@@ -4405,6 +4784,23 @@ def _start_locked(
         "--signed-ingress-key-epoch",
         str(pairing["key_epoch"]),
     ]
+    if uses_attestation_python:
+        runtime_paths = _attestation_runtime_paths(
+            twin_directory, state
+        )
+        if runtime_paths is None:
+            _error("state_invalid")
+        command = [
+            python,
+            "-I",
+            "-S",
+            "-c",
+            _ATTESTATION_BOOTSTRAP,
+            *runtime_paths,
+            *runtime_arguments,
+        ]
+    else:
+        command = [python, "-m", *runtime_arguments]
     if attestation_mode is not None:
         command.extend(["--attestation-mode", attestation_mode])
     else:
@@ -4416,12 +4812,15 @@ def _start_locked(
     stderr_file = _open_log(workspace / "logs" / "stderr.log")
     child = None
     process = None
+    launch_failed = False
     try:
         child = subprocess.Popen(
             command,
             shell=False,
             cwd=source,
-            env=_child_environment(twin_directory, state),
+            env=_child_environment(
+                twin_directory, state, attestation_mode
+            ),
             stdin=subprocess.DEVNULL,
             stdout=stdout_file,
             stderr=stderr_file,
@@ -4429,12 +4828,28 @@ def _start_locked(
             close_fds=True,
         )
     except OSError:
-        _error("start_failed")
+        launch_failed = True
     finally:
         with contextlib.suppress(Exception):
             stdout_file.close()
         with contextlib.suppress(Exception):
             stderr_file.close()
+    if launch_failed:
+        failed = dict(state)
+        failed["runtime_status"] = "stopped"
+        failed["process"] = None
+        failed["selected_model"] = model
+        failed["attestation_mode"] = attestation_mode
+        failed["last_start_failure"] = {
+            "code": "start_failed",
+            "at": _utc_now(),
+            **_child_process_diagnostics(
+                None, workspace, launch_failed=True
+            ),
+        }
+        with contextlib.suppress(BaseException):
+            _write_state(twin_directory, failed)
+        _error("start_failed")
     try:
         start_identity = None
         deadline = time.monotonic() + 2.0
@@ -4477,6 +4892,9 @@ def _start_locked(
         running["runtime_status"] = "running"
         running = _write_state(twin_directory, running)
     except BaseException as error:
+        failure_diagnostics = _child_process_diagnostics(
+            child, workspace
+        )
         cleanup_succeeded = False
         if child is not None:
             try:
@@ -4485,6 +4903,16 @@ def _start_locked(
             except BaseException:
                 cleanup_succeeded = False
         if cleanup_succeeded:
+            completed_diagnostics = _child_process_diagnostics(
+                child, workspace
+            )
+            for name in (
+                "stdout_size",
+                "stdout_sha256",
+                "stderr_size",
+                "stderr_sha256",
+            ):
+                failure_diagnostics[name] = completed_diagnostics[name]
             stopped = dict(state)
             stopped["runtime_status"] = "stopped"
             stopped["process"] = None
@@ -4493,6 +4921,7 @@ def _start_locked(
             stopped["last_start_failure"] = {
                 "code": _safe_exception_code(error),
                 "at": _utc_now(),
+                **failure_diagnostics,
             }
             with contextlib.suppress(BaseException):
                 _write_state(twin_directory, stopped)
@@ -5030,6 +5459,10 @@ class RappStackCubbyController(BasicAgent):
                     "type": "string",
                     "enum": ["offline-self-test"],
                 },
+                "attestation_python": {
+                    "type": "string",
+                    "maxLength": 4096,
+                },
                 "trusted_development": {"type": "boolean"},
                 "message": {"type": "string", "maxLength": 1048576},
                 "user_input": {"type": "string", "maxLength": 1048576},
@@ -5070,6 +5503,20 @@ class RappStackCubbyController(BasicAgent):
                 error={
                     "code": "invalid_action",
                     "message": "Unsupported action.",
+                },
+            )
+        if kwargs.get("attestation_python") is not None and (
+            action != "adopt_install"
+            or kwargs.get("attestation_mode") != _ATTESTATION_MODE
+        ):
+            return _response(
+                action,
+                ok=False,
+                error={
+                    "code": "attestation_python_invalid",
+                    "message": _ERROR_MESSAGES[
+                        "attestation_python_invalid"
+                    ],
                 },
             )
         try:
@@ -5189,6 +5636,10 @@ class RappStackCubbyController(BasicAgent):
             kwargs.get("model"),
             kwargs.get("attestation_mode"),
             required=False,
+        )
+        attestation_python = _validate_attestation_python(
+            kwargs.get("attestation_python"),
+            attestation_mode,
         )
         key = _idempotency_key(kwargs)
         request_digest = _request_digest("adopt_install", kwargs)
@@ -5316,6 +5767,7 @@ class RappStackCubbyController(BasicAgent):
                 state["hatch_profile"] = "adopted_verified_install"
                 state["selected_model"] = selected_model
                 state["attestation_mode"] = attestation_mode
+                state["attestation_python"] = attestation_python
                 state["adopted_install"] = {
                     "root": installed["root"],
                     "installed_manifest_sha256": installed[
@@ -5331,6 +5783,10 @@ class RappStackCubbyController(BasicAgent):
                     ],
                     "trusted_development": installed[
                         "trusted_development"
+                    ],
+                    "installed_python": installed["installed_python"],
+                    "installed_inventory": installed[
+                        "installed_inventory"
                     ],
                     **runtime_binding,
                 }

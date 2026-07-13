@@ -4,11 +4,15 @@ import dataclasses
 import json
 import os
 import stat
+import types
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from rapp_stack_cubby.runtime.app import RuntimeApp
+from rapp_stack_cubby.runtime.app import (
+    RuntimeApp,
+    verify_attestation_module_origins,
+)
 from rapp_stack_cubby.runtime.config import (
     RuntimeConfig,
     RuntimeConfigurationError,
@@ -182,6 +186,60 @@ class RuntimeConfigTests(unittest.TestCase):
 
 
 class RuntimeAppTests(unittest.TestCase):
+    def test_attestation_dependency_origins_are_inside_installed_paths(self):
+        with RuntimeFixture() as fixture:
+            source_root = fixture.root / "installed/source/src"
+            site_packages = (
+                fixture.root
+                / "installed/venv/lib/python3.11/site-packages"
+            )
+            origins = {}
+            for name, root in (
+                ("rapp_stack_cubby", source_root),
+                ("cryptography", site_packages),
+                ("cffi", site_packages),
+                ("pycparser", site_packages),
+            ):
+                origin = root / name / "__init__.py"
+                origin.parent.mkdir(parents=True, exist_ok=True)
+                origin.write_text("", encoding="utf-8")
+                origins[name] = types.SimpleNamespace(
+                    __file__=str(origin)
+                )
+
+            loaded = []
+
+            def load(name):
+                loaded.append(name)
+                return origins[name]
+
+            verify_attestation_module_origins(
+                source_root,
+                site_packages,
+                loader=load,
+            )
+
+            shadow = fixture.root / "host-site/cryptography/__init__.py"
+            shadow.parent.mkdir(parents=True)
+            shadow.write_text("", encoding="utf-8")
+            origins["cryptography"] = types.SimpleNamespace(
+                __file__=str(shadow)
+            )
+            with self.assertRaisesRegex(
+                RuntimeConfigurationError,
+                "origin verification failed",
+            ):
+                verify_attestation_module_origins(
+                    source_root,
+                    site_packages,
+                    loader=load,
+                )
+
+        self.assertEqual(
+            loaded[:4],
+            ["rapp_stack_cubby", "cryptography", "cffi", "pycparser"],
+        )
+
     def test_app_wires_validated_components_without_network(self) -> None:
         with RuntimeFixture() as fixture:
             fixture.write_agent("strict_echo_agent.py", STRICT_ECHO_AGENT)

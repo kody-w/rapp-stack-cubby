@@ -30,6 +30,39 @@
         }
       ]
     },
+    "attestation_python": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "sha256": {
+              "$ref": "#/$defs/hex64"
+            },
+            "size": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "start_identity": {
+              "$ref": "#/$defs/hex64"
+            }
+          },
+          "required": [
+            "path",
+            "sha256",
+            "size",
+            "start_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "hatch_profile": {
       "enum": [
         "release",
@@ -61,6 +94,40 @@
         "code": {
           "minLength": 1,
           "type": "string"
+        },
+        "process_category": {
+          "enum": [
+            "running",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "status_unavailable"
+          ]
+        },
+        "process_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stderr_sha256": {
+          "$ref": "#/$defs/hex64"
+        },
+        "stderr_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "stdout_sha256": {
+          "$ref": "#/$defs/hex64"
+        },
+        "stdout_size": {
+          "minimum": 0,
+          "type": "integer"
         }
       },
       "required": [
@@ -212,6 +279,44 @@
         "runtime_tree_sha256": {
           "$ref": "#/$defs/hex64"
         },
+        "installed_python": {
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "const": "venv/bin/python"
+            },
+            "sha256": {
+              "$ref": "#/$defs/hex64"
+            },
+            "size": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "path",
+            "sha256",
+            "size"
+          ],
+          "type": "object"
+        },
+        "installed_inventory": {
+          "additionalProperties": false,
+          "properties": {
+            "record_count": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "sha256": {
+              "$ref": "#/$defs/hex64"
+            }
+          },
+          "required": [
+            "record_count",
+            "sha256"
+          ],
+          "type": "object"
+        },
         "trusted_development": {
           "type": "boolean"
         }
@@ -225,6 +330,8 @@
         "source_revision",
         "python_relative",
         "runtime_tree_sha256",
+        "installed_python",
+        "installed_inventory",
         "trusted_development"
       ],
       "type": "object"
@@ -321,6 +428,7 @@
     "transport",
     "selected_model",
     "attestation_mode",
+    "attestation_python",
     "signed_only"
   ],
   "title": "Private controller child state",
