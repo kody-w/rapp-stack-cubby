@@ -981,7 +981,7 @@
         },
         {
           "path": "tests/packaging/test_publication_scan.py",
-          "sha256": "9ab98349ab0fd253baf8d9a797ac4d893c6d947a7fd58c1b70ea5c5a19d2f318"
+          "sha256": "06cd0c2c9af58ab8665902cdd312c788574d3e814b6e96e3d4efa868b21c1988"
         }
       ],
       "final_gate": "second zero-finding signed receipt over public redownload plus complete supplied Actions log archives",
