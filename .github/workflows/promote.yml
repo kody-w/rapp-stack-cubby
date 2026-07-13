@@ -43,7 +43,7 @@ jobs:
           INPUT_LIVE_PROOF_SHA256: ${{ inputs.live_proof_sha256 }}
           INPUT_TAG: ${{ inputs.tag }}
         run: |
-          test "${INPUT_TAG}" = "v0.1.0-rc.1"
+          test "${INPUT_TAG}" = "v0.1.0-rc.2"
           case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
           case "${INPUT_LIVE_PROOF_SHA256}" in *[!0-9a-f]*|'') exit 2 ;; esac
           test "${#INPUT_COMMIT}" -eq 40

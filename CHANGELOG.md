@@ -3,7 +3,13 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
-## 0.1.0rc1 — release candidate
+## 0.1.0rc2 — release candidate
+
+### Fixed
+
+- `0.1.0rc1` failed public CI because runner-only fixture assumptions used a
+  host-specific Python path and shared `dist/` residue. `0.1.0rc2` makes those
+  tests portable and isolated without changing product behavior.
 
 ### Added
 

@@ -17,43 +17,43 @@
     {
       "kind": "markdown",
       "path": "PUBLIC_PRIVATE_BOUNDARY.md",
-      "sha256": "824d90d6c5ca8b57f788de8fb9bf5f6948c7521e71c6118415d27f40cd8f0262",
-      "size": 20483
+      "sha256": "55ac3772c89a5231224f02efe2a8a9a5a4c7e32779b91c4502d25865130ed701",
+      "size": 20593
     },
     {
       "kind": "json",
       "path": "api/v1/architecture.json",
-      "sha256": "cdcc3a229d7db65adccf4d7a41690c0ffcab54bb84cd9197f5e2fc3c0101207a",
+      "sha256": "a6886be4aa7ab74817456e7e71a7c12eadfafe002d0297eec55248098e5e3754",
       "size": 190896
     },
     {
       "kind": "json",
       "path": "api/v1/capabilities.json",
-      "sha256": "c141418fca3ec68f957c9dbc3b8fc0278c75f72d1fce6219b661bbdbdfd7bb0d",
+      "sha256": "e1f3a46823bc2a7787677b65441281fcc342892d27ab5c2002638b82f7c402a4",
       "size": 205487
     },
     {
       "kind": "json",
       "path": "api/v1/context.json",
-      "sha256": "c4d575ec80abc53eb06d5937e08866ca6c56453e07d46bf4ff08ed283bba6658",
+      "sha256": "340f8824dd5864762d401b87014740ddd61769377d16f436d3310ec8955442e5",
       "size": 205018
     },
     {
       "kind": "json",
       "path": "api/v1/downloads.json",
-      "sha256": "e52911ae199c5167699ea54ac0d4a8155d8a59c73231ce8a06a33d5cbf72d606",
+      "sha256": "bb9c0a171f35e9ccb62fee51354aa8613483c4eb61e19c9eae57b1d8069d12a1",
       "size": 8593
     },
     {
       "kind": "json",
       "path": "api/v1/prompts.json",
-      "sha256": "af5b4c785e879a3eb24565e470145ec1609b8d5cd72b5180a2db546ed96f02ed",
+      "sha256": "3456f3683806d8e76c010e75659b245072d8ceac74cfa7fd738e661982e00d16",
       "size": 4715
     },
     {
       "kind": "json",
       "path": "api/v1/status.json",
-      "sha256": "f3b5c452b34284ad4c2c676cd24f996c8c9dfddb00988a17b0c9f49bf75e6067",
+      "sha256": "e6e8b6bb61419a0203b91e40bafd5be8edb49332d9d422a3253c571609a7e606",
       "size": 3884
     },
     {
@@ -101,8 +101,8 @@
     {
       "kind": "markdown",
       "path": "canon/GAP_REGISTER.md",
-      "sha256": "6f8595b9b50eab4ecde1da0ef07263aa43deaafd850220f3d7d98b16e62fea2d",
-      "size": 4504
+      "sha256": "320986a42afcffc5e714a38e73dfed7c70d6393969737a2f65adb1cdad13ad11",
+      "size": 4578
     },
     {
       "kind": "markdown",
@@ -119,8 +119,8 @@
     {
       "kind": "markdown",
       "path": "canon/IMPLEMENTATION_STATUS.md",
-      "sha256": "4c61aa70fc10772286a039699b85e843956dec799824c7a2c2ea7360a0e76561",
-      "size": 6094
+      "sha256": "ca15e5a11e6fa5bf37d962347c317d8475f5a23a4f112b5a65b228b1ed7e20b0",
+      "size": 6172
     },
     {
       "kind": "markdown",
@@ -263,13 +263,13 @@
     {
       "kind": "markdown",
       "path": "decisions/static-pages-public-boundary.md",
-      "sha256": "2f174605ca4b778640ea75cdbc7287f69167f7a3609454cb1cbe15dc7e38713f",
+      "sha256": "ce3ddc5c2af181c0e9ea971fe82faa5caa803198a0ce00f18d348db9e3f392e3",
       "size": 1775
     },
     {
       "kind": "html",
       "path": "index.html",
-      "sha256": "fc4cc6c96dafb873537576ac017ef32479c052745ba393d1b4e752f0324a05e1",
+      "sha256": "dafa6cded590574f8a25e93767c368e449204953a7e3154f3f9836c3401f8f91",
       "size": 23581
     },
     {
@@ -305,8 +305,8 @@
     {
       "kind": "markdown",
       "path": "operations/HANDOFF.md",
-      "sha256": "281870fac6738ec65c75ee7e25d3989a5839d57f2c33170342a3ed1c73f2d2a4",
-      "size": 8665
+      "sha256": "e3b5bda6f53dd2b76b2412ca5c9c94f45e08177440824bd82495ebdc92e368f3",
+      "size": 8695
     },
     {
       "kind": "markdown",
@@ -377,7 +377,7 @@
     {
       "kind": "manifest",
       "path": "pages-manifest.json",
-      "sha256": "d1344e506fe03f200dfbd1de04a321f48cf47bb994fe7556ba80eef666a6ed46",
+      "sha256": "b6f850a18f36a5228917ec81a6cdd9c34bdec659ec7b0568077aeb5452339db4",
       "size": 15963
     },
     {

@@ -6,6 +6,7 @@ import os
 import plistlib
 import stat
 import subprocess
+import sys
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
@@ -299,7 +300,7 @@ class IMessageCliAgentInstallerTests(unittest.TestCase):
                         "--config",
                         str(config.config_path),
                         "--python",
-                        "/opt/homebrew/bin/python3.11",
+                        str(Path(sys.executable).resolve()),
                         "--source-root",
                         str(REPOSITORY_ROOT),
                         "--plist",
@@ -334,7 +335,7 @@ class IMessageCliAgentInstallerTests(unittest.TestCase):
                             "--config",
                             str(config.config_path),
                             "--python",
-                            "/opt/homebrew/bin/python3.11",
+                            str(Path(sys.executable).resolve()),
                             "--source-root",
                             str(REPOSITORY_ROOT),
                             "--plist",
@@ -395,7 +396,7 @@ class IMessageCliAgentInstallerTests(unittest.TestCase):
                             "--config",
                             str(config.config_path),
                             "--python",
-                            "/opt/homebrew/bin/python3.11",
+                            str(Path(sys.executable).resolve()),
                             "--source-root",
                             str(REPOSITORY_ROOT),
                             "--plist",
@@ -451,7 +452,7 @@ class IMessageCliAgentInstallerTests(unittest.TestCase):
                             "--config",
                             str(config.config_path),
                             "--python",
-                            "/opt/homebrew/bin/python3.11",
+                            str(Path(sys.executable).resolve()),
                             "--source-root",
                             str(REPOSITORY_ROOT),
                             "--plist",
@@ -530,7 +531,7 @@ class IMessageCliAgentInstallerTests(unittest.TestCase):
                             "--config",
                             str(config.config_path),
                             "--python",
-                            "/opt/homebrew/bin/python3.11",
+                            str(Path(sys.executable).resolve()),
                             "--source-root",
                             str(REPOSITORY_ROOT),
                             "--plist",

@@ -5,6 +5,7 @@ import os
 import threading
 import time
 import unittest
+from collections.abc import Callable
 from pathlib import Path
 from unittest import mock
 
@@ -19,6 +20,15 @@ from rapp_stack_cubby.imessage.rpc import (
 )
 
 from ._support import WorkDirectory
+
+
+def wait_until(predicate: Callable[[], bool], *, timeout: float = 3.0) -> bool:
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if predicate():
+            return True
+        time.sleep(0.01)
+    return predicate()
 
 
 def fake_imsg(root: Path, mode: str) -> Path:
@@ -603,22 +613,26 @@ class IMessageRpcTests(unittest.TestCase):
         supervisor = ImsgRpcSupervisor(
             factory,
             on_notification=lambda method, params: False,
-            activity_timeout=0.05,
+            activity_timeout=0.5,
         )
         supervisor.start()
-        for _ in range(100):
-            if supervisor.is_ready:
-                break
-            time.sleep(0.01)
-        self.assertTrue(supervisor.is_ready)
-        time.sleep(0.04)
-        callbacks[0]("message", {"subscription": "stale"})
-        time.sleep(0.03)
-        self.assertTrue(supervisor.is_connected)
-        self.assertFalse(supervisor.is_ready)
-        self.assertEqual(supervisor.request("chats.list"), {"ok": True})
-        self.assertTrue(supervisor.is_ready)
-        supervisor.stop()
+        try:
+            self.assertTrue(wait_until(lambda: supervisor.is_ready))
+            with supervisor._lock:
+                initial_activity = supervisor._last_activity
+            callbacks[0]("message", {"subscription": "stale"})
+            with supervisor._lock:
+                self.assertEqual(supervisor._last_activity, initial_activity)
+            self.assertTrue(
+                wait_until(lambda: not supervisor.is_ready, timeout=2.0)
+            )
+            self.assertTrue(supervisor.is_connected)
+            self.assertEqual(supervisor.request("chats.list"), {"ok": True})
+            self.assertTrue(wait_until(lambda: supervisor.is_ready))
+            with supervisor._lock:
+                self.assertGreater(supervisor._last_activity, initial_activity)
+        finally:
+            supervisor.stop()
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 # Release checklist
 
-Candidate: `0.1.0rc1`
-Expected tag: `v0.1.0-rc.1`
+Candidate: `0.1.0rc2`
+Expected tag: `v0.1.0-rc.2`
 Current status: **unreleased**
 
 ## Phase A — source/CI candidate and offline product proof

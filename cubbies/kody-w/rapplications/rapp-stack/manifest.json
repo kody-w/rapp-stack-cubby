@@ -144,5 +144,5 @@
   },
   "source_binding": "rapp-release-source-manifest.json",
   "streamable_agent_count": 1,
-  "version": "0.1.0rc1"
+  "version": "0.1.0rc2"
 }

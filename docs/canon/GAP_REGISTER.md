@@ -42,7 +42,8 @@ public artifact attestation, and release/Pages execution remain
 with their existing owners; none is claimed by local tests.
 
 `publication-scan` now inventories tracked/untracked/ignored candidates,
-traverses reachable Git refs/blobs/commits/tags with fixed plumbing, recursively
+traverses canonical branch/tag/configured-remote refs and their reachable Git
+blobs, commit identities/messages, and tags with fixed plumbing, recursively
 scans supported nested archives, verifies and scans exact Pages and release
 assets, and accepts explicit downloaded Actions log ZIPs. It emits only
 redacted deterministic receipts and can use the pinned release key. It does

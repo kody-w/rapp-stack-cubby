@@ -184,6 +184,138 @@ class PublicationScanTests(unittest.TestCase):
         self.assertEqual(receipt["source"]["history"], "complete")
         self.assertEqual(receipt["counts"]["git_blobs"], 1)
 
+    def test_pull_ref_history_is_excluded_but_canonical_history_is_scanned(self):
+        source = self._source()
+
+        def git(*arguments, input_=None):
+            return subprocess.run(
+                ["git", "-C", str(source), *arguments],
+                check=True,
+                input=input_,
+                stdout=subprocess.PIPE,
+            ).stdout.strip()
+
+        git("init", "-q", "-b", "main")
+        (source / "README.md").write_text("public\n", encoding="utf-8")
+        git("add", "README.md")
+        tree = git("write-tree").decode("ascii")
+        public_email = "test" + "@" + "example.invalid"
+
+        def write_commit(
+            *,
+            parents,
+            email,
+            timestamp,
+            message,
+            signature=None,
+        ):
+            lines = [
+                f"tree {tree}",
+                *(f"parent {parent}" for parent in parents),
+                f"author Synthetic Fixture <{email}> {timestamp} +0000",
+                f"committer Synthetic Fixture <{email}> {timestamp} +0000",
+            ]
+            if signature is not None:
+                lines.extend(
+                    (
+                        "gpgsig -----BEGIN PGP SIGNATURE-----",
+                        f" {signature}",
+                        " =ABCD",
+                        " -----END PGP SIGNATURE-----",
+                    )
+                )
+            content = ("\n".join(lines) + "\n\n" + message + "\n").encode()
+            return git(
+                "hash-object",
+                "-t",
+                "commit",
+                "-w",
+                "--stdin",
+                input_=content,
+            ).decode("ascii")
+
+        base = write_commit(
+            parents=(),
+            email=public_email,
+            timestamp=946684800,
+            message="public base",
+        )
+        git("update-ref", "refs/heads/main", base)
+        baseline = self._scan(source)
+        self.assertEqual(baseline["result"], "pass", baseline["findings"])
+
+        feature = write_commit(
+            parents=(base,),
+            email=public_email,
+            timestamp=946684801,
+            message="public feature",
+        )
+        private_email = "private.bot" + "@" + "example.com"
+        token = "gh" + "p_" + "M1n2B3v4C5x6Z7a8" + "S9d0F1g2H3j4"
+        private_message = json.dumps(
+            {"message": "not a public fixture", "token": token},
+            sort_keys=True,
+        )
+        signature = "iQIzBAABCgAdFiEE" + "A1b2C3d4E5f6G7h8I9j0K1l2"
+        merge = write_commit(
+            parents=(base, feature),
+            email=private_email,
+            timestamp=946684802,
+            message=private_message,
+            signature=signature,
+        )
+        git("update-ref", "refs/pull/123/merge", merge)
+        git("remote", "add", "origin", "https://example.invalid/repository.git")
+        git("update-ref", "refs/remotes/pull/123/merge", merge)
+
+        pull_first = self._scan(source)
+        pull_second = self._scan(source)
+        self.assertEqual(pull_first, pull_second)
+        self.assertEqual(pull_first, baseline)
+
+        expected_rules = {
+            "credential_token",
+            "email_identifier",
+            "private_content_marker",
+        }
+        canonical_receipts = []
+        for ref in (
+            "refs/heads/private-history",
+            "refs/remotes/origin/private-history",
+            "refs/tags/private-history",
+        ):
+            with self.subTest(ref=ref):
+                git("update-ref", ref, merge)
+                first = self._scan(source)
+                second = self._scan(source)
+                self.assertEqual(first, second)
+                self.assertEqual(first["result"], "fail")
+                findings = [
+                    item for item in first["findings"] if item["member"] == merge
+                ]
+                rules = {item["rule"] for item in findings}
+                self.assertTrue(expected_rules.issubset(rules), rules)
+                signature_digest = hashlib.sha256(signature.encode()).hexdigest()
+                self.assertFalse(
+                    any(
+                        item["rule"] == "high_entropy_candidate"
+                        and item["digest"] == signature_digest
+                        for item in findings
+                    )
+                )
+                canonical_receipts.append(first)
+                git("update-ref", "-d", ref)
+
+        histories = [
+            next(
+                scope
+                for scope in receipt["scopes"]
+                if scope["name"] == "history"
+            )
+            for receipt in canonical_receipts
+        ]
+        self.assertTrue(all(history == histories[0] for history in histories))
+
     def test_actions_log_archive_is_explicit_and_redacted(self):
         source = self._source()
         (source / "README.md").write_text("public\n", encoding="utf-8")
@@ -353,7 +485,6 @@ class PublicationScanTests(unittest.TestCase):
             REPOSITORY_ROOT,
             policy_path=self.policy,
             pages_root=REPOSITORY_ROOT / "docs",
-            release_assets_root=REPOSITORY_ROOT / "dist",
             phase="development",
         )
         self.assertEqual(receipt["result"], "pass", receipt["findings"])
