@@ -17,10 +17,12 @@ from rapp_stack_cubby.demo import (
     DemoError,
     DemoTestSeam,
     InstalledAttestationError,
+    _AttestationDiagnostics,
     _CONTROLLER_STARTUP_TIMEOUT_SECONDS,
     _ContentFreeProcessFailure,
     _probe_installed_python,
     _run_installed_lifecycle,
+    _validate_host_controller_python,
     _wait_controller,
     run_demo,
     run_installed_attestation,
@@ -250,6 +252,87 @@ class ProductDemoTests(unittest.TestCase):
 
 
 class InstalledAttestationTests(unittest.TestCase):
+    def test_host_python_is_canonicalized_before_controller_override(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-host-python-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            linked = root / "python"
+            linked.symlink_to(Path(sys.executable).resolve(strict=True))
+            runner = Mock(
+                return_value=subprocess.CompletedProcess([], 0)
+            )
+            selected = _validate_host_controller_python(
+                linked,
+                home=root,
+                runner=runner,
+            )
+
+        self.assertEqual(
+            selected, Path(sys.executable).resolve(strict=True)
+        )
+        self.assertFalse(selected.is_symlink())
+        self.assertEqual(runner.call_args.args[0][0], str(selected))
+        self.assertEqual(
+            runner.call_args.args[0][1:3], ["-I", "-S"]
+        )
+
+    def test_child_start_diagnostics_are_size_hash_and_status_only(self):
+        secret_stdout = b"private child stdout payload\n"
+        secret_stderr = b"private child stderr payload\n"
+        identity_hash = "d" * 64
+        rappid = f"rappid:@kody-w/child:{identity_hash}"
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-child-diagnostics-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            state_root = Path(temporary)
+            twin = state_root / "twins/active" / identity_hash
+            logs = twin / "workspace/logs"
+            logs.mkdir(parents=True)
+            (logs / "stdout.log").write_bytes(secret_stdout)
+            (logs / "stderr.log").write_bytes(secret_stderr)
+            (twin / "state.json").write_text(
+                json.dumps(
+                    {
+                        "last_start_failure": {
+                            "process_category": "exited_nonzero",
+                            "process_return_code": 72,
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            diagnostic = _AttestationDiagnostics(
+                stage_code="child_start",
+                child_stage="adopted",
+            )
+            diagnostic.capture_child_start(state_root, rappid)
+            public = diagnostic.public()
+
+        self.assertEqual(
+            public["child_process_category"], "exited_nonzero"
+        )
+        self.assertEqual(public["child_process_return_code"], 72)
+        self.assertEqual(
+            public["child_stdout_size"], len(secret_stdout)
+        )
+        self.assertEqual(
+            public["child_stdout_sha256"],
+            hashlib.sha256(secret_stdout).hexdigest(),
+        )
+        self.assertEqual(
+            public["child_stderr_size"], len(secret_stderr)
+        )
+        self.assertEqual(
+            public["child_stderr_sha256"],
+            hashlib.sha256(secret_stderr).hexdigest(),
+        )
+        serialized = json.dumps(public)
+        self.assertNotIn(secret_stdout.decode().strip(), serialized)
+        self.assertNotIn(secret_stderr.decode().strip(), serialized)
+
     def test_controller_readiness_allows_cold_start_within_bound(self):
         elapsed = 0.0
         probe_times: list[float] = []
@@ -461,6 +544,11 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertTrue(
             all(command[0] == str(host_python) for command in calls)
         )
+        adopt_call = next(command for command in calls if "adopt" in command)
+        self.assertEqual(
+            adopt_call[adopt_call.index("--attestation-python") + 1],
+            str(host_python),
+        )
         self.assertEqual(popen.call_args.args[0][0], str(host_python))
         self.assertEqual(
             popen.call_args.kwargs["env"]["PYTHONUNBUFFERED"],
@@ -615,6 +703,12 @@ class InstalledAttestationTests(unittest.TestCase):
             set(diagnostic),
             {
                 "child_stage",
+                "child_process_category",
+                "child_process_return_code",
+                "child_stdout_size",
+                "child_stdout_sha256",
+                "child_stderr_size",
+                "child_stderr_sha256",
                 "controller_log_sha256",
                 "controller_log_size",
                 "process_category",
@@ -624,6 +718,12 @@ class InstalledAttestationTests(unittest.TestCase):
         )
         self.assertEqual(diagnostic["stage_code"], "controller_readiness")
         self.assertEqual(diagnostic["child_stage"], "not_adopted")
+        self.assertEqual(
+            diagnostic["child_process_category"], "not_started"
+        )
+        self.assertIsNone(diagnostic["child_process_return_code"])
+        self.assertEqual(diagnostic["child_stdout_size"], 0)
+        self.assertEqual(diagnostic["child_stderr_size"], 0)
         self.assertEqual(diagnostic["process_category"], "running")
         self.assertIsNone(diagnostic["process_return_code"])
         self.assertEqual(diagnostic["controller_log_size"], len(secret))

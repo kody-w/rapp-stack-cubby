@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import signal
 import unittest
@@ -192,7 +193,17 @@ class ControllerProcessTests(unittest.TestCase):
     def test_failed_health_terminates_exact_spawn_and_preserves_stopped_workspace(self):
         fake_child = Mock()
         fake_child.pid = 54322
-        popen = Mock(return_value=fake_child)
+        fake_child.poll.return_value = 17
+        stdout_bytes = b"private child stdout\n"
+        stderr_bytes = b"private child stderr\n"
+
+        def spawn(argv, **kwargs):
+            del argv
+            kwargs["stdout"].write(stdout_bytes)
+            kwargs["stderr"].write(stderr_bytes)
+            return fake_child
+
+        popen = Mock(side_effect=spawn)
         terminate = Mock()
         with ControllerEnvironment() as environment:
             environment.create_twin()
@@ -257,6 +268,24 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(
             observed_starting["process"]["start_identity"], "c" * 64
         )
+        failure = state["last_start_failure"]
+        self.assertEqual(failure["process_return_code"], 17)
+        self.assertEqual(
+            failure["process_category"], "exited_nonzero"
+        )
+        self.assertEqual(failure["stdout_size"], len(stdout_bytes))
+        self.assertEqual(failure["stderr_size"], len(stderr_bytes))
+        self.assertEqual(
+            failure["stdout_sha256"],
+            hashlib.sha256(stdout_bytes).hexdigest(),
+        )
+        self.assertEqual(
+            failure["stderr_sha256"],
+            hashlib.sha256(stderr_bytes).hexdigest(),
+        )
+        serialized_failure = json.dumps(failure)
+        self.assertNotIn(stdout_bytes.decode().strip(), serialized_failure)
+        self.assertNotIn(stderr_bytes.decode().strip(), serialized_failure)
 
     def test_stop_escalates_only_the_recorded_process_group(self):
         process = {

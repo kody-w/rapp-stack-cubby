@@ -394,6 +394,11 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("offline-self-test",),
     )
     adopt_controller.add_argument(
+        "--attestation-python",
+        type=Path,
+        help="explicit host CPython used only for offline attestation",
+    )
+    adopt_controller.add_argument(
         "--trusted-development",
         action="store_true",
         help="adopt only a verified signed development install",
@@ -1517,6 +1522,15 @@ def _controller_command(args: argparse.Namespace) -> int:
     action = action_map.get(
         args.controller_action, args.controller_action
     )
+    if (
+        getattr(args, "attestation_python", None) is not None
+        and getattr(args, "attestation_mode", None)
+        != "offline-self-test"
+    ):
+        raise RappStackCubbyError(
+            "--attestation-python requires "
+            "--attestation-mode offline-self-test"
+        )
     arguments: dict[str, object] = {}
     for source, target in (
         ("repository_url", "repository_url"),
@@ -1528,6 +1542,7 @@ def _controller_command(args: argparse.Namespace) -> int:
         ("model", "model"),
         ("github_token_file", "github_token_file"),
         ("attestation_mode", "attestation_mode"),
+        ("attestation_python", "attestation_python"),
         ("port", "port"),
         ("confirmation", "confirmation"),
     ):

@@ -553,6 +553,14 @@
       "rule": "private_key"
     },
     {
+      "artifact_sha256": "31ee36d3818ce52a99f7ce962ea4a44af00405368f460829ce0fbc1e2a607ead",
+      "id": "public-private-key-parser-06",
+      "match_sha256": "3021d90eb9437b2d8f30e8363695c4418b5e5f1870801b5c317e9398ee0f572d",
+      "reason": "Reviewed public private-key parser boundary or rejection test; exact file bytes contain no private key material.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_key"
+    },
+    {
       "id": "public-secret-assignment-01",
       "match_sha256": "d1a72877624a30f7e440e952ce2ae5f51ed8bdcf31b4e969fce9a76c70b57426",
       "reason": "Reviewed synthetic provider credential rejection fixture.",

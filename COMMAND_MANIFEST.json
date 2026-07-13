@@ -372,6 +372,17 @@
           "type": null
         },
         {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "attestation_python",
+          "flags": [
+            "--attestation-python"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
           "action": "_HelpAction",
           "choices": null,
           "dest": "help",

@@ -94,6 +94,7 @@ class ControllerEnvironment:
             "hatch_profile": "development_non_release",
             "selected_model": None,
             "attestation_mode": None,
+            "attestation_python": None,
             "signed_only": True,
             "created_at": "2026-07-12T00:00:00Z",
             "updated_at": "2026-07-12T00:00:00Z",
