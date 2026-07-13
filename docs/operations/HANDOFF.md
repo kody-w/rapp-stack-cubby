@@ -51,7 +51,7 @@ For a fresh developer, the dependency order is exact:
 | Capability ownership | implementation matrix and `../../CONTEXT_INDEX.json` | generated truth |
 | Census/evidence refresh | candidate-only authenticated refresher, raw snapshot, shard/audit/graph generators | implemented; promotion requires direct review |
 | Current source/privacy scan | source manifest, packaging scanner, Pages checker, focused Security helper | implemented for current local trees/outputs only |
-| Full publication scanner | all refs/history, nested release assets, exact Pages, public redownload, supplied Actions logs | implemented locally; candidate/final signed executions await explicit public inputs and next workflow wiring |
+| Full publication scanner | canonical branch/tag/configured-remote history, nested release assets, exact Pages, public redownload, supplied Actions logs | implemented locally; candidate/final signed executions await explicit public inputs and next workflow wiring |
 | Artifact chain | packaging package, source/rapplication/egg manifests, indexes, schemas, and packaging tests | implemented local development and offline installed-byte attestation |
 | Twin trust | protocols, controller/runtime, transport schemas and runbook | implemented local profile |
 | iMessage | bridge package, pinned installer, config/status schemas, onboarding runbook, and tests | implemented source and in-process authenticated route proof; live enrollment/public twin pending |

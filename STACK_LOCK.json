@@ -801,7 +801,7 @@
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "76d7ddb17d94a16ff8938954f22103f6dca28d10ea3fff9411ffdc75c24e328f"
+          "sha256": "e6e8b6bb61419a0203b91e40bafd5be8edb49332d9d422a3253c571609a7e606"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -826,7 +826,7 @@
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "b1d867e014d7d78abfb25a3cba862daab941f6393d666818e5cebca5eef3735c"
+          "sha256": "dafa6cded590574f8a25e93767c368e449204953a7e3154f3f9836c3401f8f91"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -846,7 +846,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "a348a1b10d011bf63f62551abe4cbe0758a693b1b9bbcec83afd0e14c9ff4091"
+          "sha256": "86c81d3b7f2c34e75fc8340b81a3608a298eb0c511113b6858eb423a9ba952d1"
         },
         {
           "path": "docs/robots.txt",
@@ -944,7 +944,7 @@
           "sha256": "697c54efa66f2527327fcc34ceafb1ee405f03597802d2dc532cfb8d4a3279a4"
         }
       ],
-      "manifest_sha256": "35e8621557a715729badc90cfad47c76d32257a3a14de2f2e0c80a46f9238e76",
+      "manifest_sha256": "6e720287538e5b25d5e2b8869aa11d3b5fb04071105578ae3686213ae92d3903",
       "release_status": "pending",
       "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
     },
@@ -977,11 +977,11 @@
         },
         {
           "path": "src/rapp_stack_cubby/packaging/publication.py",
-          "sha256": "8944210c9282c9886e961798d5f73b5ebf195645762e5a6da409657952153f24"
+          "sha256": "0cc774e6e5f754e6a960643cdcfc589e0021effec4323a1e9881c0ee0f076617"
         },
         {
           "path": "tests/packaging/test_publication_scan.py",
-          "sha256": "da8438a42b6fdd726caf606e68879505182a8516f3ca3ac3f63c65b9a22afcf4"
+          "sha256": "b3fca33025b6127e3cb1143d5519361a08be121cf386f637210c2c679c98dbfb"
         }
       ],
       "final_gate": "second zero-finding signed receipt over public redownload plus complete supplied Actions log archives",

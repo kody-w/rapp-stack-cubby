@@ -1042,6 +1042,65 @@ def _git_status(root: Path) -> dict[str, int]:
     }
 
 
+def _canonical_git_refs(root: Path) -> list[tuple[bytes, bytes, bytes]]:
+    configured_remotes = {
+        item for item in _run_git(root, ["remote"]).splitlines() if item
+    }
+    remote_prefixes = tuple(
+        b"refs/remotes/" + name + b"/" for name in sorted(configured_remotes)
+    )
+    lines = _run_git(
+        root,
+        [
+            "for-each-ref",
+            "--sort=refname",
+            "--format=%(refname)%00%(objectname)%00%(objecttype)",
+            "refs/heads",
+            "refs/remotes",
+            "refs/tags",
+        ],
+    ).splitlines()
+    refs: list[tuple[bytes, bytes, bytes]] = []
+    for line in lines:
+        fields = line.split(b"\0")
+        if len(fields) != 3:
+            raise PublicationScanError("Git ref inventory is invalid")
+        ref, oid, kind = fields
+        canonical = (
+            ref.startswith(b"refs/heads/")
+            or ref.startswith(b"refs/tags/")
+            or any(ref.startswith(prefix) for prefix in remote_prefixes)
+        )
+        if not canonical:
+            continue
+        try:
+            oid_text = oid.decode("ascii")
+        except UnicodeError as error:
+            raise PublicationScanError("Git ref object identity is invalid") from error
+        if _COMMIT_RE.fullmatch(oid_text) is None:
+            raise PublicationScanError("Git ref object identity is invalid")
+        refs.append((ref, oid, kind))
+    return refs
+
+
+def _commit_scan_content(content: bytes) -> bytes:
+    headers, separator, message = content.partition(b"\n\n")
+    if not separator:
+        raise PublicationScanError("Git commit object is invalid")
+    identities = [
+        line
+        for line in headers.splitlines()
+        if line.startswith((b"author ", b"committer "))
+    ]
+    if (
+        len(identities) != 2
+        or not identities[0].startswith(b"author ")
+        or not identities[1].startswith(b"committer ")
+    ):
+        raise PublicationScanError("Git commit identities are invalid")
+    return b"\n".join(identities) + b"\n\n" + message
+
+
 def _scan_directory(
     scanner: _Scanner,
     root: Path,
@@ -1194,7 +1253,13 @@ def _scan_git_history(
             match=canonical_json_bytes(status),
             artifact_sha256=hashlib.sha256(canonical_json_bytes(status)).hexdigest(),
         )
-    objects = _run_git(root, ["rev-list", "--objects", "--all"]).splitlines()
+    refs = _canonical_git_refs(root)
+    revision_input = b"".join(oid + b"\n" for _, oid, _ in refs)
+    objects = _run_git(
+        root,
+        ["rev-list", "--objects", "--stdin"],
+        input_=revision_input,
+    ).splitlines()
     if len(objects) > scanner.limits["max_git_objects"]:
         raise PublicationScanError("Git object count exceeds publication policy")
     seen_blobs: set[str] = set()
@@ -1241,13 +1306,19 @@ def _scan_git_history(
         )
     commits = [
         item.decode("ascii")
-        for item in _run_git(root, ["rev-list", "--all"]).splitlines()
+        for item in _run_git(
+            root,
+            ["rev-list", "--stdin"],
+            input_=revision_input,
+        ).splitlines()
         if item
     ]
     for oid in commits:
         if _COMMIT_RE.fullmatch(oid) is None:
             raise PublicationScanError("Git commit inventory is invalid")
-        content = _run_git(root, ["cat-file", "commit", oid])
+        content = _commit_scan_content(
+            _run_git(root, ["cat-file", "commit", oid])
+        )
         history_count["artifacts"] += 1
         scanner.scan_blob(
             "history",
@@ -1256,15 +1327,7 @@ def _scan_git_history(
             data=content,
             member=oid,
         )
-    refs = _run_git(
-        root,
-        ["for-each-ref", "--format=%(refname)%00%(objectname)%00%(objecttype)"],
-    ).splitlines()
-    for line in refs:
-        fields = line.split(b"\0")
-        if len(fields) != 3:
-            raise PublicationScanError("Git ref inventory is invalid")
-        ref, oid, kind = fields
+    for ref, oid, kind in refs:
         ref_text = ref.decode("utf-8", "replace")
         scanner._scan_text(
             artifact="git-history",

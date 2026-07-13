@@ -1125,7 +1125,7 @@
         {
           "path": "docs/canon/IMPLEMENTATION_STATUS.md",
           "provenance": "original_new",
-          "sha256": "4c61aa70fc10772286a039699b85e843956dec799824c7a2c2ea7360a0e76561"
+          "sha256": "ca15e5a11e6fa5bf37d962347c317d8475f5a23a4f112b5a65b228b1ed7e20b0"
         },
         {
           "path": "docs/canon/MESSAGING_IMESSAGE.md",
@@ -1225,7 +1225,7 @@
         {
           "path": "tests/imessage/test_rpc.py",
           "provenance": "original_new",
-          "sha256": "5223ee5f26ebe5d0fc62f9e16e7f71bfe3fbcda783be52a42a6b28ae30e6a1b5"
+          "sha256": "dd1d4dbc9a746552259c10ad0cecf5cbb77084983851bae8ff219222f9945eca"
         },
         {
           "path": "tests/imessage/test_state.py",
@@ -1642,7 +1642,7 @@
         {
           "path": "src/rapp_stack_cubby/packaging/publication.py",
           "provenance": "original_new",
-          "sha256": "8944210c9282c9886e961798d5f73b5ebf195645762e5a6da409657952153f24"
+          "sha256": "0cc774e6e5f754e6a960643cdcfc589e0021effec4323a1e9881c0ee0f076617"
         },
         {
           "path": "src/rapp_stack_cubby/packaging/release.py",
@@ -1677,7 +1677,7 @@
         {
           "path": "tests/packaging/test_publication_scan.py",
           "provenance": "original_new",
-          "sha256": "da8438a42b6fdd726caf606e68879505182a8516f3ca3ac3f63c65b9a22afcf4"
+          "sha256": "b3fca33025b6127e3cb1143d5519361a08be121cf386f637210c2c679c98dbfb"
         },
         {
           "path": "tests/packaging/test_release_scripts.py",
@@ -1799,7 +1799,7 @@
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "76d7ddb17d94a16ff8938954f22103f6dca28d10ea3fff9411ffdc75c24e328f"
+          "sha256": "e6e8b6bb61419a0203b91e40bafd5be8edb49332d9d422a3253c571609a7e606"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -1824,7 +1824,7 @@
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "b1d867e014d7d78abfb25a3cba862daab941f6393d666818e5cebca5eef3735c"
+          "sha256": "dafa6cded590574f8a25e93767c368e449204953a7e3154f3f9836c3401f8f91"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -1844,7 +1844,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "a348a1b10d011bf63f62551abe4cbe0758a693b1b9bbcec83afd0e14c9ff4091"
+          "sha256": "86c81d3b7f2c34e75fc8340b81a3608a298eb0c511113b6858eb423a9ba952d1"
         },
         {
           "path": "docs/robots.txt",
@@ -1942,7 +1942,7 @@
           "sha256": "697c54efa66f2527327fcc34ceafb1ee405f03597802d2dc532cfb8d4a3279a4"
         }
       ],
-      "pages_manifest_sha256": "35e8621557a715729badc90cfad47c76d32257a3a14de2f2e0c80a46f9238e76",
+      "pages_manifest_sha256": "6e720287538e5b25d5e2b8869aa11d3b5fb04071105578ae3686213ae92d3903",
       "planned_use": "New clean-room runtime, integration code, tests, schemas, build logic, and documentation authored specifically for the public target.",
       "repository_url": "https://github.com/kody-w/rapp-stack-cubby",
       "review": {
@@ -2106,7 +2106,7 @@
           {
             "path": "STACK_LOCK.json",
             "provenance": "original_new",
-            "sha256": "3c850b8fd9af3d869611acd59939cbc6dba99d608dc5a6b047100bd2338c3ac9"
+            "sha256": "77411bfde7fc8ec76fac04555cf16947f303a4ec04aec77f45beccec79393621"
           },
           {
             "path": "STORE_INDEX.json",
@@ -2290,7 +2290,7 @@
           {
             "path": "docs/PUBLIC_PRIVATE_BOUNDARY.md",
             "provenance": "original_new",
-            "sha256": "824d90d6c5ca8b57f788de8fb9bf5f6948c7521e71c6118415d27f40cd8f0262"
+            "sha256": "55ac3772c89a5231224f02efe2a8a9a5a4c7e32779b91c4502d25865130ed701"
           },
           {
             "path": "docs/api/v1/architecture.json",
@@ -2320,7 +2320,7 @@
           {
             "path": "docs/api/v1/status.json",
             "provenance": "generated_local",
-            "sha256": "76d7ddb17d94a16ff8938954f22103f6dca28d10ea3fff9411ffdc75c24e328f"
+            "sha256": "e6e8b6bb61419a0203b91e40bafd5be8edb49332d9d422a3253c571609a7e606"
           },
           {
             "path": "docs/assets/favicon.svg",
@@ -2360,7 +2360,7 @@
           {
             "path": "docs/canon/GAP_REGISTER.md",
             "provenance": "original_new",
-            "sha256": "6f8595b9b50eab4ecde1da0ef07263aa43deaafd850220f3d7d98b16e62fea2d"
+            "sha256": "320986a42afcffc5e714a38e73dfed7c70d6393969737a2f65adb1cdad13ad11"
           },
           {
             "path": "docs/canon/GLOSSARY.md",
@@ -2375,7 +2375,7 @@
           {
             "path": "docs/canon/IMPLEMENTATION_STATUS.md",
             "provenance": "original_new",
-            "sha256": "4c61aa70fc10772286a039699b85e843956dec799824c7a2c2ea7360a0e76561"
+            "sha256": "ca15e5a11e6fa5bf37d962347c317d8475f5a23a4f112b5a65b228b1ed7e20b0"
           },
           {
             "path": "docs/canon/MESSAGING_IMESSAGE.md",
@@ -2500,7 +2500,7 @@
           {
             "path": "docs/index.html",
             "provenance": "original_new",
-            "sha256": "b1d867e014d7d78abfb25a3cba862daab941f6393d666818e5cebca5eef3735c"
+            "sha256": "dafa6cded590574f8a25e93767c368e449204953a7e3154f3f9836c3401f8f91"
           },
           {
             "path": "docs/operations/CONTEXT_MAINTENANCE.md",
@@ -2530,7 +2530,7 @@
           {
             "path": "docs/operations/HANDOFF.md",
             "provenance": "original_new",
-            "sha256": "281870fac6738ec65c75ee7e25d3989a5839d57f2c33170342a3ed1c73f2d2a4"
+            "sha256": "e3b5bda6f53dd2b76b2412ca5c9c94f45e08177440824bd82495ebdc92e368f3"
           },
           {
             "path": "docs/operations/IMESSAGE_ONBOARDING.md",
@@ -2590,7 +2590,7 @@
           {
             "path": "docs/pages-manifest.json",
             "provenance": "generated_local",
-            "sha256": "a348a1b10d011bf63f62551abe4cbe0758a693b1b9bbcec83afd0e14c9ff4091"
+            "sha256": "86c81d3b7f2c34e75fc8340b81a3608a298eb0c511113b6858eb423a9ba952d1"
           },
           {
             "path": "docs/research/AUDIT_MANIFEST.json",
@@ -3358,7 +3358,7 @@
           {
             "path": "src/rapp_stack_cubby/packaging/publication.py",
             "provenance": "original_new",
-            "sha256": "8944210c9282c9886e961798d5f73b5ebf195645762e5a6da409657952153f24"
+            "sha256": "0cc774e6e5f754e6a960643cdcfc589e0021effec4323a1e9881c0ee0f076617"
           },
           {
             "path": "src/rapp_stack_cubby/packaging/release.py",
@@ -3643,7 +3643,7 @@
           {
             "path": "tests/imessage/test_rpc.py",
             "provenance": "original_new",
-            "sha256": "5223ee5f26ebe5d0fc62f9e16e7f71bfe3fbcda783be52a42a6b28ae30e6a1b5"
+            "sha256": "dd1d4dbc9a746552259c10ad0cecf5cbb77084983851bae8ff219222f9945eca"
           },
           {
             "path": "tests/imessage/test_state.py",
@@ -3683,7 +3683,7 @@
           {
             "path": "tests/packaging/test_publication_scan.py",
             "provenance": "original_new",
-            "sha256": "da8438a42b6fdd726caf606e68879505182a8516f3ca3ac3f63c65b9a22afcf4"
+            "sha256": "b3fca33025b6127e3cb1143d5519361a08be121cf386f637210c2c679c98dbfb"
           },
           {
             "path": "tests/packaging/test_release_scripts.py",

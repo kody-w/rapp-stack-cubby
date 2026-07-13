@@ -215,7 +215,7 @@ The scanner matrix is mandatory:
 | Surface | Required scan |
 |---|---|
 | **Current tree and index** | All tracked and untracked candidate files, filenames, links, submodule metadata, executable/binary contents, and staged diff. |
-| **Full history** | Every reachable object across all branches, tags, release refs, fetched pull-request refs used for release, and annotated-tag messages. A clean tip does not excuse a historical leak. |
+| **Full history** | Every object reachable from canonical local branches, tags, and configured remote-tracking branches, plus commit identities/messages and annotated-tag messages. Synthetic pull refs and detached PR merge commits outside that closure are excluded. A clean tip does not excuse a historical leak. |
 | **Archives and packages** | The exact final bytes plus every recursively unpacked member, manifest, metadata field, embedded source map, and bundled license/notice. |
 | **Pages output** | The exact generated deployment directory, HTML/JS/CSS, static data, maps, headers/configuration, links, and browser-storage/network behavior. |
 | **Release assets** | Every asset before upload and the downloaded post-upload bytes; hashes must match the lock and both copies must scan cleanly. |
