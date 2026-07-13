@@ -57,7 +57,7 @@
     "repositories_audited": 307,
     "selected_capabilities": 61,
     "streamable_controllers": 1,
-    "tests": 436
+    "tests": 437
   },
   "release": {
     "candidate_publication_scan_sha256": null,
@@ -74,8 +74,8 @@
     "source_git_tree": null,
     "source_tree_digest": null,
     "state": "pending",
-    "tag": "v0.1.0-rc.2",
-    "version": "0.1.0rc2"
+    "tag": "v0.1.0-rc.3",
+    "version": "0.1.0rc3"
   },
   "schema": "rapp-pages-status/1.0",
   "sources": {

@@ -104,7 +104,7 @@ class ReleaseScriptTests(unittest.TestCase):
                 str(cls.source),
                 "tag",
                 "-a",
-                "v0.1.0-rc.2",
+                "v0.1.0-rc.3",
                 "-m",
                 "candidate",
             ],
@@ -118,7 +118,7 @@ class ReleaseScriptTests(unittest.TestCase):
                 "push",
                 "-q",
                 "origin",
-                "refs/tags/v0.1.0-rc.2",
+                "refs/tags/v0.1.0-rc.3",
             ],
             check=True,
         )
@@ -149,9 +149,9 @@ if args and args[0] == "api":
         ),
         "draft": False,
         "immutable": True,
-        "name": "RAPP Stack CUBBY v0.1.0-rc.2",
+        "name": "RAPP Stack CUBBY v0.1.0-rc.3",
         "prerelease": True,
-        "tag_name": "v0.1.0-rc.2",
+        "tag_name": "v0.1.0-rc.3",
         "target_commitish": commit,
     }))
     raise SystemExit(0)
@@ -217,7 +217,7 @@ raise SystemExit(2)
         malicious = subprocess.run(
             [
                 str(validator),
-                "v0.1.0-rc.2;touch-pwned",
+                "v0.1.0-rc.3;touch-pwned",
                 self.commit,
             ],
             cwd=self.source,
@@ -228,7 +228,7 @@ raise SystemExit(2)
         self.assertNotEqual(malicious.returncode, 0)
         resolver = self.source / "scripts/resolve-release-tag.sh"
         wrong = subprocess.run(
-            [str(resolver), "v0.1.0-rc.2", "f" * 40],
+            [str(resolver), "v0.1.0-rc.3", "f" * 40],
             cwd=self.source,
             env=self.environment(),
             stdout=subprocess.PIPE,
@@ -240,7 +240,7 @@ raise SystemExit(2)
     def test_postflight_uses_mocked_gh_and_records_success(self) -> None:
         command = [
             str(self.source / "scripts/postflight-release.sh"),
-            "v0.1.0-rc.2",
+            "v0.1.0-rc.3",
             self.commit,
             str(self.output),
             str(self.workspace.root / "download-ok"),
@@ -263,7 +263,7 @@ raise SystemExit(2)
         success = self.workspace.root / "postflight-bad.json"
         command = [
             str(self.source / "scripts/postflight-release.sh"),
-            "v0.1.0-rc.2",
+            "v0.1.0-rc.3",
             self.commit,
             str(self.output),
             str(self.workspace.root / "download-bad"),
@@ -288,7 +288,7 @@ raise SystemExit(2)
         completed = subprocess.run(
             [
                 str(self.source / "scripts/postflight-release.sh"),
-                "v0.1.0-rc.2",
+                "v0.1.0-rc.3",
                 self.commit,
                 str(self.output),
                 str(self.workspace.root / "download-extra"),
