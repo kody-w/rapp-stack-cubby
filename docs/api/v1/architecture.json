@@ -5500,8 +5500,8 @@
     "source_git_tree": null,
     "source_tree_digest": null,
     "state": "pending",
-    "tag": "v0.1.0-rc.4",
-    "version": "0.1.0rc4"
+    "tag": "v0.1.0-rc.5",
+    "version": "0.1.0rc5"
   },
   "schema": "rapp-pages-architecture/1.0",
   "source": "SYSTEM_GRAPH.json",

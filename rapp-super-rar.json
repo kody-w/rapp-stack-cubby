@@ -15,7 +15,7 @@
       "kind": "rapplication",
       "name": "rapp-stack",
       "rank": 10,
-      "sha256": "c357ccd1bc12abae747ea9647b57ac064f0e7ee4488fc8147fe68f34ccf1c0cb",
+      "sha256": "e8a87cac72df9196d14ad81e9abef7f5c2390d5af4d38637da2fd42f80460dfa",
       "size": 4134,
       "sources": [
         "cubbies/kody-w/rapplications/rapp-stack/manifest.json"
@@ -38,5 +38,5 @@
   "schema": "rapp-super-rar/1.0",
   "source_tree_digest_binding": "rapp-release-source-manifest.json",
   "streamable_entry_count": 1,
-  "version": "0.1.0rc4"
+  "version": "0.1.0rc5"
 }

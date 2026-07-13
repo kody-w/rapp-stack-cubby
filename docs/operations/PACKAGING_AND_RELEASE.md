@@ -54,6 +54,16 @@ GitHub REST API. The script enables and verifies immutable releases when that
 endpoint is supported; only an endpoint 404 selects the exact tag-ruleset
 proof. Other API errors fail.
 
+The release job's limited `GITHUB_TOKEN` ruleset detail can omit the
+administration-only `bypass_actors` field. In that fallback only, every
+observable policy field remains exact; an absent or null `bypass_actors` and
+an exact empty list are accepted, while any visible actor fails closed.
+Omission is limited observability, not proof of an empty list. Run
+`configure-repository.sh` with an owner token before dispatch and repeat its
+owner-token verification after candidate postflight; the administrative
+readback requires an explicit exact empty list and closes that observation
+gap.
+
 ## Phase A — source commit, candidate build, offline proof
 
 1. Regenerate catalogs, command manifest, context, Pages, provenance/locks,
