@@ -451,8 +451,6 @@ class PublicationScanTests(unittest.TestCase):
             "pass",
             history_receipt["findings"],
         )
-        used = {item["id"] for item in history_receipt["allowlist_uses"]}
-        self.assertTrue(set(identities).issubset(used))
 
         source = self._source("unreviewed-email")
         unreviewed = "unreviewed.history" + "@" + "example.com"

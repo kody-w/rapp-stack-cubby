@@ -1677,7 +1677,7 @@
         {
           "path": "tests/packaging/test_publication_scan.py",
           "provenance": "original_new",
-          "sha256": "9ab98349ab0fd253baf8d9a797ac4d893c6d947a7fd58c1b70ea5c5a19d2f318"
+          "sha256": "06cd0c2c9af58ab8665902cdd312c788574d3e814b6e96e3d4efa868b21c1988"
         },
         {
           "path": "tests/packaging/test_release_scripts.py",
@@ -2106,7 +2106,7 @@
           {
             "path": "STACK_LOCK.json",
             "provenance": "original_new",
-            "sha256": "f833ae4f85c7f6f9a5d445860dffe7875365dc9e78cdeb00c9703b40d9b30060"
+            "sha256": "347f995a7844147a6c48692c741e03f70da64a8059d8f44905e73455e267c55b"
           },
           {
             "path": "STORE_INDEX.json",
@@ -3683,7 +3683,7 @@
           {
             "path": "tests/packaging/test_publication_scan.py",
             "provenance": "original_new",
-            "sha256": "9ab98349ab0fd253baf8d9a797ac4d893c6d947a7fd58c1b70ea5c5a19d2f318"
+            "sha256": "06cd0c2c9af58ab8665902cdd312c788574d3e814b6e96e3d4efa868b21c1988"
           },
           {
             "path": "tests/packaging/test_release_scripts.py",
