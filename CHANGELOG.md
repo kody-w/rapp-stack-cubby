@@ -3,6 +3,21 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc6 — release candidate
+
+### Fixed
+
+- Release run `29268450887` passed build, signature verification, and hatch,
+  but the global controller did not become ready when launched from GitHub's
+  copied setup-python venv. Installed attestation now runs global
+  controller/auth/CLI operations with the explicit trusted host CPython 3.11
+  while retaining the verified installed source as `PYTHONPATH` and product
+  root. Pre-adoption remains static except for one bounded, content-free
+  `-I -S` installed-Python launch probe; the signed-only child still starts
+  from the measured installed venv/source and exercises its dependencies.
+  Failure receipts and workflow output expose only allowlisted stage/process
+  categories, controller-log size/digest, and child stage.
+
 ## 0.1.0rc5 — release candidate
 
 ### Fixed

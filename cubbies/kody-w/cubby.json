@@ -2,7 +2,7 @@
   "controller": {
     "catalog": "cubbies/kody-w/catalog/controller-catalog.json",
     "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
-    "sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b",
+    "sha256": "ef142323a9d7e2cf5f168475be5259078fc187286d529a8b24a777ae9ce94a1a",
     "streamable_agent_count": 1
   },
   "created_at": "2026-07-12T18:18:52Z",
@@ -19,7 +19,7 @@
     ]
   },
   "github_login": "kody-w",
-  "product_version": "0.1.0rc5",
+  "product_version": "0.1.0rc6",
   "schema": "rapp-cubby/1.0",
   "slug": "kody-w",
   "streamable": {

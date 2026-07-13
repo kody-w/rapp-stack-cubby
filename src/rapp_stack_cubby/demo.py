@@ -11,6 +11,7 @@ import signal
 import socket
 import stat
 import subprocess
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -62,6 +63,98 @@ _DEMO_STAGE_NAMES: Final = (
 
 class DemoError(RuntimeError):
     """Raised when the development journey cannot finish safely."""
+
+
+class InstalledAttestationError(DemoError):
+    """Carry only allowlisted diagnostics to the attestation CLI."""
+
+    def __init__(self, diagnostics: Mapping[str, Any]) -> None:
+        super().__init__("installed_attestation_failed")
+        self.diagnostics = dict(diagnostics)
+
+
+class _ContentFreeProcessFailure(DemoError):
+    def __init__(
+        self,
+        category: str,
+        *,
+        return_code: int | None = None,
+    ) -> None:
+        super().__init__("content_free_process_failed")
+        self.category = category
+        self.return_code = return_code
+
+
+@dataclass(slots=True)
+class _AttestationDiagnostics:
+    stage_code: str = "initialization"
+    child_stage: str = "not_adopted"
+    process_return_code: int | None = None
+    process_category: str = "not_started"
+    controller_log_size: int = 0
+    controller_log_sha256: str = hashlib.sha256(b"").hexdigest()
+    installed_source_digest: str | None = None
+
+    def observe_error(self, error: BaseException) -> None:
+        if (
+            self.process_category == "not_started"
+            and isinstance(error, _ContentFreeProcessFailure)
+        ):
+            self.process_return_code = error.return_code
+            self.process_category = error.category
+
+    def observe_process(self, process: subprocess.Popen[bytes]) -> None:
+        try:
+            return_code = process.poll()
+        except Exception:
+            self.process_return_code = None
+            self.process_category = "status_unavailable"
+            return
+        if return_code is None:
+            self.process_return_code = None
+            self.process_category = "running"
+        elif not isinstance(return_code, int) or isinstance(return_code, bool):
+            self.process_return_code = None
+            self.process_category = "status_unavailable"
+        else:
+            self.process_return_code = return_code
+            self.process_category = _process_category(return_code)
+
+    def capture_log(self, path: Path) -> None:
+        digest = hashlib.sha256()
+        size = 0
+        descriptor = None
+        try:
+            descriptor = os.open(
+                path,
+                os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+            )
+            details = os.fstat(descriptor)
+            if not stat.S_ISREG(details.st_mode):
+                return
+            while True:
+                chunk = os.read(descriptor, 128 * 1024)
+                if not chunk:
+                    break
+                size += len(chunk)
+                digest.update(chunk)
+        except OSError:
+            return
+        finally:
+            if descriptor is not None:
+                os.close(descriptor)
+        self.controller_log_size = size
+        self.controller_log_sha256 = digest.hexdigest()
+
+    def public(self) -> dict[str, Any]:
+        return {
+            "child_stage": self.child_stage,
+            "controller_log_sha256": self.controller_log_sha256,
+            "controller_log_size": self.controller_log_size,
+            "process_category": self.process_category,
+            "process_return_code": self.process_return_code,
+            "stage_code": self.stage_code,
+        }
 
 
 @dataclass(frozen=True, slots=True)
@@ -293,7 +386,10 @@ def _run_installed_lifecycle(
     *,
     cleanup: bool,
     trusted_development: bool,
+    host_controller_python: Path | None = None,
+    diagnostics: _AttestationDiagnostics | None = None,
 ) -> dict[str, Any]:
+    diagnostic = diagnostics or _AttestationDiagnostics()
     installed_python = install_root / "venv/bin/python"
     source = install_root / "source"
     loadout = install_root / "controller-loadout"
@@ -301,12 +397,40 @@ def _run_installed_lifecycle(
     runtime_data = controller_root / "runtime"
     state_root = controller_root / "state"
     home = controller_root / "home"
+    diagnostic.stage_code = "install_static_verification"
+    verified_install = verify_install(install_root)
+    diagnostic.installed_source_digest = str(
+        verified_install["source_tree_digest"]
+    )
+    if host_controller_python is None:
+        controller_python = installed_python
+    else:
+        diagnostic.stage_code = "host_python_validation"
+        try:
+            controller_python = _validate_host_controller_python(
+                host_controller_python,
+                home=install_root / "state/home",
+            )
+        except Exception as error:
+            diagnostic.observe_error(error)
+            raise
+    diagnostic.stage_code = "installed_python_probe"
+    try:
+        _probe_installed_python(
+            installed_python,
+            source=source,
+            home=install_root / "state/home",
+        )
+    except Exception as error:
+        diagnostic.observe_error(error)
+        raise
     for path in (auth_dir, runtime_data, state_root, home):
         path.mkdir(mode=0o700)
     env = _installed_environment(source, home)
+    diagnostic.stage_code = "controller_auth"
     auth = _run_json(
         [
-            str(installed_python),
+            str(controller_python),
             "-m",
             "rapp_stack_cubby",
             "controller-auth",
@@ -338,7 +462,7 @@ def _run_installed_lifecycle(
         }
     )
     command = [
-        str(installed_python),
+        str(controller_python),
         "-m",
         "rapp_stack_cubby",
         "serve",
@@ -364,17 +488,24 @@ def _run_installed_lifecycle(
         "--auth-token-file",
         str(token_file),
     ]
-    process = subprocess.Popen(
-        command,
-        shell=False,
-        cwd=source,
-        env=process_env,
-        stdin=subprocess.DEVNULL,
-        stdout=output,
-        stderr=output,
-        start_new_session=True,
-        close_fds=True,
-    )
+    diagnostic.stage_code = "controller_spawn"
+    try:
+        process = subprocess.Popen(
+            command,
+            shell=False,
+            cwd=source,
+            env=process_env,
+            stdin=subprocess.DEVNULL,
+            stdout=output,
+            stderr=output,
+            start_new_session=True,
+            close_fds=True,
+        )
+    except OSError as error:
+        output.close()
+        failure = _ContentFreeProcessFailure("launch_failed")
+        diagnostic.observe_error(failure)
+        raise failure from error
     output.close()
     instance_rappid: str | None = None
     product_rappid: str | None = None
@@ -382,11 +513,12 @@ def _run_installed_lifecycle(
     stopped = False
     purged = False
     try:
+        diagnostic.stage_code = "controller_readiness"
         _wait_controller(
-            installed_python, source, env, url, token_file, process
+            controller_python, source, env, url, token_file, process
         )
         common = [
-            str(installed_python),
+            str(controller_python),
             "-m",
             "rapp_stack_cubby",
             "controller",
@@ -409,6 +541,7 @@ def _run_installed_lifecycle(
         ]
         if trusted_development:
             adopt_command.append("--trusted-development")
+        diagnostic.stage_code = "installed_adoption"
         adopted_outer = _run_json(
             adopt_command,
             cwd=source,
@@ -420,10 +553,12 @@ def _run_installed_lifecycle(
         if (
             adopted.get("adopted") is not True
             or adopted.get("source_tree_digest")
-            != verify_install(install_root)["source_tree_digest"]
+            != verified_install["source_tree_digest"]
         ):
             raise DemoError("installed-byte controller adoption failed")
+        diagnostic.child_stage = "adopted"
 
+        diagnostic.stage_code = "child_start"
         started = _controller_result(
             _run_json(
                 [
@@ -448,7 +583,9 @@ def _run_installed_lifecycle(
             and started.get("attestation_mode") == ATTESTATION_MODE
         ):
             raise DemoError("attestation child did not start signed-only")
+        diagnostic.child_stage = "running"
 
+        diagnostic.stage_code = "signed_self_test"
         self_test = _controller_result(
             _run_json(
                 [
@@ -473,8 +610,10 @@ def _run_installed_lifecycle(
             in str(child.get("agent_logs", "")).splitlines()
         ):
             raise DemoError("signed content-free SelfTest proof failed")
+        diagnostic.child_stage = "attested"
 
         time.sleep(0.2)
+        diagnostic.stage_code = "child_stop"
         stop_outer = _run_json(
             [
                 *common,
@@ -512,6 +651,9 @@ def _run_installed_lifecycle(
             )
         stopped_result = _controller_result(stop_outer)
         stopped = stopped_result.get("status") == "stopped"
+        if stopped:
+            diagnostic.child_stage = "stopped"
+        diagnostic.stage_code = "child_archive"
         archived = _controller_result(
             _run_json(
                 [
@@ -526,6 +668,9 @@ def _run_installed_lifecycle(
                 env=env,
             )
         )
+        if archived.get("lifecycle_state") == "archived":
+            diagnostic.child_stage = "archived"
+        diagnostic.stage_code = "child_unarchive"
         unarchived = _controller_result(
             _run_json(
                 [
@@ -540,6 +685,9 @@ def _run_installed_lifecycle(
                 env=env,
             )
         )
+        if unarchived.get("lifecycle_state") == "active":
+            diagnostic.child_stage = "unarchived"
+        diagnostic.stage_code = "child_status"
         status = _controller_result(
             _run_json(
                 [
@@ -564,6 +712,7 @@ def _run_installed_lifecycle(
             installed_value.get("instance_rappid")
         )
         if cleanup:
+            diagnostic.stage_code = "child_purge"
             _controller_result(
                 _run_json(
                     [
@@ -595,6 +744,9 @@ def _run_installed_lifecycle(
                 )
             )
             purged = purge.get("lifecycle_state") == "purged"
+            if purged:
+                diagnostic.child_stage = "purged"
+        diagnostic.stage_code = "complete"
         return {
             "controller_authenticated": True,
             "installed_adopted": True,
@@ -609,12 +761,18 @@ def _run_installed_lifecycle(
             "install_instance_rappid": install_instance_rappid,
             "purged": purged,
         }
+    except Exception as error:
+        diagnostic.observe_error(error)
+        diagnostic.observe_process(process)
+        raise
     finally:
+        if diagnostic.process_category == "not_started":
+            diagnostic.observe_process(process)
         if instance_rappid is not None and not stopped and process.poll() is None:
             try:
                 _run_json(
                     [
-                        str(installed_python),
+                        str(controller_python),
                         "-m",
                         "rapp_stack_cubby",
                         "controller",
@@ -636,12 +794,14 @@ def _run_installed_lifecycle(
                 pass
         _terminate_exact_process(process)
         _terminate_recorded_children(state_root)
+        diagnostic.capture_log(log)
 
 
 def run_installed_attestation(
     install_root: Path,
     controller_root: Path,
     *,
+    host_controller_python: Path,
     receipt_path: Path,
 ) -> dict[str, Any]:
     install = install_root.resolve(strict=True)
@@ -652,38 +812,88 @@ def run_installed_attestation(
     receipt = Path(receipt_path)
     if not receipt.is_absolute() or ".." in receipt.parts:
         raise DemoError("attestation receipt must be an explicit absolute path")
-    verified = verify_install(install)
-    lifecycle = _run_installed_lifecycle(
-        install,
-        controller,
-        cleanup=True,
-        trusted_development=False,
+    diagnostic = _AttestationDiagnostics()
+    if host_controller_python is None:
+        diagnostic.stage_code = "host_python_validation"
+        failure = {
+            "attestation_mode": ATTESTATION_MODE,
+            "attestation_model": ATTESTATION_MODEL,
+            "diagnostics": diagnostic.public(),
+            "imessage_sent": False,
+            "installed_source_digest": None,
+            "orphan_count": None,
+            "published": False,
+            "schema": "rapp-installed-offline-attestation/1.0",
+            "signed_only": True,
+            "verified": False,
+        }
+        _write_receipt(receipt, failure)
+        raise InstalledAttestationError(failure["diagnostics"])
+    try:
+        lifecycle = _run_installed_lifecycle(
+            install,
+            controller,
+            cleanup=True,
+            trusted_development=False,
+            host_controller_python=host_controller_python,
+            diagnostics=diagnostic,
+        )
+    except Exception as error:
+        diagnostic.observe_error(error)
+        failure = {
+            "attestation_mode": ATTESTATION_MODE,
+            "attestation_model": ATTESTATION_MODEL,
+            "diagnostics": diagnostic.public(),
+            "imessage_sent": False,
+            "installed_source_digest": diagnostic.installed_source_digest,
+            "orphan_count": None,
+            "published": False,
+            "schema": "rapp-installed-offline-attestation/1.0",
+            "signed_only": True,
+            "verified": False,
+        }
+        _write_receipt(receipt, failure)
+        raise InstalledAttestationError(failure["diagnostics"]) from None
+    verified = all(
+        lifecycle.get(name) is True
+        for name in (
+            "controller_authenticated",
+            "installed_adopted",
+            "attestation_child_started",
+            "signed_self_test",
+            "child_stopped",
+            "no_orphan",
+            "purged",
+        )
     )
+    if not verified:
+        diagnostic.stage_code = "lifecycle_verification"
+        failure = {
+            "attestation_mode": ATTESTATION_MODE,
+            "attestation_model": ATTESTATION_MODEL,
+            "diagnostics": diagnostic.public(),
+            "imessage_sent": False,
+            "installed_source_digest": diagnostic.installed_source_digest,
+            "orphan_count": None,
+            "published": False,
+            "schema": "rapp-installed-offline-attestation/1.0",
+            "signed_only": True,
+            "verified": False,
+        }
+        _write_receipt(receipt, failure)
+        raise InstalledAttestationError(failure["diagnostics"])
     result = {
         "schema": "rapp-installed-offline-attestation/1.0",
-        "verified": all(
-            lifecycle.get(name) is True
-            for name in (
-                "controller_authenticated",
-                "installed_adopted",
-                "attestation_child_started",
-                "signed_self_test",
-                "child_stopped",
-                "no_orphan",
-                "purged",
-            )
-        ),
+        "verified": True,
         "attestation_mode": ATTESTATION_MODE,
         "attestation_model": ATTESTATION_MODEL,
         "signed_only": True,
-        "installed_source_digest": verified["source_tree_digest"],
+        "installed_source_digest": diagnostic.installed_source_digest,
         "orphan_count": 0,
         "published": False,
         "imessage_sent": False,
     }
     _write_receipt(receipt, result)
-    if result["verified"] is not True:
-        raise DemoError("installed offline attestation failed")
     return result
 
 
@@ -807,20 +1017,43 @@ def _run_json(
             timeout=timeout,
             check=False,
         )
+    except subprocess.TimeoutExpired as error:
+        raise _ContentFreeProcessFailure("timed_out") from error
     except (OSError, subprocess.SubprocessError) as error:
-        raise DemoError("fixed demo subprocess failed") from error
+        raise _ContentFreeProcessFailure("launch_failed") from error
     if (
         result.returncode not in {0, 1}
         or len(result.stdout) > 2 * 1024 * 1024
         or len(result.stderr) > 2 * 1024 * 1024
     ):
-        raise DemoError("fixed demo subprocess returned an error")
+        category = (
+            _process_category(result.returncode)
+            if isinstance(result.returncode, int)
+            and not isinstance(result.returncode, bool)
+            and result.returncode not in {0, 1}
+            else "invalid_output"
+        )
+        raise _ContentFreeProcessFailure(
+            category,
+            return_code=(
+                result.returncode
+                if isinstance(result.returncode, int)
+                and not isinstance(result.returncode, bool)
+                else None
+            ),
+        )
     try:
         value = json.loads(result.stdout.decode("utf-8"))
     except (UnicodeError, json.JSONDecodeError) as error:
-        raise DemoError("demo subprocess returned invalid JSON") from error
+        raise _ContentFreeProcessFailure(
+            "invalid_output",
+            return_code=result.returncode,
+        ) from error
     if not isinstance(value, dict):
-        raise DemoError("demo subprocess result must be an object")
+        raise _ContentFreeProcessFailure(
+            "invalid_output",
+            return_code=result.returncode,
+        )
     return value
 
 
@@ -930,6 +1163,116 @@ def _assert_equal_trees(first: Path, second: Path) -> None:
 
     if inventory(first) != inventory(second):
         raise DemoError("development builds are not byte-identical")
+
+
+def _process_category(return_code: int) -> str:
+    if return_code == 0:
+        return "exited_zero"
+    if return_code < 0:
+        return "signaled"
+    return "exited_nonzero"
+
+
+def _probe_environment(home: Path) -> dict[str, str]:
+    return {
+        "HOME": str(home),
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "PATH": "/usr/bin:/bin",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONHASHSEED": "0",
+    }
+
+
+def _run_content_free_python_probe(
+    python: Path,
+    *,
+    source: Path,
+    home: Path,
+    program: str,
+    runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
+) -> None:
+    try:
+        result = runner(
+            [str(python), "-I", "-S", "-c", program],
+            shell=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            cwd=source,
+            env=_probe_environment(home),
+            timeout=15.0,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise _ContentFreeProcessFailure("timed_out") from error
+    except (OSError, subprocess.SubprocessError) as error:
+        raise _ContentFreeProcessFailure("launch_failed") from error
+    return_code = result.returncode
+    if not isinstance(return_code, int) or isinstance(return_code, bool):
+        raise _ContentFreeProcessFailure("status_unavailable")
+    if return_code != 0:
+        raise _ContentFreeProcessFailure(
+            _process_category(return_code),
+            return_code=return_code,
+        )
+
+
+def _validate_host_controller_python(
+    value: Path,
+    *,
+    home: Path,
+    runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
+) -> Path:
+    path = Path(value)
+    if not path.is_absolute() or ".." in path.parts:
+        raise DemoError(
+            "host controller Python must be an explicit absolute path"
+        )
+    try:
+        resolved = path.resolve(strict=True)
+        running = Path(sys.executable).resolve(strict=True)
+    except OSError as error:
+        raise DemoError("host controller Python is unavailable") from error
+    if (
+        not resolved.is_file()
+        or not os.access(resolved, os.X_OK)
+        or not os.path.samefile(resolved, running)
+    ):
+        raise DemoError(
+            "host controller Python must be the attest-installed process"
+        )
+    _run_content_free_python_probe(
+        path,
+        source=home,
+        home=home,
+        program=(
+            "import platform,sys;"
+            "raise SystemExit(0 if "
+            "platform.python_implementation() == 'CPython' "
+            "and sys.version_info[:2] == (3,11) else 1)"
+        ),
+        runner=runner,
+    )
+    return path
+
+
+def _probe_installed_python(
+    python: Path,
+    *,
+    source: Path,
+    home: Path,
+    runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
+) -> None:
+    if not python.is_file() or not os.access(python, os.X_OK):
+        raise _ContentFreeProcessFailure("launch_failed")
+    _run_content_free_python_probe(
+        python,
+        source=source,
+        home=home,
+        program="pass",
+        runner=runner,
+    )
 
 
 def _absolute_executable(value: Path) -> Path:

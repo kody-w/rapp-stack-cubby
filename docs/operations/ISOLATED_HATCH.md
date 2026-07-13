@@ -62,6 +62,13 @@ re-verifies and copies only manifest-bound installed source plus the installed
 venv into controller-owned state. Start executes that copied
 `runtime/venv/bin/python`; neither adopt nor start fetches Git.
 
+Release attestation uses the explicit trusted host CPython only for the global
+controller/auth/controller CLI. It first repeats static installed inventory
+verification and a bounded `-I -S` installed-Python launch probe; the adopted
+signed-only child still starts from the copied manifest-bound installed
+runtime. The development demo may use the installed Python for both its global
+controller and that separate installed child.
+
 The exact flow and private returned-instance extraction are in
 `LOCAL_LIFECYCLE.md`:
 

@@ -131,6 +131,21 @@ scripts/attest-installed-offline.sh \
   "$OFFLINE_ATTESTATION_RECEIPT"
 ```
 
+The first argument is the already-running trusted host CPython 3.11. It runs
+the global controller, controller auth, health, and controller CLI with
+`PYTHONPATH` and `--root` fixed to the statically verified installed source.
+Before adoption, attestation repeats static install verification and runs only
+an isolated, no-site `-I -S` launch probe of the manifest-bound installed
+Python. Adoption still copies that measured installed venv/source into child
+state, and signed-only child start executes the copied installed Python with
+its actual dependencies. Failure output is limited to stage/process
+categories, controller-log size/digest, and child stage.
+
+The development demo is intentionally distinct: unless a future caller
+explicitly supplies a host controller Python, its global controller continues
+to run from the installed venv. Its adopted child follows the same installed
+runtime binding.
+
 This proof has no model auth/network and does not weaken signed-only ingress.
 Normal live start still requires an exact advertised model and successful
 `provider-preflight`.

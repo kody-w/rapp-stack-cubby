@@ -1,15 +1,28 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import io
 import os
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
-from rapp_stack_cubby.demo import DemoTestSeam, run_demo
+from rapp_stack_cubby.cli import main
+from rapp_stack_cubby.demo import (
+    DemoError,
+    DemoTestSeam,
+    InstalledAttestationError,
+    _ContentFreeProcessFailure,
+    _probe_installed_python,
+    _run_installed_lifecycle,
+    run_demo,
+    run_installed_attestation,
+)
 from rapp_stack_cubby.doctor import DoctorError, run_doctor
 from rapp_stack_cubby.packaging.hatch import HatchTestSeam
 from tests.packaging._support import (
@@ -232,6 +245,301 @@ class ProductDemoTests(unittest.TestCase):
             self.assertNotIn("HOME", receipt.read_text(encoding="utf-8"))
             self.assertEqual(os.environ.get("HOME"), before_home)
             self.assertFalse((install / "rapp-stack-cubby-demo").exists())
+
+
+class InstalledAttestationTests(unittest.TestCase):
+    def test_global_controller_argv_uses_explicit_host_python(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-host-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            install = root / "install"
+            controller = root / "controller"
+            for path in (
+                install / "source",
+                install / "state/home",
+                controller,
+            ):
+                path.mkdir(parents=True, mode=0o700)
+            token = controller / "auth/token.json"
+            host_python = Path(sys.executable)
+            installed_python = install / "venv/bin/python"
+            source_digest = "a" * 64
+            instance = "rappid:@kody-w/attestation:" + "b" * 64
+            product = "rappid:@kody-w/product:" + "c" * 64
+            installed_instance = "rappid:@kody-w/installed:" + "d" * 64
+            calls: list[list[str]] = []
+
+            def run_json(argv, **kwargs):
+                del kwargs
+                command = list(argv)
+                calls.append(command)
+                if "controller-auth" in command:
+                    token.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+                    token.write_text("{}\n", encoding="utf-8")
+                    token.chmod(0o600)
+                    return {"token_file": str(token)}
+                result: dict[str, object] = {"ok": True}
+                if "adopt" in command:
+                    result.update(
+                        {
+                            "adopted": True,
+                            "instance_rappid": instance,
+                            "product_rappid": product,
+                            "source_tree_digest": source_digest,
+                        }
+                    )
+                elif "start" in command:
+                    result.update(
+                        {
+                            "attestation_mode": "offline-self-test",
+                            "signed_only": True,
+                            "status": "running",
+                        }
+                    )
+                elif "self-test" in command:
+                    result.update(
+                        {
+                            "child": {
+                                "agent_logs": "[SelfTest] completed",
+                                "response": "",
+                            },
+                            "passed": True,
+                            "signed_twin_chat_verified": True,
+                        }
+                    )
+                elif "stop" in command:
+                    result["status"] = "stopped"
+                elif "unarchive" in command:
+                    result["lifecycle_state"] = "active"
+                elif "purge" in command:
+                    result["lifecycle_state"] = "purged"
+                elif "archive" in command:
+                    result["lifecycle_state"] = "archived"
+                elif "status" in command:
+                    result.update(
+                        {"healthy": False, "runtime_status": "stopped"}
+                    )
+                return {"controller_result": result}
+
+            process = Mock(pid=71001)
+            process.poll.return_value = None
+            verified = {
+                "instance_rappid": installed_instance,
+                "source_tree_digest": source_digest,
+            }
+            with patch(
+                "rapp_stack_cubby.demo._validate_host_controller_python",
+                return_value=host_python,
+            ), patch(
+                "rapp_stack_cubby.demo._probe_installed_python"
+            ) as probe, patch(
+                "rapp_stack_cubby.demo.verify_install",
+                return_value=verified,
+            ), patch(
+                "rapp_stack_cubby.demo._run_json",
+                side_effect=run_json,
+            ), patch(
+                "rapp_stack_cubby.demo.subprocess.Popen",
+                return_value=process,
+            ) as popen, patch(
+                "rapp_stack_cubby.demo._wait_controller"
+            ) as wait, patch(
+                "rapp_stack_cubby.demo._terminate_exact_process"
+            ), patch(
+                "rapp_stack_cubby.demo._terminate_recorded_children"
+            ), patch(
+                "rapp_stack_cubby.demo.time.sleep"
+            ):
+                result = _run_installed_lifecycle(
+                    install,
+                    controller,
+                    cleanup=True,
+                    trusted_development=False,
+                    host_controller_python=host_python,
+                )
+
+        self.assertTrue(result["purged"])
+        self.assertTrue(calls)
+        self.assertTrue(
+            all(command[0] == str(host_python) for command in calls)
+        )
+        self.assertEqual(popen.call_args.args[0][0], str(host_python))
+        self.assertEqual(wait.call_args.args[0], host_python)
+        self.assertEqual(probe.call_args.args[0], installed_python)
+
+    def test_invalid_host_python_is_rejected_without_execution(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-invalid-host-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            install = root / "install"
+            install.mkdir(mode=0o700)
+            receipt = root / "receipt.json"
+            with patch(
+                "rapp_stack_cubby.demo.verify_install",
+                return_value={"source_tree_digest": "a" * 64},
+            ) as verify, self.assertRaises(
+                InstalledAttestationError
+            ) as raised:
+                run_installed_attestation(
+                    install,
+                    root / "controller",
+                    host_controller_python=Path("python3.11"),
+                    receipt_path=receipt,
+                )
+            value = json.loads(receipt.read_text(encoding="utf-8"))
+
+        verify.assert_called_once_with(install)
+        self.assertEqual(
+            raised.exception.diagnostics["stage_code"],
+            "host_python_validation",
+        )
+        self.assertFalse(value["verified"])
+
+    def test_installed_python_probe_is_isolated_and_fails_closed(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-probe-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            source = root / "source"
+            home = root / "home"
+            python = root / "venv/bin/python"
+            for path in (source, home, python.parent):
+                path.mkdir(parents=True, exist_ok=True, mode=0o700)
+            python.write_bytes(b"fixture")
+            python.chmod(0o700)
+            runner = Mock(
+                return_value=subprocess.CompletedProcess([], 9)
+            )
+            with self.assertRaises(_ContentFreeProcessFailure) as raised:
+                _probe_installed_python(
+                    python,
+                    source=source,
+                    home=home,
+                    runner=runner,
+                )
+
+        argv = runner.call_args.args[0]
+        self.assertEqual(argv, [str(python), "-I", "-S", "-c", "pass"])
+        self.assertIs(runner.call_args.kwargs["stdout"], subprocess.DEVNULL)
+        self.assertIs(runner.call_args.kwargs["stderr"], subprocess.DEVNULL)
+        self.assertEqual(raised.exception.return_code, 9)
+        self.assertEqual(raised.exception.category, "exited_nonzero")
+
+    def test_readiness_failure_receipt_and_cli_diagnostics_are_redacted(self):
+        secret = b"message=private key=secret account-id=private-id\n"
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-redaction-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            install = root / "install"
+            for path in (install / "source", install / "state/home"):
+                path.mkdir(parents=True, mode=0o700)
+            controller = root / "controller"
+            receipt = root / "receipt.json"
+            token = root / "controller-token.json"
+            host_python = Path(sys.executable)
+            process = Mock(pid=71002)
+            process.poll.return_value = None
+
+            def run_json(argv, **kwargs):
+                del argv, kwargs
+                token.write_text("{}\n", encoding="utf-8")
+                token.chmod(0o600)
+                return {"token_file": str(token)}
+
+            def spawn(argv, **kwargs):
+                del argv
+                output = kwargs["stdout"]
+                output.write(secret)
+                output.flush()
+                return process
+
+            output = io.StringIO()
+            errors = io.StringIO()
+            with patch(
+                "rapp_stack_cubby.demo._validate_host_controller_python",
+                return_value=host_python,
+            ), patch(
+                "rapp_stack_cubby.demo._probe_installed_python"
+            ), patch(
+                "rapp_stack_cubby.demo.verify_install",
+                return_value={
+                    "instance_rappid": "rappid:@kody-w/install:" + "e" * 64,
+                    "source_tree_digest": "f" * 64,
+                },
+            ), patch(
+                "rapp_stack_cubby.demo._run_json",
+                side_effect=run_json,
+            ), patch(
+                "rapp_stack_cubby.demo.subprocess.Popen",
+                side_effect=spawn,
+            ), patch(
+                "rapp_stack_cubby.demo._wait_controller",
+                side_effect=DemoError(secret.decode("ascii")),
+            ), patch(
+                "rapp_stack_cubby.demo._terminate_exact_process"
+            ), patch(
+                "rapp_stack_cubby.demo._terminate_recorded_children"
+            ), redirect_stdout(output), redirect_stderr(errors):
+                status = main(
+                    [
+                        "attest-installed",
+                        "--install-root",
+                        str(install),
+                        "--host-python",
+                        str(host_python),
+                        "--controller-dir",
+                        str(controller),
+                        "--receipt",
+                        str(receipt),
+                    ]
+                )
+
+            value = json.loads(receipt.read_text(encoding="utf-8"))
+            diagnostic = value["diagnostics"]
+            emitted = json.loads(errors.getvalue())
+            combined = receipt.read_text(encoding="utf-8") + errors.getvalue()
+            receipt_mode = receipt.stat().st_mode & 0o777
+
+        self.assertEqual(status, 2)
+        self.assertEqual(output.getvalue(), "")
+        self.assertFalse(value["verified"])
+        self.assertEqual(emitted, diagnostic)
+        self.assertEqual(
+            set(diagnostic),
+            {
+                "child_stage",
+                "controller_log_sha256",
+                "controller_log_size",
+                "process_category",
+                "process_return_code",
+                "stage_code",
+            },
+        )
+        self.assertEqual(diagnostic["stage_code"], "controller_readiness")
+        self.assertEqual(diagnostic["child_stage"], "not_adopted")
+        self.assertEqual(diagnostic["process_category"], "running")
+        self.assertIsNone(diagnostic["process_return_code"])
+        self.assertEqual(diagnostic["controller_log_size"], len(secret))
+        self.assertEqual(
+            diagnostic["controller_log_sha256"],
+            hashlib.sha256(secret).hexdigest(),
+        )
+        self.assertEqual(receipt_mode, 0o600)
+        for forbidden in (
+            secret.decode("ascii").strip(),
+            str(controller),
+            str(token),
+            "private-id",
+            "key=secret",
+        ):
+            self.assertNotIn(forbidden, combined)
 
 
 if __name__ == "__main__":

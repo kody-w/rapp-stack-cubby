@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 import os
 import hashlib
 import stat
+import subprocess
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
@@ -49,30 +51,29 @@ class ControllerAdoptionTests(unittest.TestCase):
                 ).hexdigest(),
                 test_seam=HatchTestSeam(self._fake_environment),
             )
-            with ControllerEnvironment() as environment, patch.dict(
-                environment.globals,
-                {
-                    "_probe_installed_dependencies": (
-                        lambda python, root: {
-                            "cffi": "2.1.0",
-                            "cryptography": "49.0.0",
-                            "pycparser": "3.0",
-                        }
+            with ControllerEnvironment() as environment:
+                with patch.object(
+                    environment.globals["subprocess"],
+                    "run",
+                    wraps=subprocess.run,
+                ) as runner:
+                    adopted = decoded(
+                        environment.agent,
+                        action="adopt_install",
+                        install_root=str(install),
+                        idempotency_key="adopt-verified",
                     )
-                },
-            ):
-                adopted = decoded(
-                    environment.agent,
-                    action="adopt_install",
-                    install_root=str(install),
-                    idempotency_key="adopt-verified",
-                )
-                replay = decoded(
-                    environment.agent,
-                    action="adopt_install",
-                    install_root=str(install),
-                    idempotency_key="adopt-verified",
-                )
+                    replay = decoded(
+                        environment.agent,
+                        action="adopt_install",
+                        install_root=str(install),
+                        idempotency_key="adopt-verified",
+                    )
+                for call in runner.call_args_list:
+                    self.assertNotEqual(
+                        call.args[0][0],
+                        str(install / "venv/bin/python"),
+                    )
                 self.assertTrue(adopted["ok"], adopted)
                 self.assertTrue(replay["idempotent_replay"])
                 self.assertNotEqual(
@@ -124,6 +125,17 @@ class ControllerAdoptionTests(unittest.TestCase):
                 self.assertEqual(
                     popen.call_args.args[0][0],
                     str(active / "runtime/venv/bin/python"),
+                )
+                controller_state = json.loads(
+                    (active / "state.json").read_text(encoding="utf-8")
+                )
+                self.assertEqual(
+                    controller_state["adopted_install"]["python_relative"],
+                    "runtime/venv/bin/python",
+                )
+                self.assertEqual(
+                    (active / "runtime/venv/bin/python").read_bytes(),
+                    (install / "venv/bin/python").resolve().read_bytes(),
                 )
 
                 manifest = install / "source/README.md"
@@ -199,18 +211,7 @@ class ControllerAdoptionTests(unittest.TestCase):
                 release_verification=release,
                 test_seam=HatchTestSeam(self._fake_environment),
             )
-            with ControllerEnvironment() as environment, patch.dict(
-                environment.globals,
-                {
-                    "_probe_installed_dependencies": (
-                        lambda python, root: {
-                            "cffi": "2.1.0",
-                            "cryptography": "49.0.0",
-                            "pycparser": "3.0",
-                        }
-                    )
-                },
-            ):
+            with ControllerEnvironment() as environment:
                 adopted = decoded(
                     environment.agent,
                     action="adopt_install",
@@ -285,15 +286,6 @@ class ControllerAdoptionTests(unittest.TestCase):
                             fired = True
                             raise RuntimeError("transition_failed")
 
-                    base = {
-                        "_probe_installed_dependencies": (
-                            lambda python, root: {
-                                "cffi": "2.1.0",
-                                "cryptography": "49.0.0",
-                                "pycparser": "3.0",
-                            }
-                        )
-                    }
                     arguments = {
                         "action": "adopt_install",
                         "install_root": str(install),
@@ -301,12 +293,11 @@ class ControllerAdoptionTests(unittest.TestCase):
                     }
                     with patch.dict(
                         environment.globals,
-                        {**base, "_transition_boundary": boundary},
+                        {"_transition_boundary": boundary},
                     ):
                         first = decoded(environment.agent, **arguments)
                     self.assertFalse(first["ok"])
-                    with patch.dict(environment.globals, base):
-                        recovered = decoded(environment.agent, **arguments)
+                    recovered = decoded(environment.agent, **arguments)
                     self.assertTrue(recovered["ok"], recovered)
 
 

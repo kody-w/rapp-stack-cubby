@@ -95,6 +95,10 @@ class UserJourneyContractTests(unittest.TestCase):
         ):
             mode = stat.S_IMODE((ROOT / "scripts" / name).stat().st_mode)
             self.assertEqual(mode, 0o755)
+        attestation = (
+            ROOT / "scripts/attest-installed-offline.sh"
+        ).read_text(encoding="utf-8")
+        self.assertIn("--host-python \"$HOST_PYTHON\"", attestation)
 
     def test_release_docs_name_ordered_same_commit_phases(self):
         for relative in (
