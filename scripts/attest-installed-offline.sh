@@ -13,7 +13,7 @@ case "$HOST_PYTHON:$INSTALL_ROOT:$CONTROLLER_ROOT:$RECEIPT" in
     *) echo "error: offline attestation paths must be absolute" >&2; exit 2 ;;
 esac
 
-PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$ROOT/src" \
+PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH="$ROOT/src" \
     exec "$HOST_PYTHON" -m rapp_stack_cubby attest-installed \
     --install-root "$INSTALL_ROOT" \
     --host-python "$HOST_PYTHON" \

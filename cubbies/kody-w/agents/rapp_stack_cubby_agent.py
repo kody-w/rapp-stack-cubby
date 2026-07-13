@@ -3772,6 +3772,8 @@ def _child_environment(twin_directory, state):
             ),
         }
     )
+    if state.get("attestation_mode") == _ATTESTATION_MODE:
+        environment["PYTHONUNBUFFERED"] = "1"
     return environment
 
 

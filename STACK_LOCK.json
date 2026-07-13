@@ -493,9 +493,9 @@
       "catalog": {
         "path": "cubbies/kody-w/catalog/controller-catalog.json",
         "provenance": "generated_local",
-        "sha256": "e20d57602cfe9479ea232cd890e8b7e242d8dcfd819bdde5e70695e615b8962c"
+        "sha256": "6ad8883fcd5067653e67c4de7e1d2eaedd06e90084fb10ab2ea3de2dd04018ca"
       },
-      "manifest_sha256": "fd0495eb5b8ed6f76fd36ee95ec0d211a368586b80856265672875e1aa279ac2",
+      "manifest_sha256": "1fad7c8cb91430092f97aab30fc16ee6c889b8dbfd078c3fa34061a2538126ea",
       "receipt_template": {
         "path": "cubbies/kody-w/catalog/controller-receipt-template.json",
         "provenance": "original_new",
@@ -504,7 +504,7 @@
       "source": {
         "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
         "provenance": "original_new",
-        "sha256": "ef142323a9d7e2cf5f168475be5259078fc187286d529a8b24a777ae9ce94a1a"
+        "sha256": "9b064c2165684ceed4184c799ed32ae1c991a782aa6aea4efda3841d7b3230e1"
       },
       "support_files": [
         {
@@ -530,7 +530,7 @@
         {
           "path": "src/rapp_stack_cubby/constants.py",
           "provenance": "original_new",
-          "sha256": "f6deab8a3aac15a08383ed5408a1ad98ac10ded5882fff7c088793b254bdb164"
+          "sha256": "3bebdf94e2ebc41fe7a5634fe9d7d011b15c1ce6f3a8fefcbc64fc8e04ab3ea7"
         },
         {
           "path": "src/rapp_stack_cubby/context.py",
@@ -576,7 +576,7 @@
         {
           "path": "src/rapp_stack_cubby/demo.py",
           "provenance": "original_new",
-          "sha256": "cfd9cc74a956331cc8ef861c189097713d2312616d585af869f7d616bd4c1017"
+          "sha256": "37db16e87902777e12f8248b8bbda14050a44a7b3ebc62d2cf53bc79e2b2cf44"
         },
         {
           "path": "src/rapp_stack_cubby/dependencies.py",
@@ -684,7 +684,7 @@
           "sha256": "cf5d5fd78decbd2ec2df35a347ecd5bdad604699cec6a627814d939afc62bf3c"
         }
       ],
-      "manifest_sha256": "53de41d16ab02507648cb89498ebdf95557557b0e6cccbbaa8fa4790fcde1d60",
+      "manifest_sha256": "136b0d86a3312796db65805990d01bb0b846814b3b2ac1dad6ea3ea076642ccc",
       "policy": "Original runtime, protocol, imsg tooling/privacy scanner, and dependency-verification files; adapted bridge files are tracked separately in PROVENANCE.json."
     },
     "packaging_implementation": {
@@ -726,17 +726,17 @@
         {
           "path": ".github/workflows/promote.yml",
           "provenance": "original_new",
-          "sha256": "e66e6bf01341997b6e9e5c54f6a86fd4a9fceda9f6fca28f9355b3ff388e4d3b"
+          "sha256": "6567240ecad0e05b2e499a8467563c3ecda5b289ba23a87b4f6f5e1c641eeabc"
         },
         {
           "path": ".github/workflows/release.yml",
           "provenance": "original_new",
-          "sha256": "b2a335e372d32eb0715df3995e100073bee063cd1606afa7830169221e5157c8"
+          "sha256": "79bffd8330103f3e2edbd6bdf0ae48bbce6c83341850c952cf51bd0c0b6abf36"
         },
         {
           "path": "CHANGELOG.md",
           "provenance": "original_new",
-          "sha256": "aabdb5c14e02f79550f55741bbd3837af5de92727b5a125d26a877783e617dfc"
+          "sha256": "c703b469dcccaaaec86b2da79f77729ab98e0d197064cc0347dedc85623c8a8a"
         },
         {
           "path": "GITHUB_ACTIONS_LOCK.json",
@@ -746,12 +746,12 @@
         {
           "path": "RELEASE_CHECKLIST.md",
           "provenance": "original_new",
-          "sha256": "386abb121a118da17afe2f2cd40173fd9fb8d0b78169110a7d083f57fabb5958"
+          "sha256": "559542fb5f848dde9e10c1697815419c58bd55dda41ce07b73f1e9e2c3063280"
         },
         {
           "path": "RELEASE_STATUS.json",
           "provenance": "original_new",
-          "sha256": "4b1b3895a27c1e97b83e3bdafc414d49b77a8ca71e619e8237d7095fa135ea59"
+          "sha256": "1243d40ac71ab76cfe7cd173ea89aa778f2bbe7f52bd78935e4aa862de582add"
         },
         {
           "path": "RELEASE_TRUST.json",
@@ -761,7 +761,7 @@
         {
           "path": "VERSION",
           "provenance": "original_new",
-          "sha256": "f2066d264d3bd9dc6e8ba0f0d8cddc70ef7c6cdc2542e25e9229d140ee2fa80d"
+          "sha256": "b3339925fa2f1cad0693855ed15619ecce064ca5c837b8f0c28fcf115bc4ef6a"
         },
         {
           "path": "docs/.nojekyll",
@@ -776,32 +776,32 @@
         {
           "path": "docs/api/v1/architecture.json",
           "provenance": "generated_local",
-          "sha256": "3c02f5b2b58153439622dab60a0ff04b4f777e8f16d469fb555ac1076a9b7c82"
+          "sha256": "57957236a37bae74b8724c23521fbae6cfb1bfc5a335abdfe424c481d0d06421"
         },
         {
           "path": "docs/api/v1/capabilities.json",
           "provenance": "generated_local",
-          "sha256": "961e17fa353d1a40942f4c5a007fbb654d208c1bfe1f4b3d5cfd3436a735c1d1"
+          "sha256": "ceca4b79addfa100aeb69a1d7a7290f93a33a37efbe8f71352e737df3688b68b"
         },
         {
           "path": "docs/api/v1/context.json",
           "provenance": "generated_local",
-          "sha256": "90217f98a4742945070cf7fdb7bc718b61f74c41d3f5ba3bc747ecd63ef43a4a"
+          "sha256": "bee90237deaaf7d4c52f763b5ab7e95e4ce3a7dde7888829555e77afd5ec884f"
         },
         {
           "path": "docs/api/v1/downloads.json",
           "provenance": "generated_local",
-          "sha256": "b4d71f168432cb2d41c090f2b79ac24b28d2e66f6063260ad1e5211c005037b0"
+          "sha256": "27027d134201ad58050d82a2ffaa403189b9565d2e9e2a0aa800f2440a1e8844"
         },
         {
           "path": "docs/api/v1/prompts.json",
           "provenance": "generated_local",
-          "sha256": "66d4397dd840e9566360e33bf5a0f8178a4154c25a8f26944f78d07d9fb7103d"
+          "sha256": "a7c209af5497b5931dda78093bd939b60cc6467cf011287033c4757e0a920d64"
         },
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "589b85ff56e8e076f6bba6511d83dae0ff7fc19156bb0c03c4fe957477d4b2f0"
+          "sha256": "7066e62c6671309bdeae49605ae5b4078bb31e6019d533b42d78a64709b3b39a"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -821,12 +821,12 @@
         {
           "path": "docs/decisions/static-pages-public-boundary.md",
           "provenance": "original_new",
-          "sha256": "610dfd4d7066ba44f6d8b4052d11b8a0cf687552eddbfb896d33ad88824b3746"
+          "sha256": "3276b99b1160a1ea135be24959d74d57fb393d948f50026a0515a2421009fc3f"
         },
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "ae58705bb0bfc56f6a55c8f2f659ec200300c0bcd183f4c6b6f177b40c38f23a"
+          "sha256": "0a87562ae8b72eef0d7cd7493097db0995150c4a9b90aaedc335cfa0230ada4e"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -846,7 +846,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "3d48b7199c92d320f174bd76a4b1ab375e0c3ad383ecf965ff1da8d46094b0d3"
+          "sha256": "677e495882f8261c7c0773ead0e7d7afe4fadc3283a518ab10a244ecbadf8dc0"
         },
         {
           "path": "docs/robots.txt",
@@ -931,7 +931,7 @@
         {
           "path": "tests/packaging/test_release_scripts.py",
           "provenance": "original_new",
-          "sha256": "b528f991bae56f14904dd495195a9cfb47e66ec516d4050223e579fee9d3d8a4"
+          "sha256": "b44100bb43d0aa6736f9aa0e2d5e9c45bc631a52c7cb5ba5b5f0267155339fcb"
         },
         {
           "path": "tests/pages/__init__.py",
@@ -941,10 +941,10 @@
         {
           "path": "tests/pages/test_pages.py",
           "provenance": "original_new",
-          "sha256": "296982b9fc6a77f96fab83f907341f9428b44556dc532785b4ed0c9cab9f6247"
+          "sha256": "7b28b761f4ae7236e2d3901983f034922e025b88b762e86d38be09bdff94f5fd"
         }
       ],
-      "manifest_sha256": "7ffdd14c2ff62798f2fbc4ea79db5e9b3aff58e4e5fcae0ac96e3594f350b581",
+      "manifest_sha256": "d4a3d7a10eee1a1da1f4e28944fcdd641d0137c9e4095d25ba80af95ee9cea29",
       "release_status": "pending",
       "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
     },
@@ -953,7 +953,7 @@
       "files": [
         {
           "path": "PUBLICATION_SCAN_POLICY.json",
-          "sha256": "7b80a789c4a163de28dde223132b86ab6aae798ab28310560af2340f7e25284e"
+          "sha256": "c7ca5b31500287b58bbcdf6dead42cba383498d297df029a4beb9949541d56e7"
         },
         {
           "path": "schemas/publication-scan-policy.schema.json",
@@ -988,7 +988,7 @@
       "history_release_requirement": "real commit and complete reachable history; development without HEAD records not_available_development",
       "network_used": false,
       "policy_path": "PUBLICATION_SCAN_POLICY.json",
-      "policy_sha256": "7b80a789c4a163de28dde223132b86ab6aae798ab28310560af2340f7e25284e",
+      "policy_sha256": "c7ca5b31500287b58bbcdf6dead42cba383498d297df029a4beb9949541d56e7",
       "receipt_schema": "rapp-publication-scan-receipt/1.0",
       "status": "implemented_gate_execution_unresolved"
     },
@@ -1446,8 +1446,8 @@
     }
   ],
   "project": {
-    "candidate_tag": "v0.1.0-rc.6",
-    "candidate_version": "0.1.0rc6",
+    "candidate_tag": "v0.1.0-rc.7",
+    "candidate_version": "0.1.0rc7",
     "final_release_sha": null,
     "newly_authored_code_license": "MIT",
     "pages_url": "https://kody-w.github.io/rapp-stack-cubby/",

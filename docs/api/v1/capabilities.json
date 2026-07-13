@@ -5137,8 +5137,8 @@
     "source_git_tree": null,
     "source_tree_digest": null,
     "state": "pending",
-    "tag": "v0.1.0-rc.6",
-    "version": "0.1.0rc6"
+    "tag": "v0.1.0-rc.7",
+    "version": "0.1.0rc7"
   },
   "schema": "rapp-pages-capabilities/1.0",
   "selected_count": 61,

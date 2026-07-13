@@ -59,6 +59,10 @@ _DEMO_STAGE_NAMES: Final = (
     "no_orphan",
     "cleanup",
 )
+_CONTROLLER_STARTUP_TIMEOUT_SECONDS: Final = 75.0
+_CONTROLLER_STARTUP_POLL_INTERVAL_SECONDS: Final = 1.0
+_CONTROLLER_HEALTH_REQUEST_TIMEOUT_SECONDS: Final = 2.0
+_CONTROLLER_HEALTH_PROCESS_TIMEOUT_SECONDS: Final = 5.0
 
 
 class DemoError(RuntimeError):
@@ -995,6 +999,7 @@ def _installed_environment(source: Path, home: Path) -> dict[str, str]:
         "PYTHONDONTWRITEBYTECODE": "1",
         "PYTHONHASHSEED": "0",
         "PYTHONPATH": str(source / "src"),
+        "PYTHONUNBUFFERED": "1",
     }
 
 
@@ -1073,33 +1078,70 @@ def _wait_controller(
     url: str,
     token_file: Path,
     process: subprocess.Popen[bytes],
+    *,
+    clock: Callable[[], float] = time.monotonic,
+    probe: Callable[[float], bool] | None = None,
+    pause: Callable[[float], None] | None = None,
 ) -> None:
-    deadline = time.monotonic() + 15.0
-    while time.monotonic() < deadline:
+    def health_probe(remaining: float) -> bool:
+        request_timeout = min(
+            _CONTROLLER_HEALTH_REQUEST_TIMEOUT_SECONDS,
+            remaining,
+        )
+        process_timeout = min(
+            _CONTROLLER_HEALTH_PROCESS_TIMEOUT_SECONDS,
+            remaining,
+        )
+        value = _run_json(
+            [
+                str(python),
+                "-m",
+                "rapp_stack_cubby",
+                "health",
+                "--url",
+                url + "/health",
+                "--auth-token-file",
+                str(token_file),
+                "--timeout",
+                f"{request_timeout:g}",
+            ],
+            cwd=source,
+            env=env,
+            timeout=process_timeout,
+        )
+        return value.get("ready") is True
+
+    def wait_for_process(delay: float) -> None:
+        try:
+            process.wait(timeout=delay)
+        except subprocess.TimeoutExpired:
+            return
+        raise DemoError("global controller exited during startup")
+
+    readiness_probe = probe or health_probe
+    wait_for_retry = pause or wait_for_process
+    deadline = clock() + _CONTROLLER_STARTUP_TIMEOUT_SECONDS
+    while True:
         if process.poll() is not None:
             raise DemoError("global controller exited during startup")
+        remaining = deadline - clock()
+        if remaining <= 0:
+            break
         try:
-            value = _run_json(
-                [
-                    str(python),
-                    "-m",
-                    "rapp_stack_cubby",
-                    "health",
-                    "--url",
-                    url + "/health",
-                    "--auth-token-file",
-                    str(token_file),
-                    "--timeout",
-                    "2",
-                ],
-                cwd=source,
-                env=env,
-                timeout=5.0,
-            )
-            if value.get("ready") is True:
+            if readiness_probe(remaining) and clock() <= deadline:
                 return
         except DemoError:
-            time.sleep(0.1)
+            pass
+        if process.poll() is not None:
+            raise DemoError("global controller exited during startup")
+        remaining = deadline - clock()
+        if remaining <= 0:
+            break
+        wait_for_retry(
+            min(_CONTROLLER_STARTUP_POLL_INTERVAL_SECONDS, remaining)
+        )
+    if process.poll() is not None:
+        raise DemoError("global controller exited during startup")
     raise DemoError("global controller did not become ready")
 
 

@@ -17,9 +17,11 @@ from rapp_stack_cubby.demo import (
     DemoError,
     DemoTestSeam,
     InstalledAttestationError,
+    _CONTROLLER_STARTUP_TIMEOUT_SECONDS,
     _ContentFreeProcessFailure,
     _probe_installed_python,
     _run_installed_lifecycle,
+    _wait_controller,
     run_demo,
     run_installed_attestation,
 )
@@ -248,6 +250,100 @@ class ProductDemoTests(unittest.TestCase):
 
 
 class InstalledAttestationTests(unittest.TestCase):
+    def test_controller_readiness_allows_cold_start_within_bound(self):
+        elapsed = 0.0
+        probe_times: list[float] = []
+        process = Mock()
+        process.poll.return_value = None
+
+        def clock() -> float:
+            return elapsed
+
+        def pause(delay: float) -> None:
+            nonlocal elapsed
+            elapsed += delay
+
+        def probe(remaining: float) -> bool:
+            self.assertGreater(remaining, 0.0)
+            probe_times.append(elapsed)
+            return elapsed > 15.0
+
+        _wait_controller(
+            Path("/python"),
+            Path("/source"),
+            {},
+            "http://127.0.0.1:1",
+            Path("/token"),
+            process,
+            clock=clock,
+            probe=probe,
+            pause=pause,
+        )
+
+        self.assertGreater(elapsed, 15.0)
+        self.assertLess(elapsed, _CONTROLLER_STARTUP_TIMEOUT_SECONDS)
+        self.assertEqual(probe_times[-1], elapsed)
+
+    def test_controller_readiness_times_out_at_named_bound(self):
+        elapsed = 0.0
+        process = Mock()
+        process.poll.return_value = None
+        probe = Mock(return_value=False)
+
+        def clock() -> float:
+            return elapsed
+
+        def pause(delay: float) -> None:
+            nonlocal elapsed
+            elapsed += delay
+
+        with self.assertRaisesRegex(
+            DemoError,
+            "global controller did not become ready",
+        ):
+            _wait_controller(
+                Path("/python"),
+                Path("/source"),
+                {},
+                "http://127.0.0.1:1",
+                Path("/token"),
+                process,
+                clock=clock,
+                probe=probe,
+                pause=pause,
+            )
+
+        self.assertEqual(elapsed, _CONTROLLER_STARTUP_TIMEOUT_SECONDS)
+        self.assertEqual(
+            probe.call_count,
+            int(_CONTROLLER_STARTUP_TIMEOUT_SECONDS),
+        )
+
+    def test_controller_readiness_fails_fast_when_process_exited(self):
+        process = Mock()
+        process.poll.return_value = 9
+        probe = Mock(side_effect=AssertionError("probe must not run"))
+        pause = Mock(side_effect=AssertionError("pause must not run"))
+
+        with self.assertRaisesRegex(
+            DemoError,
+            "global controller exited during startup",
+        ):
+            _wait_controller(
+                Path("/python"),
+                Path("/source"),
+                {},
+                "http://127.0.0.1:1",
+                Path("/token"),
+                process,
+                clock=lambda: 0.0,
+                probe=probe,
+                pause=pause,
+            )
+
+        probe.assert_not_called()
+        pause.assert_not_called()
+
     def test_global_controller_argv_uses_explicit_host_python(self):
         with tempfile.TemporaryDirectory(
             prefix=".attestation-host-",
@@ -366,6 +462,10 @@ class InstalledAttestationTests(unittest.TestCase):
             all(command[0] == str(host_python) for command in calls)
         )
         self.assertEqual(popen.call_args.args[0][0], str(host_python))
+        self.assertEqual(
+            popen.call_args.kwargs["env"]["PYTHONUNBUFFERED"],
+            "1",
+        )
         self.assertEqual(wait.call_args.args[0], host_python)
         self.assertEqual(probe.call_args.args[0], installed_python)
 

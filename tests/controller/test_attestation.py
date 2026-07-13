@@ -27,6 +27,18 @@ SOUL = (
 
 
 class OfflineAttestationTests(unittest.TestCase):
+    def test_attestation_child_diagnostics_are_unbuffered(self):
+        with ControllerEnvironment() as environment:
+            twin = environment.create_twin()
+            state = dict(environment.globals["_load_state"](twin))
+            state["attestation_mode"] = "offline-self-test"
+            child_environment = environment.globals["_child_environment"](
+                twin,
+                state,
+            )
+
+        self.assertEqual(child_environment["PYTHONUNBUFFERED"], "1")
+
     def test_real_signed_loopback_self_test_is_content_free(self):
         with ControllerEnvironment() as environment:
             twin = environment.create_twin()
