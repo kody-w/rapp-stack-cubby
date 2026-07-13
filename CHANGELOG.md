@@ -3,6 +3,18 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc5 — release candidate
+
+### Fixed
+
+- Release run `29265827544` showed that an Actions `GITHUB_TOKEN` ruleset
+  detail can omit the administration-only `bypass_actors` field even though
+  owner-token readback proves the active ruleset has an exact empty list. The
+  release-only fallback now accepts only absent/null or exact empty actors,
+  rejects every visible actor, and keeps all observable rule and condition
+  checks exact; owner configuration and postflight readback still require
+  explicit `[]`. Product behavior is unchanged.
+
 ## 0.1.0rc4 — release candidate
 
 ### Fixed

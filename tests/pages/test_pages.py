@@ -252,7 +252,7 @@ class PagesApiTests(unittest.TestCase):
                     checksums=output / "SHA256SUMS",
                     source_root=source,
                     github_attestation=attestation,
-                    release_tag="v0.1.0-rc.4",
+                    release_tag="v0.1.0-rc.5",
                 )
 
     def test_rendering_is_deterministic(self) -> None:
@@ -422,6 +422,42 @@ class PagesSurfaceTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
+    @staticmethod
+    def _release_ruleset_filter() -> str:
+        workflow = (
+            REPOSITORY_ROOT / ".github/workflows/release.yml"
+        ).read_text(encoding="utf-8")
+        block_start = workflow.index('RULESET_VALID="$(gh api')
+        filter_start = workflow.index("--jq '", block_start) + len("--jq '")
+        filter_end = workflow.index('\')"', filter_start)
+        return workflow[filter_start:filter_end]
+
+    @staticmethod
+    def _exact_release_ruleset() -> dict[str, object]:
+        return {
+            "conditions": {
+                "ref_name": {
+                    "exclude": [],
+                    "include": ["refs/tags/*"],
+                },
+            },
+            "enforcement": "active",
+            "name": "immutable-release-tags",
+            "rules": [{"type": "deletion"}, {"type": "update"}],
+            "target": "tag",
+        }
+
+    def _release_ruleset_is_valid(self, value: object) -> bool:
+        result = subprocess.run(
+            ["jq", "-e", self._release_ruleset_filter()],
+            input=json.dumps(value),
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertIn(result.returncode, (0, 1), result.stderr)
+        return result.returncode == 0
+
     def test_full_local_gate_invokes_pages_checker(self) -> None:
         check = (REPOSITORY_ROOT / "scripts/check.sh").read_text()
 
@@ -545,14 +581,17 @@ class WorkflowTests(unittest.TestCase):
             "repos/${GITHUB_REPOSITORY}/rulesets", workflows["release.yml"]
         )
         self.assertIn(
-            '.conditions.ref_name.include == ["refs/tags/*"]',
+            '"include": ["refs/tags/*"]',
             workflows["release.yml"],
         )
-        self.assertIn(".bypass_actors == []", workflows["release.yml"])
+        self.assertIn(
+            "(.bypass_actors == null) or (.bypass_actors == [])",
+            workflows["release.yml"],
+        )
         self.assertIn('.target == "tag"', workflows["release.yml"])
         self.assertIn('.enforcement == "active"', workflows["release.yml"])
         self.assertIn(
-            '([.rules[].type] | sort) == ["deletion","update"]',
+            "(.rules | sort_by(.type))",
             workflows["release.yml"],
         )
         self.assertLess(
@@ -596,6 +635,98 @@ class WorkflowTests(unittest.TestCase):
             workflows["release.yml"], r"\bgit\s+(?:commit|push)\b"
         )
 
+    def test_release_fallback_accepts_absent_or_null_bypass_actors(self) -> None:
+        absent = self._exact_release_ruleset()
+        explicit_null = self._exact_release_ruleset()
+        explicit_null["bypass_actors"] = None
+
+        self.assertTrue(self._release_ruleset_is_valid(absent))
+        self.assertTrue(self._release_ruleset_is_valid(explicit_null))
+
+    def test_release_fallback_accepts_empty_bypass_actors(self) -> None:
+        value = self._exact_release_ruleset()
+        value["bypass_actors"] = []
+
+        self.assertTrue(self._release_ruleset_is_valid(value))
+
+    def test_release_fallback_rejects_nonempty_bypass_actors(self) -> None:
+        value = self._exact_release_ruleset()
+        value["bypass_actors"] = [
+            {"actor_id": 1, "actor_type": "RepositoryRole"},
+        ]
+
+        self.assertFalse(self._release_ruleset_is_valid(value))
+
+    def test_release_fallback_rejects_every_other_ruleset_mismatch(self) -> None:
+        top_level = {
+            "name": "other",
+            "target": "branch",
+            "enforcement": "disabled",
+        }
+        for field, replacement in top_level.items():
+            with self.subTest(field=field):
+                value = self._exact_release_ruleset()
+                value[field] = replacement
+                self.assertFalse(self._release_ruleset_is_valid(value))
+
+        condition_mismatches = {
+            "missing-ref-name": {},
+            "missing-include": {"ref_name": {"exclude": []}},
+            "wrong-include": {
+                "ref_name": {
+                    "exclude": [],
+                    "include": ["refs/tags/v*"],
+                },
+            },
+            "nonempty-exclude": {
+                "ref_name": {
+                    "exclude": ["refs/tags/internal-*"],
+                    "include": ["refs/tags/*"],
+                },
+            },
+            "extra-condition": {
+                "ref_name": {
+                    "exclude": [],
+                    "include": ["refs/tags/*"],
+                    "unexpected": True,
+                },
+            },
+        }
+        for label, conditions in condition_mismatches.items():
+            with self.subTest(condition=label):
+                value = self._exact_release_ruleset()
+                value["conditions"] = conditions
+                self.assertFalse(self._release_ruleset_is_valid(value))
+
+        rule_mismatches: dict[str, object] = {
+            "missing-deletion": [{"type": "update"}],
+            "missing-update": [{"type": "deletion"}],
+            "duplicate": [{"type": "deletion"}, {"type": "deletion"}],
+            "extra": [
+                {"type": "deletion"},
+                {"type": "update"},
+                {"type": "creation"},
+            ],
+            "wrong-type": [{"type": "creation"}, {"type": "update"}],
+            "wrong-shape": {
+                "first": {"type": "deletion"},
+                "second": {"type": "update"},
+            },
+            "extra-field": [
+                {"type": "deletion"},
+                {"parameters": {}, "type": "update"},
+            ],
+        }
+        for label, rules in rule_mismatches.items():
+            with self.subTest(rules=label):
+                value = self._exact_release_ruleset()
+                value["rules"] = rules
+                self.assertFalse(self._release_ruleset_is_valid(value))
+
+        reversed_rules = self._exact_release_ruleset()
+        reversed_rules["rules"] = list(reversed(reversed_rules["rules"]))
+        self.assertTrue(self._release_ruleset_is_valid(reversed_rules))
+
 
 class VersionTests(unittest.TestCase):
     def test_candidate_version_agrees_across_source_manifests(self) -> None:
@@ -629,12 +760,12 @@ class VersionTests(unittest.TestCase):
             )["product_version"],
         ]
 
-        self.assertEqual(version, "0.1.0rc4")
+        self.assertEqual(version, "0.1.0rc5")
         self.assertEqual(values, [version] * len(values))
         status = json.loads(
             (REPOSITORY_ROOT / "RELEASE_STATUS.json").read_text()
         )
-        self.assertEqual(status["tag"], "v0.1.0-rc.4")
+        self.assertEqual(status["tag"], "v0.1.0-rc.5")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 # Release checklist
 
-Candidate: `0.1.0rc4`
-Expected tag: `v0.1.0-rc.4`
+Candidate: `0.1.0rc5`
+Expected tag: `v0.1.0-rc.5`
 Current status: **unreleased**
 
 ## Phase A — source/CI candidate and offline product proof
@@ -10,6 +10,8 @@ Current status: **unreleased**
       successful `CI / verify` and protected `release` approval.
 - [ ] Confirm version/manifests/tag; peel the remote tag to the exact commit;
       require the release object absent.
+- [ ] With an owner token, run repository configuration/readback and require
+      the ruleset `bypass_actors` field to be present and exactly `[]`.
 - [ ] Regenerate command manifest, catalogs, matrices, context, Pages,
       provenance, locks, source manifest, and development artifacts twice.
 - [ ] Run offline `doctor`, context, Pages, and full checks.
@@ -43,6 +45,9 @@ Current status: **unreleased**
 - [ ] Run `scripts/postflight-release.sh`; require public/local byte equality
       and a signed/attested `postflight-success.json` Actions artifact; keep
       the immutable 11-asset release exact and reject every extra or omission.
+- [ ] Repeat owner-token repository readback after candidate postflight;
+      require explicit exact `bypass_actors: []` to close the workflow
+      token's limited ruleset-detail observability.
 - [ ] On any postflight failure, mark the existing prerelease
       `FAILED POSTFLIGHT`; do not dispatch Pages.
 

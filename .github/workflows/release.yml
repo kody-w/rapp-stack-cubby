@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing exact version tag (v0.1.0-rc.4)
+        description: Existing exact version tag (v0.1.0-rc.5)
         required: true
         type: string
       commit:
@@ -38,7 +38,7 @@ jobs:
           INPUT_COMMIT: ${{ inputs.commit }}
           INPUT_TAG: ${{ inputs.tag }}
         run: |
-          test "${INPUT_TAG}" = "v0.1.0-rc.4"
+          test "${INPUT_TAG}" = "v0.1.0-rc.5"
           case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
           test "${#INPUT_COMMIT}" -eq 40
           test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"
@@ -134,11 +134,18 @@ jobs:
               --jq '(.name == "immutable-release-tags") and
                 (.target == "tag") and
                 (.enforcement == "active") and
-                (.bypass_actors == []) and
-                (.conditions.ref_name.include == ["refs/tags/*"]) and
-                (.conditions.ref_name.exclude == []) and
-                ((.rules | length) == 2) and
-                (([.rules[].type] | sort) == ["deletion","update"])')"
+                ((.bypass_actors == null) or (.bypass_actors == [])) and
+                (.conditions == {
+                  "ref_name": {
+                    "exclude": [],
+                    "include": ["refs/tags/*"]
+                  }
+                }) and
+                ((.rules | type) == "array") and
+                ((.rules | sort_by(.type)) == [
+                  {"type": "deletion"},
+                  {"type": "update"}
+                ])')"
             if [ "${RULESET_VALID}" != true ]; then
               echo "error: immutable-release-tags ruleset is not exact and active" >&2
               exit 2

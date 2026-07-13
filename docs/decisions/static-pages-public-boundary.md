@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted for candidate `0.1.0rc4`.
+Accepted for candidate `0.1.0rc5`.
 
 ## Decision
 
