@@ -953,7 +953,7 @@
       "files": [
         {
           "path": "PUBLICATION_SCAN_POLICY.json",
-          "sha256": "8f61e0daa0d168c8a0cda624015dbbe0b52f9d20604ada6fb1b9532586db8329"
+          "sha256": "42b9c393cba6bba9aed4db7de927dd66b4d38449a20cf3a2766267c4cf683274"
         },
         {
           "path": "schemas/publication-scan-policy.schema.json",
@@ -981,14 +981,14 @@
         },
         {
           "path": "tests/packaging/test_publication_scan.py",
-          "sha256": "45e03d23df1b121a8de7e0f54166c60cec4bfa8279dde340fa2b90136fb9840b"
+          "sha256": "de9478774043587813d575d69ff95c14f06f0c2a07e68ce4f8ceb3211b6abc3f"
         }
       ],
       "final_gate": "second zero-finding signed receipt over public redownload plus complete supplied Actions log archives",
       "history_release_requirement": "real commit and complete reachable history; development without HEAD records not_available_development",
       "network_used": false,
       "policy_path": "PUBLICATION_SCAN_POLICY.json",
-      "policy_sha256": "8f61e0daa0d168c8a0cda624015dbbe0b52f9d20604ada6fb1b9532586db8329",
+      "policy_sha256": "42b9c393cba6bba9aed4db7de927dd66b4d38449a20cf3a2766267c4cf683274",
       "receipt_schema": "rapp-publication-scan-receipt/1.0",
       "status": "implemented_gate_execution_unresolved"
     },

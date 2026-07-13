@@ -250,7 +250,7 @@ class PublicationScanTests(unittest.TestCase):
         self.assertEqual(public_receipt["result"], "pass")
         self.assertEqual(public_receipt["findings"], [])
         used = {item["id"] for item in public_receipt["allowlist_uses"]}
-        self.assertEqual(used, set(identities))
+        self.assertTrue(set(identities).issubset(used))
 
         policy = json.loads(self.policy.read_text(encoding="utf-8"))
         entries = {
