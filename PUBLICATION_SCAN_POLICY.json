@@ -401,6 +401,20 @@
       "rule": "email_identifier"
     },
     {
+      "id": "public-protected-squash-merge-email-identifier-01",
+      "match_sha256": "0dd1be59c0696e9feb662bc996c2ae7ebb7201dffc9bffc7c85cbdd2e9f2cff1",
+      "reason": "Narrow review of the exact public identity inserted by GitHub's protected squash merge commit; only this hashed identifier is permitted.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-protected-squash-merge-email-identifier-02",
+      "match_sha256": "3c205d8fc749f72977b9331e3179773c315bb1f4860c366de2abe9ec9337730b",
+      "reason": "Narrow review of the exact public identity inserted by GitHub's protected squash merge commit; only this hashed identifier is permitted.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
       "id": "public-required-copilot-session-trailer",
       "match_sha256": "0ba3a6d2592eba89327cd451dc521d2ced4385e4bc6ec9a9733a8ed26aafa12b",
       "reason": "Reviewed public UUID required by the repository's Copilot commit trailer; only the exact hashed identifier is permitted.",

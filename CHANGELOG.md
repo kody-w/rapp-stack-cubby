@@ -3,13 +3,13 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
-## 0.1.0rc2 — release candidate
+## 0.1.0rc3 — release candidate
 
 ### Fixed
 
-- `0.1.0rc1` failed public CI because runner-only fixture assumptions used a
-  host-specific Python path and shared `dist/` residue. `0.1.0rc2` makes those
-  tests portable and isolated without changing product behavior.
+- `0.1.0rc2` public `main` CI exposed two public GitHub merge identities
+  inserted by the protected squash merge commit. `0.1.0rc3` narrowly allows
+  only their exact hashes in publication scans; product behavior is unchanged.
 
 ### Added
 

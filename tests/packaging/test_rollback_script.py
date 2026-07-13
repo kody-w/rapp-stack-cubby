@@ -118,7 +118,7 @@ if sys.argv[1:3] == ["release", "download"]:
                 "promotion_run_id": "123456",
                 "tag": self.previous_tag,
             },
-            "release": {"tag": "v0.1.0-rc.2"},
+            "release": {"tag": "v0.1.0-rc.3"},
             "schema": "rapp-private-demo-live-receipt/1.0",
         }
         self.receipt.write_text(

@@ -419,6 +419,55 @@ class PublicationScanTests(unittest.TestCase):
             )
         )
 
+    def test_protected_squash_hashes_allow_history_but_not_unreviewed_email(self):
+        identities = {
+            "public-protected-squash-merge-email-identifier-01": (
+                "0dd1be59c0696e9feb662bc996c2ae7ebb7201dffc9bffc7c85cbdd2e9f2cff1"
+            ),
+            "public-protected-squash-merge-email-identifier-02": (
+                "3c205d8fc749f72977b9331e3179773c315bb1f4860c366de2abe9ec9337730b"
+            ),
+        }
+        policy = json.loads(self.policy.read_text(encoding="utf-8"))
+        entries = {
+            item["id"]: item
+            for item in policy["allowlist"]
+            if item["id"] in identities
+        }
+        self.assertEqual(set(entries), set(identities))
+        for identifier, digest in identities.items():
+            self.assertEqual(entries[identifier]["match_sha256"], digest)
+            self.assertEqual(entries[identifier]["rule"], "email_identifier")
+            self.assertEqual(entries[identifier]["reviewer"], "repository-maintainer")
+            self.assertIn(
+                "exact public identity inserted by GitHub's protected squash merge commit",
+                entries[identifier]["reason"],
+            )
+            self.assertNotIn("path", entries[identifier])
+
+        history_receipt = self._scan(REPOSITORY_ROOT)
+        self.assertEqual(
+            history_receipt["result"],
+            "pass",
+            history_receipt["findings"],
+        )
+        used = {item["id"] for item in history_receipt["allowlist_uses"]}
+        self.assertTrue(set(identities).issubset(used))
+
+        source = self._source("unreviewed-email")
+        unreviewed = "unreviewed.history" + "@" + "example.com"
+        (source / "identity.txt").write_text(unreviewed + "\n", encoding="utf-8")
+        rejected = self._scan(source)
+        digest = hashlib.sha256(unreviewed.encode("utf-8")).hexdigest()
+        self.assertEqual(rejected["result"], "fail")
+        self.assertTrue(
+            any(
+                item["rule"] == "email_identifier"
+                and item["digest"] == digest
+                for item in rejected["findings"]
+            )
+        )
+
     def test_receipt_signature_is_deterministic_trusted_and_tamper_evident(self):
         source = self._source()
         (source / "README.md").write_text("public fixture\n", encoding="utf-8")
