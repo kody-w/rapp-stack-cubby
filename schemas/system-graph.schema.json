@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "node": {
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "node_type": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "node_type"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:system-graph:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregates": {
+      "type": "object"
+    },
+    "audited_at": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "type": "string"
+    },
+    "canonical_end_to_end_paths": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "collisions": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "determinism": {
+      "type": "object"
+    },
+    "edges": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "existence_cutoff": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+      "type": "string"
+    },
+    "drift_review": {
+      "type": "object"
+    },
+    "methodology": {
+      "type": "object"
+    },
+    "non_repo_nodes": {
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "type": "array"
+    },
+    "observation_window": {
+      "type": "object"
+    },
+    "orphans": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "type": "string"
+        },
+        "repo_node_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "explanation",
+        "repo_node_ids"
+      ],
+      "type": "object"
+    },
+    "repo_nodes": {
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "minItems": 307,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-system-graph/1.0"
+    },
+    "source_census": {
+      "type": "object"
+    },
+    "snapshot_cutoff": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "audited_at",
+    "snapshot_cutoff",
+    "existence_cutoff",
+    "observation_window",
+    "drift_review",
+    "source_census",
+    "methodology",
+    "repo_nodes",
+    "non_repo_nodes",
+    "edges",
+    "canonical_end_to_end_paths",
+    "collisions",
+    "orphans",
+    "aggregates",
+    "determinism"
+  ],
+  "title": "Normalized RAPP system graph",
+  "type": "object"
+}

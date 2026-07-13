@@ -1,0 +1,116 @@
+{
+  "api_version": "v1",
+  "count": 10,
+  "evidence": {
+    "antecedent_repository_count": 299,
+    "audit_complete": true,
+    "cutoff": "2026-07-13T08:57:20.399000Z",
+    "cutoff_semantics": "inclusive repository existence boundary",
+    "drift_review": {
+      "post_window_drift_count": 5,
+      "required_count": 12,
+      "status": "complete"
+    },
+    "local_product": {
+      "antecedent_public_repository": false,
+      "included_in_repository_count": false,
+      "kind": "local_product_source",
+      "name": "rapp-stack-cubby",
+      "node_id": "product:local/rapp-stack-cubby",
+      "path": ".",
+      "truth": "This working repository was absent from the public account inventory at the cutoff and is represented separately as the complete local product context."
+    },
+    "observation_window": {
+      "capture_completed_at": "2026-07-13T09:09:18.274404Z",
+      "capture_started_at": "2026-07-13T09:07:31.710577Z",
+      "heads_started_at": "2026-07-13T09:07:34.592407Z",
+      "inventory_completed_at": "2026-07-13T09:07:34.591993Z"
+    },
+    "public_repository_count": 307,
+    "raw_inventory_sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae",
+    "snapshot_semantics": "bounded non-atomic observation window; each head is paired with its own API response time"
+  },
+  "prompts": [
+    {
+      "id": "prompt-01",
+      "number": 1,
+      "prompt": "Trace one idea through reviewed source, CUBBY, rapplication, egg, controller, isolated twin, signed twin-chat, owner iMessage, and exact-commit release preparation.",
+      "title": "One idea to public product."
+    },
+    {
+      "id": "prompt-02",
+      "number": 2,
+      "prompt": "Explain every selected local stage and clearly separate implemented components from mapped neighborhood, fleet, and cloud references.",
+      "title": "Map the whole RAPP system."
+    },
+    {
+      "id": "prompt-03",
+      "number": 3,
+      "prompt": "Run the context, catalog, Pages, privacy, unit, and repository gates and summarize only evidence produced by those checks.",
+      "title": "Verify this repository."
+    },
+    {
+      "id": "prompt-04",
+      "number": 4,
+      "prompt": "Fetch only locked inert dependencies, build twice with one revision and epoch, and prove every output byte is equal.",
+      "title": "Build the deterministic artifact chain."
+    },
+    {
+      "id": "prompt-05",
+      "number": 5,
+      "prompt": "Verify a CUBBY egg, hatch it offline into separate workspace and state roots, inspect its receipt, and stop before starting services.",
+      "title": "Hatch an isolated twin."
+    },
+    {
+      "id": "prompt-06",
+      "number": 6,
+      "prompt": "Walk through identity binding, P-256 signatures, freshness, durable replay handling, nonce binding, and signed responses without exposing private state.",
+      "title": "Explain signed twin-chat."
+    },
+    {
+      "id": "prompt-07",
+      "number": 7,
+      "prompt": "Follow the fresh-fork tutorial through prerequisites and content-free preflight, leaving enrollment and live sending for the release operator.",
+      "title": "Prepare owner-only iMessage."
+    },
+    {
+      "id": "prompt-08",
+      "number": 8,
+      "prompt": "Use the implementation and capability matrices to show who owns all selected capabilities and why reference-only entries are not local claims.",
+      "title": "Inspect capability ownership."
+    },
+    {
+      "id": "prompt-09",
+      "number": 9,
+      "prompt": "Start with one direct-evidence capability, follow its context route, and identify its tested code, schema, decision, runbook, and remaining gap.",
+      "title": "Trace evidence to implementation."
+    },
+    {
+      "id": "prompt-10",
+      "number": 10,
+      "prompt": "Validate version and tag, build and hatch twice from one clean commit, prepare external sidecars, and stop before publication unless every gate is proven.",
+      "title": "Prepare an exact-commit release."
+    }
+  ],
+  "release": {
+    "candidate_publication_scan_sha256": null,
+    "final_publication_scan_sha256": null,
+    "github_attestation_verified": false,
+    "live_proof_sha256": null,
+    "pinned_key_id": "0d7fb1acf871d707bf24b3c298d0f47b1f39f0084e3212ed54c7f0b0abf98b07",
+    "postflight_success_sha256": null,
+    "promotion_receipt_sha256": null,
+    "promotion_run_id": null,
+    "publication_attestation_verified": false,
+    "release_manifest_sha256": null,
+    "source_commit": null,
+    "source_git_tree": null,
+    "source_tree_digest": null,
+    "state": "pending",
+    "tag": "v0.1.0-rc.1",
+    "version": "0.1.0rc1"
+  },
+  "schema": "rapp-pages-prompts/1.0",
+  "source": "docs/canon/SHOWCASE_PROMPTS.md",
+  "status": "pending-source"
+}

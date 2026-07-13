@@ -1,0 +1,3920 @@
+{
+  "commands": [
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_dir",
+          "flags": [
+            "--controller-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "receipt",
+          "flags": [
+            "--receipt"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "attest-installed"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "dependency_cache",
+          "flags": [
+            "--dependency-cache"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "output",
+          "flags": [
+            "--output"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signing_key",
+          "flags": [
+            "--signing-key"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signing_trust",
+          "flags": [
+            "--signing-trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_date_epoch",
+          "flags": [
+            "--source-date-epoch"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "int"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_revision",
+          "flags": [
+            "--source-revision"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "build"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "census"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "check",
+          "flags": [
+            "--check"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "check_docs",
+          "flags": [
+            "--check-docs"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "command-manifest"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "context"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "auth_token_file",
+          "flags": [
+            "--auth-token-file"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "idempotency_key",
+          "flags": [
+            "--idempotency-key"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "url",
+          "flags": [
+            "--url"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": [
+            "offline-self-test"
+          ],
+          "dest": "attestation_mode",
+          "flags": [
+            "--attestation-mode"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "trusted_development",
+          "flags": [
+            "--trusted-development"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "adopt"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "archive"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "commit",
+          "flags": [
+            "--commit"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "expected_tree_digest",
+          "flags": [
+            "--expected-tree-digest"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "product_rappid",
+          "flags": [
+            "--product-rappid"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "repository_url",
+          "flags": [
+            "--repository-url"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "hatch"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "inspect"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "confirmation",
+          "flags": [
+            "--confirmation"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "purge"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "rotate"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "self-test"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": [
+            "offline-self-test"
+          ],
+          "dest": "attestation_mode",
+          "flags": [
+            "--attestation-mode"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_token_file",
+          "flags": [
+            "--github-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "port",
+          "flags": [
+            "--port"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "int"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "start"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "status"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "stop"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "rappid",
+          "flags": [
+            "--rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "unarchive"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "commit",
+          "flags": [
+            "--commit"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "repository_url",
+          "flags": [
+            "--repository-url"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller",
+        "verify"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "private_dir",
+          "flags": [
+            "--private-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "verify_only",
+          "flags": [
+            "--verify-only"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "controller-auth"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "output_dir",
+          "flags": [
+            "--output-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "controller-loadout"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "cleanup",
+          "flags": [
+            "--cleanup"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_dir",
+          "flags": [
+            "--controller-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "dependency_cache",
+          "flags": [
+            "--dependency-cache"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_dir",
+          "flags": [
+            "--install-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "python",
+          "flags": [
+            "--python"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "receipt",
+          "flags": [
+            "--receipt"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_date_epoch",
+          "flags": [
+            "--source-date-epoch"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "int"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "work_dir",
+          "flags": [
+            "--work-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "demo"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_dir",
+          "flags": [
+            "--controller-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "dependency_cache",
+          "flags": [
+            "--dependency-cache"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_token_file",
+          "flags": [
+            "--github-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "imessage",
+          "flags": [
+            "--imessage"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "imessage_config",
+          "flags": [
+            "--imessage-config"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_dir",
+          "flags": [
+            "--install-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "live",
+          "flags": [
+            "--live"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "python",
+          "flags": [
+            "--python"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "work_dir",
+          "flags": [
+            "--work-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "doctor"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "cache",
+          "flags": [
+            "--cache"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "fetch-dependencies"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_loadout_root",
+          "flags": [
+            "--controller-loadout-root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "egg",
+          "flags": [
+            "--egg"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "egg_sha256",
+          "flags": [
+            "--egg-sha256"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_attestation",
+          "flags": [
+            "--github-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "python",
+          "flags": [
+            "--python"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_checksums",
+          "flags": [
+            "--release-checksums"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest",
+          "flags": [
+            "--release-manifest"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest_sha256",
+          "flags": [
+            "--release-manifest-sha256"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_signature",
+          "flags": [
+            "--release-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_trust",
+          "flags": [
+            "--release-trust"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "trusted_development",
+          "flags": [
+            "--trusted-development"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "hatch-egg"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "auth_token_file",
+          "flags": [
+            "--auth-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "url",
+          "flags": [],
+          "nargs": "?",
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "url_option",
+          "flags": [
+            "--url"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "health"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "account_id",
+          "flags": [
+            "--account-id"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_auth_token_file",
+          "flags": [
+            "--controller-auth-token-file"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "force",
+          "flags": [
+            "--force"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "global_controller_url",
+          "flags": [
+            "--global-controller-url"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "imsg",
+          "flags": [
+            "--imsg"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "instance_id",
+          "flags": [
+            "--instance-id"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_AppendAction",
+          "choices": null,
+          "dest": "owner",
+          "flags": [
+            "--owner"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_AppendAction",
+          "choices": null,
+          "dest": "owner_chat",
+          "flags": [
+            "--owner-chat"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "reply_prefix",
+          "flags": [
+            "--reply-prefix"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "state_dir",
+          "flags": [
+            "--state-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "target_rappid",
+          "flags": [
+            "--target-rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "init"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "dry_run",
+          "flags": [
+            "--dry-run"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "str"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "uninstall",
+          "flags": [
+            "--uninstall"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "verify_only",
+          "flags": [
+            "--verify-only"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "install-tool"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "preflight"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "run"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "plist",
+          "flags": [
+            "--plist"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "python",
+          "flags": [
+            "--python"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_root",
+          "flags": [
+            "--source-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "service-install"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "plist",
+          "flags": [
+            "--plist"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "stop",
+          "flags": [
+            "--stop"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "service-uninstall"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "config",
+          "flags": [
+            "--config"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "imessage",
+        "status"
+      ]
+    },
+    {
+      "aliases": [
+        "provider-preflight"
+      ],
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_token_file",
+          "flags": [
+            "--github-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        }
+      ],
+      "path": [
+        "models"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "candidate",
+          "flags": [
+            "--candidate"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "candidate_publication_scan",
+          "flags": [
+            "--candidate-publication-scan"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "candidate_publication_scan_signature",
+          "flags": [
+            "--candidate-publication-scan-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "checksums",
+          "flags": [
+            "--checksums"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "final",
+          "flags": [
+            "--final"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_attestation",
+          "flags": [
+            "--github-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_attestation",
+          "flags": [
+            "--postflight-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_receipt",
+          "flags": [
+            "--postflight-receipt"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_signature",
+          "flags": [
+            "--postflight-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_attestation",
+          "flags": [
+            "--promotion-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_evidence_directory",
+          "flags": [
+            "--promotion-evidence-directory"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_receipt_sha256",
+          "flags": [
+            "--promotion-receipt-sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_run_id",
+          "flags": [
+            "--promotion-run-id"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "publication_attestation",
+          "flags": [
+            "--publication-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_directory",
+          "flags": [
+            "--release-directory"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest",
+          "flags": [
+            "--release-manifest"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest_sha256",
+          "flags": [
+            "--release-manifest-sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_metadata",
+          "flags": [
+            "--release-metadata"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_signature",
+          "flags": [
+            "--release-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_tag",
+          "flags": [
+            "--release-tag"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_trust",
+          "flags": [
+            "--release-trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "released",
+          "flags": [
+            "--released"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_root",
+          "flags": [
+            "--source-root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "pages-build"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "candidate",
+          "flags": [
+            "--candidate"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "candidate_publication_scan",
+          "flags": [
+            "--candidate-publication-scan"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "candidate_publication_scan_signature",
+          "flags": [
+            "--candidate-publication-scan-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "checksums",
+          "flags": [
+            "--checksums"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "final",
+          "flags": [
+            "--final"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_attestation",
+          "flags": [
+            "--github-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_attestation",
+          "flags": [
+            "--postflight-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_receipt",
+          "flags": [
+            "--postflight-receipt"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "postflight_signature",
+          "flags": [
+            "--postflight-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_attestation",
+          "flags": [
+            "--promotion-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_evidence_directory",
+          "flags": [
+            "--promotion-evidence-directory"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_receipt_sha256",
+          "flags": [
+            "--promotion-receipt-sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "promotion_run_id",
+          "flags": [
+            "--promotion-run-id"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "publication_attestation",
+          "flags": [
+            "--publication-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_directory",
+          "flags": [
+            "--release-directory"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest",
+          "flags": [
+            "--release-manifest"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest_sha256",
+          "flags": [
+            "--release-manifest-sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_metadata",
+          "flags": [
+            "--release-metadata"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_signature",
+          "flags": [
+            "--release-signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_tag",
+          "flags": [
+            "--release-tag"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_trust",
+          "flags": [
+            "--release-trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "released",
+          "flags": [
+            "--released"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_root",
+          "flags": [
+            "--source-root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "pages-check"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "token_file",
+          "flags": [
+            "--token-file"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "provider-login"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "token_file",
+          "flags": [
+            "--token-file"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "provider-refresh"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_token_file",
+          "flags": [
+            "--github-token-file"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timeout",
+          "flags": [
+            "--timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        }
+      ],
+      "path": [
+        "provider-smoke"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_AppendAction",
+          "choices": null,
+          "dest": "actions_log",
+          "flags": [
+            "--actions-log"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "output",
+          "flags": [
+            "--output"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "pages",
+          "flags": [
+            "--pages"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": [
+            "candidate",
+            "development",
+            "final"
+          ],
+          "dest": "phase",
+          "flags": [
+            "--phase"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "policy",
+          "flags": [
+            "--policy"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "public_redownload",
+          "flags": [
+            "--public-redownload"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_assets",
+          "flags": [
+            "--release-assets"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signature_output",
+          "flags": [
+            "--signature-output"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signing_key",
+          "flags": [
+            "--signing-key"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signing_trust",
+          "flags": [
+            "--signing-trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "timestamp",
+          "flags": [
+            "--timestamp"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "publication-scan"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "cutoff",
+          "flags": [
+            "--cutoff"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "output",
+          "flags": [
+            "--output"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "owner",
+          "flags": [
+            "--owner"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "refresh-census"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_AppendAction",
+          "choices": null,
+          "dest": "agents_dir",
+          "flags": [
+            "--agents-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "allow_agent_writes",
+          "flags": [
+            "--allow-agent-writes"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": [
+            "offline-self-test"
+          ],
+          "dest": "attestation_mode",
+          "flags": [
+            "--attestation-mode"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "auth_token_file",
+          "flags": [
+            "--auth-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "child_private_key",
+          "flags": [
+            "--child-private-key",
+            "--signed-ingress-child-private-key"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_loadout_root",
+          "flags": [
+            "--controller-loadout-root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "controller_route",
+          "flags": [
+            "--controller-route"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "data_dir",
+          "flags": [
+            "--data-dir"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "generated_agents_dir",
+          "flags": [
+            "--generated-agents-dir"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_token_file",
+          "flags": [
+            "--github-token-file"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "host",
+          "flags": [
+            "--host"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "imessage_status",
+          "flags": [
+            "--imessage-status"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "instance_id",
+          "flags": [
+            "--instance-id"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "model",
+          "flags": [
+            "--model"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "paired_controller_public_jwk",
+          "flags": [
+            "--paired-controller-public-jwk",
+            "--signed-ingress-controller-public-jwk"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "paired_controller_rappid",
+          "flags": [
+            "--paired-controller-rappid",
+            "--signed-ingress-controller-rappid"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "port",
+          "flags": [
+            "--port"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "int"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "principal",
+          "flags": [
+            "--principal"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "provider_timeout",
+          "flags": [
+            "--provider-timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "replay_db",
+          "flags": [
+            "--replay-db",
+            "--signed-ingress-replay-db"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "request_timeout",
+          "flags": [
+            "--request-timeout"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "float"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signed_ingress_freshness_seconds",
+          "flags": [
+            "--signed-ingress-freshness-seconds"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "int"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signed_ingress_key_epoch",
+          "flags": [
+            "--signed-ingress-key-epoch"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "int"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "signed_only",
+          "flags": [
+            "--signed-only"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "soul",
+          "flags": [
+            "--soul"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "twin_rappid",
+          "flags": [
+            "--twin-rappid",
+            "--signed-ingress-twin-rappid"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "serve"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "artifact",
+          "flags": [
+            "--artifact"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signature",
+          "flags": [
+            "--signature"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signing_key",
+          "flags": [
+            "--signing-key"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "trust",
+          "flags": [
+            "--trust"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "sign-evidence"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "check",
+          "flags": [
+            "--check"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "source-manifest"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "super-rar"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "uninstall-preview"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "confirmation",
+          "flags": [
+            "--confirmation"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "controller_root",
+          "flags": [
+            "--controller-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "dry_run",
+          "flags": [
+            "--dry-run"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "instance_rappid",
+          "flags": [
+            "--instance-rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "product_rappid",
+          "flags": [
+            "--product-rappid"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        }
+      ],
+      "path": [
+        "uninstall-twin"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreTrueAction",
+          "choices": null,
+          "dest": "json",
+          "flags": [
+            "--json"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "verify"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "artifact",
+          "flags": [
+            "--artifact"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "sha256",
+          "flags": [
+            "--sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "verify-artifact"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "install_root",
+          "flags": [
+            "--install-root"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "verify-install"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "commit",
+          "flags": [
+            "--commit"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "evidence_directory",
+          "flags": [
+            "--evidence-directory"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "live_proof_sha256",
+          "flags": [
+            "--live-proof-sha256"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "policy",
+          "flags": [
+            "--policy"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "root",
+          "flags": [
+            "--root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "tag",
+          "flags": [
+            "--tag"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "trust",
+          "flags": [
+            "--trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "verify-promotion"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": [
+            "candidate",
+            "development",
+            "final"
+          ],
+          "dest": "phase",
+          "flags": [
+            "--phase"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "policy",
+          "flags": [
+            "--policy"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "receipt",
+          "flags": [
+            "--receipt"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signature",
+          "flags": [
+            "--signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_commit",
+          "flags": [
+            "--source-commit"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "trust",
+          "flags": [
+            "--trust"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "verify-publication-scan"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "checksums",
+          "flags": [
+            "--checksums"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "github_attestation",
+          "flags": [
+            "--github-attestation"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest",
+          "flags": [
+            "--release-manifest"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "release_manifest_sha256",
+          "flags": [
+            "--release-manifest-sha256"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": null
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "signature",
+          "flags": [
+            "--signature"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "source_root",
+          "flags": [
+            "--source-root"
+          ],
+          "nargs": null,
+          "required": false,
+          "type": "Path"
+        },
+        {
+          "action": "_StoreAction",
+          "choices": null,
+          "dest": "trust",
+          "flags": [
+            "--trust"
+          ],
+          "nargs": null,
+          "required": true,
+          "type": "Path"
+        }
+      ],
+      "path": [
+        "verify-release"
+      ]
+    },
+    {
+      "options": [
+        {
+          "action": "_HelpAction",
+          "choices": null,
+          "dest": "help",
+          "flags": [
+            "-h",
+            "--help"
+          ],
+          "nargs": 0,
+          "required": false,
+          "type": null
+        }
+      ],
+      "path": [
+        "version"
+      ]
+    }
+  ],
+  "program": "rapp-stack-cubby",
+  "schema": "rapp-command-manifest/1.0"
+}

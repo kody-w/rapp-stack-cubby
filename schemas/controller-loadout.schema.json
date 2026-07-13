@@ -1,0 +1,238 @@
+{
+  "$defs": {
+    "file": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "not": {
+            "pattern": "(^/|(^|/)\\.\\.(/|$)|\\\\)"
+          },
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:controller-loadout:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "controller": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "type": "string"
+          },
+          "name": {
+            "const": "RappStackCubbyController"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "capability_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "mutability": {
+          "const": "guarded_local_lifecycle"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "only_streamable_agent": {
+          "const": true
+        },
+        "path": {
+          "const": "agents/rapp_stack_cubby_agent.py"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "actions",
+        "name",
+        "capability_ids",
+        "dependencies",
+        "mutability",
+        "only_streamable_agent",
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "catalog": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "capability_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "determinism": {
+          "const": {
+            "encoding": "UTF-8",
+            "indent_spaces": 2,
+            "key_order": "lexicographic",
+            "trailing_newline": true
+          }
+        },
+        "mutability": {
+          "const": "guarded_local_lifecycle"
+        },
+        "name": {
+          "const": "RappStackCubbyController"
+        },
+        "only_streamable_agent": {
+          "const": true
+        },
+        "schema": {
+          "const": "rapp-controller-catalog/1.0"
+        },
+        "source": {
+          "additionalProperties": false,
+          "properties": {
+            "path": {
+              "const": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py"
+            },
+            "sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema",
+        "name",
+        "source",
+        "actions",
+        "capability_ids",
+        "mutability",
+        "dependencies",
+        "only_streamable_agent",
+        "determinism"
+      ],
+      "type": "object"
+    },
+    "determinism": {
+      "const": {
+        "encoding": "UTF-8",
+        "file_order": "path",
+        "key_order": "lexicographic",
+        "trailing_newline": true
+      }
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-controller-loadout/1.0"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_schema": {
+          "const": "rapp-controller-catalog/1.0"
+        },
+        "catalog_path": {
+          "const": "cubbies/kody-w/catalog/controller-catalog.json"
+        },
+        "catalog_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "path": {
+          "const": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "catalog_schema",
+        "catalog_path",
+        "catalog_sha256",
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "soul": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "const": "soul.md"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "controller",
+    "catalog",
+    "files",
+    "soul",
+    "source",
+    "determinism"
+  ],
+  "title": "Controller-only external loadout",
+  "type": "object"
+}

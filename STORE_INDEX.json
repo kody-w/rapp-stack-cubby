@@ -1,0 +1,15 @@
+{
+  "applications": [
+    {
+      "application_id": "rapp-stack",
+      "application_manifest_sha256": "d8f4636ab3fcbc9c0bf8bd7999b1d5b8ff9b18006ef8f7e523e2fd45d12b133b",
+      "application_manifest_size": 4134,
+      "development_only": true
+    }
+  ],
+  "published": false,
+  "release_specific": false,
+  "schema": "rapp-store-index/1.0",
+  "source_tree_digest_binding": "rapp-release-source-manifest.json",
+  "version": "0.1.0rc1"
+}

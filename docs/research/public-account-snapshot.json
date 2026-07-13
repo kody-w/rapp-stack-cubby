@@ -1,0 +1,295 @@
+{
+  "capture_completed_at": "2026-07-13T09:09:18.274404Z",
+  "capture_started_at": "2026-07-13T09:07:31.710577Z",
+  "cutoff": "2026-07-13T08:57:20.399000Z",
+  "diff": {
+    "added": [],
+    "baseline_count": 307,
+    "candidate_count": 307,
+    "changed_heads": [
+      "localFirstTools",
+      "localFirstTools-main",
+      "localtoolsdev",
+      "rapp-play-pokemon",
+      "rappter-plays-pokemon",
+      "rappterbook",
+      "rappterbook-agent-exchange",
+      "rappterverse",
+      "rappterverse-data",
+      "RAR",
+      "static-oracle-fusion",
+      "static-sap-s4hana",
+      "static-servicenow"
+    ],
+    "changed_relevant_repositories": [
+      "localFirstTools",
+      "localFirstTools-main",
+      "localtoolsdev",
+      "rapp-play-pokemon",
+      "rappter-plays-pokemon",
+      "rappterbook",
+      "rappterbook-agent-exchange",
+      "rappterverse",
+      "rappterverse-data",
+      "RAR",
+      "static-oracle-fusion",
+      "static-sap-s4hana",
+      "static-servicenow"
+    ],
+    "removed": [],
+    "renamed": []
+  },
+  "excluded_after_cutoff": [],
+  "existence_cutoff": "2026-07-13T08:57:20.399000Z",
+  "heads_started_at": "2026-07-13T09:07:34.592407Z",
+  "inventory_completed_at": "2026-07-13T09:07:34.591993Z",
+  "methodology": {
+    "authority": "Authenticated direct GitHub REST API metadata and exact default-branch commit responses; ecosystem indexes are not evidence.",
+    "candidate_only": true,
+    "classification_policy": "New repositories and changed relevant repositories require human direct inspection before audited promotion.",
+    "cutoff_semantics": "Inclusive repository-existence cutoff by created_at. existence_cutoff is distinct from the observation window.",
+    "observation_window": "This is a bounded, non-atomic observation window. Inventory pages and default-branch heads were observed at their recorded request/response times. Repositories created on or before the existence cutoff are eligible; each head describes only its per-repository observation time.",
+    "pagination": "Explicit page/per_page loop until a short page.",
+    "sanitization": "Only selected public metadata fields are retained; email-shaped identifiers in free-text descriptions are redacted."
+  },
+  "owner": "kody-w",
+  "post_cutoff_metadata_observations": [
+    "rappterverse"
+  ],
+  "promotion": {
+    "audit_complete": true,
+    "classification_completed": true,
+    "drift_review_completed_at": "2026-07-13T09:16:13.263539Z",
+    "drift_review_repositories": [
+      "localFirstTools",
+      "localFirstTools-main",
+      "localtoolsdev",
+      "mars-barn-opus",
+      "mars-chain-node",
+      "rapp-moonshots",
+      "rappter-plays-pokemon",
+      "rappterbook",
+      "rappterbook-agent-exchange",
+      "rappterbook-first-bond",
+      "rappterverse",
+      "RAR"
+    ],
+    "drift_review_required_count": 12,
+    "policy": "Promotion preserves prior evidence heads, binds all promoted API fields to local raw records, and separates post-window movement.",
+    "post_window_drift_repositories": [
+      "rapp-play-pokemon",
+      "rappterverse-data",
+      "static-oracle-fusion",
+      "static-sap-s4hana",
+      "static-servicenow"
+    ],
+    "promoted_to": "SOURCE_CENSUS.json"
+  },
+  "query": {
+    "api_version": "2022-11-28",
+    "endpoint": "GET /users/kody-w/repos",
+    "parameters": {
+      "direction": "asc",
+      "per_page": 100,
+      "sort": "full_name",
+      "type": "owner"
+    },
+    "tool": "gh version 2.88.1 (2026-03-12)"
+  },
+  "raw_inventory": {
+    "canonicalization": "UTF-8 RFC8259; sorted keys; compact separators",
+    "head_observations_sha256": "ceab5a6ee61fb3127f3e81808b35c5b5e8c571077ad52e8e9d465bdb2e4bd021",
+    "inventory_records_sha256": "ede143debd6a87f1cd6daee5186cdec01eeb9cfc5cda7a2fca84b4e8aaccd718",
+    "repository_count": 307,
+    "sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae"
+  },
+  "raw_shards": [
+    {
+      "first_repository": "agency-agents",
+      "last_repository": "VSProjects",
+      "path": "docs/research/raw/shard-0.json",
+      "repository_count": 39,
+      "sha256": "97499b9f3c1871bc636e485f9215e04dba815ff27a4067866a98c7006b57d71d",
+      "shard": 0,
+      "size": 124152
+    },
+    {
+      "first_repository": "agent-ranker",
+      "last_repository": "wildhaven-ai-homes-twin",
+      "path": "docs/research/raw/shard-1.json",
+      "repository_count": 39,
+      "sha256": "bd59f927712c32a6ce474f001cee8f469fa846cc4ae0780cdf3d63e90a245754",
+      "shard": 1,
+      "size": 125509
+    },
+    {
+      "first_repository": "agentbookfactory",
+      "last_repository": "zion",
+      "path": "docs/research/raw/shard-2.json",
+      "repository_count": 39,
+      "sha256": "65e0467a1e6bbbb6ccfdbd3fe7fc0d1c77c0191f6cee41139720b8e604620063",
+      "shard": 2,
+      "size": 125314
+    },
+    {
+      "first_repository": "AgenticPlaygroundLab",
+      "last_repository": "v86",
+      "path": "docs/research/raw/shard-3.json",
+      "repository_count": 38,
+      "sha256": "62687a1adcde7d4c6fe2f434dd1994a88b0da7908493c50ab6d5d7290a48cc6a",
+      "shard": 3,
+      "size": 121878
+    },
+    {
+      "first_repository": "Agents",
+      "last_repository": "vbrainstem",
+      "path": "docs/research/raw/shard-4.json",
+      "repository_count": 38,
+      "sha256": "1a04f3d63cea0ee1733dbb225d4c4489ded459d236b4dc484422e502c3adcada",
+      "shard": 4,
+      "size": 121040
+    },
+    {
+      "first_repository": "Agents-for-python",
+      "last_repository": "vneighborhood-design-studio",
+      "path": "docs/research/raw/shard-5.json",
+      "repository_count": 38,
+      "sha256": "8fd0c0857bbdc5cb5f6869b83cab4a7091bb1923ab13cdf25af771896384c1e1",
+      "shard": 5,
+      "size": 123433
+    },
+    {
+      "first_repository": "agents-library-tracker",
+      "last_repository": "vneighborhood-research-lab",
+      "path": "docs/research/raw/shard-6.json",
+      "repository_count": 38,
+      "sha256": "880b52e722dd0f31b59e1e30e2a6b5b2ed3c0bc2c148e11ea6e33ae34a358fd7",
+      "shard": 6,
+      "size": 122655
+    },
+    {
+      "first_repository": "agents.v1",
+      "last_repository": "VoidRAPP",
+      "path": "docs/research/raw/shard-7.json",
+      "repository_count": 38,
+      "sha256": "46bebacdfc75efb0bf4a897bfc11fc1c53de0e49d422b2290fc55d4777617813",
+      "shard": 7,
+      "size": 121964
+    }
+  ],
+  "response_pages": [
+    {
+      "body_sha256": "074b0e33a5d6bbcbacceea6b919c639a64d1d702798729ef51f9949d10e1d3ba",
+      "headers": {
+        "date": "Mon, 13 Jul 2026 09:07:32 GMT",
+        "etag": "W/\"3b3f6cdc8a158ee277ae16b4de14cf6945e62215b7ed094f7ddf90f38e6cc341\"",
+        "link": "<https://api.github.com/user/1735900/repos?direction=asc&page=2&per_page=100&sort=full_name&type=owner>; rel=\"next\", <https://api.github.com/user/1735900/repos?direction=asc&page=4&per_page=100&sort=full_name&type=owner>; rel=\"last\"",
+        "x-github-api-version-selected": "2022-11-28",
+        "x-github-request-id": "D227:2042B2:4B73E2B:FB624EA:6A54AAD3",
+        "x-ratelimit-limit": "5000",
+        "x-ratelimit-remaining": "4982",
+        "x-ratelimit-reset": "1783937047",
+        "x-ratelimit-resource": "core",
+        "x-ratelimit-used": "18"
+      },
+      "item_count": 100,
+      "page": 1,
+      "request_started_at": "2026-07-13T09:07:31.710742Z",
+      "response_received_at": "2026-07-13T09:07:32.493991Z",
+      "response_time_ms": 783.213,
+      "status": 200
+    },
+    {
+      "body_sha256": "9e5c4c01b9957ce7724c59cde061479fb694b08a732f3352356b2cd54411888f",
+      "headers": {
+        "date": "Mon, 13 Jul 2026 09:07:33 GMT",
+        "etag": "W/\"c31b155df32f03c24301ed29b498c67beda7bc3455b275f7f4189a91d15e5540\"",
+        "link": "<https://api.github.com/user/1735900/repos?direction=asc&page=1&per_page=100&sort=full_name&type=owner>; rel=\"prev\", <https://api.github.com/user/1735900/repos?direction=asc&page=3&per_page=100&sort=full_name&type=owner>; rel=\"next\", <https://api.github.com/user/1735900/repos?direction=asc&page=4&per_page=100&sort=full_name&type=owner>; rel=\"last\", <https://api.github.com/user/1735900/repos?direction=asc&page=1&per_page=100&sort=full_name&type=owner>; rel=\"first\"",
+        "x-github-api-version-selected": "2022-11-28",
+        "x-github-request-id": "D228:362D4A:45AABA9:E87554F:6A54AAD4",
+        "x-ratelimit-limit": "5000",
+        "x-ratelimit-remaining": "4981",
+        "x-ratelimit-reset": "1783937047",
+        "x-ratelimit-resource": "core",
+        "x-ratelimit-used": "19"
+      },
+      "item_count": 100,
+      "page": 2,
+      "request_started_at": "2026-07-13T09:07:32.501860Z",
+      "response_received_at": "2026-07-13T09:07:33.382059Z",
+      "response_time_ms": 880.152,
+      "status": 200
+    },
+    {
+      "body_sha256": "ae81946f50c1d15cc102f96621e03fb0d44f2c88cb7748e88b7f0cd3f2084fcb",
+      "headers": {
+        "date": "Mon, 13 Jul 2026 09:07:34 GMT",
+        "etag": "W/\"f602814e1a57532279c29839e21938cab2260d2fa971c984a0ba45fa6b66345e\"",
+        "link": "<https://api.github.com/user/1735900/repos?direction=asc&page=2&per_page=100&sort=full_name&type=owner>; rel=\"prev\", <https://api.github.com/user/1735900/repos?direction=asc&page=4&per_page=100&sort=full_name&type=owner>; rel=\"next\", <https://api.github.com/user/1735900/repos?direction=asc&page=4&per_page=100&sort=full_name&type=owner>; rel=\"last\", <https://api.github.com/user/1735900/repos?direction=asc&page=1&per_page=100&sort=full_name&type=owner>; rel=\"first\"",
+        "x-github-api-version-selected": "2022-11-28",
+        "x-github-request-id": "D229:2AAC7:4A7B0B1:F951F44:6A54AAD5",
+        "x-ratelimit-limit": "5000",
+        "x-ratelimit-remaining": "4980",
+        "x-ratelimit-reset": "1783937047",
+        "x-ratelimit-resource": "core",
+        "x-ratelimit-used": "20"
+      },
+      "item_count": 100,
+      "page": 3,
+      "request_started_at": "2026-07-13T09:07:33.385034Z",
+      "response_received_at": "2026-07-13T09:07:34.250947Z",
+      "response_time_ms": 865.881,
+      "status": 200
+    },
+    {
+      "body_sha256": "d8345840f31ebb7b50844331f6c189239b9cbf133673a3684c0b2f73e765fc10",
+      "headers": {
+        "date": "Mon, 13 Jul 2026 09:07:34 GMT",
+        "etag": "W/\"f34fe042f74e9de6ab769291fbed3626052ab20d21061b59bc97ec45c2515574\"",
+        "link": "<https://api.github.com/user/1735900/repos?direction=asc&page=3&per_page=100&sort=full_name&type=owner>; rel=\"prev\", <https://api.github.com/user/1735900/repos?direction=asc&page=1&per_page=100&sort=full_name&type=owner>; rel=\"first\"",
+        "x-github-api-version-selected": "2022-11-28",
+        "x-github-request-id": "D22A:291817:EA761B:322D5EB:6A54AAD6",
+        "x-ratelimit-limit": "5000",
+        "x-ratelimit-remaining": "4979",
+        "x-ratelimit-reset": "1783937047",
+        "x-ratelimit-resource": "core",
+        "x-ratelimit-used": "21"
+      },
+      "item_count": 7,
+      "page": 4,
+      "request_started_at": "2026-07-13T09:07:34.258835Z",
+      "response_received_at": "2026-07-13T09:07:34.591136Z",
+      "response_time_ms": 332.26,
+      "status": 200
+    }
+  ],
+  "review_required": {
+    "completed": true,
+    "drift_review_repositories": [
+      "localFirstTools",
+      "localFirstTools-main",
+      "localtoolsdev",
+      "mars-barn-opus",
+      "mars-chain-node",
+      "rapp-moonshots",
+      "rappter-plays-pokemon",
+      "rappterbook",
+      "rappterbook-agent-exchange",
+      "rappterbook-first-bond",
+      "rappterverse",
+      "RAR"
+    ],
+    "post_window_drift_repositories": [
+      "rapp-play-pokemon",
+      "rappterverse-data",
+      "static-oracle-fusion",
+      "static-sap-s4hana",
+      "static-servicenow"
+    ]
+  },
+  "schema": "rapp-census-refresh-candidate/1.0",
+  "sharding": {
+    "assignment": "case-insensitive name sort; sorted_index modulo 8",
+    "shard_count": 8
+  }
+}

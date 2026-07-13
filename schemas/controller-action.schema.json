@@ -1,0 +1,49 @@
+{
+  "$id": "urn:rapp:schema:controller-action:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": [
+        "inspect",
+        "verify",
+        "adopt_install",
+        "hatch_repo",
+        "list",
+        "status",
+        "start",
+        "stop",
+        "archive",
+        "unarchive",
+        "purge",
+        "rotate_keys",
+        "chat",
+        "self_test",
+        "pack",
+        "export"
+      ]
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "idempotency_key": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-controller-route/1.0"
+    },
+    "tool": {
+      "const": "RappStackCubbyController"
+    }
+  },
+  "required": [
+    "schema",
+    "tool",
+    "action",
+    "arguments",
+    "idempotency_key"
+  ],
+  "title": "Deterministic controller route action",
+  "type": "object"
+}

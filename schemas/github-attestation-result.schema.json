@@ -1,0 +1,63 @@
+{
+  "$id": "urn:rapp:schema:github-attestation-result:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "command_profile": {
+      "const": "gh-attestation-verify/1.0"
+    },
+    "predicate_type": {
+      "const": "https://slsa.dev/provenance/v1"
+    },
+    "repository": {
+      "const": "kody-w/rapp-stack-cubby"
+    },
+    "schema": {
+      "const": "rapp-github-attestation-verification/1.0"
+    },
+    "signer_workflow": {
+      "const": "kody-w/rapp-stack-cubby/.github/workflows/release.yml"
+    },
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "subjects": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "verified": {
+      "const": true
+    }
+  },
+  "required": [
+    "schema",
+    "command_profile",
+    "repository",
+    "signer_workflow",
+    "predicate_type",
+    "source_commit",
+    "subjects",
+    "verified"
+  ],
+  "title": "Sanitized gh attestation verification result",
+  "type": "object"
+}

@@ -1,0 +1,367 @@
+{
+  "$defs": {
+    "entryId": {
+      "pattern": "^[a-z][a-z0-9.-]*$",
+      "type": "string"
+    },
+    "idList": {
+      "items": {
+        "$ref": "#/$defs/entryId"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "relativePath": {
+      "minLength": 1,
+      "not": {
+        "pattern": "(^/|(^|/)\\.\\.(/|$)|\\\\)"
+      },
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:context-index:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregates": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_profile_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "counts_by_kind": {
+          "additionalProperties": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "object"
+        },
+        "counts_by_status": {
+          "additionalProperties": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "object"
+        },
+        "decision_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "entry_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "future_owner_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "runbook_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "schema_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "selected_capability_count": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entry_count",
+        "canonical_profile_count",
+        "schema_count",
+        "decision_count",
+        "runbook_count",
+        "future_owner_count",
+        "selected_capability_count",
+        "counts_by_kind",
+        "counts_by_status"
+      ],
+      "type": "object"
+    },
+    "authority_order": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "bootstrap_reading_path": {
+      "$ref": "#/$defs/idList"
+    },
+    "capability_routes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "capability_id": {
+            "pattern": "^[a-z][a-z0-9-]*\\.[a-z0-9][a-z0-9.-]*$",
+            "type": "string"
+          },
+          "capability_status": {
+            "enum": [
+              "contradictory",
+              "deprecated",
+              "implemented",
+              "partial",
+              "spec_only",
+              "unsafe_legacy"
+            ]
+          },
+          "context_entry_id": {
+            "$ref": "#/$defs/entryId"
+          },
+          "context_status": {
+            "enum": [
+              "future_owned",
+              "tested_implementation"
+            ]
+          },
+          "direct_evidence": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "current_head_sha": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "current_observed_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence_head_sha": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "head_drift": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "locators": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "repository": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "repository",
+                "evidence_head_sha",
+                "current_head_sha",
+                "current_observed_at",
+                "head_drift",
+                "locators"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "future_owner": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "implementation_state": {
+            "enum": [
+              "implemented_now",
+              "runtime_implemented",
+              "future_owned"
+            ]
+          },
+          "owner": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "local_claim": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "major_gaps": {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "profile_contracts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "selected_implementation": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "semantic_status": {
+            "enum": [
+              "future_owned",
+              "narrowed_tested_implementation",
+              "safe_narrowing_of_unsafe_reference",
+              "tested_implementation"
+            ]
+          }
+        },
+        "required": [
+          "capability_id",
+          "capability_status",
+          "implementation_state",
+          "owner",
+          "context_entry_id",
+          "context_status",
+          "direct_evidence",
+          "future_owner",
+          "local_claim",
+          "major_gaps",
+          "profile_contracts",
+          "selected_implementation",
+          "semantic_status"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "determinism": {
+      "additionalProperties": false,
+      "properties": {
+        "encoding": {
+          "const": "UTF-8"
+        },
+        "entry_order": {
+          "const": "id"
+        },
+        "indent_spaces": {
+          "const": 2
+        },
+        "key_order": {
+          "const": "lexicographic"
+        },
+        "newline": {
+          "const": "LF"
+        },
+        "route_order": {
+          "const": "capability_id"
+        },
+        "trailing_newline": {
+          "const": true
+        }
+      },
+      "required": [
+        "encoding",
+        "entry_order",
+        "route_order",
+        "indent_spaces",
+        "key_order",
+        "newline",
+        "trailing_newline"
+      ],
+      "type": "object"
+    },
+    "entries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/entryId"
+          },
+          "implemented_by": {
+            "$ref": "#/$defs/idList"
+          },
+          "kind": {
+            "enum": [
+              "canonical_profile",
+              "decision",
+              "document",
+              "evidence",
+              "future_owner",
+              "generated_catalog",
+              "implementation",
+              "lock",
+              "manifest",
+              "runbook",
+              "schema",
+              "script",
+              "test_family"
+            ]
+          },
+          "path": {
+            "$ref": "#/$defs/relativePath"
+          },
+          "prerequisites": {
+            "$ref": "#/$defs/idList"
+          },
+          "read_after": {
+            "$ref": "#/$defs/idList"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "authoritative_profile",
+              "tested_implementation",
+              "direct_evidence",
+              "generated_index",
+              "decision",
+              "runbook",
+              "historical_context",
+              "future_owned"
+            ]
+          },
+          "verified_by": {
+            "$ref": "#/$defs/idList"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "path",
+          "role",
+          "status",
+          "prerequisites",
+          "read_after",
+          "implemented_by",
+          "verified_by"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-context-index/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "authority_order",
+    "bootstrap_reading_path",
+    "entries",
+    "capability_routes",
+    "aggregates",
+    "determinism"
+  ],
+  "title": "Deterministic local RAPP context index",
+  "type": "object"
+}

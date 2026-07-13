@@ -1,0 +1,122 @@
+{
+  "actions": [
+    {
+      "commit": "0f67c3f4856b2e3261c31976d6725780e5e4c373",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "32d0bae2419f014f5066af5915264c966efdb7b6e7fe8f90cf87dc75c5a8d6d0",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/attest-build-provenance",
+      "tag": "v4.1.1",
+      "uses": "actions/attest-build-provenance"
+    },
+    {
+      "commit": "9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/checkout",
+      "tag": "v7.0.0",
+      "uses": "actions/checkout"
+    },
+    {
+      "commit": "45bfe0192ca1faeb007ade9deae92b16b8254a0d",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "741d1031b351a6dc8421130e3282456afe884068596134683fd5e5f8188363ee",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/configure-pages",
+      "tag": "v6.0.0",
+      "uses": "actions/configure-pages"
+    },
+    {
+      "commit": "cd2ce8fcbc39b97be8ca5fce6e763baed58fa128",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "741d1031b351a6dc8421130e3282456afe884068596134683fd5e5f8188363ee",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/deploy-pages",
+      "tag": "v5.0.0",
+      "uses": "actions/deploy-pages"
+    },
+    {
+      "commit": "d3f86a106a0bac45b974a628896c90dbdf5c8093",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/download-artifact",
+      "tag": "v4.3.0",
+      "uses": "actions/download-artifact"
+    },
+    {
+      "commit": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "7d070f6b64d9bcc530fe99cc21eaaa4b3c364e0b2d367d7735671fa202a03b32",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/setup-python",
+      "tag": "v6.3.0",
+      "uses": "actions/setup-python"
+    },
+    {
+      "commit": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/upload-artifact",
+      "tag": "v4.6.2",
+      "uses": "actions/upload-artifact"
+    },
+    {
+      "commit": "fc324d3547104276b827a68afc52ff2a11cc49c9",
+      "license": {
+        "path": "LICENSE",
+        "sha256": "b1bb6c1d76d90892ac4a9d1cca6380316df22671560c6cf4a5e298dcfa26bb4d",
+        "spdx": "MIT"
+      },
+      "repository": "https://github.com/actions/upload-pages-artifact",
+      "tag": "v5.0.0",
+      "uses": "actions/upload-pages-artifact"
+    }
+  ],
+  "policy": {
+    "mutable_action_tags_allowed": false,
+    "protected_promotion_environment_required": true,
+    "protected_release_environment_required": true,
+    "official_actions_only": true,
+    "pull_request_target_allowed": false,
+    "pull_request_secrets_allowed": false,
+    "shell_input_expressions_allowed": false,
+    "tag_refs_resolved_directly": true
+  },
+  "resolved_at": "2026-07-13",
+  "runner": {
+    "architecture": "arm64",
+    "label": "macos-15",
+    "label_source": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories",
+    "operating_system": "macOS 15",
+    "python": "3.11.9",
+    "reproducibility_scope": "Byte equality is asserted only for repeated builds on this locked runner image and toolchain.",
+    "requirements": "requirements-ci.lock",
+    "source": "https://github.com/actions/runner-images/blob/10e2fdee9fd1d2e90e70186d4adf3c9bc04eaa93/images/macos/macos-15-arm64-Readme.md",
+    "source_commit": "10e2fdee9fd1d2e90e70186d4adf3c9bc04eaa93",
+    "source_license_sha256": "60eb5d7deb8d13876be870afae1481c3b8a9446f062f0d99fdef38ac0945646a",
+    "toolchain": {
+      "gh": "recorded from locked runner image at runtime",
+      "git": "recorded from locked runner image at runtime",
+      "python": "3.11.9",
+      "zlib": "recorded from locked CPython at runtime"
+    }
+  },
+  "schema": "rapp-github-actions-lock/1.0"
+}

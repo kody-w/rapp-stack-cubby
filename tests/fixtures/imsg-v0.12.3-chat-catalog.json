@@ -1,0 +1,19 @@
+{
+  "chats": [
+    {
+      "account_id": "E:synthetic-owner@invalid.example",
+      "account_login": "synthetic-owner@invalid.example",
+      "guid": "iMessage;-;synthetic-owner-handle",
+      "id": 42,
+      "identifier": "synthetic-owner-handle",
+      "is_group": false,
+      "last_addressed_handle": "synthetic-owner@invalid.example",
+      "last_message_at": "2026-07-12T20:00:00.000Z",
+      "name": "Synthetic Owner",
+      "participants": [
+        "synthetic-owner-handle"
+      ],
+      "service": "iMessage"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "$id": "urn:rapp:schema:github-actions-lock:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "commit": {
+            "pattern": "^[0-9a-f]{40}$",
+            "type": "string"
+          },
+          "license": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "const": "LICENSE"
+              },
+              "sha256": {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              "spdx": {
+                "const": "MIT"
+              }
+            },
+            "required": [
+              "path",
+              "sha256",
+              "spdx"
+            ],
+            "type": "object"
+          },
+          "repository": {
+            "pattern": "^https://github\\.com/actions/[A-Za-z0-9_.-]+$",
+            "type": "string"
+          },
+          "tag": {
+            "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+            "type": "string"
+          },
+          "uses": {
+            "pattern": "^actions/[A-Za-z0-9_.-]+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "uses",
+          "repository",
+          "tag",
+          "commit",
+          "license"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "policy": {
+      "additionalProperties": false,
+      "properties": {
+        "mutable_action_tags_allowed": {
+          "const": false
+        },
+        "official_actions_only": {
+          "const": true
+        },
+        "protected_release_environment_required": {
+          "const": true
+        },
+        "protected_promotion_environment_required": {
+          "const": true
+        },
+        "pull_request_secrets_allowed": {
+          "const": false
+        },
+        "pull_request_target_allowed": {
+          "const": false
+        },
+        "shell_input_expressions_allowed": {
+          "const": false
+        },
+        "tag_refs_resolved_directly": {
+          "const": true
+        }
+      },
+      "required": [
+        "mutable_action_tags_allowed",
+        "official_actions_only",
+        "protected_promotion_environment_required",
+        "protected_release_environment_required",
+        "pull_request_secrets_allowed",
+        "pull_request_target_allowed",
+        "shell_input_expressions_allowed",
+        "tag_refs_resolved_directly"
+      ],
+      "type": "object"
+    },
+    "resolved_at": {
+      "format": "date",
+      "type": "string"
+    },
+    "runner": {
+      "additionalProperties": false,
+      "properties": {
+        "architecture": {
+          "const": "arm64"
+        },
+        "label": {
+          "const": "macos-15"
+        },
+        "label_source": {
+          "const": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories"
+        },
+        "operating_system": {
+          "const": "macOS 15"
+        },
+        "python": {
+          "const": "3.11.9"
+        },
+        "reproducibility_scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requirements": {
+          "const": "requirements-ci.lock"
+        },
+        "source": {
+          "format": "uri",
+          "type": "string"
+        },
+        "source_commit": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        },
+        "source_license_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "toolchain": {
+          "additionalProperties": false,
+          "properties": {
+            "gh": {
+              "type": "string"
+            },
+            "git": {
+              "type": "string"
+            },
+            "python": {
+              "const": "3.11.9"
+            },
+            "zlib": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "python",
+            "git",
+            "gh",
+            "zlib"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "label",
+        "label_source",
+        "operating_system",
+        "architecture",
+        "python",
+        "requirements",
+        "source",
+        "source_commit",
+        "source_license_sha256",
+        "reproducibility_scope",
+        "toolchain"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "rapp-github-actions-lock/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "resolved_at",
+    "runner",
+    "policy",
+    "actions"
+  ],
+  "title": "Immutable official GitHub Actions lock",
+  "type": "object"
+}

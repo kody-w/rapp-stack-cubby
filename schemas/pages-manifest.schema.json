@@ -1,0 +1,71 @@
+{
+  "$id": "urn:rapp:schema:pages-manifest:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "base_path": {
+      "const": "/rapp-stack-cubby/"
+    },
+    "file_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "css",
+              "deployment-marker",
+              "html",
+              "javascript",
+              "json",
+              "manifest",
+              "markdown",
+              "robots",
+              "svg",
+              "text",
+              "xml"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "size": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "size",
+          "kind"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-pages-manifest/1.0"
+    },
+    "self_hash": {
+      "const": "sha256-zeroed-self-record"
+    }
+  },
+  "required": [
+    "schema",
+    "base_path",
+    "self_hash",
+    "file_count",
+    "files"
+  ],
+  "title": "Exact deployable Pages inventory",
+  "type": "object"
+}

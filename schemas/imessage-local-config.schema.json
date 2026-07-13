@@ -1,0 +1,222 @@
+{
+  "$id": "urn:rapp:schema:imessage-local-config:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "examples": [
+    {
+      "account_id": "primary-account",
+      "allowed_dm_handles": [],
+      "allowed_group_chat_ids": [],
+      "attachments_enabled": false,
+      "config_path": "/private/rapp-imessage/config.json",
+      "controller_auth_token_file": "/private/rapp-controller-auth/controller-auth.token",
+      "controller_timeout_seconds": 120,
+      "global_controller_url": "http://127.0.0.1:8000/chat",
+      "group_aliases": {},
+      "groups_enabled": false,
+      "identity_links": {},
+      "imsg_path": "/private/rapp-tools/bin/imsg",
+      "imsg_version": "0.12.3",
+      "max_message_chars": 65536,
+      "max_response_chars": 65536,
+      "mention_required": false,
+      "mention_tokens": [],
+      "owner_chat_ids": [
+        "owner-self-chat-placeholder"
+      ],
+      "owner_handles": [
+        "owner-handle-placeholder"
+      ],
+      "rappter_instance_id": "local-instance",
+      "reactions_enabled": false,
+      "reply_prefix": "",
+      "request_timeout_seconds": 30,
+      "restart_initial_seconds": 0.25,
+      "restart_max_seconds": 8,
+      "schema": "rapp-imessage-config/1.0",
+      "sms_fallback": false,
+      "stale_after_seconds": 900,
+      "state_dir": "/private/rapp-imessage/state",
+      "target_rappid": "rappid:@sample-owner/sample-twin:0000000000000000000000000000000000000000000000000000000000000000",
+      "worker_count": 1
+    }
+  ],
+  "properties": {
+    "account_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:@+;-]{0,255}$",
+      "type": "string"
+    },
+    "allowed_dm_handles": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "allowed_group_chat_ids": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "attachments_enabled": {
+      "const": false
+    },
+    "config_path": {
+      "pattern": "^/(?!.*(?:^|/)\\.\\.(?:/|$)).+",
+      "type": "string"
+    },
+    "controller_auth_token_file": {
+      "pattern": "^/(?!.*(?:^|/)\\.\\.(?:/|$)).+",
+      "type": "string"
+    },
+    "controller_timeout_seconds": {
+      "maximum": 300,
+      "minimum": 0.1,
+      "type": "number"
+    },
+    "global_controller_url": {
+      "pattern": "^http://(?:localhost|127(?:\\.[0-9]{1,3}){3}|\\[::1\\])(?::[0-9]{1,5})?/chat$",
+      "type": "string"
+    },
+    "group_aliases": {
+      "maxProperties": 0,
+      "type": "object"
+    },
+    "groups_enabled": {
+      "const": false
+    },
+    "identity_links": {
+      "maxProperties": 0,
+      "type": "object"
+    },
+    "imsg_path": {
+      "pattern": "^/",
+      "type": "string"
+    },
+    "imsg_version": {
+      "const": "0.12.3"
+    },
+    "max_message_chars": {
+      "maximum": 1048576,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "max_response_chars": {
+      "maximum": 1048576,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "mention_required": {
+      "const": false
+    },
+    "mention_tokens": {
+      "maxItems": 0,
+      "type": "array"
+    },
+    "owner_chat_ids": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": [
+          "string",
+          "integer"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "owner_handles": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": [
+          "string",
+          "integer"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "rappter_instance_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "reactions_enabled": {
+      "const": false
+    },
+    "reply_prefix": {
+      "maxLength": 64,
+      "type": "string"
+    },
+    "request_timeout_seconds": {
+      "maximum": 300,
+      "minimum": 0.1,
+      "type": "number"
+    },
+    "restart_initial_seconds": {
+      "maximum": 30,
+      "minimum": 0.05,
+      "type": "number"
+    },
+    "restart_max_seconds": {
+      "maximum": 120,
+      "minimum": 0.05,
+      "type": "number"
+    },
+    "schema": {
+      "const": "rapp-imessage-config/1.0"
+    },
+    "sms_fallback": {
+      "const": false
+    },
+    "stale_after_seconds": {
+      "maximum": 86400,
+      "minimum": 1,
+      "type": "number"
+    },
+    "state_dir": {
+      "pattern": "^/(?!.*(?:^|/)\\.\\.(?:/|$)).+",
+      "type": "string"
+    },
+    "target_rappid": {
+      "pattern": "^rappid:@[a-z0-9][a-z0-9-]{0,62}/[a-z0-9][a-z0-9-]{0,62}:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "worker_count": {
+      "const": 1
+    }
+  },
+  "required": [
+    "schema",
+    "config_path",
+    "controller_auth_token_file",
+    "state_dir",
+    "imsg_path",
+    "imsg_version",
+    "global_controller_url",
+    "target_rappid",
+    "rappter_instance_id",
+    "account_id",
+    "owner_handles",
+    "owner_chat_ids",
+    "reply_prefix",
+    "request_timeout_seconds",
+    "controller_timeout_seconds",
+    "restart_initial_seconds",
+    "restart_max_seconds",
+    "stale_after_seconds",
+    "max_message_chars",
+    "max_response_chars",
+    "worker_count",
+    "allowed_dm_handles",
+    "allowed_group_chat_ids",
+    "identity_links",
+    "group_aliases",
+    "groups_enabled",
+    "mention_required",
+    "mention_tokens",
+    "sms_fallback",
+    "attachments_enabled",
+    "reactions_enabled"
+  ],
+  "title": "Private owner-only local iMessage bridge configuration",
+  "type": "object"
+}

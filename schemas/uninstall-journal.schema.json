@@ -1,0 +1,36 @@
+{
+  "$id": "urn:rapp:schema:uninstall-journal:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "const": "uninstall-twin"
+    },
+    "instance_identity_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "phase": {
+      "enum": [
+        "verified",
+        "quarantined",
+        "deleted"
+      ]
+    },
+    "product_identity_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-uninstall-journal/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "action",
+    "phase",
+    "product_identity_hash",
+    "instance_identity_hash"
+  ],
+  "type": "object"
+}

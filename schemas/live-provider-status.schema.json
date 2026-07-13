@@ -1,0 +1,60 @@
+{
+  "$id": "urn:rapp:schema:live-provider-status:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "latency_ms": {
+      "maximum": 300000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "model": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "response_shape": {
+      "additionalProperties": false,
+      "properties": {
+        "completion_content_present": {
+          "type": "boolean"
+        },
+        "completion_finish_reason_present": {
+          "type": "boolean"
+        },
+        "completion_tool_calls": {
+          "const": 0
+        },
+        "initial_content_present": {
+          "type": "boolean"
+        },
+        "initial_tool_calls": {
+          "const": 1
+        }
+      },
+      "required": [
+        "initial_content_present",
+        "initial_tool_calls",
+        "completion_content_present",
+        "completion_finish_reason_present",
+        "completion_tool_calls"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "rapp-live-provider-status/1.0"
+    },
+    "success": {
+      "const": true
+    }
+  },
+  "required": [
+    "schema",
+    "success",
+    "model",
+    "latency_ms",
+    "response_shape"
+  ],
+  "title": "Content-free local live provider proof",
+  "type": "object"
+}

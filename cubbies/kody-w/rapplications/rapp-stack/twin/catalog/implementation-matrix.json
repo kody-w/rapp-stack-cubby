@@ -1,0 +1,1436 @@
+{
+  "aggregates": {
+    "capability_count": 113,
+    "counts_by_implementation_state": {
+      "excluded": 13,
+      "future_owned": 3,
+      "implemented_now": 39,
+      "reference_only": 39,
+      "runtime_implemented": 19
+    },
+    "selected_count": 61,
+    "selected_unmapped_count": 0
+  },
+  "capabilities": [
+    {
+      "capability_id": "agents.controller-child-semantics",
+      "capability_status": "implemented",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "hatch_repo",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "agents",
+      "selected": true
+    },
+    {
+      "capability_id": "agents.rar-registry",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "agents",
+      "selected": false
+    },
+    {
+      "capability_id": "agents.sense-overlay",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "agents",
+      "selected": false
+    },
+    {
+      "capability_id": "agents.single-file-cartridge",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "render",
+        "kind": "agent",
+        "name": "AgentFactory"
+      },
+      "plane": "agents",
+      "selected": true
+    },
+    {
+      "capability_id": "agents.skill-not-agent",
+      "capability_status": "contradictory",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "inspect",
+        "kind": "agent",
+        "name": "Registry"
+      },
+      "plane": "agents",
+      "selected": true
+    },
+    {
+      "capability_id": "agents.stack-loader",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "agents",
+      "selected": false
+    },
+    {
+      "capability_id": "chat.complete-twin-envelope",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "twin-chat",
+        "kind": "runtime",
+        "name": "signed-ingress"
+      },
+      "plane": "chat/network",
+      "selected": true
+    },
+    {
+      "capability_id": "chat.local-post-chat",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "chat",
+        "kind": "runtime",
+        "name": "isolated-runtime"
+      },
+      "plane": "chat/network",
+      "selected": true
+    },
+    {
+      "capability_id": "chat.project-twin-network",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "chat/network",
+      "selected": false
+    },
+    {
+      "capability_id": "chat.replay-idempotency",
+      "capability_status": "spec_only",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "replay-journal",
+        "kind": "runtime",
+        "name": "signed-ingress"
+      },
+      "plane": "chat/network",
+      "selected": true
+    },
+    {
+      "capability_id": "chat.signed-commons-wrapper",
+      "capability_status": "contradictory",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "chat",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "chat/network",
+      "selected": true
+    },
+    {
+      "capability_id": "chat.signed-response",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "signed-response",
+        "kind": "runtime",
+        "name": "signed-ingress"
+      },
+      "plane": "chat/network",
+      "selected": true
+    },
+    {
+      "capability_id": "cloud.azure-functions-body",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "cloud.communityrapp-progression",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "cloud.copilot-studio-package",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "cloud.dataverse-twin",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "cloud.m365-agent-surfaces",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "cloud.oneclick-import",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "cloud/enterprise",
+      "selected": false
+    },
+    {
+      "capability_id": "distribution.brainstem-cubby-egg",
+      "capability_status": "contradictory",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "artifact-build"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.cart-experience",
+      "capability_status": "spec_only",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "distribution",
+      "selected": false
+    },
+    {
+      "capability_id": "distribution.cubby",
+      "capability_status": "contradictory",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "render",
+        "kind": "agent",
+        "name": "Cubby"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.deprecated-installer-lines",
+      "capability_status": "deprecated",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "distribution",
+      "selected": false
+    },
+    {
+      "capability_id": "distribution.deterministic-build",
+      "capability_status": "partial",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "artifact-build"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.distro",
+      "capability_status": "contradictory",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "distribution",
+      "selected": false
+    },
+    {
+      "capability_id": "distribution.hardened-hatch",
+      "capability_status": "implemented",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "hatch"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.offline-recovery-egg",
+      "capability_status": "partial",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "artifact-build"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.rapplication",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "render",
+        "kind": "agent",
+        "name": "Rapplication"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "distribution.store-publish-hatch",
+      "capability_status": "partial",
+      "claim": "Explicit future ownership; no implementation is claimed.",
+      "implementation_state": "future_owned",
+      "owner": {
+        "kind": "future",
+        "name": "release-attestation"
+      },
+      "plane": "distribution",
+      "selected": true
+    },
+    {
+      "capability_id": "evolution.double-jump",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "evolution.hologram-moment",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "evolution.runtime-benchmark",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.aggregate-results",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.fleet-chat",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.legacy-direct-agent-rce",
+      "capability_status": "unsafe_legacy",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.leviathan-controller",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.wrapped-organism-egg",
+      "capability_status": "unsafe_legacy",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "fleet.wrapped-organism-model",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "fleet/leviathan",
+      "selected": false
+    },
+    {
+      "capability_id": "governance.authority-order",
+      "capability_status": "spec_only",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "overview",
+        "kind": "agent",
+        "name": "StackMap"
+      },
+      "plane": "governance",
+      "selected": true
+    },
+    {
+      "capability_id": "governance.canon-and-constitution",
+      "capability_status": "contradictory",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "governance",
+      "selected": false
+    },
+    {
+      "capability_id": "governance.direct-evidence-census",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "repo",
+        "kind": "agent",
+        "name": "StackMap"
+      },
+      "plane": "governance",
+      "selected": true
+    },
+    {
+      "capability_id": "governance.grail-pointer",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "repo",
+        "kind": "agent",
+        "name": "StackMap"
+      },
+      "plane": "governance",
+      "selected": true
+    },
+    {
+      "capability_id": "governance.license-provenance",
+      "capability_status": "partial",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "provenance",
+        "kind": "agent",
+        "name": "Security"
+      },
+      "plane": "governance",
+      "selected": true
+    },
+    {
+      "capability_id": "governance.public-private-boundary",
+      "capability_status": "spec_only",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "boundary",
+        "kind": "agent",
+        "name": "Security"
+      },
+      "plane": "governance",
+      "selected": true
+    },
+    {
+      "capability_id": "governance.spine-cross-check",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "governance",
+      "selected": false
+    },
+    {
+      "capability_id": "identity.canonical-json",
+      "capability_status": "contradictory",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "canonicalize",
+        "kind": "agent",
+        "name": "Rappid"
+      },
+      "plane": "identity",
+      "selected": true
+    },
+    {
+      "capability_id": "identity.cards-and-facets",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "identity",
+      "selected": false
+    },
+    {
+      "capability_id": "identity.legacy-rappid-families",
+      "capability_status": "contradictory",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "identity",
+      "selected": false
+    },
+    {
+      "capability_id": "identity.lineage",
+      "capability_status": "partial",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "mint",
+        "kind": "agent",
+        "name": "Rappid"
+      },
+      "plane": "identity",
+      "selected": true
+    },
+    {
+      "capability_id": "identity.owner-binding",
+      "capability_status": "spec_only",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "hatch_repo",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "identity",
+      "selected": true
+    },
+    {
+      "capability_id": "identity.p256-transport-pairing",
+      "capability_status": "partial",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "rotate_keys",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "identity",
+      "selected": true
+    },
+    {
+      "capability_id": "identity.rappid-eternity",
+      "capability_status": "spec_only",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "mint",
+        "kind": "agent",
+        "name": "Rappid"
+      },
+      "plane": "identity",
+      "selected": true
+    },
+    {
+      "capability_id": "memory.consent-projection",
+      "capability_status": "partial",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "context",
+        "kind": "agent",
+        "name": "Memory"
+      },
+      "plane": "memory/storage",
+      "selected": true
+    },
+    {
+      "capability_id": "memory.hippocampus",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "memory/storage",
+      "selected": false
+    },
+    {
+      "capability_id": "memory.local-azure-progression",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "memory/storage",
+      "selected": false
+    },
+    {
+      "capability_id": "memory.private-runtime-state",
+      "capability_status": "contradictory",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "remember",
+        "kind": "agent",
+        "name": "Memory"
+      },
+      "plane": "memory/storage",
+      "selected": true
+    },
+    {
+      "capability_id": "memory.session-context",
+      "capability_status": "partial",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "context",
+        "kind": "agent",
+        "name": "Memory"
+      },
+      "plane": "memory/storage",
+      "selected": true
+    },
+    {
+      "capability_id": "messaging.echo-suppression",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "echo-suppression",
+        "kind": "runtime",
+        "name": "imessage-state"
+      },
+      "plane": "messaging",
+      "selected": true
+    },
+    {
+      "capability_id": "messaging.group-and-sms",
+      "capability_status": "partial",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "messaging",
+      "selected": false
+    },
+    {
+      "capability_id": "messaging.imessage-ingest",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "ingest",
+        "kind": "runtime",
+        "name": "imessage-bridge"
+      },
+      "plane": "messaging",
+      "selected": true
+    },
+    {
+      "capability_id": "messaging.outbox-recovery",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "outbox-recovery",
+        "kind": "runtime",
+        "name": "imessage-state"
+      },
+      "plane": "messaging",
+      "selected": true
+    },
+    {
+      "capability_id": "messaging.owner-only-policy",
+      "capability_status": "spec_only",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "owner-only",
+        "kind": "runtime",
+        "name": "imessage-bridge"
+      },
+      "plane": "messaging",
+      "selected": true
+    },
+    {
+      "capability_id": "messaging.trust-contract",
+      "capability_status": "spec_only",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "trust",
+        "kind": "runtime",
+        "name": "imessage-bridge"
+      },
+      "plane": "messaging",
+      "selected": true
+    },
+    {
+      "capability_id": "neighborhood.commons-global-square",
+      "capability_status": "contradictory",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "neighborhood.estate-discovery",
+      "capability_status": "contradictory",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "neighborhood.metropolis",
+      "capability_status": "spec_only",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "neighborhood.protocol-capstone",
+      "capability_status": "spec_only",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "twin-chat",
+        "kind": "runtime",
+        "name": "signed-ingress"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": true
+    },
+    {
+      "capability_id": "neighborhood.resident-relay",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "neighborhood.sealed-channel",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "neighborhood.vneighborhood-sharing",
+      "capability_status": "unsafe_legacy",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "neighborhood/estate/metropolis",
+      "selected": false
+    },
+    {
+      "capability_id": "network.frame-net",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "chat/network",
+      "selected": false
+    },
+    {
+      "capability_id": "network.kite-bridge",
+      "capability_status": "partial",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "chat/network",
+      "selected": false
+    },
+    {
+      "capability_id": "observability.map-god-spine",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "release.artifact-digests",
+      "capability_status": "partial",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "verification"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "release.build-once-provenance",
+      "capability_status": "implemented",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "provenance"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "release.postflight-rollback",
+      "capability_status": "partial",
+      "claim": "Explicit future ownership; no implementation is claimed.",
+      "implementation_state": "future_owned",
+      "owner": {
+        "kind": "future",
+        "name": "release-attestation"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "release.preflight",
+      "capability_status": "implemented",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "verification"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "release.provenance-file-gate",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "provenance",
+        "kind": "agent",
+        "name": "Security"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "release.scanner-matrix",
+      "capability_status": "implemented",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "publication-scan"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.agent-discovery",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "load",
+        "kind": "runtime",
+        "name": "agent-registry"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.basic-agent-abi",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "abi",
+        "kind": "runtime",
+        "name": "basic-agent"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.clean-room-implementation",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "clean-room",
+        "kind": "runtime",
+        "name": "isolated-runtime"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.dynamic-import-legacy",
+      "capability_status": "unsafe_legacy",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "kernel/runtime",
+      "selected": false
+    },
+    {
+      "capability_id": "runtime.headless-sdk",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "kernel/runtime",
+      "selected": false
+    },
+    {
+      "capability_id": "runtime.installer-brainstem",
+      "capability_status": "implemented",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "repo",
+        "kind": "agent",
+        "name": "StackMap"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.local-chat-endpoint",
+      "capability_status": "contradictory",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "chat",
+        "kind": "runtime",
+        "name": "isolated-runtime"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.streaming-controller",
+      "capability_status": "implemented",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "chat",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "runtime.tool-call-loop",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "tool-call-loop",
+        "kind": "runtime",
+        "name": "orchestrator"
+      },
+      "plane": "kernel/runtime",
+      "selected": true
+    },
+    {
+      "capability_id": "security.archive-containment",
+      "capability_status": "unsafe_legacy",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "verification"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "security.cors-host-loopback",
+      "capability_status": "contradictory",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "loopback",
+        "kind": "runtime",
+        "name": "server-config"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "security.no-dynamic-code",
+      "capability_status": "unsafe_legacy",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "no-dynamic-code",
+        "kind": "runtime",
+        "name": "isolated-runtime"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "security.pages-private-state",
+      "capability_status": "unsafe_legacy",
+      "claim": "The dependency-free static Pages handoff and checker are implemented locally; live deployment and release remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "pages",
+        "name": "static-handoff"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "security.signed-twin-traffic",
+      "capability_status": "spec_only",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "chat",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "security/release",
+      "selected": true
+    },
+    {
+      "capability_id": "store.rapplication-catalog",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "memory/storage",
+      "selected": false
+    },
+    {
+      "capability_id": "store.source-and-sense-separation",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "memory/storage",
+      "selected": false
+    },
+    {
+      "capability_id": "substrate.browser-origin-storage",
+      "capability_status": "unsafe_legacy",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "substrate",
+      "selected": false
+    },
+    {
+      "capability_id": "substrate.git-source-identity",
+      "capability_status": "partial",
+      "claim": "The focused agent action is available now; this is not an artifact, deployment, lifecycle, or conformance claim.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "provenance",
+        "kind": "agent",
+        "name": "Security"
+      },
+      "plane": "substrate",
+      "selected": true
+    },
+    {
+      "capability_id": "substrate.github-actions-compute",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "substrate",
+      "selected": false
+    },
+    {
+      "capability_id": "substrate.github-issues-discussions",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "substrate",
+      "selected": false
+    },
+    {
+      "capability_id": "substrate.github-pages-static",
+      "capability_status": "implemented",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded_from_v1_runtime"
+      },
+      "plane": "substrate",
+      "selected": false
+    },
+    {
+      "capability_id": "substrate.local-private-filesystem",
+      "capability_status": "partial",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "isolation",
+        "kind": "runtime",
+        "name": "local-storage"
+      },
+      "plane": "substrate",
+      "selected": true
+    },
+    {
+      "capability_id": "substrate.macos-arm64-host",
+      "capability_status": "partial",
+      "claim": "Explicit future ownership; no implementation is claimed.",
+      "implementation_state": "future_owned",
+      "owner": {
+        "kind": "future",
+        "name": "release-attestation"
+      },
+      "plane": "substrate",
+      "selected": true
+    },
+    {
+      "capability_id": "substrate.static-api-discovery",
+      "capability_status": "implemented",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "substrate",
+      "selected": false
+    },
+    {
+      "capability_id": "twin.boot-health-stop",
+      "capability_status": "implemented",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "start",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "twin lifecycle",
+      "selected": true
+    },
+    {
+      "capability_id": "twin.freeze-restore",
+      "capability_status": "partial",
+      "claim": "The deterministic local packaging or hatch component is tested; public release and final-commit attestation remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "kind": "packaging",
+        "name": "artifact-build"
+      },
+      "plane": "twin lifecycle",
+      "selected": true
+    },
+    {
+      "capability_id": "twin.global-controller-child",
+      "capability_status": "implemented",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "hatch_repo",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "twin lifecycle",
+      "selected": true
+    },
+    {
+      "capability_id": "twin.hatch-isolated",
+      "capability_status": "implemented",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "adopt_install",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "twin lifecycle",
+      "selected": true
+    },
+    {
+      "capability_id": "twin.mint",
+      "capability_status": "contradictory",
+      "claim": "The guarded local controller action is available now; release packaging, iMessage, publication, and conformance remain unclaimed.",
+      "implementation_state": "implemented_now",
+      "owner": {
+        "action": "hatch_repo",
+        "kind": "agent",
+        "name": "RappStackCubbyController"
+      },
+      "plane": "twin lifecycle",
+      "selected": true
+    },
+    {
+      "capability_id": "twin.planted-front-door",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "twin lifecycle",
+      "selected": false
+    },
+    {
+      "capability_id": "ux.desktop-supervisor",
+      "capability_status": "partial",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "ux.local-chat",
+      "capability_status": "implemented",
+      "claim": "The local runtime component exists but remains unattested.",
+      "implementation_state": "runtime_implemented",
+      "owner": {
+        "action": "chat",
+        "kind": "runtime",
+        "name": "isolated-runtime"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": true
+    },
+    {
+      "capability_id": "ux.pages-front-door",
+      "capability_status": "partial",
+      "claim": "Audited reference only; no local implementation is claimed.",
+      "implementation_state": "reference_only",
+      "owner": {
+        "kind": "reference",
+        "name": "reference_only"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "ux.racon-console",
+      "capability_status": "partial",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    },
+    {
+      "capability_id": "ux.vscode-twin-controls",
+      "capability_status": "partial",
+      "claim": "Excluded from the selected local profile.",
+      "implementation_state": "excluded",
+      "owner": {
+        "kind": "excluded",
+        "name": "excluded"
+      },
+      "plane": "UX/observability/evolution",
+      "selected": false
+    }
+  ],
+  "determinism": {
+    "capability_order": "capability_id",
+    "encoding": "UTF-8",
+    "indent_spaces": 2,
+    "key_order": "lexicographic",
+    "trailing_newline": true
+  },
+  "future_task_ids": [
+    "release-attestation"
+  ],
+  "schema": "rapp-implementation-matrix/1.0",
+  "source": {
+    "agent_catalog_schema": "rapp-local-agent-catalog/1.0",
+    "capability_matrix": "CAPABILITY_MATRIX.json",
+    "capability_matrix_sha256": "d97b40cf8e14465dfb944e947131f0999baf34880cf6b46c44bec0a437b1558a"
+  },
+  "truth_rule": "implemented_now names only the available focused action; runtime_implemented remains unattested; future_owned is not implemented; Pages implementation is static and unreleased; reference_only and excluded never claim local implementation."
+}

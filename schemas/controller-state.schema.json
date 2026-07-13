@@ -1,0 +1,328 @@
+{
+  "$defs": {
+    "hex64": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "rappid": {
+      "pattern": "^rappid:@[a-z0-9][a-z0-9-]{0,62}/[a-z0-9][a-z0-9-]{0,127}:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "timestamp": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:controller-state:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "$ref": "#/$defs/timestamp"
+    },
+    "attestation_mode": {
+      "anyOf": [
+        {
+          "const": "offline-self-test"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "hatch_profile": {
+      "enum": [
+        "release",
+        "development_non_release",
+        "adopted_verified_install"
+      ]
+    },
+    "identity_hash": {
+      "$ref": "#/$defs/hex64"
+    },
+    "instance_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "product_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "active",
+        "archived"
+      ]
+    },
+    "last_start_failure": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "code": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "at"
+      ],
+      "type": "object"
+    },
+    "process": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "additionalProperties": true,
+          "properties": {
+            "command_sha256": {
+              "$ref": "#/$defs/hex64"
+            },
+            "instance_id": {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+              "type": "string"
+            },
+            "pid": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "pgid": {
+              "minimum": 2,
+              "type": "integer"
+            },
+            "start_identity": {
+              "$ref": "#/$defs/hex64"
+            },
+            "model": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "attestation_mode": {
+              "anyOf": [
+                {
+                  "const": "offline-self-test"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "provider_timeout": {
+              "exclusiveMinimum": 0,
+              "maximum": 300,
+              "type": "number"
+            },
+            "signed_only": {
+              "const": true
+            },
+            "port": {
+              "maximum": 65535,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "pid",
+            "pgid",
+            "port",
+            "instance_id",
+            "command_sha256",
+            "start_identity",
+            "model",
+            "attestation_mode",
+            "provider_timeout",
+            "signed_only"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "release_manifest_sha256": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/hex64"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "repository_url": {
+      "const": "https://github.com/kody-w/rapp-stack-cubby.git"
+    },
+    "runtime_status": {
+      "enum": [
+        "stopped",
+        "starting",
+        "running"
+      ]
+    },
+    "selected_model": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "signed_only": {
+      "const": true
+    },
+    "adopted_install": {
+      "additionalProperties": false,
+      "properties": {
+        "root": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "installed_manifest_sha256": {
+          "$ref": "#/$defs/hex64"
+        },
+        "external_release_manifest_sha256": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/hex64"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/hex64"
+        },
+        "source_tree_digest": {
+          "$ref": "#/$defs/hex64"
+        },
+        "source_revision": {
+          "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+          "type": "string"
+        },
+        "python_relative": {
+          "const": "runtime/venv/bin/python"
+        },
+        "runtime_tree_sha256": {
+          "$ref": "#/$defs/hex64"
+        },
+        "trusted_development": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "root",
+        "installed_manifest_sha256",
+        "external_release_manifest_sha256",
+        "artifact_sha256",
+        "source_tree_digest",
+        "source_revision",
+        "python_relative",
+        "runtime_tree_sha256",
+        "trusted_development"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "rapp-controller-twin-state/1.0"
+    },
+    "source_commit": {
+      "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+      "type": "string"
+    },
+    "source_tree_digest": {
+      "$ref": "#/$defs/hex64"
+    },
+    "transport": {
+      "additionalProperties": false,
+      "properties": {
+        "child_key_id": {
+          "$ref": "#/$defs/hex64"
+        },
+        "controller_key_id": {
+          "$ref": "#/$defs/hex64"
+        },
+        "controller_rappid": {
+          "$ref": "#/$defs/rappid"
+        },
+        "generation": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "key_epoch": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "profile": {
+          "const": "rapp-twin-chat/1.0"
+        }
+      },
+      "required": [
+        "profile",
+        "child_key_id",
+        "controller_key_id",
+        "controller_rappid",
+        "generation",
+        "key_epoch"
+      ],
+      "type": "object"
+    },
+    "transport_key_audit": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "key_id": {
+            "$ref": "#/$defs/hex64"
+          },
+          "reason": {
+            "const": "guarded_rotation"
+          },
+          "retired_at": {
+            "$ref": "#/$defs/timestamp"
+          }
+        },
+        "required": [
+          "key_id",
+          "retired_at",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "maxItems": 32,
+      "type": "array"
+    },
+    "updated_at": {
+      "$ref": "#/$defs/timestamp"
+    }
+  },
+  "required": [
+    "schema",
+    "rappid",
+    "instance_rappid",
+    "product_rappid",
+    "identity_hash",
+    "lifecycle_state",
+    "runtime_status",
+    "repository_url",
+    "source_commit",
+    "source_tree_digest",
+    "release_manifest_sha256",
+    "hatch_profile",
+    "created_at",
+    "updated_at",
+    "process",
+    "transport",
+    "selected_model",
+    "attestation_mode",
+    "signed_only"
+  ],
+  "title": "Private controller child state",
+  "type": "object"
+}

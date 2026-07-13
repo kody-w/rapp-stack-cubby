@@ -1,0 +1,131 @@
+{
+  "$id": "urn:rapp:schema:publication-scan-policy:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowlist": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "artifact_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "expires": {
+            "type": "string"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "match_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reviewer": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rule": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reason",
+          "reviewer",
+          "rule"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "forbidden_extensions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "forbidden_filenames": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "limits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_archive_depth": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_artifact_bytes": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_binary_string_bytes": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_compression_ratio": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_expanded_bytes": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_git_objects": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_members": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_archive_depth",
+        "max_artifact_bytes",
+        "max_binary_string_bytes",
+        "max_compression_ratio",
+        "max_expanded_bytes",
+        "max_git_objects",
+        "max_members"
+      ],
+      "type": "object"
+    },
+    "normalized_timestamp": {
+      "const": "1970-01-01T00:00:00Z"
+    },
+    "schema": {
+      "const": "rapp-publication-scan-policy/1.0"
+    },
+    "source_exclusions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "normalized_timestamp",
+    "limits",
+    "forbidden_filenames",
+    "forbidden_extensions",
+    "source_exclusions",
+    "allowlist"
+  ],
+  "title": "Publication scanner policy",
+  "type": "object"
+}

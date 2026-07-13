@@ -1,0 +1,206 @@
+{
+  "artifacts_committed": false,
+  "build_system": {
+    "backend": "setuptools.build_meta",
+    "license_expression": "MIT",
+    "name": "setuptools",
+    "source": {
+      "repository": "https://github.com/pypa/setuptools",
+      "sdist_sha256": "f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"
+    },
+    "version": "80.9.0",
+    "wheel": {
+      "filename": "setuptools-80.9.0-py3-none-any.whl",
+      "sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
+      "size": 1201486,
+      "url": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    }
+  },
+  "ci": {
+    "architecture": "arm64",
+    "operating_system": "macOS 15",
+    "packages": [
+      {
+        "filename": "cffi-2.1.0-cp311-cp311-macosx_11_0_arm64.whl",
+        "license_expression": "MIT-0",
+        "name": "cffi",
+        "sha256": "f5bce581e6b8c235e566a14768a943b172ada3ed73537bb0c0be1edee312d4e7",
+        "version": "2.1.0"
+      },
+      {
+        "filename": "cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl",
+        "license_expression": "Apache-2.0 OR BSD-3-Clause",
+        "name": "cryptography",
+        "sha256": "966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db",
+        "version": "49.0.0"
+      },
+      {
+        "filename": "pycparser-3.0-py3-none-any.whl",
+        "license_expression": "BSD-3-Clause",
+        "name": "pycparser",
+        "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+        "version": "3.0"
+      }
+    ],
+    "python": "3.11.9",
+    "requirements_file": "requirements-ci.lock",
+    "runner": "macos-15"
+  },
+  "index": "https://pypi.org/simple",
+  "packages": [
+    {
+      "dependency_of": [
+        "cryptography==49.0.0"
+      ],
+      "license_expression": "MIT-0",
+      "name": "cffi",
+      "pypi_metadata": "https://pypi.org/pypi/cffi/2.1.0/json",
+      "requires": [
+        "pycparser==3.0"
+      ],
+      "sdist": {
+        "filename": "cffi-2.1.0.tar.gz",
+        "sha256": "efc1cdd798b1aaf39b4610bba7aad28c9bea9b910f25c784ccf9ec1fa719d1f9",
+        "size": 531036
+      },
+      "source": {
+        "commit": "d9f6f70adac5ca9f260abf5405cf4d0373767b65",
+        "repository": "https://github.com/python-cffi/cffi",
+        "tag": "v2.1.0"
+      },
+      "version": "2.1.0",
+      "wheel": {
+        "filename": "cffi-2.1.0-cp311-cp311-macosx_11_0_arm64.whl",
+        "sha256": "f5bce581e6b8c235e566a14768a943b172ada3ed73537bb0c0be1edee312d4e7",
+        "size": 184186,
+        "url": "https://files.pythonhosted.org/packages/ea/dd/e3b0baa2d3d6a857ac72b7efbf18e32e487c9cdafcc13049ad765495b15e/cffi-2.1.0-cp311-cp311-macosx_11_0_arm64.whl"
+      }
+    },
+    {
+      "dependency_of": [
+        "rapp-stack-cubby"
+      ],
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "name": "cryptography",
+      "pypi_metadata": "https://pypi.org/pypi/cryptography/49.0.0/json",
+      "requires": [
+        "cffi==2.1.0"
+      ],
+      "sdist": {
+        "filename": "cryptography-49.0.0.tar.gz",
+        "sha256": "f89660a348f4f78a92366240a61404e337586ef7f5909a2fef59ca88ef505493",
+        "size": 854345
+      },
+      "source": {
+        "commit": "e300bbe2f1bec75e5ee7e0ab7b196958831b3db6",
+        "repository": "https://github.com/pyca/cryptography",
+        "tag": "49.0.0",
+        "tag_object": "c739e7347fe16a9f9f5adc3a0186abb73872be85",
+        "tag_signature_verified_by_github": true
+      },
+      "version": "49.0.0",
+      "wheel": {
+        "filename": "cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl",
+        "sha256": "966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db",
+        "size": 4032100,
+        "url": "https://files.pythonhosted.org/packages/9b/22/adf66990e63584a68dfb50c24f48a125c07b1699899381c8151e63ed458c/cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl"
+      }
+    },
+    {
+      "dependency_of": [
+        "cffi==2.1.0"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "name": "pycparser",
+      "pypi_metadata": "https://pypi.org/pypi/pycparser/3.0/json",
+      "requires": [],
+      "sdist": {
+        "filename": "pycparser-3.0.tar.gz",
+        "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29",
+        "size": 103492
+      },
+      "source": {
+        "commit": "77de509f0268f44ee587b5a4d9f0d680e269fcae",
+        "repository": "https://github.com/eliben/pycparser",
+        "tag": "release_v3.00"
+      },
+      "version": "3.0",
+      "wheel": {
+        "filename": "pycparser-3.0-py3-none-any.whl",
+        "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+        "size": 48172,
+        "url": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl"
+      }
+    }
+  ],
+  "requirements_file": "requirements.lock",
+  "schema": "rapp-python-dependency-lock/1.0",
+  "target": {
+    "architecture": "arm64",
+    "implementation": "CPython",
+    "macos_minimum": "11.0",
+    "python": "3.11"
+  },
+  "tools": [
+    {
+      "architectures": {
+        "imsg": [
+          "x86_64",
+          "arm64"
+        ],
+        "imsg-bridge-helper.dylib": [
+          "x86_64",
+          "arm64",
+          "arm64e"
+        ]
+      },
+      "license": {
+        "blob": "0ae0cb57d8c6c1417f796b39fc0d6a7f2f7c5c39",
+        "copyright": "Copyright (c) 2026 Peter Steinberger",
+        "spdx": "MIT"
+      },
+      "name": "imsg",
+      "release": {
+        "archive_sha256": "35977a22e9721440acf9f5b945d67034939948ba4fa4ea46b0f55d527f24d4f2",
+        "asset": "imsg-macos.zip",
+        "size": 2887679,
+        "url": "https://github.com/openclaw/imsg/releases/download/v0.12.3/imsg-macos.zip"
+      },
+      "required_files": [
+        "PhoneNumberKit_PhoneNumberKit.bundle/PhoneNumberMetadata.json",
+        "SQLite.swift_SQLite.bundle/PrivacyInfo.xcprivacy",
+        "imsg",
+        "imsg-bridge-helper.dylib"
+      ],
+      "signing": {
+        "authority_contains": "Developer ID Application: Peter Steinberger",
+        "strict": true,
+        "team_id": "Y5PE65HELJ"
+      },
+      "source": {
+        "annotated_ref": "76585a9e13a33534bec26d5478482efcc238f803",
+        "commit": "dea78a9e9c493740575b03e443041ef5fbd2d463",
+        "repository": "https://github.com/openclaw/imsg",
+        "tag": "v0.12.3"
+      },
+      "version": "0.12.3"
+    }
+  ],
+  "verification": {
+    "artifact_hash_algorithm": "sha256",
+    "ci_requirements_hash_locked": true,
+    "ci_runner": "macos-15",
+    "downloaded_outside_repository": true,
+    "imsg_installed_content_free_verification": {
+      "archive_hash": true,
+      "architectures": true,
+      "codesign_strict": true,
+      "layout": true,
+      "team_and_authority": true,
+      "version": true
+    },
+    "imsg_installer": "scripts/install-imsg.sh",
+    "verified_at": "2026-07-12",
+    "wheel_selection_relaxed": false
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$id": "urn:rapp:schema:release-provenance:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "build": {
+      "type": "object"
+    },
+    "development_only": {
+      "type": "boolean"
+    },
+    "materials": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 5,
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-release-provenance/1.0"
+    },
+    "source_revision": {
+      "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+      "type": "string"
+    },
+    "source_git_tree": {
+      "anyOf": [
+        {
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_tree_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:rc[0-9]+)?$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "source_revision",
+    "source_git_tree",
+    "source_tree_digest",
+    "materials",
+    "build",
+    "development_only",
+    "version"
+  ],
+  "title": "Deterministic release build provenance",
+  "type": "object"
+}

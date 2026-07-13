@@ -1,0 +1,148 @@
+{
+  "agent_first": true,
+  "agents": [
+    {
+      "mode": "0644",
+      "path": "twin/agents/agent_factory_agent.py",
+      "sha256": "3a5a67380daf14530dbee3c6054bc84ec82d13507aa26b83599d4d245d21c64c",
+      "size": 20487
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/cubby_agent.py",
+      "sha256": "5def40427352a7c4d17f279ebd630d5bcc7ff581dec42852458d04fb6f56e1de",
+      "size": 11269
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/deployment_agent.py",
+      "sha256": "6a50dd840acccee6925e447e1b789749adce0d42e4ed70ee5db4341ea150ef0f",
+      "size": 8681
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/imessage_agent.py",
+      "sha256": "c31756909c18a784754aa7cf0e82da6a8c83709ce898ecd8cdb9e5f64c822d6a",
+      "size": 6815
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/memory_agent.py",
+      "sha256": "985768c75c1d2cdb3dfa9714e11b60a4ceb2aa86379a06307f90e472407df4a1",
+      "size": 18963
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/rappid_agent.py",
+      "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f",
+      "size": 9686
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/rapplication_agent.py",
+      "sha256": "d21f0921dc2916a0d61a25c300378e0098030d6685d0becd7464d64129ebe707",
+      "size": 9875
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/registry_agent.py",
+      "sha256": "2e8105f171d6c0181b3b7b3e60a375af61dd2a09600f3cd8d06c9b7f3fea2a56",
+      "size": 8892
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/security_agent.py",
+      "sha256": "f259307a3c1c4ef5705c2288d830b1f8c217b9b2e07b60bc034b0ade62902f79",
+      "size": 19390
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/self_test_agent.py",
+      "sha256": "a084bb58d0548376c45798c7e7948d10e59324d24af7667d47ed5ec40a000102",
+      "size": 11811
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/stack_map_agent.py",
+      "sha256": "50b346ebffe20ed095363abd9bbf53a16ced2d6dc0b6162f30b26d64919951d8",
+      "size": 13928
+    },
+    {
+      "mode": "0644",
+      "path": "twin/agents/twin_chat_agent.py",
+      "sha256": "251af0b397ecb4dd735e9fe24d4d8b021c6f8b2842e513ef76e4ed3b43fd5d79",
+      "size": 6960
+    }
+  ],
+  "application_id": "rapp-stack",
+  "boundaries": {
+    "bundled_secrets": false,
+    "bundled_state": false,
+    "private": [
+      "transport keys",
+      "iMessage enrollment and content",
+      "runtime databases and receipts"
+    ],
+    "public": [
+      "source",
+      "synthetic fixtures",
+      "schemas",
+      "locks",
+      "documentation",
+      "offline dependency identities"
+    ]
+  },
+  "context_closure": [
+    "AI_CONTEXT.md",
+    "CONTEXT_INDEX.json",
+    "docs/",
+    "schemas/",
+    "tests/"
+  ],
+  "controller": {
+    "mode": "0644",
+    "path": "singleton/rapp_stack_cubby_agent.py",
+    "sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b",
+    "size": 238843
+  },
+  "dependencies": {
+    "archive_count": 4,
+    "lock": "DEPENDENCY_LOCK.json",
+    "offline_required": true,
+    "requirements": "requirements.lock",
+    "target": "CPython 3.11 / macOS 11+ / arm64"
+  },
+  "features": {
+    "local_ui": true,
+    "owner_only_imessage": true,
+    "published": false,
+    "released": false,
+    "signed_twin_chat": true
+  },
+  "identity": "rappid:@kody-w/rapp-stack-cubby:8019c0b7a40f31c046796b7a30f55dfd3b4331d91875276dc5c572176ec19c83",
+  "local_ui": {
+    "network_requests": false,
+    "path": "ui/index.html",
+    "persistent_storage": false
+  },
+  "platform": {
+    "architecture": "arm64",
+    "macos_minimum": "11.0",
+    "python": "3.11"
+  },
+  "runtime": {
+    "capability_endpoint": "loopback POST /chat",
+    "network_install": false,
+    "source": "src/rapp_stack_cubby/runtime/"
+  },
+  "schema": "rapp-application/1.0",
+  "soul": {
+    "mode": "0644",
+    "path": "twin/soul.md",
+    "sha256": "ee9080f88e44fdfe97a3392269b9e38b9363fa0e9d4a28f353368c56c94d6458",
+    "size": 2787
+  },
+  "source_binding": "rapp-release-source-manifest.json",
+  "streamable_agent_count": 1,
+  "version": "0.1.0rc1"
+}

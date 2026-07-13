@@ -1,0 +1,29 @@
+{
+  "controller": {
+    "catalog": "cubbies/kody-w/catalog/controller-catalog.json",
+    "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
+    "sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b",
+    "streamable_agent_count": 1
+  },
+  "created_at": "2026-07-12T18:18:52Z",
+  "display_name": "Kody Wildfeuer",
+  "estate": {
+    "anatomy": [
+      "agents",
+      "organs",
+      "senses",
+      "rapplications",
+      "neighborhoods",
+      "eggs",
+      "show-and-tell"
+    ]
+  },
+  "github_login": "kody-w",
+  "product_version": "0.1.0rc1",
+  "schema": "rapp-cubby/1.0",
+  "slug": "kody-w",
+  "streamable": {
+    "agents": true
+  },
+  "what_im_cooking": "A public shelf for the under-construction RAPP stack handoff."
+}

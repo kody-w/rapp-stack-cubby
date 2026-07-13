@@ -1,0 +1,116 @@
+{
+  "adapted_files": [
+    {
+      "destination": "scripts/install-imsg.sh",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "a6e3726428ce4fb0eda8ad187e0c57da977b3df1",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "scripts/install-imsg.sh"
+    },
+    {
+      "destination": "src/rapp_stack_cubby/imessage/bridge.py",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "84c90aced30e710233b6c21f8bb053f5d7032fc6",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "python/openrappter/imessage/service.py"
+    },
+    {
+      "destination": "src/rapp_stack_cubby/imessage/cli.py",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "51d32a5424890a9c100226b35da90e29f3383fd3",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "python/openrappter/imessage/cli.py"
+    },
+    {
+      "destination": "src/rapp_stack_cubby/imessage/config.py",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "04f381698c23231d092ac2c63168c8faef736a5a",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "python/openrappter/imessage/config.py"
+    },
+    {
+      "destination": "src/rapp_stack_cubby/imessage/rpc.py",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "6940824a02e65440d01ba43f50719880aec9b20e",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "python/openrappter/imessage/rpc.py"
+    },
+    {
+      "destination": "src/rapp_stack_cubby/imessage/state.py",
+      "license": "MIT",
+      "license_text": "THIRD_PARTY_LICENSES/OpenRappter-MIT.txt",
+      "provenance_entry": "adapted-openrappter-imessage",
+      "source_blob": "c83a9d6e5f227c1b155bd6a6906aed7b69da3a72",
+      "source_commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_package": "pkg:github/kody-w/openrappter@7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "source_path": "python/openrappter/imessage/state.py"
+    }
+  ],
+  "components": [
+    {
+      "hash": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
+      "license": "MIT",
+      "purl": "pkg:pypi/setuptools@80.9.0",
+      "scope": "build"
+    },
+    {
+      "hash": "966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "purl": "pkg:pypi/cryptography@49.0.0",
+      "scope": "required"
+    },
+    {
+      "hash": "f5bce581e6b8c235e566a14768a943b172ada3ed73537bb0c0be1edee312d4e7",
+      "license": "MIT-0",
+      "purl": "pkg:pypi/cffi@2.1.0",
+      "scope": "required"
+    },
+    {
+      "hash": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "license": "BSD-3-Clause",
+      "purl": "pkg:pypi/pycparser@3.0",
+      "scope": "required"
+    },
+    {
+      "hash": "35977a22e9721440acf9f5b945d67034939948ba4fa4ea46b0f55d527f24d4f2",
+      "license": "MIT",
+      "purl": "pkg:github/openclaw/imsg@0.12.3",
+      "scope": "required"
+    }
+  ],
+  "dependency_lock": "DEPENDENCY_LOCK.json",
+  "final_sbom_created": false,
+  "legal_review_scope": "Repository provenance/license mapping and SPDX generation checks only; no independent external legal audit or legal opinion is claimed.",
+  "schema": "rapp-sbom-input/1.0",
+  "spdx_profile": {
+    "adapted_file_metadata": "Each adapted destination has a provenance-derived MIT conclusion, 2025 Kody W attribution, exact OpenRappter source blob, and NOTICE/license fileComment. licenseInfoInFiles remains NOASSERTION unless the destination bytes contain an actual header.",
+    "document_describes_root_package": true,
+    "file_attribution": "Every scanned file is cross-bound to the validated source_file_provenance map in PROVENANCE.json. Original/generated project files use the project MIT conclusion and 2026 Kody Wildfeuer attribution; mixed/external evidence uses NOASSERTION; included license copies retain their actual copyright.",
+    "license_detection": "licenseInfoInFiles reports only an actual SPDX identifier or complete recognized license text detected in that file; repository-level conclusions are not reported as in-file findings.",
+    "root_contains_all_scanned_files": true,
+    "root_dependency_closure": [
+      "cffi==2.1.0",
+      "cryptography==49.0.0",
+      "imsg==0.12.3",
+      "pycparser==3.0",
+      "setuptools==80.9.0"
+    ],
+    "version": "SPDX-2.3"
+  },
+  "target": "cp311-macosx_11_0_arm64"
+}

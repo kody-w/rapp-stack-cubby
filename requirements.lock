@@ -1,0 +1,8 @@
+# Target-only reproducible install input: CPython 3.11, macOS 11+, arm64.
+# Every hash below was verified against a separately downloaded PyPI artifact.
+cryptography==49.0.0 \
+    --hash=sha256:966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db
+cffi==2.1.0 \
+    --hash=sha256:f5bce581e6b8c235e566a14768a943b172ada3ed73537bb0c0be1edee312d4e7
+pycparser==3.0 \
+    --hash=sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992

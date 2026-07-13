@@ -1,0 +1,44 @@
+{
+  "$id": "urn:rapp:schema:hatch-receipt:1.1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "installed_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "rappid": {
+      "pattern": "^rappid:@[a-z0-9-]+/[a-z0-9-]+:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "instance_rappid": {
+      "pattern": "^rappid:@[a-z0-9-]+/[a-z0-9-]+:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "product_rappid": {
+      "pattern": "^rappid:@[a-z0-9-]+/[a-z0-9-]+:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-hatch-receipt/1.1"
+    },
+    "started": {
+      "const": false
+    }
+  },
+  "required": [
+    "schema",
+    "rappid",
+    "instance_rappid",
+    "product_rappid",
+    "artifact_sha256",
+    "installed_manifest_sha256",
+    "started"
+  ],
+  "title": "Content-free isolated hatch receipt",
+  "type": "object"
+}

@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "turn": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "user",
+            "assistant",
+            "tool"
+          ]
+        }
+      },
+      "required": [
+        "role",
+        "content"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:brainstem-chat-request:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "examples": [
+    {
+      "conversation_history": [],
+      "session_id": "synthetic-session",
+      "user_input": "synthetic input"
+    }
+  ],
+  "properties": {
+    "conversation_history": {
+      "items": {
+        "$ref": "#/$defs/turn"
+      },
+      "maxItems": 512,
+      "type": "array"
+    },
+    "session_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    },
+    "user_input": {
+      "maxLength": 1048576,
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_input"
+  ],
+  "title": "Implemented local brainstem chat request",
+  "type": "object"
+}

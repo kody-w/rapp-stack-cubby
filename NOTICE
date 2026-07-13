@@ -1,0 +1,149 @@
+rapp-stack-cubby notices
+
+Newly authored project material
+--------------------------------
+
+Newly authored code in this project is intended for distribution under the
+MIT License.
+
+The twelve actual agents under
+`cubbies/kody-w/rapplications/rapp-stack/twin/agents/`, the twin soul, and the
+deterministic local catalog builder were newly authored for this project.
+The sole controller under `cubbies/kody-w/agents/` and its deterministic
+controller loadout, catalog, lifecycle support, and tests were also newly
+authored for this project.
+The local context corpus—`AI_CONTEXT.md`, canonical profiles, ADRs, runbooks,
+Draft 2020-12 schemas, deterministic context index generator, validator, and
+context tests—was newly authored for this project from the repository's direct
+evidence and tested implementation. It does not reproduce external
+documentation prose. External repository names and URLs are provenance
+citations only.
+The dependency-free Pages site, static API generator/checker, accessibility
+styles, release preparation scripts, tests, and GitHub workflow definitions
+were newly authored for this project. Official GitHub Actions are not copied
+into this repository; their exact upstream commits, tags, MIT license hashes,
+and intended uses are recorded in `GITHUB_ACTIONS_LOCK.json` and
+`PROVENANCE.json`.
+Their exact source hashes and generated catalog hashes are recorded in
+`PROVENANCE.json` and `STACK_LOCK.json`. No upstream agent source was copied or
+adapted. The iMessage files identified below are the only adapted
+implementation source.
+
+Locked runtime dependencies
+---------------------------
+
+The project declares but does not vendor `cryptography==49.0.0`
+(Apache-2.0 OR BSD-3-Clause), `cffi==2.1.0` (MIT-0), and
+`pycparser==3.0` (BSD-3-Clause). Exact target wheels, source commits, PyPI
+metadata, licenses, and hashes are recorded in `DEPENDENCY_LOCK.json` and
+`SBOM_INPUT.json`. Their upstream licenses govern those installed packages.
+
+The project also installs but does not vendor `openclaw/imsg` v0.12.3 from its
+immutable signed macOS release. Its annotated tag object, peeled source
+commit, release archive SHA-256, MIT license blob, Developer ID authority,
+Team ID, architectures, and required layout are recorded in
+`DEPENDENCY_LOCK.json` and `STACK_LOCK.json`.
+
+  Copyright (c) 2026 Peter Steinberger
+  MIT License
+  THIRD_PARTY_LICENSES/imsg-MIT.txt
+
+Microsoft behavioral and license reference
+------------------------------------------
+
+The isolated runtime was newly authored for this project. For behavioral and
+license comparison only, the implementation work referenced:
+
+  microsoft/aibast-agents-library
+  commit 29e49d04e830012494198d746734cb19bc6eea60
+  https://github.com/microsoft/aibast-agents-library/tree/29e49d04e830012494198d746734cb19bc6eea60
+
+That pinned source is licensed under the MIT License:
+
+  Copyright (c) 2025 Microsoft
+  https://github.com/microsoft/aibast-agents-library/blob/29e49d04e830012494198d746734cb19bc6eea60/LICENSE
+
+No Microsoft runtime source file was copied or adapted. The reference remains
+reference-only. If a source file is included in the future, its applicable
+copyright and MIT permission notice must be retained, and the exact source
+path, upstream blob, destination, and modification record must be entered
+below.
+
+Microsoft does not endorse, sponsor, certify, support, or maintain this
+project. This project is not affiliated with Microsoft. Microsoft names,
+logos, products, and trademarks remain the property of their respective
+owners; no trademark license or affiliation is implied.
+
+Behavioral and protocol references
+----------------------------------
+
+kody-w/rapp-installer is used only as a behavioral pointer. No source is taken
+from it, and this notice does not infer or reproduce a license that is absent
+from its pinned root. Other repositories listed as reference_only in
+PROVENANCE.json are citations, not included source.
+
+Adapted OpenRappter iMessage files
+---------------------------------
+
+The following files were adapted from the pinned MIT OpenRappter source:
+
+  Upstream repository: https://github.com/kody-w/openrappter
+  Upstream commit: 7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a
+  Copyright (c) 2025 Kody W
+  License: MIT
+  License copy: THIRD_PARTY_LICENSES/OpenRappter-MIT.txt
+
+  Destination: scripts/install-imsg.sh
+  Upstream path: scripts/install-imsg.sh
+  Upstream blob: a6e3726428ce4fb0eda8ad187e0c57da977b3df1
+
+  Destination: src/rapp_stack_cubby/imessage/config.py
+  Upstream path: python/openrappter/imessage/config.py
+  Upstream blob: 04f381698c23231d092ac2c63168c8faef736a5a
+
+  Destination: src/rapp_stack_cubby/imessage/rpc.py
+  Upstream path: python/openrappter/imessage/rpc.py
+  Upstream blob: 6940824a02e65440d01ba43f50719880aec9b20e
+
+  Destination: src/rapp_stack_cubby/imessage/state.py
+  Upstream path: python/openrappter/imessage/state.py
+  Upstream blob: c83a9d6e5f227c1b155bd6a6906aed7b69da3a72
+
+  Destination: src/rapp_stack_cubby/imessage/bridge.py
+  Upstream path: python/openrappter/imessage/service.py
+  Upstream blob: 84c90aced30e710233b6c21f8bb053f5d7032fc6
+
+  Destination: src/rapp_stack_cubby/imessage/cli.py
+  Upstream path: python/openrappter/imessage/cli.py
+  Upstream blob: 51d32a5424890a9c100226b35da90e29f3383fd3
+
+Each destination is substantially narrowed to owner-only v1. Exact
+modification summaries and review state are in `PROVENANCE.json`. No other
+OpenRappter source file is cleared for adaptation.
+The same six destinations map one-for-one to `SBOM_INPUT.json` adapted-file
+records. Development SPDX 2.3 output contains every scanned file in the root
+package, records the locked package dependency closure, and gives each adapted
+file a provenance-derived MIT conclusion with its OpenRappter
+commit/blob/NOTICE/license comment. It reports `licenseInfoInFiles` as
+`NOASSERTION` when the destination itself has no license header.
+
+The per-file SPDX map is not a blanket project attribution. Newly authored and
+generated project files use the project MIT conclusion and 2026 Kody
+Wildfeuer attribution, but only bytes containing an actual SPDX header or
+recognized complete license text receive an in-file license finding. Mixed
+public evidence and unknown attribution remain `NOASSERTION`. The copied
+OpenRappter and imsg MIT license texts retain, respectively, 2025 Kody W and
+2026 Peter Steinberger copyright.
+
+This NOTICE does not grant rights in third-party, forked, copied, generated,
+vendored, or otherwise unreviewed material.
+These records are repository provenance and declared-license checks. This is
+not an independent external legal audit or legal opinion.
+
+Generated offline artifacts
+---------------------------
+Development/release artifacts generated by this product may bundle the exact
+three Python wheels and signed imsg archive identified in DEPENDENCY_LOCK.json.
+Those binary archives are not committed to source. Their licenses and upstream
+notices remain listed in SBOM_INPUT.json, DEPENDENCY_LOCK.json, PROVENANCE.json,
+and THIRD_PARTY_LICENSES/. The project does not claim ownership of them.

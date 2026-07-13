@@ -1,0 +1,332 @@
+{
+  "agent_abi": {
+    "decorated": false,
+    "signature": "def perform(self, **kwargs)",
+    "synchronous": true
+  },
+  "agent_count": 12,
+  "agents": [
+    {
+      "actions": [
+        "render",
+        "list",
+        "create",
+        "delete"
+      ],
+      "capability_ids": [
+        "agents.single-file-cartridge"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Render a strict portable agent scaffold and guard generated-agent writes.",
+      "enabled_by_default": true,
+      "manifest_name": "AgentFactory",
+      "manifest_version": "1.0.0",
+      "mutability": "guarded_generated_files",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/agent_factory_agent.py",
+      "provenance": "original_new",
+      "sha256": "3a5a67380daf14530dbee3c6054bc84ec82d13507aa26b83599d4d245d21c64c",
+      "tool_name": "AgentFactory"
+    },
+    {
+      "actions": [
+        "inspect",
+        "list",
+        "show",
+        "query",
+        "render",
+        "pack",
+        "import",
+        "stream"
+      ],
+      "capability_ids": [
+        "distribution.cubby"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Inspect public cubby data and render a non-secret cubby manifest.",
+      "enabled_by_default": true,
+      "manifest_name": "Cubby",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/cubby_agent.py",
+      "provenance": "original_new",
+      "sha256": "5def40427352a7c4d17f279ebd630d5bcc7ff581dec42852458d04fb6f56e1de",
+      "tool_name": "Cubby"
+    },
+    {
+      "actions": [
+        "inspect",
+        "render"
+      ],
+      "capability_ids": [],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Inspect deployment evidence and render credential-free dry-run plans.",
+      "enabled_by_default": true,
+      "manifest_name": "Deployment",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/deployment_agent.py",
+      "provenance": "original_new",
+      "sha256": "6a50dd840acccee6925e447e1b789749adce0d42e4ed70ee5db4341ea150ef0f",
+      "tool_name": "Deployment"
+    },
+    {
+      "actions": [
+        "status",
+        "preflight",
+        "tutorial",
+        "transport"
+      ],
+      "capability_ids": [],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Report content-free iMessage lifecycle and transport readiness.",
+      "enabled_by_default": true,
+      "manifest_name": "IMessage",
+      "manifest_version": "1.0.1",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/imessage_agent.py",
+      "provenance": "original_new",
+      "sha256": "c31756909c18a784754aa7cf0e82da6a8c83709ce898ecd8cdb9e5f64c822d6a",
+      "tool_name": "IMessage"
+    },
+    {
+      "actions": [
+        "remember",
+        "recall",
+        "list",
+        "forget",
+        "context"
+      ],
+      "capability_ids": [
+        "memory.consent-projection",
+        "memory.private-runtime-state",
+        "memory.session-context"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent",
+        "AzureFileStorageManager-local-shim"
+      ],
+      "description": "Remember and recall bounded local facts in an isolated principal namespace.",
+      "enabled_by_default": true,
+      "manifest_name": "Memory",
+      "manifest_version": "1.0.0",
+      "mutability": "guarded_local_state",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/memory_agent.py",
+      "provenance": "original_new",
+      "sha256": "985768c75c1d2cdb3dfa9714e11b60a4ceb2aa86379a06307f90e472407df4a1",
+      "tool_name": "Memory"
+    },
+    {
+      "actions": [
+        "canonicalize",
+        "validate",
+        "parse",
+        "mint",
+        "door"
+      ],
+      "capability_ids": [
+        "identity.canonical-json",
+        "identity.lineage",
+        "identity.rappid-eternity"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Canonicalize birth data and work with one selected 64-hex RAPPID form.",
+      "enabled_by_default": true,
+      "manifest_name": "Rappid",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rappid_agent.py",
+      "provenance": "original_new",
+      "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f",
+      "tool_name": "Rappid"
+    },
+    {
+      "actions": [
+        "inspect",
+        "status",
+        "coverage",
+        "render",
+        "pack",
+        "hatch",
+        "lifecycle"
+      ],
+      "capability_ids": [
+        "distribution.rapplication"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Inspect rapplication readiness and render a non-executable manifest template.",
+      "enabled_by_default": true,
+      "manifest_name": "Rapplication",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rapplication_agent.py",
+      "provenance": "original_new",
+      "sha256": "d21f0921dc2916a0d61a25c300378e0098030d6685d0becd7464d64129ebe707",
+      "tool_name": "Rapplication"
+    },
+    {
+      "actions": [
+        "list",
+        "search",
+        "inspect",
+        "capability"
+      ],
+      "capability_ids": [
+        "agents.skill-not-agent"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "List and inspect frozen local agents and capability ownership.",
+      "enabled_by_default": true,
+      "manifest_name": "Registry",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/registry_agent.py",
+      "provenance": "original_new",
+      "sha256": "2e8105f171d6c0181b3b7b3e60a375af61dd2a09600f3cd8d06c9b7f3fea2a56",
+      "tool_name": "Registry"
+    },
+    {
+      "actions": [
+        "boundary",
+        "provenance",
+        "unresolved",
+        "scan",
+        "verify"
+      ],
+      "capability_ids": [
+        "governance.license-provenance",
+        "governance.public-private-boundary",
+        "release.provenance-file-gate",
+        "substrate.git-source-identity"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Inspect policy, provenance, unresolved locks, and hard-bounded source risks.",
+      "enabled_by_default": true,
+      "manifest_name": "Security",
+      "manifest_version": "1.0.1",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/security_agent.py",
+      "provenance": "original_new",
+      "sha256": "f259307a3c1c4ef5705c2288d830b1f8c217b9b2e07b60bc034b0ade62902f79",
+      "tool_name": "Security"
+    },
+    {
+      "actions": [
+        "run",
+        "artifact",
+        "catalog",
+        "agents",
+        "mappings",
+        "isolation",
+        "routes"
+      ],
+      "capability_ids": [],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Check artifact presence, catalog integrity, mappings, isolation, and routes.",
+      "enabled_by_default": true,
+      "manifest_name": "SelfTest",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/self_test_agent.py",
+      "provenance": "original_new",
+      "sha256": "a084bb58d0548376c45798c7e7948d10e59324d24af7667d47ed5ec40a000102",
+      "tool_name": "SelfTest"
+    },
+    {
+      "actions": [
+        "overview",
+        "capability",
+        "path",
+        "repo",
+        "collision",
+        "gaps",
+        "coverage"
+      ],
+      "capability_ids": [
+        "governance.authority-order",
+        "governance.direct-evidence-census",
+        "governance.grail-pointer",
+        "runtime.installer-brainstem"
+      ],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Inspect the frozen local census, capability map, graph, and gaps.",
+      "enabled_by_default": true,
+      "manifest_name": "StackMap",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/stack_map_agent.py",
+      "provenance": "original_new",
+      "sha256": "50b346ebffe20ed095363abd9bbf53a16ced2d6dc0b6162f30b26d64919951d8",
+      "tool_name": "StackMap"
+    },
+    {
+      "actions": [
+        "status",
+        "identity",
+        "journal",
+        "vector"
+      ],
+      "capability_ids": [],
+      "dependencies": [
+        "python-stdlib",
+        "BasicAgent"
+      ],
+      "description": "Report redacted signed-chat status and a synthetic vector.",
+      "enabled_by_default": true,
+      "manifest_name": "TwinChat",
+      "manifest_version": "1.0.0",
+      "mutability": "read_only",
+      "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/twin_chat_agent.py",
+      "provenance": "original_new",
+      "sha256": "251af0b397ecb4dd735e9fe24d4d8b021c6f8b2842e513ef76e4ed3b43fd5d79",
+      "tool_name": "TwinChat"
+    }
+  ],
+  "aggregates": {
+    "capability_assignment_count": 18,
+    "counts_by_mutability": {
+      "guarded_generated_files": 1,
+      "guarded_local_state": 1,
+      "read_only": 10
+    },
+    "enabled_by_default_count": 12
+  },
+  "determinism": {
+    "agent_order": "path",
+    "encoding": "UTF-8",
+    "indent_spaces": 2,
+    "key_order": "lexicographic",
+    "trailing_newline": true
+  },
+  "schema": "rapp-local-agent-catalog/1.0"
+}

@@ -1,0 +1,14 @@
+{
+  "agent_first": true,
+  "application_id": "rapp-stack",
+  "description": "Complete local RAPP product, deterministic packaging, and isolated hatch handoff.",
+  "development_only": true,
+  "display_name": "RAPP Stack Cubby",
+  "owner": "kody-w",
+  "published": false,
+  "rappid": "rappid:@kody-w/rapp-stack-cubby:8019c0b7a40f31c046796b7a30f55dfd3b4331d91875276dc5c572176ec19c83",
+  "released": false,
+  "schema": "rapp-store-entry/1.0",
+  "streamable_controller_count": 1,
+  "version": "0.1.0rc1"
+}

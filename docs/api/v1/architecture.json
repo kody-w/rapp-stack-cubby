@@ -1,0 +1,5509 @@
+{
+  "aggregates": {
+    "canonical_path_count": 8,
+    "collision_count": 12,
+    "edge_count": 122,
+    "edge_counts_by_type": {
+      "conflicts_with": 6,
+      "deploys_to": 5,
+      "excluded_from_cubby": 6,
+      "extends": 3,
+      "hatches": 4,
+      "hosts": 7,
+      "implements": 32,
+      "indexes": 7,
+      "instance_of": 4,
+      "mirrors": 4,
+      "operates": 1,
+      "packages": 11,
+      "references": 1,
+      "specifies": 14,
+      "supersedes": 3,
+      "transports": 14
+    },
+    "non_repo_node_count": 61,
+    "orphan_repo_count": 248,
+    "repo_node_count": 307,
+    "repo_nodes_by_classification": {
+      "A": 84,
+      "C": 39,
+      "I": 76,
+      "L": 20,
+      "U": 88
+    },
+    "repo_nodes_by_primary_plane": {
+      "UX/observability/evolution": 15,
+      "adjacent": 35,
+      "agents": 35,
+      "cloud/enterprise": 27,
+      "distribution": 15,
+      "fleet/leviathan": 4,
+      "governance": 4,
+      "identity": 5,
+      "kernel/runtime": 15,
+      "memory/storage": 8,
+      "messaging": 3,
+      "neighborhood/estate/metropolis": 20,
+      "outside": 88,
+      "security/release": 9,
+      "twin lifecycle": 24
+    },
+    "repo_nodes_by_rapp_relevance": {
+      "adjacent": 75,
+      "core": 39,
+      "instance": 70,
+      "legacy": 20,
+      "outside": 88,
+      "supporting": 15
+    },
+    "total_node_count": 368
+  },
+  "api_version": "v1",
+  "canonical_paths": [
+    {
+      "id": "path:cloud-progression",
+      "name": "Cloud progression",
+      "ordered_edges": [
+        "edge:path:cloud:01",
+        "edge:path:cloud:02",
+        "edge:path:cloud:03",
+        "edge:path:cloud:04"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "artifact:rapp-application-1.0",
+        "runtime:azure-functions-body",
+        "runtime:dataverse-twin",
+        "runtime:m365-surface"
+      ],
+      "outcome": "A reviewed local application reaches Azure, Dataverse, and M365 without exporting private runtime state.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:disaster-recovery-offline-egg",
+      "name": "Disaster recovery / offline egg",
+      "ordered_edges": [
+        "edge:path:recovery:01",
+        "edge:path:recovery:02",
+        "edge:path:recovery:03"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:restored-isolated-twin",
+        "protocol:post-chat"
+      ],
+      "outcome": "An independently verified offline egg restores an isolated twin before replacement.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:fleet-coordination",
+      "name": "Fleet coordination",
+      "ordered_edges": [
+        "edge:path:fleet:01",
+        "edge:path:fleet:02",
+        "edge:path:fleet:03",
+        "edge:path:fleet:04"
+      ],
+      "ordered_nodes": [
+        "runtime:leviathan-controller",
+        "protocol:rapp-fleet-chat-1.0",
+        "runtime:leviathan-node",
+        "protocol:post-chat",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "A controller fans bounded signed operations to enrolled nodes and aggregates signed results.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:fresh-local-agent",
+      "name": "Fresh local agent",
+      "ordered_edges": [
+        "edge:path:fresh:01",
+        "edge:path:fresh:02",
+        "edge:path:fresh:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05",
+        "edge:path:fresh:06"
+      ],
+      "ordered_nodes": [
+        "repo:kody-w/RAR",
+        "artifact:single-file-agent",
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin",
+        "protocol:post-chat"
+      ],
+      "outcome": "A reviewed one-file agent becomes an independently discoverable local capability.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:global-brainstem-isolated-twin",
+      "name": "Global brainstem to isolated twin",
+      "ordered_edges": [
+        "edge:path:global:00",
+        "edge:path:global:00b",
+        "edge:path:global:01",
+        "edge:path:fresh:02",
+        "edge:path:fresh:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05"
+      ],
+      "ordered_nodes": [
+        "actor:local-owner",
+        "product:local/rapp-stack-cubby",
+        "runtime:global-controller",
+        "artifact:single-file-agent",
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "The authenticated local owner operates this product, whose controller builds and supervises a child with separate workspace, venv, identity, keys, and state.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:neighborhood-sharing",
+      "name": "Neighborhood sharing",
+      "ordered_edges": [
+        "edge:path:neighborhood:01",
+        "edge:path:neighborhood:02",
+        "edge:path:neighborhood:03",
+        "edge:path:neighborhood:04",
+        "edge:path:neighborhood:05"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "protocol:rapp-twin-chat-1.0",
+        "protocol:rapp-commons-event-1.0",
+        "network:neighborhood",
+        "runtime:resident-relay",
+        "runtime:neighborhood-peer"
+      ],
+      "outcome": "A signed event crosses an untrusted relay and is independently verified by an admitted peer.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:owner-imessage-rapplication-reply",
+      "name": "Owner iMessage to rapplication to reply",
+      "ordered_edges": [
+        "edge:path:imessage:00",
+        "edge:path:imessage:01",
+        "edge:path:imessage:02",
+        "edge:path:imessage:03",
+        "edge:path:imessage:04",
+        "edge:path:imessage:05",
+        "edge:path:imessage:06",
+        "edge:path:imessage:07",
+        "edge:path:imessage:08"
+      ],
+      "ordered_nodes": [
+        "actor:local-owner",
+        "transport:imsg-json-rpc",
+        "runtime:imessage-adapter",
+        "protocol:rapp-commons-event-1.0",
+        "protocol:rapp-twin-chat-1.0",
+        "runtime:isolated-installed-twin",
+        "artifact:rapp-application-1.0",
+        "protocol:rapp-twin-chat-response-1.0",
+        "runtime:imessage-adapter",
+        "transport:imsg-json-rpc"
+      ],
+      "outcome": "One enrolled owner DM is rejected or becomes one durable signed request and one durable reply.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:public-rapplication-publish-hatch",
+      "name": "Public rapplication publish / hatch",
+      "ordered_edges": [
+        "edge:path:publish:01",
+        "edge:path:publish:02",
+        "edge:path:publish:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05"
+      ],
+      "ordered_nodes": [
+        "repo:kody-w/RAPP_Store",
+        "transport:github-pages",
+        "store:rapplication",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "Immutable public discovery leads to verified, contained, isolated local installation.",
+      "scope": "selected_target"
+    }
+  ],
+  "collisions": [
+    {
+      "id": "collision:agent-vs-skill",
+      "issue": "Host guidance and executable BasicAgents are both called agents/capabilities.",
+      "node_refs": [
+        "artifact:single-file-agent",
+        "repo:kody-w/rapp-claude-skills"
+      ],
+      "resolution": "Only ABI-conforming reviewed Python enters the agent manifest; skills remain host integration material."
+    },
+    {
+      "id": "collision:cubby-families",
+      "issue": "double-jump and lisppy use incompatible cubby schemas.",
+      "node_refs": [
+        "repo:kody-w/double-jump",
+        "repo:kody-w/lisppy",
+        "artifact:rapp-cubby-1.0"
+      ],
+      "resolution": "CUBBY defines one new exact profile and rejects both as implicit substitutes."
+    },
+    {
+      "id": "collision:cubby-rapplication-egg-cart",
+      "issue": "Four lifecycle stages are often flattened into one cartridge/egg concept.",
+      "node_refs": [
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "artifact:rapp-cart-1.0"
+      ],
+      "resolution": "The first three are mandatory ordered artifacts; cart remains a non-selected UX contract."
+    },
+    {
+      "id": "collision:grail-source",
+      "issue": "Behavioral grail authority is mistaken for licensed source authority.",
+      "node_refs": [
+        "repo:kody-w/rapp-installer",
+        "external:microsoft-aibast-29e49d0",
+        "runtime:clean-room-brainstem"
+      ],
+      "resolution": "Installer and Microsoft are reference-only; the selected project runtime is original clean-room implementation with no adapted external runtime source."
+    },
+    {
+      "id": "collision:leviathan-homonym",
+      "issue": "Fleet coordination and one wrapped multicellular being share the Leviathan name.",
+      "node_refs": [
+        "runtime:leviathan-controller",
+        "runtime:wrapped-organism",
+        "artifact:wrapped-leviathan-egg"
+      ],
+      "resolution": "Model, test, and exclude/select them independently; neither authorizes the other."
+    },
+    {
+      "id": "collision:local-controller-child",
+      "issue": "Child twins are sometimes flattened into tools of one mutable global runtime.",
+      "node_refs": [
+        "runtime:global-controller",
+        "runtime:isolated-installed-twin"
+      ],
+      "resolution": "Controller streams/supervises; each child keeps independent agents, workspace, venv, identity, keys, and state."
+    },
+    {
+      "id": "collision:moment-shapes",
+      "issue": "Double Jump strict Moment fields reject Hologram organism fields.",
+      "node_refs": [
+        "repo:kody-w/double-jump",
+        "repo:kody-w/rapp-hologram"
+      ],
+      "resolution": "No implicit compatibility; use explicit versioned projection only."
+    },
+    {
+      "id": "collision:pages-runtime",
+      "issue": "Static front doors and landing pages are presented as if they were running twins.",
+      "node_refs": [
+        "transport:github-pages",
+        "runtime:isolated-installed-twin",
+        "repo:kody-w/RappterNest"
+      ],
+      "resolution": "Pages is public static substrate only and is excluded from v1 runtime."
+    },
+    {
+      "id": "collision:rapp-vs-openrappter",
+      "issue": "Species-root/reference distro and consumer runtime are treated as one distribution.",
+      "node_refs": [
+        "repo:kody-w/RAPP",
+        "repo:kody-w/openrappter",
+        "profile:rapp-stack-cubby-v1"
+      ],
+      "resolution": "Both are reference-only; selected source is Microsoft and selected integration is new."
+    },
+    {
+      "id": "collision:rappid-families",
+      "issue": "Legacy/current widths, canonicalizers, lineage, and display namespaces conflict.",
+      "node_refs": [
+        "protocol:rapp-eternity-1.0",
+        "repo:kody-w/rapp-zoo",
+        "repo:kody-w/rapp-estate",
+        "repo:kody-w/twin",
+        "repo:kody-w/kody-w-twin"
+      ],
+      "resolution": "One approved fixture and explicit version; never infer equality from display owner/slug."
+    },
+    {
+      "id": "collision:static-mcp",
+      "issue": "Two incompatible implementations claim rapp-static-mcp/1.0.",
+      "node_refs": [
+        "protocol:rapp-static-mcp-python-1.0",
+        "protocol:rapp-static-mcp-js-1.0"
+      ],
+      "resolution": "No cross-compatibility claim; both are outside v1."
+    },
+    {
+      "id": "collision:twin-chat-alias",
+      "issue": "Twin-chat is described as if it were the complete neighborhood protocol.",
+      "node_refs": [
+        "protocol:rapp-twin-chat-1.0",
+        "protocol:rapp-neighborhood-1.0"
+      ],
+      "resolution": "Twin-chat is the inner envelope owned by the broader pinned neighborhood contract."
+    }
+  ],
+  "edges": [
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:collision:staticmcp",
+      "source_id": "protocol:rapp-static-mcp-python-1.0",
+      "target_id": "protocol:rapp-static-mcp-js-1.0",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:cubby-double-lisppy",
+      "source_id": "repo:kody-w/double-jump",
+      "target_id": "repo:kody-w/lisppy",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:identity-estate",
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:moment",
+      "source_id": "repo:kody-w/double-jump",
+      "target_id": "repo:kody-w/rapp-hologram",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:rapp-chat",
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "protocol:rapp-frozen-chat-wire",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:twin-display",
+      "source_id": "repo:kody-w/twin",
+      "target_id": "repo:kody-w/kody-w-twin",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:commons-source",
+      "source_id": "repo:kody-w/rapp-commons",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:exclude:hatcher-source",
+      "source_id": "repo:kody-w/twin-egg-hatcher",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:leviathan",
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:owner-aibast",
+      "source_id": "repo:kody-w/aibast-agents-library",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:pages-runtime",
+      "source_id": "transport:github-pages",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:rapp-source",
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:heimdall",
+      "source_id": "repo:kody-w/heimdall",
+      "target_id": "transport:github-pages",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:lumen",
+      "source_id": "repo:kody-w/lumen-brainstem",
+      "target_id": "concept:static-planted-twin",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:pkstop-bean",
+      "source_id": "repo:kody-w/pkstop-the-bean",
+      "target_id": "transport:github-pages",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:tide",
+      "source_id": "repo:kody-w/tide-brainstem",
+      "target_id": "concept:static-planted-twin",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:mirror:orion",
+      "source_id": "repo:kody-w/rapp_orion",
+      "target_id": "repo:kody-w/pkstop-pike-place-market",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:mirror:pkstop-pike",
+      "source_id": "repo:kody-w/pkstop-pike-place-market",
+      "target_id": "repo:kody-w/RAPP",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:network:estate:extends",
+      "source_id": "network:metropolis",
+      "target_id": "network:estate",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:01",
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:02",
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "runtime:azure-functions-body",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:03",
+      "source_id": "runtime:azure-functions-body",
+      "target_id": "runtime:dataverse-twin",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:cloud:04",
+      "source_id": "runtime:dataverse-twin",
+      "target_id": "runtime:m365-surface",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:01",
+      "source_id": "runtime:leviathan-controller",
+      "target_id": "protocol:rapp-fleet-chat-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:02",
+      "source_id": "protocol:rapp-fleet-chat-1.0",
+      "target_id": "runtime:leviathan-node",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:03",
+      "source_id": "runtime:leviathan-node",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fleet:04",
+      "source_id": "protocol:post-chat",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fresh:01",
+      "source_id": "repo:kody-w/RAR",
+      "target_id": "artifact:single-file-agent",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:02",
+      "source_id": "artifact:single-file-agent",
+      "target_id": "artifact:rapp-cubby-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:03",
+      "source_id": "artifact:rapp-cubby-1.0",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:04",
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "artifact:brainstem-egg-2.3-cubby",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:05",
+      "source_id": "artifact:brainstem-egg-2.3-cubby",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:06",
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:global:00",
+      "source_id": "actor:local-owner",
+      "target_id": "product:local/rapp-stack-cubby",
+      "type": "operates"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:path:global:00b",
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "runtime:global-controller",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:global:01",
+      "source_id": "runtime:global-controller",
+      "target_id": "artifact:single-file-agent",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:path:imessage:00",
+      "source_id": "actor:local-owner",
+      "target_id": "transport:imsg-json-rpc",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:01",
+      "source_id": "transport:imsg-json-rpc",
+      "target_id": "runtime:imessage-adapter",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:02",
+      "source_id": "runtime:imessage-adapter",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:03",
+      "source_id": "protocol:rapp-commons-event-1.0",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:04",
+      "source_id": "protocol:rapp-twin-chat-1.0",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:05",
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:06",
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "protocol:rapp-twin-chat-response-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:07",
+      "source_id": "protocol:rapp-twin-chat-response-1.0",
+      "target_id": "runtime:imessage-adapter",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:08",
+      "source_id": "runtime:imessage-adapter",
+      "target_id": "transport:imsg-json-rpc",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:neighborhood:01",
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:02",
+      "source_id": "protocol:rapp-twin-chat-1.0",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:03",
+      "source_id": "protocol:rapp-commons-event-1.0",
+      "target_id": "network:neighborhood",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:04",
+      "source_id": "network:neighborhood",
+      "target_id": "runtime:resident-relay",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:05",
+      "source_id": "runtime:resident-relay",
+      "target_id": "runtime:neighborhood-peer",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:01",
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "transport:github-pages",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:02",
+      "source_id": "transport:github-pages",
+      "target_id": "store:rapplication",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:03",
+      "source_id": "store:rapplication",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:01",
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:brainstem-egg-2.3-cubby",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:02",
+      "source_id": "artifact:brainstem-egg-2.3-cubby",
+      "target_id": "runtime:restored-isolated-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:03",
+      "source_id": "runtime:restored-isolated-twin",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "reference_only",
+      "id": "edge:reference:runtime:microsoft-behavior",
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "external:microsoft-aibast-29e49d0",
+      "type": "references"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:agents:packages",
+      "source_id": "repo:kody-w/rapp-agents",
+      "target_id": "artifact:single-file-agent",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:bible:mirror",
+      "source_id": "repo:kody-w/RAPP-Bible",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:brainstem-sdk:chat",
+      "source_id": "repo:kody-w/rapp-brainstem-sdk",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:cards:spec",
+      "source_id": "repo:kody-w/RAPPcards",
+      "target_id": "protocol:rappcards-1.1.2",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:carts:spec",
+      "source_id": "repo:kody-w/rapp-carts",
+      "target_id": "artifact:rapp-cart-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:commons:wrapper",
+      "source_id": "repo:kody-w/rapp-commons",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:community:azure",
+      "source_id": "repo:kody-w/CommunityRAPP",
+      "target_id": "runtime:azure-functions-body",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:community:memory",
+      "source_id": "repo:kody-w/CommunityRAPP",
+      "target_id": "store:memory",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:dataverse:impl",
+      "source_id": "repo:kody-w/rapp-dataverse",
+      "target_id": "runtime:dataverse-twin",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:distro:spec",
+      "source_id": "repo:kody-w/rapp-distro",
+      "target_id": "protocol:rapp-distro-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:docs:mirror",
+      "source_id": "repo:kody-w/rapp_docs",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:egghub:index",
+      "source_id": "repo:kody-w/rapp-egg-hub",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:estate:hosts",
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "network:estate",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:estate:spec",
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "protocol:rapp-metropolis-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:eternity:spec",
+      "source_id": "repo:kody-w/rapp-eternity",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:frame:spec",
+      "source_id": "repo:kody-w/rapp-frame-net",
+      "target_id": "protocol:rapp-frame-2.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:frame:transport",
+      "source_id": "repo:kody-w/rapp-frame-net",
+      "target_id": "transport:github-raw-issues",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:god:index",
+      "source_id": "repo:kody-w/rapp-god",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:hatcher:hatch",
+      "source_id": "repo:kody-w/twin-egg-hatcher",
+      "target_id": "runtime:legacy-hatched-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:impossible:receipt",
+      "source_id": "repo:kody-w/rappterbook-impossible-product",
+      "target_id": "artifact:release-receipt",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:installer:chat",
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:kited:mark",
+      "source_id": "repo:kody-w/rapp-kited-twin",
+      "target_id": "concept:kite-operator-mark",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:levhub:index",
+      "source_id": "repo:kody-w/rapp-leviathan-hub",
+      "target_id": "artifact:wrapped-leviathan-egg",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:levhub:runtime",
+      "source_id": "repo:kody-w/rapp-leviathan-hub",
+      "target_id": "runtime:wrapped-organism",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:leviathan:controller",
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "runtime:leviathan-controller",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:leviathan:node",
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "runtime:leviathan-node",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:map:index",
+      "source_id": "repo:kody-w/rapp-map",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:mcp:python",
+      "source_id": "repo:kody-w/rapp-mcp",
+      "target_id": "protocol:rapp-static-mcp-python-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:messaging:imessage",
+      "source_id": "repo:kody-w/rapp-messaging",
+      "target_id": "protocol:rapp-messaging-imessage-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:messaging:spec",
+      "source_id": "repo:kody-w/rapp-messaging",
+      "target_id": "protocol:rapp-messaging-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:moment:spec",
+      "source_id": "repo:kody-w/rapp-moment",
+      "target_id": "protocol:rapp-moment-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:neighborhood:spec",
+      "source_id": "repo:kody-w/rapp-neighborhood-protocol",
+      "target_id": "protocol:rapp-neighborhood-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:neighborhood:twinchat",
+      "source_id": "repo:kody-w/rapp-neighborhood-protocol",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:network:controller",
+      "source_id": "repo:kody-w/RAPP-Network",
+      "target_id": "runtime:global-controller",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:oneclick:m365",
+      "source_id": "repo:kody-w/rapp-oneclick-deploy",
+      "target_id": "runtime:m365-surface",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:openrappter:imessage",
+      "source_id": "repo:kody-w/openrappter",
+      "target_id": "runtime:imessage-adapter",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:postflight:release",
+      "source_id": "repo:kody-w/rapp-postflight",
+      "target_id": "runtime:release-gate",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:racon:cart",
+      "source_id": "repo:kody-w/racon",
+      "target_id": "artifact:rapp-cart-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rapp:abi",
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "protocol:brainstem-agent-abi",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappter-distro:implements",
+      "source_id": "repo:kody-w/rappter-distro",
+      "target_id": "protocol:rapp-distro-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappterbook:platform",
+      "source_id": "repo:kody-w/rappterbook",
+      "target_id": "runtime:rappterbook-social-platform",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappterbox:chat",
+      "source_id": "repo:kody-w/rappterbox",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rar:store",
+      "source_id": "repo:kody-w/RAR",
+      "target_id": "store:rar-source",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:resident:impl",
+      "source_id": "repo:kody-w/rapp-resident",
+      "target_id": "runtime:resident-relay",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:sealed:impl",
+      "source_id": "repo:kody-w/rapp-sealed",
+      "target_id": "protocol:rapp-sealed-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:sense:implements",
+      "source_id": "repo:kody-w/RAPP_Sense_Store",
+      "target_id": "store:sense",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:spine:index",
+      "source_id": "repo:kody-w/rapp-spine",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:staticapi:spec",
+      "source_id": "repo:kody-w/rapp-static-apis",
+      "target_id": "protocol:rapp-static-api-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:staticmcp:js",
+      "source_id": "repo:kody-w/rapp-static-mcp",
+      "target_id": "protocol:rapp-static-mcp-js-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:store:implements",
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "store:rapplication",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:twin:egg",
+      "source_id": "repo:kody-w/twin",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:zoo:egg",
+      "source_id": "repo:kody-w/rapp-zoo",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:runtime:rappterbook:transport",
+      "source_id": "runtime:rappterbook-social-platform",
+      "target_id": "transport:github-raw-issues",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:owner:authenticated-global-chat",
+      "source_id": "actor:local-owner",
+      "target_id": "runtime:global-controller",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:product:profile",
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:product:runtime",
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "runtime:clean-room-brainstem",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:messaging",
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "protocol:rapp-messaging-1.0",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:neighborhood",
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "protocol:rapp-neighborhood-1.0",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:release",
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "runtime:release-gate",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:profile:runtime",
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "runtime:clean-room-brainstem",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:runtime:abi",
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "protocol:brainstem-agent-abi",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:runtime:chat",
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:installer-canary",
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "repo:kody-w/rapp-installer-canary",
+      "type": "supersedes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:installer-dev",
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "repo:kody-w/rapp-installer-dev",
+      "type": "supersedes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:store-archive",
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "repo:kody-w/rapp-store-archive",
+      "type": "supersedes"
+    }
+  ],
+  "evidence": {
+    "antecedent_repository_count": 299,
+    "audit_complete": true,
+    "cutoff": "2026-07-13T08:57:20.399000Z",
+    "cutoff_semantics": "inclusive repository existence boundary",
+    "drift_review": {
+      "post_window_drift_count": 5,
+      "required_count": 12,
+      "status": "complete"
+    },
+    "local_product": {
+      "antecedent_public_repository": false,
+      "included_in_repository_count": false,
+      "kind": "local_product_source",
+      "name": "rapp-stack-cubby",
+      "node_id": "product:local/rapp-stack-cubby",
+      "path": ".",
+      "truth": "This working repository was absent from the public account inventory at the cutoff and is represented separately as the complete local product context."
+    },
+    "observation_window": {
+      "capture_completed_at": "2026-07-13T09:09:18.274404Z",
+      "capture_started_at": "2026-07-13T09:07:31.710577Z",
+      "heads_started_at": "2026-07-13T09:07:34.592407Z",
+      "inventory_completed_at": "2026-07-13T09:07:34.591993Z"
+    },
+    "public_repository_count": 307,
+    "raw_inventory_sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae",
+    "snapshot_semantics": "bounded non-atomic observation window; each head is paired with its own API response time"
+  },
+  "nodes": [
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "22932648561342c1884dadf2e8ecf1f5782540aa",
+      "evidence_head_sha": "22932648561342c1884dadf2e8ecf1f5782540aa",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/agency-agents",
+      "name": "agency-agents",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6369cb66b4f6c2c7d669a01c3cb83538ee6269c1",
+      "evidence_head_sha": "6369cb66b4f6c2c7d669a01c3cb83538ee6269c1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/agent-ranker",
+      "name": "agent-ranker",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "e862f5a555ac40c4f49cd5d53bf34ba0d7626245",
+      "evidence_head_sha": "e862f5a555ac40c4f49cd5d53bf34ba0d7626245",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/agentbookfactory",
+      "name": "agentbookfactory",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "1efe6f121e1b8c8824a003357a2d5782dc9633ea",
+      "evidence_head_sha": "1efe6f121e1b8c8824a003357a2d5782dc9633ea",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AgenticPlaygroundLab",
+      "name": "AgenticPlaygroundLab",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "27cf35de117cf0a4ba16dc520f8f4499d1bec461",
+      "evidence_head_sha": "27cf35de117cf0a4ba16dc520f8f4499d1bec461",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Agents",
+      "name": "Agents",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c602a1c289e44f6f075d0b9cb63e32a9744d1942",
+      "evidence_head_sha": "c602a1c289e44f6f075d0b9cb63e32a9744d1942",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Agents-for-python",
+      "name": "Agents-for-python",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "9d11f579671fbaeeb05b4dc112d04ea0b9828ce8",
+      "evidence_head_sha": "9d11f579671fbaeeb05b4dc112d04ea0b9828ce8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/agents-library-tracker",
+      "name": "agents-library-tracker",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "683cdcd8ba6c9b3cf81075d50b0daab1ea740eb6",
+      "evidence_head_sha": "683cdcd8ba6c9b3cf81075d50b0daab1ea740eb6",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/agents.v1",
+      "name": "agents.v1",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "1e95ecced0f2a3be2e232befa03d3cd6e224ad08",
+      "evidence_head_sha": "1e95ecced0f2a3be2e232befa03d3cd6e224ad08",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AI-Agent-Templates",
+      "name": "AI-Agent-Templates",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "f74122dd1892c09ca58873fc72005f6cbc8457ac",
+      "evidence_head_sha": "f74122dd1892c09ca58873fc72005f6cbc8457ac",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ai-agent-templates-mirror",
+      "name": "ai-agent-templates-mirror",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "12a2856712cd43d284677145acbbedee4a70b777",
+      "evidence_head_sha": "12a2856712cd43d284677145acbbedee4a70b777",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AI-Agent-Templates-Pilot",
+      "name": "AI-Agent-Templates-Pilot",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "bf07c685e69575464f5e80f6e6841d482f8b0403",
+      "evidence_head_sha": "bf07c685e69575464f5e80f6e6841d482f8b0403",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ai-agents-masterclass",
+      "name": "ai-agents-masterclass",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d0784aa0d7b865c3722a0da0a8a732c545bc9eee",
+      "evidence_head_sha": "d0784aa0d7b865c3722a0da0a8a732c545bc9eee",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ai-cookbook",
+      "name": "ai-cookbook",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "b6dac232564ae9a8124b86d4d375e89277313820",
+      "evidence_head_sha": "b6dac232564ae9a8124b86d4d375e89277313820",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AI_LAB",
+      "name": "AI_LAB",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "3e637d00a106349cda4bd2f986698b8d1e137f96",
+      "evidence_head_sha": "3e637d00a106349cda4bd2f986698b8d1e137f96",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/aibast-agents-library",
+      "name": "aibast-agents-library",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "95170a1a32b75494377c6ee5bced99326989191d",
+      "evidence_head_sha": "95170a1a32b75494377c6ee5bced99326989191d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/aideate",
+      "name": "aideate",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "e3aa9db5a2f2561e34f2467b2d7788099efdd574",
+      "evidence_head_sha": "e3aa9db5a2f2561e34f2467b2d7788099efdd574",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/aider",
+      "name": "aider",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "0a77dc063c7398eaa3d8c954f5a473f96e9db5e5",
+      "evidence_head_sha": "0a77dc063c7398eaa3d8c954f5a473f96e9db5e5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AIGame",
+      "name": "AIGame",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "815fef0931111dbdba9b47c4c57eda906956865c",
+      "evidence_head_sha": "815fef0931111dbdba9b47c4c57eda906956865c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AIGames",
+      "name": "AIGames",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "0f591a2a4d9ffca9d41258f5f6ded7aba8093c9a",
+      "evidence_head_sha": "0f591a2a4d9ffca9d41258f5f6ded7aba8093c9a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AINexus",
+      "name": "AINexus",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "6595e058bcbb3c12146d80253ad4429d88618034",
+      "evidence_head_sha": "6595e058bcbb3c12146d80253ad4429d88618034",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AINexus-Demo",
+      "name": "AINexus-Demo",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "88086cf5980ca460c8d7b93f11f7186e106aade1",
+      "evidence_head_sha": "88086cf5980ca460c8d7b93f11f7186e106aade1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AmazonScraper",
+      "name": "AmazonScraper",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "cf9fe69df2a30173b4bbf4864bfa506f94448955",
+      "evidence_head_sha": "cf9fe69df2a30173b4bbf4864bfa506f94448955",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AndriiTest",
+      "name": "AndriiTest",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "42237b5d2dc837a433b067e669b413b3ac6c4809",
+      "evidence_head_sha": "42237b5d2dc837a433b067e669b413b3ac6c4809",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ant-farm",
+      "name": "ant-farm",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "6a93537c426759708f0e91a125587512c05f354c",
+      "evidence_head_sha": "6a93537c426759708f0e91a125587512c05f354c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Auto-GPT",
+      "name": "Auto-GPT",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "32a1460f626e28479d427c033ee485bf5f86875a",
+      "evidence_head_sha": "32a1460f626e28479d427c033ee485bf5f86875a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/autoresearch",
+      "name": "autoresearch",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "6af02e9230dae8a155fe6e49526dd309c04120b7",
+      "evidence_head_sha": "6af02e9230dae8a155fe6e49526dd309c04120b7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/awesome-ai-agents",
+      "name": "awesome-ai-agents",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "b52a5a58bcea6a4ac61ab82ab6d17e900b318ee4",
+      "evidence_head_sha": "b52a5a58bcea6a4ac61ab82ab6d17e900b318ee4",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/awesome_ai_agents",
+      "name": "awesome_ai_agents",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "cf25fdad028aaf961ee4871a52838b51f84b4c02",
+      "evidence_head_sha": "cf25fdad028aaf961ee4871a52838b51f84b4c02",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AzureARMTester",
+      "name": "AzureARMTester",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "8a41eb0dbefa579163468eb3e8ef69318d7d503d",
+      "evidence_head_sha": "8a41eb0dbefa579163468eb3e8ef69318d7d503d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/AzureMinecraft",
+      "name": "AzureMinecraft",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "6eacdf2a90366b889536285a62f6b93c0c807aac",
+      "evidence_head_sha": "6eacdf2a90366b889536285a62f6b93c0c807aac",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/base",
+      "name": "base",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": null,
+      "evidence_head_sha": null,
+      "head_drift": "empty_repository",
+      "id": "repo:kody-w/BigNerdRanch",
+      "name": "BigNerdRanch",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6095db85623b8cc558a8c2cf9ee278181cc60ad7",
+      "evidence_head_sha": "6095db85623b8cc558a8c2cf9ee278181cc60ad7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/billwhalen-agent-team",
+      "name": "billwhalen-agent-team",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "fd83ef17bd7be5d768b0f4386c62684eced20177",
+      "evidence_head_sha": "fd83ef17bd7be5d768b0f4386c62684eced20177",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/BlazingBeard.github.io",
+      "name": "BlazingBeard.github.io",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "375f974db9531873fa8ddd87a1c1b501bb8a66a5",
+      "evidence_head_sha": "375f974db9531873fa8ddd87a1c1b501bb8a66a5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/blazor-test",
+      "name": "blazor-test",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "dd0bf702cf4b693b7f0faef2273778a1cfba352d",
+      "evidence_head_sha": "dd0bf702cf4b693b7f0faef2273778a1cfba352d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/blog",
+      "name": "blog",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "625cb64c9fa0046a8a924c69c35f1c07861cb58c",
+      "evidence_head_sha": "625cb64c9fa0046a8a924c69c35f1c07861cb58c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/bookish-robot",
+      "name": "bookish-robot",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "562dc66be503da671a6d681b2d47f1f09861e0ec",
+      "evidence_head_sha": "562dc66be503da671a6d681b2d47f1f09861e0ec",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/braintrust-template",
+      "name": "braintrust-template",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "3bf20c31913cea0037a8e55e8e8bfd93bb243e69",
+      "evidence_head_sha": "3bf20c31913cea0037a8e55e8e8bfd93bb243e69",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/breezbook",
+      "name": "breezbook",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "5bc1666f5b0aaf0de3f65c5c9dab7180d25317d5",
+      "evidence_head_sha": "5bc1666f5b0aaf0de3f65c5c9dab7180d25317d5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/bullshit-benchmark",
+      "name": "bullshit-benchmark",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "542f799f96678328f8baad2895f9672cc3bdc1f4",
+      "evidence_head_sha": "542f799f96678328f8baad2895f9672cc3bdc1f4",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/c",
+      "name": "c",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "65bded5d190c9013d6ba03c5f6dc07fd522039ca",
+      "evidence_head_sha": "65bded5d190c9013d6ba03c5f6dc07fd522039ca",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/C365Sept26th",
+      "name": "C365Sept26th",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "9a10a1cb8bea1257fe4e1862225d9d6e1f45bd5c",
+      "evidence_head_sha": "9a10a1cb8bea1257fe4e1862225d9d6e1f45bd5c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/C365Tester",
+      "name": "C365Tester",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "8ab4fa48e0c8c8b81705f1b39952edac92cb682f",
+      "evidence_head_sha": "8ab4fa48e0c8c8b81705f1b39952edac92cb682f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/c9_flask_portfolio_app",
+      "name": "c9_flask_portfolio_app",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "729bd23c18a800f57f250e7e5de967f5357de3ce",
+      "evidence_head_sha": "729bd23c18a800f57f250e7e5de967f5357de3ce",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CA365RoadmapAI",
+      "name": "CA365RoadmapAI",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "b11acb62139f4d19aff78775077506aaec1e96a9",
+      "evidence_head_sha": "b11acb62139f4d19aff78775077506aaec1e96a9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/cc-agents",
+      "name": "cc-agents",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "13f0d27904e443caef0594e8a4c6761564b7b45f",
+      "evidence_head_sha": "13f0d27904e443caef0594e8a4c6761564b7b45f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ChatGPT-Book-Generator",
+      "name": "ChatGPT-Book-Generator",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "0ce05913db67f4e941f4d6c152df40c353baa7c3",
+      "evidence_head_sha": "0ce05913db67f4e941f4d6c152df40c353baa7c3",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/chronoBooth",
+      "name": "chronoBooth",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "1750e67978fc7cc9dc948112a405b197e420656e",
+      "evidence_head_sha": "1750e67978fc7cc9dc948112a405b197e420656e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-agent-sdk-intro",
+      "name": "claude-agent-sdk-intro",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "7a7d6ef4df60f925177f55d1cbd3f841b998552a",
+      "evidence_head_sha": "7a7d6ef4df60f925177f55d1cbd3f841b998552a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-agent-sdk-quickstart-python",
+      "name": "claude-agent-sdk-quickstart-python",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "016e29c4aeb8c1803370a056bbe6d26defa061ad",
+      "evidence_head_sha": "016e29c4aeb8c1803370a056bbe6d26defa061ad",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-code-agents-wizard-v2",
+      "name": "claude-code-agents-wizard-v2",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "355cf2d07341976bfd959c8d452be15436a424eb",
+      "evidence_head_sha": "355cf2d07341976bfd959c8d452be15436a424eb",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-code-agents-wizard-v2-main",
+      "name": "claude-code-agents-wizard-v2-main",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "d2e7b69d7366f42b908b20495404a33bd16e606d",
+      "evidence_head_sha": "d2e7b69d7366f42b908b20495404a33bd16e606d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-code-agents-wizard-v2-main-2",
+      "name": "claude-code-agents-wizard-v2-main-2",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "7e6ea8d8b974c92e3f8e35c559e9362af7bb86e6",
+      "evidence_head_sha": "7e6ea8d8b974c92e3f8e35c559e9362af7bb86e6",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-code-hooks-mastery",
+      "name": "claude-code-hooks-mastery",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "e61b6697a7bf679451f1f2bd01987d67762dcda7",
+      "evidence_head_sha": "e61b6697a7bf679451f1f2bd01987d67762dcda7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/claude-code-hooks-multi-agent-observability",
+      "name": "claude-code-hooks-multi-agent-observability",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "c5487efb6295e325516078c3d258a867bbae5045",
+      "evidence_head_sha": "c5487efb6295e325516078c3d258a867bbae5045",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/codex",
+      "name": "codex",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "879b7a10c43ebe6f326a327458d6272b2f59b578",
+      "evidence_head_sha": "879b7a10c43ebe6f326a327458d6272b2f59b578",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/comic-book-gallery",
+      "name": "comic-book-gallery",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "e5144a389d7201f13175180debd4232f1e0313c7",
+      "evidence_head_sha": "e5144a389d7201f13175180debd4232f1e0313c7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CommunityRAPP",
+      "name": "CommunityRAPP",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "446a6cabd0c8a36d1587f400dd129d844e1b238a",
+      "evidence_head_sha": "446a6cabd0c8a36d1587f400dd129d844e1b238a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Cooking-With-React",
+      "name": "Cooking-With-React",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "b1f972bb4e5c3df73062cf8d722ea5c7b02d8dd1",
+      "evidence_head_sha": "b1f972bb4e5c3df73062cf8d722ea5c7b02d8dd1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/copilot-agent-365-docker",
+      "name": "copilot-agent-365-docker",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "6d35db556e944df52931f68966a951b46f906e40",
+      "evidence_head_sha": "6d35db556e944df52931f68966a951b46f906e40",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/copilot-yolo-mode",
+      "name": "copilot-yolo-mode",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": null,
+      "evidence_head_sha": null,
+      "head_drift": "empty_repository",
+      "id": "repo:kody-w/copilotsdktown",
+      "name": "copilotsdktown",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "91f69c25abe1e540aaa47d24a668975077a247e5",
+      "evidence_head_sha": "91f69c25abe1e540aaa47d24a668975077a247e5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CopilotStudioSamples",
+      "name": "CopilotStudioSamples",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6084564fa3f6646dd6d080a5fdc3c8863566c9b8",
+      "evidence_head_sha": "6084564fa3f6646dd6d080a5fdc3c8863566c9b8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/cowork-cookbook-rapp",
+      "name": "cowork-cookbook-rapp",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "5fd0ef76ce9441470d6b23f7304b67fc72424e26",
+      "evidence_head_sha": "5fd0ef76ce9441470d6b23f7304b67fc72424e26",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CrystalRAPP",
+      "name": "CrystalRAPP",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "a58389ad2329ef66b0a40ad702aa0bc4f173ef41",
+      "evidence_head_sha": "a58389ad2329ef66b0a40ad702aa0bc4f173ef41",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CSC260",
+      "name": "CSC260",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "06e5f1aebea9c825a5dd077b86ed5b33dfee3922",
+      "evidence_head_sha": "06e5f1aebea9c825a5dd077b86ed5b33dfee3922",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CSC314",
+      "name": "CSC314",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "5c4434278d2d3888f592187d30dec118a5549835",
+      "evidence_head_sha": "5c4434278d2d3888f592187d30dec118a5549835",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CurrencyPCF",
+      "name": "CurrencyPCF",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "e4a678aef4b3a9fe80616127db149b80386ef52c",
+      "evidence_head_sha": "e4a678aef4b3a9fe80616127db149b80386ef52c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/CYOA",
+      "name": "CYOA",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "27483ad6286d63535e28220a9f89f701d09784f7",
+      "evidence_head_sha": "27483ad6286d63535e28220a9f89f701d09784f7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/data-team-builder",
+      "name": "data-team-builder",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d427dbf70996de590bb4daccdf41bac86b937fbd",
+      "evidence_head_sha": "d427dbf70996de590bb4daccdf41bac86b937fbd",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/digital-sculpter",
+      "name": "digital-sculpter",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "c460812a80a838cf8cc3e91a4359f45e8141d8d0",
+      "evidence_head_sha": "c460812a80a838cf8cc3e91a4359f45e8141d8d0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/digital-sculptor-team-builder",
+      "name": "digital-sculptor-team-builder",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "3061adf614dd1d49a1ef89228eaaa0f44c1d13ad",
+      "evidence_head_sha": "3061adf614dd1d49a1ef89228eaaa0f44c1d13ad",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/DigitalAssistant-1",
+      "name": "DigitalAssistant-1",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "8276e14ee5481c953447db7f271916efc2f38780",
+      "evidence_head_sha": "8276e14ee5481c953447db7f271916efc2f38780",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/divine-flavours",
+      "name": "divine-flavours",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "5097b61085f9fbcd5529e58fb487b2152b81e78c",
+      "evidence_head_sha": "5097b61085f9fbcd5529e58fb487b2152b81e78c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/double-jump",
+      "name": "double-jump",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "670aa204547b7cfb44aa90d29784296e68380d4b",
+      "evidence_head_sha": "670aa204547b7cfb44aa90d29784296e68380d4b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/dreamsurf",
+      "name": "dreamsurf",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "3a2d109e5dae5e695ccb6cad16a59be99b59a136",
+      "evidence_head_sha": "3a2d109e5dae5e695ccb6cad16a59be99b59a136",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/DSU-OOP",
+      "name": "DSU-OOP",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "79c83830950e4373f03d020f9c3ec4c96dc245f7",
+      "evidence_head_sha": "79c83830950e4373f03d020f9c3ec4c96dc245f7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Dynamics365ConsoleAppTemplate",
+      "name": "Dynamics365ConsoleAppTemplate",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "20f832b422e55587a1151b8603e4d15f80dcec0a",
+      "evidence_head_sha": "20f832b422e55587a1151b8603e4d15f80dcec0a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/echo-brainstem",
+      "name": "echo-brainstem",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "3758ce73487fea5ff114bbc0ee34309158cdb086",
+      "evidence_head_sha": "3758ce73487fea5ff114bbc0ee34309158cdb086",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/echo-world",
+      "name": "echo-world",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "dd48617999648ab83bfd9d798f4009f740e1348c",
+      "evidence_head_sha": "dd48617999648ab83bfd9d798f4009f740e1348c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Echos",
+      "name": "Echos",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "fe8b8efe6dd5866519e1fd85fbeb455ff5edef1b",
+      "evidence_head_sha": "fe8b8efe6dd5866519e1fd85fbeb455ff5edef1b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ez-rapp",
+      "name": "ez-rapp",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "c741c6076d4eadb110340b931c22a2be0d94f15a",
+      "evidence_head_sha": "c741c6076d4eadb110340b931c22a2be0d94f15a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/first-principles-to-mars",
+      "name": "first-principles-to-mars",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "58dac5e4e1b7f0d6c4a1f518ddf771219e8662de",
+      "evidence_head_sha": "58dac5e4e1b7f0d6c4a1f518ddf771219e8662de",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/FreeCodeCampCode",
+      "name": "FreeCodeCampCode",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "8234837663163341d2db13506ef75c9dbb2a9e71",
+      "evidence_head_sha": "8234837663163341d2db13506ef75c9dbb2a9e71",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/game",
+      "name": "game",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "59b73be29325f9e134fca277fa37c3355793e399",
+      "evidence_head_sha": "59b73be29325f9e134fca277fa37c3355793e399",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/gemini-cli-tips",
+      "name": "gemini-cli-tips",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "bdda82223c443b7d450088c6ed5b81ec3b2c3b4f",
+      "evidence_head_sha": "bdda82223c443b7d450088c6ed5b81ec3b2c3b4f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/github.io",
+      "name": "github.io",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c24382479d088f9f0a5c2cd74d3226f1e8f2637b",
+      "evidence_head_sha": "c24382479d088f9f0a5c2cd74d3226f1e8f2637b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/gpt-repository-loader",
+      "name": "gpt-repository-loader",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d4ee90f8045cc55994cdaed8d2632b0e7e4e0cf2",
+      "evidence_head_sha": "d4ee90f8045cc55994cdaed8d2632b0e7e4e0cf2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Grades",
+      "name": "Grades",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "2b29584b53de18153ff01a749dd1375658c60334",
+      "evidence_head_sha": "2b29584b53de18153ff01a749dd1375658c60334",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/graphql-server",
+      "name": "graphql-server",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "21e10b915e823b90f3cb372fc687d1fe1715cff8",
+      "evidence_head_sha": "21e10b915e823b90f3cb372fc687d1fe1715cff8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/hackernews",
+      "name": "hackernews",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "f675cac6b73b87d1c039d31206b01741481a24a8",
+      "evidence_head_sha": "f675cac6b73b87d1c039d31206b01741481a24a8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/heimdall",
+      "name": "heimdall",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "940c6dc6c0edc35e936b14a52bae6c00f43b4aef",
+      "evidence_head_sha": "940c6dc6c0edc35e936b14a52bae6c00f43b4aef",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/hello-world-ruby-q-000",
+      "name": "hello-world-ruby-q-000",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "8185f44c7b4026127c7357071fd5f605ef0eb1f2",
+      "evidence_head_sha": "8185f44c7b4026127c7357071fd5f605ef0eb1f2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/homebrew-tap",
+      "name": "homebrew-tap",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "66c89b29e132b7f8ae480477eb16e376f7f39516",
+      "evidence_head_sha": "66c89b29e132b7f8ae480477eb16e376f7f39516",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Hooked",
+      "name": "Hooked",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "5be7a78876ee8297dda044fd827c216937d67bf1",
+      "evidence_head_sha": "5be7a78876ee8297dda044fd827c216937d67bf1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/hooks-simple",
+      "name": "hooks-simple",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": null,
+      "evidence_head_sha": null,
+      "head_drift": "empty_repository",
+      "id": "repo:kody-w/inventwithpython",
+      "name": "inventwithpython",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "7364033498fc8f6cdcf3699759e75f34837db104",
+      "evidence_head_sha": "7364033498fc8f6cdcf3699759e75f34837db104",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/iOS9",
+      "name": "iOS9",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "7a4fcbe5d0a02077d0c1353a84843516dade22b8",
+      "evidence_head_sha": "7a4fcbe5d0a02077d0c1353a84843516dade22b8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/jokesmcp",
+      "name": "jokesmcp",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "6cf179435df48e884c203b0099300472091f8424",
+      "evidence_head_sha": "6cf179435df48e884c203b0099300472091f8424",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/kody",
+      "name": "kody",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "fa596124adba3f5cf4890e37a9bd0960ae442260",
+      "evidence_head_sha": "fa596124adba3f5cf4890e37a9bd0960ae442260",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/kody-twin",
+      "name": "kody-twin",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "7d66e598c04e6348f4a97f94271411bd57cd76af",
+      "evidence_head_sha": "7d66e598c04e6348f4a97f94271411bd57cd76af",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/kody-w-twin",
+      "name": "kody-w-twin",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "a4db562528236195a39c4940d1ebfbc70e5607d5",
+      "evidence_head_sha": "a4db562528236195a39c4940d1ebfbc70e5607d5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/kody-w.github.io",
+      "name": "kody-w.github.io",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "292204ad18ab089dde14a21121176475a0f2e261",
+      "evidence_head_sha": "292204ad18ab089dde14a21121176475a0f2e261",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/LCTHW-Exercises",
+      "name": "LCTHW-Exercises",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "044fd23968484ff39aa68832451b03e155e8c306",
+      "evidence_head_sha": "044fd23968484ff39aa68832451b03e155e8c306",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/lemonai",
+      "name": "lemonai",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "42d02ad1b041b328540b30d54c7b2a68b9d961aa",
+      "evidence_head_sha": "42d02ad1b041b328540b30d54c7b2a68b9d961aa",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/leviathan",
+      "name": "leviathan",
+      "node_type": "repository",
+      "primary_plane": "fleet/leviathan",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "5e3a2e3275825ffecdbc4b12541aff48d7ff235e",
+      "evidence_head_sha": "5e3a2e3275825ffecdbc4b12541aff48d7ff235e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/lisppy",
+      "name": "lisppy",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "b0d5a8d283c8198c23bf3317a9fffce3cd447e9b",
+      "evidence_head_sha": "b0d5a8d283c8198c23bf3317a9fffce3cd447e9b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/lisppy-shepherd",
+      "name": "lisppy-shepherd",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "4cc5d9a80f3c22b2fbe3de940fcc162a3dd7cdec",
+      "evidence_head_sha": "4cc5d9a80f3c22b2fbe3de940fcc162a3dd7cdec",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ljthw",
+      "name": "ljthw",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "42c48ca7f5578b724c7d13a1128c5c4d5c236733",
+      "evidence_head_sha": "2db8a88e5a4e847b3b25f8313a1e7a193d0f72c4",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/localFirstTools",
+      "name": "localFirstTools",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "de492efcd12cfeeda3c35b1de1be86a15ce868db",
+      "evidence_head_sha": "96b1a97f4e92c0c37285a929e0039ead0bc68ce3",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/localFirstTools-main",
+      "name": "localFirstTools-main",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "cf116bb203ddf9636d3dceed253637182e260d58",
+      "evidence_head_sha": "87b8b724d6f3fd5a084ceedc097c8c4463d86009",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/localtoolsdev",
+      "name": "localtoolsdev",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "1207fb91662c5176e38e76236e39faa9112e1717",
+      "evidence_head_sha": "1207fb91662c5176e38e76236e39faa9112e1717",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/look-loop",
+      "name": "look-loop",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": null,
+      "evidence_head_sha": null,
+      "head_drift": "empty_repository",
+      "id": "repo:kody-w/LPTHW",
+      "name": "LPTHW",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "ac1ff83dadf8ca285edf9db7f4b38b480e9f4a48",
+      "evidence_head_sha": "ac1ff83dadf8ca285edf9db7f4b38b480e9f4a48",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/lumen-brainstem",
+      "name": "lumen-brainstem",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "4814ad52d12002ca20e9ab1e2e419890cbf8b6a1",
+      "evidence_head_sha": "4814ad52d12002ca20e9ab1e2e419890cbf8b6a1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/m365-agent-library",
+      "name": "m365-agent-library",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "d981551c891b16e439c1643133e95e1fbb971fdd",
+      "evidence_head_sha": "d981551c891b16e439c1643133e95e1fbb971fdd",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/m365-agent-templates",
+      "name": "m365-agent-templates",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "f347ac2df247dad19b974e5327fac0f80558020c",
+      "evidence_head_sha": "f347ac2df247dad19b974e5327fac0f80558020c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/M365AgentDemoer",
+      "name": "M365AgentDemoer",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "f808ff1530c65136a5d10f7c8827cb97490152a7",
+      "evidence_head_sha": "f808ff1530c65136a5d10f7c8827cb97490152a7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/M365AgentSDKAI",
+      "name": "M365AgentSDKAI",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "ed08901f0f72dad2cfae30f0eedcb4a9da5f088e",
+      "evidence_head_sha": "ed08901f0f72dad2cfae30f0eedcb4a9da5f088e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/M365DemoRecorderandPlayer",
+      "name": "M365DemoRecorderandPlayer",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c9ce23ab872a812b67c3e6554bdb28b94bb2de08",
+      "evidence_head_sha": "c9ce23ab872a812b67c3e6554bdb28b94bb2de08",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/mabl",
+      "name": "mabl",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "2203505846f1192b7ea5431bb0b896332a178798",
+      "evidence_head_sha": "2203505846f1192b7ea5431bb0b896332a178798",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/mars-barn",
+      "name": "mars-barn",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "bfe158952cbeb13568cdf69013a6a7456c30f837",
+      "evidence_head_sha": "75c702623e85e15b6ee830c8917a1142831282d9",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/mars-barn-opus",
+      "name": "mars-barn-opus",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "0aa202ec341b57dbb7337388014f4cfa7a5690e0",
+      "evidence_head_sha": "0aa202ec341b57dbb7337388014f4cfa7a5690e0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/mars-barn-opus-1",
+      "name": "mars-barn-opus-1",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "1b85b42349963693c322e83d751ad39c939e6b6e",
+      "evidence_head_sha": "5fc33ec3d5e0a60802656de38be3652bc28e4b34",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/mars-chain-node",
+      "name": "mars-chain-node",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "26c4a99be6426de3e524fc4ea18e3cfa8897e37a",
+      "evidence_head_sha": "26c4a99be6426de3e524fc4ea18e3cfa8897e37a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Mastering-Assistant_API_for_Use_Cases",
+      "name": "Mastering-Assistant_API_for_Use_Cases",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "3dbce82368650879f94473b41966f5c564c31834",
+      "evidence_head_sha": "3dbce82368650879f94473b41966f5c564c31834",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/mcpreg",
+      "name": "mcpreg",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "ba3cf18ef17d2ba4135f445506c563de34c20045",
+      "evidence_head_sha": "ba3cf18ef17d2ba4135f445506c563de34c20045",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Meeting-Organizer",
+      "name": "Meeting-Organizer",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "e7b645979de1b301874dafd2121eacf61d3c23ab",
+      "evidence_head_sha": "e7b645979de1b301874dafd2121eacf61d3c23ab",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/microsoft-365-team",
+      "name": "microsoft-365-team",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "fce30923930eb4933dc6b1c0b097063bd59a9657",
+      "evidence_head_sha": "fce30923930eb4933dc6b1c0b097063bd59a9657",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/microsoft-se-team-neighborhood",
+      "name": "microsoft-se-team-neighborhood",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "fb8af21915cb9f06c5b5af018a86ca5be664f0eb",
+      "evidence_head_sha": "fb8af21915cb9f06c5b5af018a86ca5be664f0eb",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/my-first-static-web-app",
+      "name": "my-first-static-web-app",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "0a71f319b17d34ff6597e8c310e1e1c27d72dc25",
+      "evidence_head_sha": "0a71f319b17d34ff6597e8c310e1e1c27d72dc25",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/mytestapp",
+      "name": "mytestapp",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "2b81801dd136efddc5bd407d39fee65ab404597f",
+      "evidence_head_sha": "2b81801dd136efddc5bd407d39fee65ab404597f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/neighborhood-example",
+      "name": "neighborhood-example",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "9a6aedfae57695206840299c3bb42e712df5823e",
+      "evidence_head_sha": "9a6aedfae57695206840299c3bb42e712df5823e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Neu_AI",
+      "name": "Neu_AI",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "410f003996182a10808c7bedc918adfe79ae9e0a",
+      "evidence_head_sha": "410f003996182a10808c7bedc918adfe79ae9e0a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/new-society-test",
+      "name": "new-society-test",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "da070f890c754be58547b614858e302534681b21",
+      "evidence_head_sha": "da070f890c754be58547b614858e302534681b21",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/nexus-function-agents",
+      "name": "nexus-function-agents",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d1245877e506e88e61eecf7d2ca2f1485857c1f9",
+      "evidence_head_sha": "d1245877e506e88e61eecf7d2ca2f1485857c1f9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/notepad",
+      "name": "notepad",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "0eb518af72ce92dfb4e672067c07a2e00e04ec56",
+      "evidence_head_sha": "0eb518af72ce92dfb4e672067c07a2e00e04ec56",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Nov17",
+      "name": "Nov17",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "1c2961d9f5f37c6d56f8e6aa219d829f00b45b5c",
+      "evidence_head_sha": "1c2961d9f5f37c6d56f8e6aa219d829f00b45b5c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Obj-C",
+      "name": "Obj-C",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "277a98d30ce8f5b782a8f5983348902f18f3b235",
+      "evidence_head_sha": "277a98d30ce8f5b782a8f5983348902f18f3b235",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/obsidian-binder",
+      "name": "obsidian-binder",
+      "node_type": "repository",
+      "primary_plane": "identity",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "evidence_head_sha": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/openrappter",
+      "name": "openrappter",
+      "node_type": "repository",
+      "primary_plane": "messaging",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "1a4b9ec7311848596f0c89c52021bc5d949fe2d8",
+      "evidence_head_sha": "1a4b9ec7311848596f0c89c52021bc5d949fe2d8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pkstop-central-park-bandshell",
+      "name": "pkstop-central-park-bandshell",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "3827d5e4995071d31b9dd7452b60b0017631d49e",
+      "evidence_head_sha": "3827d5e4995071d31b9dd7452b60b0017631d49e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pkstop-national-mall",
+      "name": "pkstop-national-mall",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "4d389df0fbdac469c48456ccfbb591d09d226a8c",
+      "evidence_head_sha": "4d389df0fbdac469c48456ccfbb591d09d226a8c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pkstop-pike-place-market",
+      "name": "pkstop-pike-place-market",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "c816bb72f97259cef3437d35e985f146fa6cd019",
+      "evidence_head_sha": "c816bb72f97259cef3437d35e985f146fa6cd019",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pkstop-santa-monica-pier",
+      "name": "pkstop-santa-monica-pier",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "fa0ae50ad1d129dc3a5388cc9fd3597a590faded",
+      "evidence_head_sha": "fa0ae50ad1d129dc3a5388cc9fd3597a590faded",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pkstop-the-bean",
+      "name": "pkstop-the-bean",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "425f073ac3b5b892c0cc3e970a46013e6f852eaa",
+      "evidence_head_sha": "425f073ac3b5b892c0cc3e970a46013e6f852eaa",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/poc",
+      "name": "poc",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "1cf0b30047a1aab9efc759fb065579a6b2d7c4d1",
+      "evidence_head_sha": "1cf0b30047a1aab9efc759fb065579a6b2d7c4d1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pomodoro",
+      "name": "pomodoro",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "cb7fc86ed02c58541a469c9e5f7c477af4ebfa34",
+      "evidence_head_sha": "cb7fc86ed02c58541a469c9e5f7c477af4ebfa34",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/PowerApps",
+      "name": "PowerApps",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "08818f28aa7945d6a4c00f177f2174ff0c5685ef",
+      "evidence_head_sha": "08818f28aa7945d6a4c00f177f2174ff0c5685ef",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/private-workspace-template",
+      "name": "private-workspace-template",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "e3905228b915ecba593cf2d28bf63f6d1649465a",
+      "evidence_head_sha": "e3905228b915ecba593cf2d28bf63f6d1649465a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/public-art-collective",
+      "name": "public-art-collective",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "2048b641e6c29e94bce7088f945af657c6a96bce",
+      "evidence_head_sha": "2048b641e6c29e94bce7088f945af657c6a96bce",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/puppeteer-gpt",
+      "name": "puppeteer-gpt",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "a79052020f42d540609c179881c4ff397dd09437",
+      "evidence_head_sha": "a79052020f42d540609c179881c4ff397dd09437",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/puppeteer-screenshot",
+      "name": "puppeteer-screenshot",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "0423b1b7a01af35e169de23cc04944b3b86f7daf",
+      "evidence_head_sha": "0423b1b7a01af35e169de23cc04944b3b86f7daf",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/pvpoke-rankings-tracker",
+      "name": "pvpoke-rankings-tracker",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "319a0e87d35002536915869285ae3310d32bd62a",
+      "evidence_head_sha": "319a0e87d35002536915869285ae3310d32bd62a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/quivr",
+      "name": "quivr",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "2e709f52454f4a7667c09e91c072cce3d0fbb8c7",
+      "evidence_head_sha": "2e709f52454f4a7667c09e91c072cce3d0fbb8c7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/racon",
+      "name": "racon",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "32f1932f4213ed92dd867325b410f59be535ba19",
+      "evidence_head_sha": "32f1932f4213ed92dd867325b410f59be535ba19",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP",
+      "name": "RAPP",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "0b69162326e5358a1e26a768ff50099c91a1e47c",
+      "evidence_head_sha": "0b69162326e5358a1e26a768ff50099c91a1e47c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-agents",
+      "name": "rapp-agents",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "3636fb9d13c7a025814c9696cef2e8327c1d7c38",
+      "evidence_head_sha": "3636fb9d13c7a025814c9696cef2e8327c1d7c38",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-basket",
+      "name": "rapp-basket",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "1b157a8b5449d401177f9862706fccad9d338330",
+      "evidence_head_sha": "1b157a8b5449d401177f9862706fccad9d338330",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-bench",
+      "name": "rapp-bench",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "074146a58f91ded00da6cd19317f8d10cdeaee04",
+      "evidence_head_sha": "074146a58f91ded00da6cd19317f8d10cdeaee04",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP-Bible",
+      "name": "RAPP-Bible",
+      "node_type": "repository",
+      "primary_plane": "governance",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "349c5c0aae8335b51812a3549ee24b906d02bd14",
+      "evidence_head_sha": "349c5c0aae8335b51812a3549ee24b906d02bd14",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-brainstem-beta",
+      "name": "rapp-brainstem-beta",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "418fd69d76e8fc6a494782b669560f4212292fb5",
+      "evidence_head_sha": "418fd69d76e8fc6a494782b669560f4212292fb5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-brainstem-sdk",
+      "name": "rapp-brainstem-sdk",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "36f57fafedae548095f2fe123cfd1f98fffc65b8",
+      "evidence_head_sha": "36f57fafedae548095f2fe123cfd1f98fffc65b8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-burrow",
+      "name": "rapp-burrow",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "eeed9732be6142cf45a09eb6635a01bd4a508470",
+      "evidence_head_sha": "eeed9732be6142cf45a09eb6635a01bd4a508470",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-carts",
+      "name": "rapp-carts",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "daabaa0f0bbe4aee0a32a95632fb3c9621530a6e",
+      "evidence_head_sha": "daabaa0f0bbe4aee0a32a95632fb3c9621530a6e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-claude-skills",
+      "name": "rapp-claude-skills",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "218b6e6026ceecd2cf7e71f7d4010cb07ebb7f5c",
+      "evidence_head_sha": "218b6e6026ceecd2cf7e71f7d4010cb07ebb7f5c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-commons",
+      "name": "rapp-commons",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "bd843bba3ba14754ccd85594b3a1ce2b26a4cc74",
+      "evidence_head_sha": "bd843bba3ba14754ccd85594b3a1ce2b26a4cc74",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-dataverse",
+      "name": "rapp-dataverse",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "dabd5938e116204ea4a4b1881e737334d8a4d642",
+      "evidence_head_sha": "dabd5938e116204ea4a4b1881e737334d8a4d642",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-demos",
+      "name": "rapp-demos",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "dad58796450d2e561121f3ff9c6f0efc668d2859",
+      "evidence_head_sha": "dad58796450d2e561121f3ff9c6f0efc668d2859",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-distro",
+      "name": "rapp-distro",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "bc9099eb3c79a59fb43a3a2ba7f5d3caec0df381",
+      "evidence_head_sha": "bc9099eb3c79a59fb43a3a2ba7f5d3caec0df381",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-doorman",
+      "name": "rapp-doorman",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "4fb3ad0ffeb6c829264f188d7905e19adccc4095",
+      "evidence_head_sha": "4fb3ad0ffeb6c829264f188d7905e19adccc4095",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-egg-hub",
+      "name": "rapp-egg-hub",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "24c8fdc1e770c790b98724002d719d515d5e5465",
+      "evidence_head_sha": "24c8fdc1e770c790b98724002d719d515d5e5465",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-estate",
+      "name": "rapp-estate",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "868e80c33bbe1c03597372e3b9db54aa5b736a95",
+      "evidence_head_sha": "868e80c33bbe1c03597372e3b9db54aa5b736a95",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-eternity",
+      "name": "rapp-eternity",
+      "node_type": "repository",
+      "primary_plane": "identity",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "a78a9c2aba06f9e788d735341b9ff7d2cace3189",
+      "evidence_head_sha": "a78a9c2aba06f9e788d735341b9ff7d2cace3189",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-frame-net",
+      "name": "rapp-frame-net",
+      "node_type": "repository",
+      "primary_plane": "fleet/leviathan",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "ff9d4cd137bfbe5c806088b10ff89f059827e1f3",
+      "evidence_head_sha": "ff9d4cd137bfbe5c806088b10ff89f059827e1f3",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-go",
+      "name": "rapp-go",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "d690fc34ab8304d610b91bfb4aae068550eda78f",
+      "evidence_head_sha": "d690fc34ab8304d610b91bfb4aae068550eda78f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-god",
+      "name": "rapp-god",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "b582c5adbd4cb3da7f43f1b51b7326e8d8b18a79",
+      "evidence_head_sha": "b582c5adbd4cb3da7f43f1b51b7326e8d8b18a79",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-god-forum",
+      "name": "rapp-god-forum",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "58362a43bbf02d3909aacb6617b745f0fca8d0ad",
+      "evidence_head_sha": "58362a43bbf02d3909aacb6617b745f0fca8d0ad",
+      "head_drift": "new_repository_inspected_at_current_head",
+      "id": "repo:kody-w/rapp-heir",
+      "name": "rapp-heir",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "4c981887623b341fa094d4ba70126c4631a2c581",
+      "evidence_head_sha": "4c981887623b341fa094d4ba70126c4631a2c581",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-hologram",
+      "name": "rapp-hologram",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "5fbde1776a72715935c3d597a9ddfce28a04032b",
+      "evidence_head_sha": "5fbde1776a72715935c3d597a9ddfce28a04032b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-installer",
+      "name": "rapp-installer",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "56a9a29dc9616302e4d5aaa10fcba921219a1db2",
+      "evidence_head_sha": "56a9a29dc9616302e4d5aaa10fcba921219a1db2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-installer-canary",
+      "name": "rapp-installer-canary",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "36a6b1eeb9c79eca2386dc6acd5f05d89d950b5c",
+      "evidence_head_sha": "36a6b1eeb9c79eca2386dc6acd5f05d89d950b5c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-installer-dev",
+      "name": "rapp-installer-dev",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "f3e7e2d04c30772d1abc0476da945a860fe226ab",
+      "evidence_head_sha": "f3e7e2d04c30772d1abc0476da945a860fe226ab",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-kite",
+      "name": "rapp-kite",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "9f844ec5e8a148b5a17e1080e9a715feea954e5b",
+      "evidence_head_sha": "9f844ec5e8a148b5a17e1080e9a715feea954e5b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-kited-twin",
+      "name": "rapp-kited-twin",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "0c1a96f3227265a17082b96bd5722b769d9554fd",
+      "evidence_head_sha": "0c1a96f3227265a17082b96bd5722b769d9554fd",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-lantern",
+      "name": "rapp-lantern",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "2276a662725e8f37759c04c9497bb51a3f6a0f7e",
+      "evidence_head_sha": "2276a662725e8f37759c04c9497bb51a3f6a0f7e",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-leviathan-hub",
+      "name": "rapp-leviathan-hub",
+      "node_type": "repository",
+      "primary_plane": "fleet/leviathan",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "38476054e072ccdbe58b6f4af0e20a9e042271f1",
+      "evidence_head_sha": "38476054e072ccdbe58b6f4af0e20a9e042271f1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-map",
+      "name": "rapp-map",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "d8d8d334f3d60e2649f452806faf69071998b68f",
+      "evidence_head_sha": "d8d8d334f3d60e2649f452806faf69071998b68f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-mcp",
+      "name": "rapp-mcp",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "0586678530bb16215f91104a11737bc69c6f0c48",
+      "evidence_head_sha": "0586678530bb16215f91104a11737bc69c6f0c48",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-messaging",
+      "name": "rapp-messaging",
+      "node_type": "repository",
+      "primary_plane": "messaging",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "12846ebab648eb9a97e3ad79cde8c8e648994b37",
+      "evidence_head_sha": "12846ebab648eb9a97e3ad79cde8c8e648994b37",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-moment",
+      "name": "rapp-moment",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "789f9334050c40d115216d37f20f9b77e8429d12",
+      "evidence_head_sha": "f7d6f5603c0e144ab2a97692f382e6b170332308",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rapp-moonshots",
+      "name": "rapp-moonshots",
+      "node_type": "repository",
+      "primary_plane": "fleet/leviathan",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "44e0c6eb49d619932e645fb9d9b12a5fa37f71b1",
+      "evidence_head_sha": "44e0c6eb49d619932e645fb9d9b12a5fa37f71b1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-neighborhood-protocol",
+      "name": "rapp-neighborhood-protocol",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "5d45335d7e96408466678a00af99d36515077e13",
+      "evidence_head_sha": "5d45335d7e96408466678a00af99d36515077e13",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP-Network",
+      "name": "RAPP-Network",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "8fc6c0ce596fc5a5c974700d23e6be426e6152fe",
+      "evidence_head_sha": "8fc6c0ce596fc5a5c974700d23e6be426e6152fe",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-oneclick-deploy",
+      "name": "rapp-oneclick-deploy",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "3af455918ad568d5c3f955ecf4b9ad40238d0259",
+      "evidence_head_sha": "3af455918ad568d5c3f955ecf4b9ad40238d0259",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-plant-smoke-20260505-233637",
+      "name": "rapp-plant-smoke-20260505-233637",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "10a2c560b8297560a12ea7773a611761a793ad60",
+      "evidence_head_sha": "27bdbc5a2c76920f1e6745f578a928ca4625a2b3",
+      "head_drift": "post_window_drift",
+      "id": "repo:kody-w/rapp-play-pokemon",
+      "name": "rapp-play-pokemon",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "4d2ef44edc413f11f74b65c527d10e0eeb24c1b9",
+      "evidence_head_sha": "4d2ef44edc413f11f74b65c527d10e0eeb24c1b9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-postflight",
+      "name": "rapp-postflight",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "d2eb2e29dfa6c7275b0d41fa73bf51178c6aa2d9",
+      "evidence_head_sha": "d2eb2e29dfa6c7275b0d41fa73bf51178c6aa2d9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-quests",
+      "name": "rapp-quests",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "de07d307740e318723426c9463fd0c3a2654707b",
+      "evidence_head_sha": "de07d307740e318723426c9463fd0c3a2654707b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-resident",
+      "name": "rapp-resident",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c94cf5f034c52258a6e9225d82cb671e7fa27c8c",
+      "evidence_head_sha": "c94cf5f034c52258a6e9225d82cb671e7fa27c8c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-roadmap",
+      "name": "rapp-roadmap",
+      "node_type": "repository",
+      "primary_plane": "governance",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "c6e35c85428bd8761d2398ce172e14b22f9364c9",
+      "evidence_head_sha": "c6e35c85428bd8761d2398ce172e14b22f9364c9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-sealed",
+      "name": "rapp-sealed",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "9fed5a91fbc9c77b948bb580fe4432621f0b2ea5",
+      "evidence_head_sha": "9fed5a91fbc9c77b948bb580fe4432621f0b2ea5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-snap",
+      "name": "rapp-snap",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "b41a4578104ebd7d837fe8022bc5f81acc6c377d",
+      "evidence_head_sha": "b41a4578104ebd7d837fe8022bc5f81acc6c377d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-spine",
+      "name": "rapp-spine",
+      "node_type": "repository",
+      "primary_plane": "governance",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "77f81ec6f20c28662dfb4b6c8293f88370ef26f2",
+      "evidence_head_sha": "77f81ec6f20c28662dfb4b6c8293f88370ef26f2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-static-apis",
+      "name": "rapp-static-apis",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "922760a6cb960f063633aa2ac4e02e540a456415",
+      "evidence_head_sha": "922760a6cb960f063633aa2ac4e02e540a456415",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-static-mcp",
+      "name": "rapp-static-mcp",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "da2b3643c52043c2bd8845cea3d6ddcdda620ed4",
+      "evidence_head_sha": "da2b3643c52043c2bd8845cea3d6ddcdda620ed4",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-store-archive",
+      "name": "rapp-store-archive",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "533059ca57bb09e0fdd2cd110e2124e7be184c41",
+      "evidence_head_sha": "533059ca57bb09e0fdd2cd110e2124e7be184c41",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-support",
+      "name": "rapp-support",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "5813d4d67977cc4c0c4196475dfe42db761533ec",
+      "evidence_head_sha": "5813d4d67977cc4c0c4196475dfe42db761533ec",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-test-neighbor",
+      "name": "rapp-test-neighbor",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "79a007f8f9d24cdc23a1cf1e457bdebf246d34b3",
+      "evidence_head_sha": "79a007f8f9d24cdc23a1cf1e457bdebf246d34b3",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-version-selector",
+      "name": "rapp-version-selector",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "b727e96be888e319bdad760593744e511917615a",
+      "evidence_head_sha": "b727e96be888e319bdad760593744e511917615a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-vneighborhood",
+      "name": "rapp-vneighborhood",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "d515e8cc9ea6647ba478cc4f723e022ca712aec5",
+      "evidence_head_sha": "d515e8cc9ea6647ba478cc4f723e022ca712aec5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-vscode-extension",
+      "name": "rapp-vscode-extension",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "8dd97db28dbcfac7b8c1e0c77fdf04e16f8fc797",
+      "evidence_head_sha": "8dd97db28dbcfac7b8c1e0c77fdf04e16f8fc797",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp-zoo",
+      "name": "rapp-zoo",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "0aea2ecf7e66ebffb30d3af6a550eac638356292",
+      "evidence_head_sha": "0aea2ecf7e66ebffb30d3af6a550eac638356292",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP_Desktop",
+      "name": "RAPP_Desktop",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "45d6ee5049dfc35d12d6cbb14e9e27e0297573cf",
+      "evidence_head_sha": "45d6ee5049dfc35d12d6cbb14e9e27e0297573cf",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp_docs",
+      "name": "rapp_docs",
+      "node_type": "repository",
+      "primary_plane": "governance",
+      "rapp_relevance": "supporting"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "302002921255f63e600447b54f717f29e08f00fa",
+      "evidence_head_sha": "302002921255f63e600447b54f717f29e08f00fa",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP_hippo",
+      "name": "RAPP_hippo",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "00ac2f73cade3f64c39359e9a90fca636bc387aa",
+      "evidence_head_sha": "00ac2f73cade3f64c39359e9a90fca636bc387aa",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP_Hub",
+      "name": "RAPP_Hub",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6c860c2ca512c816b832b20e33d54e22655e4d47",
+      "evidence_head_sha": "6c860c2ca512c816b832b20e33d54e22655e4d47",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rapp_orion",
+      "name": "rapp_orion",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "963068714a21b8eefa72e27ebc472b240701c1a5",
+      "evidence_head_sha": "963068714a21b8eefa72e27ebc472b240701c1a5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP_Sense_Store",
+      "name": "RAPP_Sense_Store",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "d8d55d23f5ba62ab43f31338d1f0385cfaaab4c8",
+      "evidence_head_sha": "d8d55d23f5ba62ab43f31338d1f0385cfaaab4c8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPP_Store",
+      "name": "RAPP_Store",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "4f5bde0fb01bad5497ecbfb3ff0360aa58b8a8d5",
+      "evidence_head_sha": "4f5bde0fb01bad5497ecbfb3ff0360aa58b8a8d5",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPPAIClaudeCodePlayground",
+      "name": "RAPPAIClaudeCodePlayground",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "33f9f0df373cbe37197d6292f5bc3fdd89027573",
+      "evidence_head_sha": "33f9f0df373cbe37197d6292f5bc3fdd89027573",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappbook-admin",
+      "name": "rappbook-admin",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "5bfcea8d6aaa78e988827783b44e0d384ed3c14a",
+      "evidence_head_sha": "5bfcea8d6aaa78e988827783b44e0d384ed3c14a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPPcards",
+      "name": "RAPPcards",
+      "node_type": "repository",
+      "primary_plane": "identity",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "b2f62716235df90da2038d50b8e6bdfe3e9fd423",
+      "evidence_head_sha": "b2f62716235df90da2038d50b8e6bdfe3e9fd423",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RAPPsquared",
+      "name": "RAPPsquared",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c7b919357a201489ba3ecaae83cb56386eb15ea9",
+      "evidence_head_sha": "c7b919357a201489ba3ecaae83cb56386eb15ea9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappter-cli",
+      "name": "rappter-cli",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "824680463ba2db2662cec1202154570b40158446",
+      "evidence_head_sha": "824680463ba2db2662cec1202154570b40158446",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappter-distro",
+      "name": "rappter-distro",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "652702855bcde92e3b2aeac5712dcd35971f54a0",
+      "evidence_head_sha": "652702855bcde92e3b2aeac5712dcd35971f54a0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappter-factory",
+      "name": "rappter-factory",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "757291f589d31a466923dcc96185b3662f750435",
+      "evidence_head_sha": "757291f589d31a466923dcc96185b3662f750435",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappter-mmo",
+      "name": "rappter-mmo",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "25e60c3bb1b665a6fcd654277a1ea0dfdd65d254",
+      "evidence_head_sha": "6532d7e8df09c5906b6aadedfe5677cb11b4afdf",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rappter-plays-pokemon",
+      "name": "rappter-plays-pokemon",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "d1f0c0d2bb8cb41df5632594a7111d2f0269fd49",
+      "evidence_head_sha": "fe0e63e1ffc77ef5061186f1e2dbbd1829bd4a17",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rappterbook",
+      "name": "rappterbook",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "2521b3073603a898e158dea5b5ac21d3e96d08a0",
+      "evidence_head_sha": "2521b3073603a898e158dea5b5ac21d3e96d08a0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-agent",
+      "name": "rappterbook-agent",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "b054f180c8f20a3b3224b803957994671ef3a8b8",
+      "evidence_head_sha": "b054f180c8f20a3b3224b803957994671ef3a8b8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-agent-dna",
+      "name": "rappterbook-agent-dna",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "75a61c43ea33d563dc00a9f249929fa8aef29aff",
+      "evidence_head_sha": "a4de58be0be2c866001a869384191d13138c2d47",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rappterbook-agent-exchange",
+      "name": "rappterbook-agent-exchange",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "a3f5202ba1b42a72b9bfe7e6f2c6ba2feef2ec90",
+      "evidence_head_sha": "a3f5202ba1b42a72b9bfe7e6f2c6ba2feef2ec90",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-api",
+      "name": "rappterbook-api",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "a6b65c3a232ff630b25627c16438811750c67100",
+      "evidence_head_sha": "a6b65c3a232ff630b25627c16438811750c67100",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-autopilot",
+      "name": "rappterbook-autopilot",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "cd6c8467e71f04e88db799ff6bf11311cc94480f",
+      "evidence_head_sha": "cd6c8467e71f04e88db799ff6bf11311cc94480f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-commons",
+      "name": "rappterbook-commons",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "040cc86fbc0058800bfdf7639c7f879b7a5ffed0",
+      "evidence_head_sha": "040cc86fbc0058800bfdf7639c7f879b7a5ffed0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-engine-test",
+      "name": "rappterbook-engine-test",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6da27b309760f2b2c0b97dae0a1ad15a906c4fd3",
+      "evidence_head_sha": "8f46b2dfa37e24b968d6a3735880049fe61d26b3",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rappterbook-first-bond",
+      "name": "rappterbook-first-bond",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "3b8e7938fd1622257c774cef4b236111ae6d54ba",
+      "evidence_head_sha": "3b8e7938fd1622257c774cef4b236111ae6d54ba",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-governance",
+      "name": "rappterbook-governance",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "08a448149023eadd403ec3ae5b51f32f78a51528",
+      "evidence_head_sha": "08a448149023eadd403ec3ae5b51f32f78a51528",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-impossible-product",
+      "name": "rappterbook-impossible-product",
+      "node_type": "repository",
+      "primary_plane": "security/release",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "ff6a9c79d107ab38f1ae82c87c1c90c7569447a3",
+      "evidence_head_sha": "ff6a9c79d107ab38f1ae82c87c1c90c7569447a3",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-knowledge-graph",
+      "name": "rappterbook-knowledge-graph",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "8306b50efd61b8ea0ce4137a6a03ff240b9250ff",
+      "evidence_head_sha": "8306b50efd61b8ea0ce4137a6a03ff240b9250ff",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-market-maker",
+      "name": "rappterbook-market-maker",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "5d9ca2f0fd84782a0c5fb506515691e839bfaf86",
+      "evidence_head_sha": "5d9ca2f0fd84782a0c5fb506515691e839bfaf86",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-mars-barn",
+      "name": "rappterbook-mars-barn",
+      "node_type": "repository",
+      "primary_plane": "identity",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "999d76c90bd231a83eee1815654a3fa6fbe9dd7f",
+      "evidence_head_sha": "999d76c90bd231a83eee1815654a3fa6fbe9dd7f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-phantom",
+      "name": "rappterbook-phantom",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "11688fd903ea10af88d8b20a84f9154802a7e8e2",
+      "evidence_head_sha": "11688fd903ea10af88d8b20a84f9154802a7e8e2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-seedmaker",
+      "name": "rappterbook-seedmaker",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "acb1957ceb0a6c31d9bdf33eed7ee784210b1b14",
+      "evidence_head_sha": "acb1957ceb0a6c31d9bdf33eed7ee784210b1b14",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-social-graph",
+      "name": "rappterbook-social-graph",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "ed4a91faa1dd1ebf275a97966110a8e4b1c8828f",
+      "evidence_head_sha": "ed4a91faa1dd1ebf275a97966110a8e4b1c8828f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-v2",
+      "name": "rappterbook-v2",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "7bb79f1e0b812752916cd3e656eb7eeb08cd366c",
+      "evidence_head_sha": "7bb79f1e0b812752916cd3e656eb7eeb08cd366c",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-v2-state",
+      "name": "rappterbook-v2-state",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "9b575df2cd7c15bbfe535d4f7198bcefdfbe76ea",
+      "evidence_head_sha": "9b575df2cd7c15bbfe535d4f7198bcefdfbe76ea",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbook-vm",
+      "name": "rappterbook-vm",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "409ee5a253a637f5d3ad531cae164828fd9e2a1a",
+      "evidence_head_sha": "409ee5a253a637f5d3ad531cae164828fd9e2a1a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterbox",
+      "name": "rappterbox",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "e06632d6d33bfacf0c6d0234911389cc3b4b5631",
+      "evidence_head_sha": "e06632d6d33bfacf0c6d0234911389cc3b4b5631",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rappterhub",
+      "name": "rappterhub",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "67d7be53241a2519ef508668a1c828ff2c51cfc0",
+      "evidence_head_sha": "67d7be53241a2519ef508668a1c828ff2c51cfc0",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RappterNest",
+      "name": "RappterNest",
+      "node_type": "repository",
+      "primary_plane": "kernel/runtime",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "87da5bd529aa89ec8ef1cba719bdd86dcdaa77f1",
+      "evidence_head_sha": "c0ce913df40a8773d062d56f0fcb4fc58f71309a",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/rappterverse",
+      "name": "rappterverse",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "cff8bb0358ce10449ee1d72018a7624009aa3599",
+      "evidence_head_sha": "7bc0d2911d231de4e2bb04a425b6a2b8a86e8263",
+      "head_drift": "post_window_drift",
+      "id": "repo:kody-w/rappterverse-data",
+      "name": "rappterverse-data",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "c1b12083a0183d459b0ed711c06a666213e6ccdd",
+      "evidence_head_sha": "2057a17fcbf7f6b88879c26ff06fb695cbf002b9",
+      "head_drift": "observed_changed_since_evidence",
+      "id": "repo:kody-w/RAR",
+      "name": "RAR",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "84c8ef44c63e51dd93182c4711fced26cbfc5b57",
+      "evidence_head_sha": "84c8ef44c63e51dd93182c4711fced26cbfc5b57",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/raw_wasm",
+      "name": "raw_wasm",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "7e3502da0762baf3c5d930f564adbf1fc1fb032b",
+      "evidence_head_sha": "7e3502da0762baf3c5d930f564adbf1fc1fb032b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/react-tweets",
+      "name": "react-tweets",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d2521781508709610219d715f7c33afe678405cc",
+      "evidence_head_sha": "d2521781508709610219d715f7c33afe678405cc",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/reactNativeUdemyCourse",
+      "name": "reactNativeUdemyCourse",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "f241e1528c2da9fca02c3b2c20d40f5c37423142",
+      "evidence_head_sha": "f241e1528c2da9fca02c3b2c20d40f5c37423142",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/reactpokemon",
+      "name": "reactpokemon",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "704e7b8ddae9c8fbaf03e074cbad855696ffd445",
+      "evidence_head_sha": "704e7b8ddae9c8fbaf03e074cbad855696ffd445",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/red-binder",
+      "name": "red-binder",
+      "node_type": "repository",
+      "primary_plane": "identity",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "155c4a927f38ce33b027fe86c987aeb74cbab112",
+      "evidence_head_sha": "155c4a927f38ce33b027fe86c987aeb74cbab112",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/reimagined-octo-doodle",
+      "name": "reimagined-octo-doodle",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "72caa99e463c6e1a160ba69b7f3d1fd87434c8f7",
+      "evidence_head_sha": "72caa99e463c6e1a160ba69b7f3d1fd87434c8f7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/RepriseClone",
+      "name": "RepriseClone",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "d61be35069bd45e2dd45de7b0c2eb7cec1da9861",
+      "evidence_head_sha": "d61be35069bd45e2dd45de7b0c2eb7cec1da9861",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rio",
+      "name": "rio",
+      "node_type": "repository",
+      "primary_plane": "distribution",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "ee9ee28d12e57fc49f95f6fb71ac0e8b5bb483a8",
+      "evidence_head_sha": "ee9ee28d12e57fc49f95f6fb71ac0e8b5bb483a8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rionet",
+      "name": "rionet",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "83099b56287d742c49934490f00ebd9629fb8025",
+      "evidence_head_sha": "83099b56287d742c49934490f00ebd9629fb8025",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/rustHelloWorld",
+      "name": "rustHelloWorld",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "bcc5f5389dcd83ad2d101486291fecaab8ab639b",
+      "evidence_head_sha": "bcc5f5389dcd83ad2d101486291fecaab8ab639b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/saras_ai_robot_v2",
+      "name": "saras_ai_robot_v2",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "fc228385475685f7b278fe10d60836bd17996ff8",
+      "evidence_head_sha": "fc228385475685f7b278fe10d60836bd17996ff8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/screenshot-to-code",
+      "name": "screenshot-to-code",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "2db1f36e61a22ea6f281b506b873e0c3710bc0b7",
+      "evidence_head_sha": "2db1f36e61a22ea6f281b506b873e0c3710bc0b7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/semantic-kernel-workshop",
+      "name": "semantic-kernel-workshop",
+      "node_type": "repository",
+      "primary_plane": "memory/storage",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "0ead081d10baf7365abd14dcade51535a01d3366",
+      "evidence_head_sha": "0ead081d10baf7365abd14dcade51535a01d3366",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ShadowRAPP",
+      "name": "ShadowRAPP",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "f9a4a2ded6e7414a75cce4f67f460cdadc6ff80a",
+      "evidence_head_sha": "f9a4a2ded6e7414a75cce4f67f460cdadc6ff80a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/sim-art-collective",
+      "name": "sim-art-collective",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "2c82b66ae02ad9a41e1b5e789b14943eb693d383",
+      "evidence_head_sha": "2c82b66ae02ad9a41e1b5e789b14943eb693d383",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/sim-demo-twin",
+      "name": "sim-demo-twin",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "c96bbbb4b64a3fabe128fb57f6ecf165528cb2a2",
+      "evidence_head_sha": "c96bbbb4b64a3fabe128fb57f6ecf165528cb2a2",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/skills-for-copilot-studio",
+      "name": "skills-for-copilot-studio",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "8a1dd3f6a6f0f549cb6f08600a40b7b4f281a1bc",
+      "evidence_head_sha": "8a1dd3f6a6f0f549cb6f08600a40b7b4f281a1bc",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/SMSAssistant",
+      "name": "SMSAssistant",
+      "node_type": "repository",
+      "primary_plane": "messaging",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "bc31c8027187758b1d5fcc66fb05541d372a7c27",
+      "evidence_head_sha": "bc31c8027187758b1d5fcc66fb05541d372a7c27",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/snake-game-assets",
+      "name": "snake-game-assets",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "e784b329613b5f23c7fdcb41956c57ca5208259f",
+      "evidence_head_sha": "e784b329613b5f23c7fdcb41956c57ca5208259f",
+      "head_drift": "new_repository_inspected_at_current_head",
+      "id": "repo:kody-w/static-dynamics-365",
+      "name": "static-dynamics-365",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "d0db9364441aeef2371454d24dad17c674ede045",
+      "evidence_head_sha": "147f25a05b1c37ab8a3f9b5c060a8a58dcecfe86",
+      "head_drift": "post_window_drift",
+      "id": "repo:kody-w/static-oracle-fusion",
+      "name": "static-oracle-fusion",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "68197c7152a7a8f2208da902cbedd79d64daf1c8",
+      "evidence_head_sha": "ad5c130a290f6b9011a1ec7ad4eb1bc0093fdbcc",
+      "head_drift": "post_window_drift",
+      "id": "repo:kody-w/static-sap-s4hana",
+      "name": "static-sap-s4hana",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "f77c3373b4af27bec2aac0a577e8e25fffe63333",
+      "evidence_head_sha": "22bb877254036a62b59b36359b32903cd33bc344",
+      "head_drift": "post_window_drift",
+      "id": "repo:kody-w/static-servicenow",
+      "name": "static-servicenow",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "fbc770494e98222cdf7bbc14bec04fd3ec4008a2",
+      "evidence_head_sha": "fbc770494e98222cdf7bbc14bec04fd3ec4008a2",
+      "head_drift": "new_repository_inspected_at_current_head",
+      "id": "repo:kody-w/static-zuora",
+      "name": "static-zuora",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "af826d38dfc56abd7863ed0d6d9c811df96cd313",
+      "evidence_head_sha": "af826d38dfc56abd7863ed0d6d9c811df96cd313",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/streamlit-example",
+      "name": "streamlit-example",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "d866b9c871f151b03302df341089f0305b6f4e56",
+      "evidence_head_sha": "d866b9c871f151b03302df341089f0305b6f4e56",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/streamlit-reddit",
+      "name": "streamlit-reddit",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "b785b1feb9edc83740d4d7dc46c1d27d0df33839",
+      "evidence_head_sha": "b785b1feb9edc83740d4d7dc46c1d27d0df33839",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Swifter",
+      "name": "Swifter",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "2234a8b07418992366c5db469a37682828bfa205",
+      "evidence_head_sha": "2234a8b07418992366c5db469a37682828bfa205",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/teams-agent-cli-poc",
+      "name": "teams-agent-cli-poc",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "730578c5a967b770f6b1c9fc076039c3e48118a8",
+      "evidence_head_sha": "730578c5a967b770f6b1c9fc076039c3e48118a8",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/tensorflow5min",
+      "name": "tensorflow5min",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "85e199bccb5ac121c8b0b6b8c680c33df988cd01",
+      "evidence_head_sha": "85e199bccb5ac121c8b0b6b8c680c33df988cd01",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/tesasdfdsa",
+      "name": "tesasdfdsa",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "d3685003c8f005faed34d3c97c3e03ae4f41d8d1",
+      "evidence_head_sha": "d3685003c8f005faed34d3c97c3e03ae4f41d8d1",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/TestAI",
+      "name": "TestAI",
+      "node_type": "repository",
+      "primary_plane": "cloud/enterprise",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "756fb0406ce4383aa0ca4cbdeb38729c880b4d2b",
+      "evidence_head_sha": "756fb0406ce4383aa0ca4cbdeb38729c880b4d2b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/text-adventure",
+      "name": "text-adventure",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "aa9c429e66663d38fdb43e5a56f83c0f2766e6e9",
+      "evidence_head_sha": "aa9c429e66663d38fdb43e5a56f83c0f2766e6e9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/the-coliseum",
+      "name": "the-coliseum",
+      "node_type": "repository",
+      "primary_plane": "UX/observability/evolution",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "e1100a18591524adb428b380e78d064cac20789a",
+      "evidence_head_sha": "e1100a18591524adb428b380e78d064cac20789a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/TheMatrix",
+      "name": "TheMatrix",
+      "node_type": "repository",
+      "primary_plane": "agents",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "86045693a34ec7696d41825b2de9d87ffea137b7",
+      "evidence_head_sha": "86045693a34ec7696d41825b2de9d87ffea137b7",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/threejs",
+      "name": "threejs",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "dc4f562d85ada62dbaf432175ed236656b545031",
+      "evidence_head_sha": "dc4f562d85ada62dbaf432175ed236656b545031",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/tide-brainstem",
+      "name": "tide-brainstem",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "da7717ccf3bc8de0b6cd73458d8de633cad606e9",
+      "evidence_head_sha": "da7717ccf3bc8de0b6cd73458d8de633cad606e9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/tinyrenderer",
+      "name": "tinyrenderer",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": null,
+      "evidence_head_sha": null,
+      "head_drift": "empty_repository",
+      "id": "repo:kody-w/Treehouse",
+      "name": "Treehouse",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "dfb324819420758ab15eb5523f7d95e0c49148b9",
+      "evidence_head_sha": "dfb324819420758ab15eb5523f7d95e0c49148b9",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/twin",
+      "name": "twin",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "A",
+      "current_head_sha": "5e41cd9088deee8394d22d5941f1fa8bc37b990f",
+      "evidence_head_sha": "5e41cd9088deee8394d22d5941f1fa8bc37b990f",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/twin-binder",
+      "name": "twin-binder",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "adjacent"
+    },
+    {
+      "audited": true,
+      "classification": "C",
+      "current_head_sha": "f05e2f41f0a5991c5ef442ff3f764830ce9eb0db",
+      "evidence_head_sha": "f05e2f41f0a5991c5ef442ff3f764830ce9eb0db",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/twin-egg-hatcher",
+      "name": "twin-egg-hatcher",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "core"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "cf5f9b3928d7a3ab759b08bd88fba9e1dbe06e1b",
+      "evidence_head_sha": "cf5f9b3928d7a3ab759b08bd88fba9e1dbe06e1b",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/twitter-cashtag-heatmap",
+      "name": "twitter-cashtag-heatmap",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "b7bb392375e111a368ed82249b962fa9be92ae43",
+      "evidence_head_sha": "b7bb392375e111a368ed82249b962fa9be92ae43",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/Udemy.NetWalkthrough",
+      "name": "Udemy.NetWalkthrough",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "9f0cac01c5fe945812b9484912feea2d949b709a",
+      "evidence_head_sha": "9f0cac01c5fe945812b9484912feea2d949b709a",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/ultra-turmeric",
+      "name": "ultra-turmeric",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "9735a0eed83a426b3b14cf98f9043a5a9241b142",
+      "evidence_head_sha": "9735a0eed83a426b3b14cf98f9043a5a9241b142",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/v86",
+      "name": "v86",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "ebed9f2768a101b54806d60c81adec36adc9600d",
+      "evidence_head_sha": "ebed9f2768a101b54806d60c81adec36adc9600d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/vbrainstem",
+      "name": "vbrainstem",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "6d2770b11ee17b9695491c03137550ebe1005d1d",
+      "evidence_head_sha": "6d2770b11ee17b9695491c03137550ebe1005d1d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/vneighborhood-design-studio",
+      "name": "vneighborhood-design-studio",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "ba9413e42a87a35f51f5cff235f495ca31f00328",
+      "evidence_head_sha": "ba9413e42a87a35f51f5cff235f495ca31f00328",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/vneighborhood-research-lab",
+      "name": "vneighborhood-research-lab",
+      "node_type": "repository",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "L",
+      "current_head_sha": "375968ece213b0c71312f6c1b2304baf928cdb1d",
+      "evidence_head_sha": "375968ece213b0c71312f6c1b2304baf928cdb1d",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/VoidRAPP",
+      "name": "VoidRAPP",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "legacy"
+    },
+    {
+      "audited": true,
+      "classification": "U",
+      "current_head_sha": "0e72b493a67623d6d7985e374fec1138044ad799",
+      "evidence_head_sha": "0e72b493a67623d6d7985e374fec1138044ad799",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/VSProjects",
+      "name": "VSProjects",
+      "node_type": "repository",
+      "primary_plane": "outside",
+      "rapp_relevance": "outside"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "e94622eea83d945cd43d0248677fba0de464f065",
+      "evidence_head_sha": "e94622eea83d945cd43d0248677fba0de464f065",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/wildhaven-ai-homes-twin",
+      "name": "wildhaven-ai-homes-twin",
+      "node_type": "repository",
+      "primary_plane": "twin lifecycle",
+      "rapp_relevance": "instance"
+    },
+    {
+      "audited": true,
+      "classification": "I",
+      "current_head_sha": "800f9306907a0d79c08f43233f3aecfad6c32968",
+      "evidence_head_sha": "800f9306907a0d79c08f43233f3aecfad6c32968",
+      "head_drift": "unchanged",
+      "id": "repo:kody-w/zion",
+      "name": "zion",
+      "node_type": "repository",
+      "primary_plane": "adjacent",
+      "rapp_relevance": "instance"
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "The sole ordinary local-chat and enrolled iMessage principal.",
+      "id": "actor:local-owner",
+      "name": "Local OS owner",
+      "node_type": "actor",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Exact offline transport/recovery artifact selected by the lock.",
+      "id": "artifact:brainstem-egg-2.3-cubby",
+      "name": "brainstem-egg/2.3-cubby",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Directly observed incompatible JSON, ZIP, pointer, cartridge, twin-backup, and executable egg families.",
+      "id": "artifact:legacy-egg-families",
+      "name": "Observed legacy/incompatible egg families",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Application assembly preserving controller and internal-agent semantics.",
+      "id": "artifact:rapp-application-1.0",
+      "name": "rapp-application/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Normative one-gesture cartridge experience; not selected as a chain substitute.",
+      "id": "artifact:rapp-cart-1.0",
+      "name": "rapp-cart/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Deterministic reviewed build boundary selected for CUBBY.",
+      "id": "artifact:rapp-cubby-1.0",
+      "name": "rapp-cubby/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Public counts, versions, commit, digests, and pass/fail only.",
+      "id": "artifact:release-receipt",
+      "name": "Sanitized release receipt",
+      "node_type": "artifact",
+      "primary_plane": "security/release",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "One reviewed executable agent implementing the selected ABI.",
+      "id": "artifact:single-file-agent",
+      "name": "Single-file BasicAgent",
+      "node_type": "artifact",
+      "primary_plane": "agents",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Separate multicellular-being artifact family; excluded from CUBBY.",
+      "id": "artifact:wrapped-leviathan-egg",
+      "name": "Wrapped-organism Leviathan egg",
+      "node_type": "artifact",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Canonical visual/operator mark with no executable or security semantics.",
+      "id": "concept:kite-operator-mark",
+      "name": "Kited-twin operator mark",
+      "node_type": "concept",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "The ecosystem orientation target indexed by maps and mirrors; never a source authority.",
+      "id": "concept:rapp-ecosystem",
+      "name": "RAPP ecosystem inventory",
+      "node_type": "concept",
+      "primary_plane": "governance",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "A static identity/card/invitation repository that does not prove a local runtime.",
+      "id": "concept:static-planted-twin",
+      "name": "Static planted twin/front door",
+      "node_type": "concept",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "MIT behavioral and license reference pin only; not a selected source baseline or adapted implementation.",
+      "id": "external:microsoft-aibast-29e49d0",
+      "name": "Microsoft aibast source pin",
+      "node_type": "external_source",
+      "primary_plane": "kernel/runtime",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Operator-wide static twin discovery.",
+      "id": "network:estate",
+      "name": "Estate discovery network",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Aggregation of estates and neighborhoods.",
+      "id": "network:metropolis",
+      "name": "Metropolis",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Admitted twins sharing signed and optionally sealed events.",
+      "id": "network:neighborhood",
+      "name": "Neighborhood",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Locked, build-blocked, unattested coherent target profile.",
+      "id": "profile:rapp-stack-cubby-v1",
+      "name": "rapp-stack-cubby/macos-arm64-python311/1.0",
+      "node_type": "profile",
+      "primary_plane": "governance",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "name, metadata, perform, optional system_context and tool conversion.",
+      "id": "protocol:brainstem-agent-abi",
+      "name": "BasicAgent ABI",
+      "node_type": "protocol",
+      "primary_plane": "kernel/runtime",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "The sole v1 capability endpoint.",
+      "id": "protocol:post-chat",
+      "name": "Loopback POST /chat",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Signed outer wrapper selected for twin traffic.",
+      "id": "protocol:rapp-commons-event-1.0",
+      "name": "rapp-commons-event/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Kernel pin and organism distribution family.",
+      "id": "protocol:rapp-distro-1.0",
+      "name": "rapp-distro/1.0",
+      "node_type": "protocol",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Canonical location-independent RAPPID claim.",
+      "id": "protocol:rapp-eternity-1.0",
+      "name": "rapp-eternity/1.0",
+      "node_type": "protocol",
+      "primary_plane": "identity",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Signed fleet operation profile over twin chat.",
+      "id": "protocol:rapp-fleet-chat-1.0",
+      "name": "rapp-fleet-chat/1.0",
+      "node_type": "protocol",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Intermittent-link frame envelope and transport model.",
+      "id": "protocol:rapp-frame-2.0",
+      "name": "rapp-frame/2.0",
+      "node_type": "protocol",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "The species-root wire requiring response and assistant_response plus identity/mode echoes.",
+      "id": "protocol:rapp-frozen-chat-wire",
+      "name": "Frozen RAPP chat response contract",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Conversation trust, consent, memory, and delivery contract.",
+      "id": "protocol:rapp-messaging-1.0",
+      "name": "rapp-messaging/1.0",
+      "node_type": "protocol",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "iMessage transport profile narrowed to one owner DM.",
+      "id": "protocol:rapp-messaging-imessage-1.0",
+      "name": "rapp-messaging-imessage/1.0",
+      "node_type": "protocol",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Estate/metropolis aggregation claim.",
+      "id": "protocol:rapp-metropolis-1.0",
+      "name": "rapp-metropolis/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Normative, intentionally implementation-free Moment wire.",
+      "id": "protocol:rapp-moment-1.0",
+      "name": "rapp-moment/1.0",
+      "node_type": "protocol",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Capstone neighborhood, pairing, transport, and sealing contract.",
+      "id": "protocol:rapp-neighborhood-1.0",
+      "name": "rapp-neighborhood-protocol/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "AES-GCM/PBKDF2 body sealing codec.",
+      "id": "protocol:rapp-sealed-1.0",
+      "name": "rapp-sealed/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Repository-as-static-API convention.",
+      "id": "protocol:rapp-static-api-1.0",
+      "name": "rapp-static-api/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Bindings catalog, 2025 protocol, truncated hash implementation.",
+      "id": "protocol:rapp-static-mcp-js-1.0",
+      "name": "JavaScript rapp-static-mcp/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "_frame catalog, 2024 protocol, full SHA implementation.",
+      "id": "protocol:rapp-static-mcp-python-1.0",
+      "name": "Python rapp-static-mcp/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Complete inner addressed twin request.",
+      "id": "protocol:rapp-twin-chat-1.0",
+      "name": "rapp-twin-chat/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Signed response bound to request nonce.",
+      "id": "protocol:rapp-twin-chat-response-1.0",
+      "name": "rapp-twin-chat-response/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Card, mnemonic, binder, and federation claim.",
+      "id": "protocol:rappcards-1.1.2",
+      "name": "RAPPcards 1.1.2",
+      "node_type": "protocol",
+      "primary_plane": "identity",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Always-on cloud body for agents and memory.",
+      "id": "runtime:azure-functions-body",
+      "name": "Azure Functions agent body",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Enterprise data/application encoding and hatcher.",
+      "id": "runtime:dataverse-twin",
+      "name": "Dataverse vTwin",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Builds, hatches, supervises, signs, and aggregates child twins.",
+      "id": "runtime:global-controller",
+      "name": "Local global controller",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Supervised transport adapter with durable local state.",
+      "id": "runtime:imessage-adapter",
+      "name": "Owner-only iMessage adapter",
+      "node_type": "runtime",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Dedicated workspace, venv, identity/key references, agents, and state.",
+      "id": "runtime:isolated-installed-twin",
+      "name": "Isolated installed twin",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "A twin materialized by historical hatchers without implying CUBBY containment or isolation conformance.",
+      "id": "runtime:legacy-hatched-twin",
+      "name": "Legacy hatcher output",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "One controller coordinating enrolled brainstem nodes.",
+      "id": "runtime:leviathan-controller",
+      "name": "Fleet Leviathan controller",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "One enrolled fleet body mapping bounded operations to local chat.",
+      "id": "runtime:leviathan-node",
+      "name": "Fleet Leviathan node",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Managed enterprise presentation and deployment destination.",
+      "id": "runtime:m365-surface",
+      "name": "Copilot Studio / M365 surface",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Newly authored project runtime; Microsoft is behavioral/license reference only and supplies no adapted runtime source.",
+      "id": "runtime:clean-room-brainstem",
+      "name": "Original clean-room local runtime",
+      "node_type": "runtime",
+      "primary_plane": "kernel/runtime",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "An admitted peer that verifies and consumes events.",
+      "id": "runtime:neighborhood-peer",
+      "name": "Receiving neighborhood twin",
+      "node_type": "runtime",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Issues/Discussions/Actions/Pages social implementation.",
+      "id": "runtime:rappterbook-social-platform",
+      "name": "Rappterbook GitHub-native platform",
+      "node_type": "runtime",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Preflight, artifact, scanner, attestation, publication, and rollback controls.",
+      "id": "runtime:release-gate",
+      "name": "Release and rollback gate",
+      "node_type": "runtime",
+      "primary_plane": "security/release",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Always-on relay for neighborhood room events.",
+      "id": "runtime:resident-relay",
+      "name": "Resident event relay",
+      "node_type": "runtime",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Offline-restored child validated before replacement.",
+      "id": "runtime:restored-isolated-twin",
+      "name": "Restored isolated twin",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "One being composed of cells across estates; distinct from fleet control.",
+      "id": "runtime:wrapped-organism",
+      "name": "Wrapped-organism Leviathan",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Local private session, memory, replay, and delivery state.",
+      "id": "store:memory",
+      "name": "Private memory store",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Public index of application bundles.",
+      "id": "store:rapplication",
+      "name": "Rapplication catalog",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Public index of single-file agents.",
+      "id": "store:rar-source",
+      "name": "RAR source-agent registry",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Public index of output overlays.",
+      "id": "store:sense",
+      "name": "Sense catalog",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Static public origin for catalogs and front doors.",
+      "id": "transport:github-pages",
+      "name": "GitHub Pages static transport",
+      "node_type": "transport",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Slow read/write medium for frames and public events.",
+      "id": "transport:github-raw-issues",
+      "name": "GitHub raw/Issues transport",
+      "node_type": "transport",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "antecedent_public_repository": null,
+      "description": "Supervised stdio bridge to Messages; unresolved dependency pin.",
+      "id": "transport:imsg-json-rpc",
+      "name": "Pinned imsg JSON-RPC transport",
+      "node_type": "transport",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": false,
+      "description": "The complete working product/context repository, absent from the antecedent public account snapshot and represented separately from 307 audited public repository nodes.",
+      "id": "product:local/rapp-stack-cubby",
+      "name": "RAPP Stack CUBBY local product source",
+      "node_type": "local_product",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    }
+  ],
+  "product_chain": [
+    "local product source (non-antecedent)",
+    "rapp-cubby/1.0",
+    "rapp-application/1.0",
+    "brainstem-egg/2.3-cubby",
+    "controller",
+    "isolated installed twin",
+    "signed twin-chat",
+    "owner iMessage"
+  ],
+  "release": {
+    "candidate_publication_scan_sha256": null,
+    "final_publication_scan_sha256": null,
+    "github_attestation_verified": false,
+    "live_proof_sha256": null,
+    "pinned_key_id": "0d7fb1acf871d707bf24b3c298d0f47b1f39f0084e3212ed54c7f0b0abf98b07",
+    "postflight_success_sha256": null,
+    "promotion_receipt_sha256": null,
+    "promotion_run_id": null,
+    "publication_attestation_verified": false,
+    "release_manifest_sha256": null,
+    "source_commit": null,
+    "source_git_tree": null,
+    "source_tree_digest": null,
+    "state": "pending",
+    "tag": "v0.1.0-rc.1",
+    "version": "0.1.0rc1"
+  },
+  "schema": "rapp-pages-architecture/1.0",
+  "source": "SYSTEM_GRAPH.json",
+  "status": "pending-source"
+}

@@ -1,0 +1,58 @@
+{
+  "$id": "urn:rapp:schema:publication-attestation-result:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "command_profile": {"const": "gh-attestation-verify/1.0"},
+    "predicate_type": {"const": "https://slsa.dev/provenance/v1"},
+    "profile": {
+      "enum": ["candidate", "candidate-success", "final", "postflight", "promotion"]
+    },
+    "repository": {"const": "kody-w/rapp-stack-cubby"},
+    "schema": {
+      "const": "rapp-publication-attestation-verification/1.0"
+    },
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "subjects": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "signer_workflow": {
+            "enum": [
+              "kody-w/rapp-stack-cubby/.github/workflows/release.yml",
+              "kody-w/rapp-stack-cubby/.github/workflows/promote.yml"
+            ]
+          }
+        },
+        "required": ["name", "sha256", "signer_workflow"],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "verified": {"const": true}
+  },
+  "required": [
+    "schema",
+    "command_profile",
+    "repository",
+    "profile",
+    "predicate_type",
+    "source_commit",
+    "subjects",
+    "verified"
+  ],
+  "title": "Exact mixed-workflow release evidence attestations",
+  "type": "object"
+}

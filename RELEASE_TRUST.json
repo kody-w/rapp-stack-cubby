@@ -1,0 +1,13 @@
+{
+  "algorithm": "ecdsa-p256-sha256",
+  "generation": "local private operation; private material is excluded from source and artifacts",
+  "key_id": "0d7fb1acf871d707bf24b3c298d0f47b1f39f0084e3212ed54c7f0b0abf98b07",
+  "profile": "rapp-release-trust/1.0",
+  "public_jwk": {
+    "crv": "P-256",
+    "kty": "EC",
+    "x": "DihVVvVE8g_uwbIyN-mqnh9HtKtfHKHzmGh5VxdlkD8",
+    "y": "VWbGaH7d0IUHFyCZ2sNSaqAEhorO9hEzjaSKuZT3Zi0"
+  },
+  "schema": "rapp-release-trust/1.0"
+}

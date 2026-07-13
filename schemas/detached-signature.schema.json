@@ -1,0 +1,37 @@
+{
+  "$id": "urn:rapp:schema:detached-signature:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "ecdsa-p256-sha256"
+    },
+    "artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "artifact": {
+      "const": "release-manifest.json"
+    },
+    "key_id": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-detached-signature/1.0"
+    },
+    "signature_der_base64": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "algorithm",
+    "artifact",
+    "artifact_sha256",
+    "key_id",
+    "signature_der_base64"
+  ],
+  "title": "Optional local P-256 detached release signature",
+  "type": "object"
+}

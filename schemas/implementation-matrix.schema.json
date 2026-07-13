@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "capability": {
+      "additionalProperties": false,
+      "properties": {
+        "capability_id": {
+          "type": "string"
+        },
+        "capability_status": {
+          "enum": [
+            "contradictory",
+            "deprecated",
+            "implemented",
+            "partial",
+            "spec_only",
+            "unsafe_legacy"
+          ]
+        },
+        "claim": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "implementation_state": {
+          "enum": [
+            "excluded",
+            "future_owned",
+            "implemented_now",
+            "reference_only",
+            "runtime_implemented"
+          ]
+        },
+        "owner": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "type": "string"
+            },
+            "kind": {
+              "enum": [
+                "agent",
+                "excluded",
+                "future",
+                "packaging",
+                "pages",
+                "reference",
+                "runtime"
+              ]
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "name"
+          ],
+          "type": "object"
+        },
+        "plane": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "selected": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "capability_id",
+        "capability_status",
+        "plane",
+        "selected",
+        "implementation_state",
+        "owner",
+        "claim"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:implementation-matrix:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregates": {
+      "type": "object"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/capability"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "determinism": {
+      "type": "object"
+    },
+    "future_task_ids": {
+      "items": {
+        "enum": [
+          "release-attestation"
+        ]
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema": {
+      "const": "rapp-implementation-matrix/1.0"
+    },
+    "source": {
+      "type": "object"
+    },
+    "truth_rule": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "source",
+    "truth_rule",
+    "future_task_ids",
+    "capabilities",
+    "aggregates",
+    "determinism"
+  ],
+  "title": "Generated local implementation ownership matrix",
+  "type": "object"
+}

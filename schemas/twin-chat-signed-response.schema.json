@@ -1,0 +1,107 @@
+{
+  "$defs": {
+    "errorPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "pattern": "^[a-z][a-z0-9_]{0,63}$",
+              "type": "string"
+            },
+            "message": {
+              "maxLength": 240,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "type": "object"
+    },
+    "rappid": {
+      "pattern": "^rappid:@[a-z0-9][a-z0-9-]{0,62}/[a-z0-9][a-z0-9-]{0,127}:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:twin-chat-signed-response:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "String/byte wire input MUST already be canonical UTF-8; key_epoch echoes the request epoch and sig MUST be low-S P1363.",
+  "additionalProperties": false,
+  "properties": {
+    "from_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "key_id": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "key_epoch": {
+      "maximum": 2147483647,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "$ref": "brainstem-chat-response.schema.json"
+        },
+        {
+          "$ref": "#/$defs/errorPayload"
+        }
+      ]
+    },
+    "request_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "request_nonce": {
+      "pattern": "^[A-Za-z0-9_-]{22,128}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-twin-chat-response/1.0"
+    },
+    "sig": {
+      "pattern": "^[A-Za-z0-9_-]{86}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "rejected"
+      ]
+    },
+    "to_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "utc": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "from_rappid",
+    "to_rappid",
+    "utc",
+    "request_nonce",
+    "request_digest",
+    "key_epoch",
+    "status",
+    "payload",
+    "key_id",
+    "sig"
+  ],
+  "title": "Implemented signed nonce- and digest-bound twin-chat response",
+  "type": "object"
+}

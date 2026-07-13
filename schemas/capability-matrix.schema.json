@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "capability": {
+      "additionalProperties": false,
+      "properties": {
+        "direct_source_repositories": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "id": {
+          "pattern": "^[a-z][a-z0-9-]*\\.[a-z0-9][a-z0-9.-]*$",
+          "type": "string"
+        },
+        "implementations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "major_gaps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "plane": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "protocol_or_contract": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "purpose": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "required_tests": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "security_notes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "selected_for_cubby": {
+          "type": "boolean"
+        },
+        "selected_implementation": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "contradictory",
+            "deprecated",
+            "implemented",
+            "partial",
+            "spec_only",
+            "unsafe_legacy"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "plane",
+        "purpose",
+        "protocol_or_contract",
+        "implementations",
+        "status",
+        "major_gaps",
+        "security_notes",
+        "required_tests",
+        "direct_source_repositories",
+        "selected_for_cubby",
+        "selected_implementation"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:capability-matrix:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregates": {
+      "type": "object"
+    },
+    "audited_at": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "type": "string"
+    },
+    "antecedent_audit": {
+      "type": "object"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/capability"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "determinism": {
+      "type": "object"
+    },
+    "direct_evidence_methodology": {
+      "type": "object"
+    },
+    "drift_review": {
+      "type": "object"
+    },
+    "evidence_cutoff": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+      "type": "string"
+    },
+    "local_product": {
+      "type": "object"
+    },
+    "observation_window": {
+      "type": "object"
+    },
+    "repository_count": {
+      "const": 307
+    },
+    "schema": {
+      "const": "rapp-capability-matrix/1.0"
+    },
+    "source_census": {
+      "type": "object"
+    },
+    "status_definitions": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "audited_at",
+    "antecedent_audit",
+    "repository_count",
+    "evidence_cutoff",
+    "observation_window",
+    "drift_review",
+    "local_product",
+    "source_census",
+    "direct_evidence_methodology",
+    "status_definitions",
+    "aggregates",
+    "capabilities",
+    "determinism"
+  ],
+  "title": "Direct-evidence RAPP capability matrix",
+  "type": "object"
+}

@@ -1,0 +1,60 @@
+{
+  "$id": "urn:rapp:schema:release-trust:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "ecdsa-p256-sha256"
+    },
+    "generation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "key_id": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "profile": {
+      "const": "rapp-release-trust/1.0"
+    },
+    "public_jwk": {
+      "additionalProperties": false,
+      "properties": {
+        "crv": {
+          "const": "P-256"
+        },
+        "kty": {
+          "const": "EC"
+        },
+        "x": {
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "type": "string"
+        },
+        "y": {
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kty",
+        "crv",
+        "x",
+        "y"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "rapp-release-trust/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "profile",
+    "algorithm",
+    "key_id",
+    "public_jwk",
+    "generation"
+  ],
+  "title": "Pinned public release trust anchor",
+  "type": "object"
+}

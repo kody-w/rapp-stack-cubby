@@ -1,0 +1,97 @@
+{
+  "$id": "urn:rapp:schema:imessage-status:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "examples": [
+    {
+      "controller_ready": null,
+      "dropped": 0,
+      "failed": 0,
+      "heartbeat_at": 0,
+      "imsg_version": "0.12.3",
+      "lifecycle": "stopped",
+      "pending": 0,
+      "processed": 0,
+      "read_ready": false,
+      "ready": false,
+      "restart_count": 0,
+      "send_ready": null,
+      "transport_ready": false
+    }
+  ],
+  "properties": {
+    "controller_ready": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "dropped": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "failed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "heartbeat_at": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "imsg_version": {
+      "const": "0.12.3"
+    },
+    "lifecycle": {
+      "enum": [
+        "starting",
+        "running",
+        "stopped",
+        "failed"
+      ]
+    },
+    "pending": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "processed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "read_ready": {
+      "type": "boolean"
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "restart_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "send_ready": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "transport_ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "lifecycle",
+    "controller_ready",
+    "ready",
+    "read_ready",
+    "send_ready",
+    "transport_ready",
+    "processed",
+    "dropped",
+    "failed",
+    "pending",
+    "restart_count",
+    "heartbeat_at",
+    "imsg_version"
+  ],
+  "title": "Content-free private iMessage bridge heartbeat",
+  "type": "object"
+}

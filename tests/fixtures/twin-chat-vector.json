@@ -1,0 +1,73 @@
+{
+  "child_key_id": "b1f25193352143af413ddb40d703f04499ec682edda89462e912d8fd1e5d729d",
+  "child_public_jwk": {
+    "crv": "P-256",
+    "kty": "EC",
+    "x": "T4AxUseIwMlxue97-ceOFO9PMfYq5K5nW_8WG3VtDIk",
+    "y": "PUduhBy_GZUIqiWdb5u-JDebNBeUZkNlh0EDa3JD2VY"
+  },
+  "controller_key_id": "e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+  "controller_public_jwk": {
+    "crv": "P-256",
+    "kty": "EC",
+    "x": "kt5PQFpkkoXsOwE6zgA79hbZpTgFywqZcnF2FSKjA5Y",
+    "y": "V6Hk-QUKm3lG6ERolavWzbtC3gdQ9jjgeys9Pc8rYiU"
+  },
+  "controller_rappid": "rappid:@kody-w/rapp-stack-cubby-controller:e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+  "key_epoch": 7,
+  "label": "SYNTHETIC TEST-ONLY; NOT A PRODUCTION IDENTITY OR KEY",
+  "request_digest": "d0b34910d78abbf5b26ce9aa739698c1bb96dec87af84f3612578fc641e4af40",
+  "schema": "rapp-twin-chat-synthetic-vector/1.0",
+  "signed_request": {
+    "alg": "ecdsa-p256",
+    "body": {
+      "facets": [
+        "synthetic-test-vector"
+      ],
+      "from_rappid": "rappid:@kody-w/rapp-stack-cubby-controller:e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+      "key_epoch": 7,
+      "kind": "say",
+      "nonce": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "payload": {
+        "session_id": "synthetic-session",
+        "user_input": "synthetic vector hello"
+      },
+      "schema": "rapp-twin-chat/1.0",
+      "to_rappid": "rappid:@kody-w/rapp-stack-synthetic-fixture:ab94ec319d9f7574e41c10b15b3fdfeb39cf322877ec00d5b269c15c853c7b7a",
+      "utc": "2026-07-12T12:00:00Z"
+    },
+    "from": "rappid:@kody-w/rapp-stack-cubby-controller:e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+    "key_id": "e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+    "kind": "say",
+    "pub": {
+      "crv": "P-256",
+      "kty": "EC",
+      "x": "kt5PQFpkkoXsOwE6zgA79hbZpTgFywqZcnF2FSKjA5Y",
+      "y": "V6Hk-QUKm3lG6ERolavWzbtC3gdQ9jjgeys9Pc8rYiU"
+    },
+    "schema": "rapp-commons-event/1.0",
+    "sig": "gzd_wrroXCdp5zowOcw185dE4O57bshuFcoLckra-soVq5HhszKfNfW4BAez3bairrZ1PDozYGUYX5YMsF_CpQ",
+    "ts": "2026-07-12T12:00:00Z"
+  },
+  "signed_response": {
+    "from_rappid": "rappid:@kody-w/rapp-stack-synthetic-fixture:ab94ec319d9f7574e41c10b15b3fdfeb39cf322877ec00d5b269c15c853c7b7a",
+    "key_epoch": 7,
+    "key_id": "b1f25193352143af413ddb40d703f04499ec682edda89462e912d8fd1e5d729d",
+    "payload": {
+      "agent_logs": "[Synthetic] completed",
+      "model": "synthetic-provider",
+      "requested_model": "synthetic-provider",
+      "response": "synthetic vector reply",
+      "session_id": "synthetic-session",
+      "voice_mode": false
+    },
+    "request_digest": "d0b34910d78abbf5b26ce9aa739698c1bb96dec87af84f3612578fc641e4af40",
+    "request_nonce": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "schema": "rapp-twin-chat-response/1.0",
+    "sig": "rwnjDwgCecE6M8E0TKgslXhihvAe4uYucH8zhcFLgSUlY_YarCG1aBUseBrzM6CYw6y9ikz0BGEj7kLjgecznQ",
+    "status": "ok",
+    "to_rappid": "rappid:@kody-w/rapp-stack-cubby-controller:e3c2e4ea89a7df302676140da66702b1bbf0ad383c1786c791f7a0dd95adb24b",
+    "utc": "2026-07-12T12:00:01Z"
+  },
+  "twin_rappid": "rappid:@kody-w/rapp-stack-synthetic-fixture:ab94ec319d9f7574e41c10b15b3fdfeb39cf322877ec00d5b269c15c853c7b7a"
+}

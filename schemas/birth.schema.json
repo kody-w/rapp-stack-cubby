@@ -1,0 +1,27 @@
+{
+  "$id": "urn:rapp:schema:birth:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "birth": {
+      "type": "object"
+    },
+    "owner": {
+      "const": "kody-w"
+    },
+    "schema": {
+      "const": "rapp-birth/1.0"
+    },
+    "slug": {
+      "const": "rapp-stack-cubby"
+    }
+  },
+  "required": [
+    "schema",
+    "owner",
+    "slug",
+    "birth"
+  ],
+  "title": "Stable public synthetic product birth",
+  "type": "object"
+}

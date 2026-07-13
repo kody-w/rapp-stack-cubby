@@ -1,0 +1,215 @@
+{
+  "api_version": "v1",
+  "assets": [
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "rapp-stack-cubby.egg",
+      "kind": "cubby-egg",
+      "label": "CUBBY egg",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/rapp-stack-cubby.egg"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "rapp-stack-cubby-store.zip",
+      "kind": "store-zip",
+      "label": "Store ZIP",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/rapp-stack-cubby-store.zip"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "SHA256SUMS",
+      "kind": "checksums",
+      "label": "SHA-256 sidecar",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/SHA256SUMS"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "SBOM.spdx.json",
+      "kind": "sbom",
+      "label": "SPDX SBOM",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/SBOM.spdx.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "candidate-publication-scan.json",
+      "kind": "publication-scan",
+      "label": "Candidate publication scan",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/candidate-publication-scan.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "candidate-publication-scan.json.sig",
+      "kind": "detached-signature",
+      "label": "Candidate scan signature",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/candidate-publication-scan.json.sig"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "release-manifest.json",
+      "kind": "release-manifest",
+      "label": "Release manifest",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/release-manifest.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "release-manifest.json.sig",
+      "kind": "detached-signature",
+      "label": "Pinned release signature",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/release-manifest.json.sig"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "release-provenance.json",
+      "kind": "provenance",
+      "label": "Release provenance",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/release-provenance.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "rapp-super-rar.json",
+      "kind": "super-rar-index",
+      "label": "super-RAR index",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/rapp-super-rar.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "release-asset",
+      "filename": "store-index.json",
+      "kind": "store-index",
+      "label": "Store index",
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/store-index.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "postflight-success.json",
+      "kind": "postflight-receipt",
+      "label": "Successful public postflight",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/postflight-success.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "postflight-success.json.sig",
+      "kind": "detached-signature",
+      "label": "Postflight signature",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/postflight-success.json.sig"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "final-publication-scan.json",
+      "kind": "publication-scan",
+      "label": "Final publication scan",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/final-publication-scan.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "final-publication-scan.json.sig",
+      "kind": "detached-signature",
+      "label": "Final scan signature",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/final-publication-scan.json.sig"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "live-proof-receipt.json",
+      "kind": "live-proof",
+      "label": "Sanitized live proof",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/live-proof-receipt.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "live-proof-receipt.json.sig",
+      "kind": "detached-signature",
+      "label": "Live proof signature",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/live-proof-receipt.json.sig"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "promotion-receipt.json",
+      "kind": "promotion-receipt",
+      "label": "Final promotion receipt",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/promotion-receipt.json"
+    },
+    {
+      "availability": "pending",
+      "distribution": "actions-artifact",
+      "filename": "promotion-receipt.json.sig",
+      "kind": "detached-signature",
+      "label": "Promotion signature",
+      "url": "https://kody-w.github.io/rapp-stack-cubby/evidence/promotion-receipt.json.sig"
+    }
+  ],
+  "evidence": {
+    "antecedent_repository_count": 299,
+    "audit_complete": true,
+    "cutoff": "2026-07-13T08:57:20.399000Z",
+    "cutoff_semantics": "inclusive repository existence boundary",
+    "drift_review": {
+      "post_window_drift_count": 5,
+      "required_count": 12,
+      "status": "complete"
+    },
+    "local_product": {
+      "antecedent_public_repository": false,
+      "included_in_repository_count": false,
+      "kind": "local_product_source",
+      "name": "rapp-stack-cubby",
+      "node_id": "product:local/rapp-stack-cubby",
+      "path": ".",
+      "truth": "This working repository was absent from the public account inventory at the cutoff and is represented separately as the complete local product context."
+    },
+    "observation_window": {
+      "capture_completed_at": "2026-07-13T09:09:18.274404Z",
+      "capture_started_at": "2026-07-13T09:07:31.710577Z",
+      "heads_started_at": "2026-07-13T09:07:34.592407Z",
+      "inventory_completed_at": "2026-07-13T09:07:34.591993Z"
+    },
+    "public_repository_count": 307,
+    "raw_inventory_sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae",
+    "snapshot_semantics": "bounded non-atomic observation window; each head is paired with its own API response time"
+  },
+  "exact_hashes": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.1/SHA256SUMS",
+  "release": {
+    "candidate_publication_scan_sha256": null,
+    "final_publication_scan_sha256": null,
+    "github_attestation_verified": false,
+    "live_proof_sha256": null,
+    "pinned_key_id": "0d7fb1acf871d707bf24b3c298d0f47b1f39f0084e3212ed54c7f0b0abf98b07",
+    "postflight_success_sha256": null,
+    "promotion_receipt_sha256": null,
+    "promotion_run_id": null,
+    "publication_attestation_verified": false,
+    "release_manifest_sha256": null,
+    "source_commit": null,
+    "source_git_tree": null,
+    "source_tree_digest": null,
+    "state": "pending",
+    "tag": "v0.1.0-rc.1",
+    "version": "0.1.0rc1"
+  },
+  "schema": "rapp-pages-downloads/1.0",
+  "status": "pending",
+  "trust": {
+    "algorithm": "ecdsa-p256-sha256",
+    "download_url": "https://github.com/kody-w/rapp-stack-cubby/raw/main/RELEASE_TRUST.json",
+    "key_id": "0d7fb1acf871d707bf24b3c298d0f47b1f39f0084e3212ed54c7f0b0abf98b07",
+    "source": "RELEASE_TRUST.json",
+    "source_url": "https://github.com/kody-w/rapp-stack-cubby/blob/main/RELEASE_TRUST.json",
+    "verify_command": "PYTHONPATH=src python3.11 -m rapp_stack_cubby verify-release --release-manifest release-manifest.json --release-manifest-sha256 <external-sha256> --trust RELEASE_TRUST.json --signature release-manifest.json.sig --checksums SHA256SUMS --source-root <exact-checkout> --github-attestation github-attestation.json"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$id": "urn:rapp:schema:rappid:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "birth_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "identity_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "owner": {
+      "const": "kody-w"
+    },
+    "rappid": {
+      "pattern": "^rappid:@kody-w/rapp-stack-cubby:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-eternity/1.0"
+    },
+    "slug": {
+      "const": "rapp-stack-cubby"
+    }
+  },
+  "required": [
+    "schema",
+    "owner",
+    "slug",
+    "rappid",
+    "identity_hash",
+    "birth_sha256"
+  ],
+  "title": "Canonical stable RAPP product identity",
+  "type": "object"
+}

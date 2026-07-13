@@ -1,0 +1,19 @@
+{
+  "binary_artifacts_committed": false,
+  "cache_policy": "explicit absolute path outside repository",
+  "dependency_lock": "DEPENDENCY_LOCK.json",
+  "distribution_policy": "verified locked bytes are injected only into generated Store ZIP and cubby egg payloads",
+  "items": [
+    {
+      "count": 3,
+      "kind": "python-wheel",
+      "target": "CPython 3.11 / macOS 11+ / arm64"
+    },
+    {
+      "count": 1,
+      "kind": "signed-imsg-archive",
+      "target": "macOS universal"
+    }
+  ],
+  "schema": "rapp-vendor-manifest/1.0"
+}

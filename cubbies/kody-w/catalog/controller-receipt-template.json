@@ -1,0 +1,32 @@
+{
+  "allowed_actions": [
+    "hatch_repo",
+    "adopt_install",
+    "start",
+    "stop",
+    "archive",
+    "unarchive",
+    "purge",
+    "rotate_keys"
+  ],
+  "fields": {
+    "action": "enumerated lifecycle action",
+    "created_at": "UTC whole-second timestamp",
+    "identity_hash": "64 lowercase hexadecimal workspace key",
+    "instance_rappid": "private canonical running twin RAPPID",
+    "product_rappid": "immutable public source/rapplication RAPPID",
+    "rappid": "private instance RAPPID compatibility field",
+    "receipt_id": "random local receipt identifier",
+    "release_manifest_sha256": "release manifest digest or null for development",
+    "source_commit": "exact 40-lowercase-hex commit or verified WORKTREE artifact marker",
+    "source_tree_digest": "deterministic source tree digest"
+  },
+  "privacy": {
+    "environment": false,
+    "message_content": false,
+    "private_paths": false,
+    "tokens": false
+  },
+  "schema": "rapp-controller-receipt-template/1.0",
+  "written_runtime_schema": "rapp-controller-receipt/1.0"
+}

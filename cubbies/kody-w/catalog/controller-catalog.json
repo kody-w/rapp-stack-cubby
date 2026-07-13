@@ -1,0 +1,55 @@
+{
+  "actions": [
+    "inspect",
+    "verify",
+    "adopt_install",
+    "hatch_repo",
+    "list",
+    "status",
+    "start",
+    "stop",
+    "archive",
+    "unarchive",
+    "purge",
+    "rotate_keys",
+    "chat",
+    "self_test",
+    "pack",
+    "export"
+  ],
+  "capability_ids": [
+    "agents.controller-child-semantics",
+    "chat.complete-twin-envelope",
+    "chat.replay-idempotency",
+    "chat.signed-commons-wrapper",
+    "chat.signed-response",
+    "identity.owner-binding",
+    "identity.p256-transport-pairing",
+    "runtime.streaming-controller",
+    "security.signed-twin-traffic",
+    "twin.boot-health-stop",
+    "twin.global-controller-child",
+    "twin.hatch-isolated",
+    "twin.mint"
+  ],
+  "dependencies": [
+    "python-stdlib",
+    "BasicAgent",
+    "git",
+    "cryptography==49.0.0"
+  ],
+  "determinism": {
+    "encoding": "UTF-8",
+    "indent_spaces": 2,
+    "key_order": "lexicographic",
+    "trailing_newline": true
+  },
+  "mutability": "guarded_local_lifecycle",
+  "name": "RappStackCubbyController",
+  "only_streamable_agent": true,
+  "schema": "rapp-controller-catalog/1.0",
+  "source": {
+    "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
+    "sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b"
+  }
+}

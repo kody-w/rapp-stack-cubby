@@ -1,0 +1,10 @@
+{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "chat_guid": "iMessage;-;synthetic-owner-handle",
+    "ok": true,
+    "service": "iMessage",
+    "transport": "applescript"
+  }
+}

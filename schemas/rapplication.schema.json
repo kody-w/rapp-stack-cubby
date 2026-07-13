@@ -1,0 +1,108 @@
+{
+  "$defs": {
+    "file": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "0644",
+            "0755"
+          ]
+        },
+        "path": {
+          "not": {
+            "pattern": "(^/|(^|/)\\.\\.(/|$)|\\\\)"
+          },
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "size": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mode",
+        "path",
+        "sha256",
+        "size"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:rapplication:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "agent_first": {
+      "const": true
+    },
+    "agents": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "minItems": 12,
+      "type": "array"
+    },
+    "application_id": {
+      "const": "rapp-stack"
+    },
+    "controller": {
+      "$ref": "#/$defs/file"
+    },
+    "development_only": {
+      "type": "boolean"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "identity": {
+      "pattern": "^rappid:@kody-w/rapp-stack-cubby:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-application/1.0"
+    },
+    "soul": {
+      "$ref": "#/$defs/file"
+    },
+    "source_revision": {
+      "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+      "type": "string"
+    },
+    "source_tree_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "streamable_agent_count": {
+      "const": 1
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:rc[0-9]+)?$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "application_id",
+    "agent_first",
+    "identity",
+    "source_revision",
+    "source_tree_digest",
+    "controller",
+    "soul",
+    "agents",
+    "files",
+    "streamable_agent_count",
+    "development_only",
+    "version"
+  ],
+  "title": "Complete RAPP application artifact manifest",
+  "type": "object"
+}

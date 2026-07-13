@@ -1,0 +1,246 @@
+{
+  "$defs": {
+    "common": {
+      "properties": {
+        "api_version": {
+          "const": "v1"
+        },
+        "release": {
+          "additionalProperties": false,
+          "properties": {
+            "candidate_publication_scan_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "final_publication_scan_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "github_attestation_verified": {
+              "type": "boolean"
+            },
+            "live_proof_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "pinned_key_id": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "postflight_success_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "promotion_receipt_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "promotion_run_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "publication_attestation_verified": {
+              "type": "boolean"
+            },
+            "release_manifest_sha256": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_commit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_git_tree": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source_tree_digest": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "state": {
+              "enum": [
+                "candidate",
+                "pending",
+                "released"
+              ]
+            },
+            "tag": {
+              "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-rc\\.[1-9][0-9]*)?$",
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "version",
+            "tag",
+            "source_commit",
+            "source_git_tree",
+            "source_tree_digest",
+            "release_manifest_sha256",
+            "pinned_key_id",
+            "github_attestation_verified",
+            "publication_attestation_verified",
+            "candidate_publication_scan_sha256",
+            "postflight_success_sha256",
+            "final_publication_scan_sha256",
+            "live_proof_sha256",
+            "promotion_receipt_sha256",
+            "promotion_run_id"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "api_version",
+        "status",
+        "release"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:pages-api:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "#/$defs/common"
+    }
+  ],
+  "oneOf": [
+    {
+      "properties": {
+        "schema": {
+          "const": "rapp-pages-architecture/1.0"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges",
+        "canonical_paths",
+        "product_chain"
+      ]
+    },
+    {
+      "properties": {
+        "schema": {
+          "const": "rapp-pages-capabilities/1.0"
+        }
+      },
+      "required": [
+        "capabilities",
+        "total",
+        "selected_count"
+      ]
+    },
+    {
+      "properties": {
+        "schema": {
+          "const": "rapp-pages-context/1.0"
+        }
+      },
+      "required": [
+        "authority_order",
+        "entries",
+        "capability_routes"
+      ]
+    },
+    {
+      "properties": {
+        "schema": {
+          "const": "rapp-pages-downloads/1.0"
+        }
+      },
+      "required": [
+        "release",
+        "assets",
+        "exact_hashes"
+      ]
+    },
+    {
+      "properties": {
+        "schema": {
+          "const": "rapp-pages-prompts/1.0"
+        }
+      },
+      "required": [
+        "count",
+        "prompts"
+      ]
+    },
+    {
+      "properties": {
+        "live_provider_host_proof": {
+          "additionalProperties": false,
+          "properties": {
+            "latency_ms": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "model": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "response_shape": {
+              "type": "object"
+            },
+            "schema": {
+              "const": "rapp-live-provider-status/1.0"
+            },
+            "success": {
+              "const": true
+            }
+          },
+          "required": [
+            "schema",
+            "success",
+            "model",
+            "latency_ms",
+            "response_shape"
+          ],
+          "type": "object"
+        },
+        "schema": {
+          "const": "rapp-pages-status/1.0"
+        }
+      },
+      "required": [
+        "canonical_url",
+        "journey",
+        "live_provider_host_proof",
+        "metrics",
+        "release",
+        "sources"
+      ]
+    }
+  ],
+  "title": "RAPP Stack CUBBY static Pages APIs",
+  "type": "object"
+}

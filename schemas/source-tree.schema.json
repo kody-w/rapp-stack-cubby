@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "file": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "type": "boolean"
+        },
+        "mode": {
+          "enum": [
+            "0644",
+            "0755"
+          ]
+        },
+        "path": {
+          "not": {
+            "pattern": "(^/|(^|/)\\.\\.(/|$)|\\\\)"
+          },
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "size": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "executable",
+        "mode",
+        "path",
+        "sha256",
+        "size"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:source-tree:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "file_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "rapp-source-tree/1.0"
+    },
+    "source_tree_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "total_bytes": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "file_count",
+    "total_bytes",
+    "files",
+    "source_tree_digest"
+  ],
+  "title": "Deterministic scanned source tree",
+  "type": "object"
+}

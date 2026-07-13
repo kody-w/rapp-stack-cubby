@@ -1,0 +1,209 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:publication-scan-receipt:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions_evidence": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "pattern": "^[0-9]+$",
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "size": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "run_id",
+          "sha256",
+          "size"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "allowlist_uses": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "count"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "counts": {
+      "additionalProperties": false,
+      "properties": {
+        "artifacts": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "bytes": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "findings": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "git_blobs": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "members": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "artifacts",
+        "bytes",
+        "findings",
+        "git_blobs",
+        "members"
+      ],
+      "type": "object"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "artifact": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "digest": {
+            "$ref": "#/$defs/digest"
+          },
+          "member": {
+            "type": "string"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rule": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule",
+          "artifact",
+          "member",
+          "path",
+          "digest"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "phase": {
+      "enum": [
+        "candidate",
+        "development",
+        "final"
+      ]
+    },
+    "policy_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "result": {
+      "enum": [
+        "fail",
+        "pass"
+      ]
+    },
+    "scanner": {
+      "const": "rapp-stack-cubby-publication-scanner/1.0"
+    },
+    "schema": {
+      "const": "rapp-publication-scan-receipt/1.0"
+    },
+    "scopes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "artifact_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "byte_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "member_count": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "#/$defs/digest"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "artifact_count",
+          "member_count",
+          "byte_count",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "source": {
+      "type": "object"
+    },
+    "timestamp": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "scanner",
+    "phase",
+    "timestamp",
+    "policy_sha256",
+    "source",
+    "scopes",
+    "counts",
+    "findings",
+    "allowlist_uses",
+    "actions_evidence",
+    "result"
+  ],
+  "title": "Sanitized deterministic publication scan receipt",
+  "type": "object"
+}

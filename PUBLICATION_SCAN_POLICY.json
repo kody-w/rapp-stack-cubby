@@ -1,0 +1,642 @@
+{
+  "allowlist": [
+    {
+      "id": "pinned-dependency-email-identifier-01",
+      "match_sha256": "02e36d491e64d51d4a6ef2c039b2a1543cb47b8f595f653e84dd1b27b9fd9625",
+      "path": "imsg",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-02",
+      "match_sha256": "0c7e6a405862e402eb76a70f8a26fc732d07c32931e9fae9ab1582911d2e8a3b",
+      "path": "imsg",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-03",
+      "match_sha256": "f404d23e04b75bb8e170828b559cc8a448b1c3749344c39e8d4a8355b76496fe",
+      "path": "cryptography-49.0.0.dist-info/METADATA",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-04",
+      "match_sha256": "1b66d15555ffd43b877c9384d5fc820037f836087979311418422028b22c1315",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-05",
+      "match_sha256": "3662f957bb6831fe669259d3505d8b56028661fed5aacf934f7d8e73c6042d39",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-06",
+      "match_sha256": "383332bb72c008ef22efd2a9d0d132c12529f2261ffed65279ebcc1fd8dc4229",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-07",
+      "match_sha256": "424fa24408d96bd43a1c77757b8b16118a1984cc1c29bab7f4a576c6bdf549d3",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-08",
+      "match_sha256": "6cab2051eaee8ec19d284a04ff96f989f40917dbeebc3e4a56603dd1b062bd7b",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-09",
+      "match_sha256": "9b5604521065943f9569a76b535e2425048a200e0c3166e127b81ff3c8970346",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-10",
+      "match_sha256": "a08ad6dcb2d97de9309d2d428fad05a284fc0f0ddfa1b1bdb3a9144870eefebb",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-11",
+      "match_sha256": "a4ba7c78529398a6d538a99dff0eb515d7e784c6802abcb2e1cf10470d8ac362",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-12",
+      "match_sha256": "ac33150400b6c974ea32f0430e9ad15b4e4499a05b68971414cb330b446c17b0",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-13",
+      "match_sha256": "afec846f9ec8c0bfcecc15976a33a5870dcd01e048eab64b6f290bf0a20825a7",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-14",
+      "match_sha256": "b431f90f84b3c587600e3fd618708e13bf7ebebf5c34adb92ed3641b593b0112",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-15",
+      "match_sha256": "b6d3e1c1f4b83f92ac42e6d7c7869ac284ec4864eb1eae0f9e4191eb57724e1f",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-16",
+      "match_sha256": "b7310ddcd52d4463b3d800233863720784da06704d6023d975d35bc61b3b8bef",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-17",
+      "match_sha256": "cf73037cc6982895437e531b02add01d8c9e9be1c04a8fe6d9d09893df1a7fe7",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-18",
+      "match_sha256": "f19aad35f4f337293d94a0ec5edf4f2f040fa41c36a89a4eea47957b91add784",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-19",
+      "match_sha256": "f404d23e04b75bb8e170828b559cc8a448b1c3749344c39e8d4a8355b76496fe",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-20",
+      "match_sha256": "f6efa5ad4a4e2d5f92b5e9514b4a65eb4c84aa7dd88ee23051e26e5a23d01229",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-21",
+      "match_sha256": "571f8ff4c960d22d9d8bb0137ce8c01238ec95cb8a846ff63e3d0b639ba7f6a0",
+      "path": "cryptography/hazmat/primitives/serialization/ssh.py",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-22",
+      "match_sha256": "6c29dedc082c66222a09cbe21d37c05dddb07bcd28ed75f2bd4ec756c736df37",
+      "path": "cryptography/hazmat/primitives/serialization/ssh.py",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-23",
+      "match_sha256": "6f5a890134440ca71850e8d6ba3bec68cf23ab5e17961b4fbcb8a8180aa094ae",
+      "path": "cryptography/hazmat/primitives/serialization/ssh.py",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-24",
+      "match_sha256": "9621b539252016e6dfca1c07d5f17929cac8b92786543fd6f12b21df5ba9503a",
+      "path": "cryptography/hazmat/primitives/serialization/ssh.py",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-email-identifier-25",
+      "match_sha256": "319cf4140a42bb1c9b9b48164e6b7e6e157d343f66e44dc6903c5022166a891b",
+      "path": "pycparser-3.0.dist-info/METADATA",
+      "reason": "Public author/contact metadata embedded in an exact pinned dependency release.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "pinned-dependency-guid-identifier-01",
+      "match_sha256": "173e6a74a51d328becf2988d662cf4eb07f62a0e041e38c4a8e5324f3307a884",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Public CycloneDX serial identifier embedded in the exact pinned cryptography wheel.",
+      "reviewer": "repository-maintainer",
+      "rule": "guid_identifier"
+    },
+    {
+      "id": "pinned-dependency-guid-identifier-02",
+      "match_sha256": "d5e9932097afbaf0f044985455b6951a188cd6085437cd46e2ce53071b11628d",
+      "path": "cryptography-49.0.0.dist-info/sboms/sbom.json",
+      "reason": "Public CycloneDX serial identifier embedded in the exact pinned cryptography wheel.",
+      "reviewer": "repository-maintainer",
+      "rule": "guid_identifier"
+    },
+    {
+      "id": "pinned-dependency-high-entropy-candidate-01",
+      "match_sha256": "341831ecbe4a1c93919872bd6a28f186853cf60e2525adc0be3d40d12568d6fd",
+      "path": "cryptography/hazmat/bindings/openssl/_conditional.py",
+      "reason": "Public OpenSSL feature symbol embedded in the exact pinned cryptography wheel.",
+      "reviewer": "repository-maintainer",
+      "rule": "high_entropy_candidate"
+    },
+    {
+      "id": "pinned-dependency-high-entropy-candidate-02",
+      "match_sha256": "3420bb23c968a0ee312e54a524d2096bc9b2b48b5e10f7855fc7885b42419bdc",
+      "path": "cryptography/hazmat/bindings/openssl/_conditional.py",
+      "reason": "Public OpenSSL feature symbol embedded in the exact pinned cryptography wheel.",
+      "reviewer": "repository-maintainer",
+      "rule": "high_entropy_candidate"
+    },
+    {
+      "id": "pinned-dependency-high-entropy-candidate-03",
+      "match_sha256": "3a2a7701c8fc4258ab914dc60dfacf13d5d51d4ac8735155ad3ea14327d774a6",
+      "path": "cryptography/hazmat/bindings/openssl/_conditional.py",
+      "reason": "Public OpenSSL feature symbol embedded in the exact pinned cryptography wheel.",
+      "reviewer": "repository-maintainer",
+      "rule": "high_entropy_candidate"
+    },
+    {
+      "id": "pinned-dependency-phone-identifier-01",
+      "match_sha256": "5dce05f429bc23dbd9e2caa03f336b56d4ee2aa374d8708f4f12eb4e10204c2b",
+      "path": "imsg",
+      "reason": "Public version/build string embedded in the exact pinned imsg binary; not contact data.",
+      "reviewer": "repository-maintainer",
+      "rule": "phone_identifier"
+    },
+    {
+      "id": "pinned-dependency-phone-identifier-02",
+      "match_sha256": "8a59780bb8cd2ba022bfa5ba2ea3b6e07af17a7d8b30c1f9b3390e36f69019e4",
+      "path": "imsg",
+      "reason": "Public version/build string embedded in the exact pinned imsg binary; not contact data.",
+      "reviewer": "repository-maintainer",
+      "rule": "phone_identifier"
+    },
+    {
+      "id": "pinned-dependency-phone-identifier-03",
+      "match_sha256": "a6e349c7a8850f27ebcfa1865854e845c074da83ff19384d4b4c9df78357fa5a",
+      "path": "imsg",
+      "reason": "Public version/build string embedded in the exact pinned imsg binary; not contact data.",
+      "reviewer": "repository-maintainer",
+      "rule": "phone_identifier"
+    },
+    {
+      "id": "pinned-dependency-private-key-01",
+      "match_sha256": "03d104c669e3c7b6be7f989db8b12c8b910d3be8c1e2a73c9369d3cc0ba803b5",
+      "path": "cryptography/hazmat/primitives/serialization/ssh.py",
+      "reason": "Public SSH parser boundary literal embedded in the exact pinned cryptography wheel; no private key material.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_key"
+    },
+    {
+      "id": "pinned-dependency-private-local-path-01",
+      "match_sha256": "b6c6b3d8427fc7eeb1d315ed7b0b75ce6193e9f6744ca5926d4354ec45769013",
+      "path": "imsg",
+      "reason": "Reviewed build-path metadata embedded in an exact pinned dependency binary.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_local_path"
+    },
+    {
+      "id": "pinned-dependency-private-local-path-02",
+      "match_sha256": "32a57436b952d4063596625f9e799788a623e3b0381c7cea1f1b30f1ee3ddded",
+      "path": "_cffi_backend.cpython-311-darwin.so",
+      "reason": "Reviewed build-path metadata embedded in an exact pinned dependency binary.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_local_path"
+    },
+    {
+      "id": "pinned-dependency-private-local-path-03",
+      "match_sha256": "32a57436b952d4063596625f9e799788a623e3b0381c7cea1f1b30f1ee3ddded",
+      "path": "cryptography-49.0.0.dist-info/sboms/cryptography-rust.cyclonedx.json",
+      "reason": "Reviewed build-path metadata embedded in an exact pinned dependency binary.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_local_path"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-01",
+      "match_sha256": "1620194a5c386141c1585f1355bc2f11bd255e218ed90c6a1be419c288cfeb20",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-02",
+      "match_sha256": "4109a4a2a348084bbca564f0e3e7de0f03d266cac3b6a58fea2b003f44980649",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-03",
+      "match_sha256": "496bdb4f140b13300640f13fd8c2ff31a5ff1a5956554763070cf3927d8ce59d",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-04",
+      "match_sha256": "569f5aabbfd87fa1e0f9643e45704ec32bbbb83e4cdc07ca31077299a2c43db0",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-05",
+      "match_sha256": "6326d2f4486df0f45c09043f012cec5a39300d49707d2a1f99fd6eea792e07bf",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "pinned-dependency-transport-identifier-06",
+      "match_sha256": "b546a524506841b4c82c7a595a224cb44fd2d430507fcf5b51fb2c34714fa053",
+      "path": "imsg",
+      "reason": "Public protocol symbol embedded in the exact pinned imsg binary; not an account or chat identifier.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-email-identifier-01",
+      "match_sha256": "3de132cd98be7bf26b6f08e81c31c799a891bc32046b61f0b6fe3671ca2e44b5",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-email-identifier-02",
+      "match_sha256": "0b9ff638a1c8d1859306bac61b339781ab2f19c4e9ccd66c37a802ca31f1c914",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-email-identifier-03",
+      "match_sha256": "133214349d6074672028458c3dc157be979491b80e086ea632290c4b6d114cfa",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-email-identifier-04",
+      "match_sha256": "31a15bebc874fd2bf65bcfd02e26798dedf1544d526b1382ceb72400a6b190e8",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-email-identifier-05",
+      "match_sha256": "852e7b941ea2052143c1b0a0f7b007a06c49c056312aac64e2649dc35d13f994",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-email-identifier-06",
+      "match_sha256": "542d240129883c019e106e3b1b2d3f3cb3537c43c425364de8e951d5a3083345",
+      "reason": "Unmistakably synthetic invalid-domain test identity or documented public Git transport fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-github-noreply-identity-copilot",
+      "match_sha256": "afd8128836cbfe6a142b0fd8a9bc615474fdaefd36e81e27e3253fd484c9c1f4",
+      "reason": "Reviewed public GitHub noreply commit identity for Copilot; only the exact hashed identifier is permitted.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-github-noreply-identity-kody-w",
+      "match_sha256": "c71a370d649f57f33c24c7cb03e1dbecafce51e0e6bfd810e7b781d20139b7c7",
+      "reason": "Reviewed public GitHub noreply commit identity for kody-w; only the exact hashed identifier is permitted.",
+      "reviewer": "repository-maintainer",
+      "rule": "email_identifier"
+    },
+    {
+      "id": "public-high-entropy-candidate-01",
+      "match_sha256": "775ad11d37eebfe985acd54acdaa5d2c40181421389044b87d29d62182a43e6c",
+      "reason": "Public URL-safe token alphabet constant; it is not a token value.",
+      "reviewer": "repository-maintainer",
+      "rule": "high_entropy_candidate"
+    },
+    {
+      "id": "public-private-content-marker-01",
+      "match_sha256": "016321500fb9198c92d0bae66599a3314bfc8146b6921a8718696b86ea8903c3",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-02",
+      "match_sha256": "033b3b866bfb598a957462f045eb42628f8d7fabd03a37a2ed97f20505bc9607",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-03",
+      "match_sha256": "1cdffa24e24ec6c5de6aeedbb1abe7aea2d8ba6d8adde90102e438fb9e94dde9",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-04",
+      "match_sha256": "6350c453d5dfae23391169eea89f7798186bf8bc19a7046aff82f056073d704b",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-05",
+      "match_sha256": "73823d68d2e7f930b232c8f4a3bb9360f639db43ec61d087f425c4831bc564a6",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-06",
+      "match_sha256": "88fcd46f45d7d3a57868bc3622206c4f6f4ad40d6aadfb44f58af10ce260ada8",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-07",
+      "match_sha256": "99a7fec022db5e1bbe1918117d4d2645c0eb5818098c896854ba7fae0213d776",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-08",
+      "match_sha256": "b90540490298828200e4b45772cff702028773a8163ca01d56488caa7ca0e976",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-09",
+      "match_sha256": "dba142baa010977d297694df3accf03007b90f6d863641147ca242f95ef6bc8d",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-10",
+      "match_sha256": "e5b899c8aa6f6db1f9485b850db0256b15bc0e7e2c4f56d9c22e6966e917643c",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-11",
+      "match_sha256": "4d61cd85fbcc697ce396656675bab856c119c261f315a82434d461384fe6b64e",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "id": "public-private-content-marker-12",
+      "match_sha256": "01abc33859a7cad86afe89de7e5bb4d4c653d0ba47f7392b7610917983ea47de",
+      "reason": "Reviewed public schema, synthetic protocol vector, or generated showcase prompt.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_content_marker"
+    },
+    {
+      "artifact_sha256": "fc659abea5553e64b18258326ea21c279f223022168cb5d459dfbd7459b8eb56",
+      "id": "public-private-key-parser-01",
+      "match_sha256": "3021d90eb9437b2d8f30e8363695c4418b5e5f1870801b5c317e9398ee0f572d",
+      "reason": "Reviewed public private-key parser boundary or rejection test; exact file bytes contain no private key material.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_key"
+    },
+    {
+      "artifact_sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b",
+      "id": "public-private-key-parser-02",
+      "match_sha256": "3021d90eb9437b2d8f30e8363695c4418b5e5f1870801b5c317e9398ee0f572d",
+      "reason": "Reviewed public private-key parser boundary or rejection test; exact file bytes contain no private key material.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_key"
+    },
+    {
+      "artifact_sha256": "e770b6ff592658d97d5c9098bd62834598458f7103e6a7a30bd2f4d71f471717",
+      "id": "public-private-key-parser-03",
+      "match_sha256": "3021d90eb9437b2d8f30e8363695c4418b5e5f1870801b5c317e9398ee0f572d",
+      "reason": "Reviewed public private-key parser boundary or rejection test; exact file bytes contain no private key material.",
+      "reviewer": "repository-maintainer",
+      "rule": "private_key"
+    },
+    {
+      "id": "public-secret-assignment-01",
+      "match_sha256": "d1a72877624a30f7e440e952ce2ae5f51ed8bdcf31b4e969fce9a76c70b57426",
+      "reason": "Reviewed synthetic provider credential rejection fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "secret_assignment"
+    },
+    {
+      "id": "public-transport-field-fixture-01",
+      "match_sha256": "df5519fdb70bb74617f8db1ad778e798490203f9122026ca523223ad6079b0f5",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-02",
+      "match_sha256": "58238b89b7f024e7890a02b368ea3d5bc8f3fb4a867c122417047130d053f303",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-03",
+      "match_sha256": "f55c93bfba7da4caad5817368320b83c2eae262ab0b2271fa72cd5977978f1cc",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-04",
+      "match_sha256": "9654a619c37243eda45a70c06edf4fc4c0cece5d2c7b6987864cabddec02135d",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-05",
+      "match_sha256": "21295684912403401544299c66e7db160a572f0fb865cc89aab12ab8c1f192d3",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-06",
+      "match_sha256": "3ea196e977e30a5abf9179b330603a7ad5cecf0007879c7f5b8912dd73cca62d",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-field-fixture-07",
+      "match_sha256": "4744f9921744cae0b5adbcedf0ca34736d1d35442e847cc7f2f2dd3a6dba7671",
+      "reason": "Reviewed synthetic account/chat field in a public schema or iMessage regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-identifier-01",
+      "match_sha256": "efead797721c01548539ef643408e0a19512af3cb1d8d6f910fb25e9a242f416",
+      "reason": "Unmistakably synthetic iMessage transport regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-identifier-02",
+      "match_sha256": "e6258608cc7426e2a4580793430720e650b54f7f621531679b1a386fe27baef9",
+      "reason": "Unmistakably synthetic iMessage transport regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-identifier-03",
+      "match_sha256": "3f9beb338d5c833f144860bf125f7e56377d9f0bccc7939dc9758961eea73e25",
+      "reason": "Unmistakably synthetic iMessage transport regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    },
+    {
+      "id": "public-transport-identifier-04",
+      "match_sha256": "c8a1340bebf310f18e60fb106e08816aca5553084fa22f99fe2963dd98a654d3",
+      "reason": "Unmistakably synthetic iMessage transport regression fixture.",
+      "reviewer": "repository-maintainer",
+      "rule": "transport_identifier"
+    }
+  ],
+  "forbidden_extensions": [
+    ".db",
+    ".journal",
+    ".key",
+    ".log",
+    ".map",
+    ".p12",
+    ".pem",
+    ".pfx",
+    ".pyc",
+    ".sqlite",
+    ".sqlite3",
+    ".sqlite-shm",
+    ".sqlite-wal",
+    ".swo",
+    ".swp"
+  ],
+  "forbidden_filenames": [
+    ".DS_Store",
+    ".env",
+    "credentials.json",
+    "secrets.json"
+  ],
+  "limits": {
+    "max_archive_depth": 8,
+    "max_artifact_bytes": 67108864,
+    "max_binary_string_bytes": 4194304,
+    "max_compression_ratio": 200,
+    "max_expanded_bytes": 1073741824,
+    "max_git_objects": 200000,
+    "max_members": 100000
+  },
+  "normalized_timestamp": "1970-01-01T00:00:00Z",
+  "schema": "rapp-publication-scan-policy/1.0",
+  "source_exclusions": [
+    ".check-cache",
+    ".git",
+    "dist"
+  ]
+}

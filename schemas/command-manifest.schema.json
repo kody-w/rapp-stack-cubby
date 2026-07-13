@@ -1,0 +1,52 @@
+{
+  "$id": "urn:rapp:schema:command-manifest:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "commands": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "aliases": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "options": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "path": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "path",
+          "options"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "program": {
+      "const": "rapp-stack-cubby"
+    },
+    "schema": {
+      "const": "rapp-command-manifest/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "program",
+    "commands"
+  ],
+  "title": "Generated argparse command manifest",
+  "type": "object"
+}

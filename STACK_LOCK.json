@@ -1,0 +1,1667 @@
+{
+  "artifact_chain": {
+    "exact_chain": "whole source repository -> rapp-cubby/1.0 -> rapp-application/1.0 -> deterministic Store ZIP + brainstem-egg/2.3-cubby -> verified isolated installed twin",
+    "nodes": [
+      {
+        "digest": null,
+        "digest_algorithm": "sha256",
+        "digest_field": "source_tree_manifest_sha256",
+        "id": "source-repo",
+        "order": 0,
+        "required_contents": [
+          "rapp-release-source-manifest/1.0",
+          "original runtime source manifest",
+          "per-file provenance"
+        ],
+        "schema": "git-source-at-pinned-commit"
+      },
+      {
+        "digest": null,
+        "digest_algorithm": "sha256",
+        "digest_field": "artifact_sha256",
+        "id": "cubby",
+        "order": 1,
+        "schema": "rapp-cubby/1.0"
+      },
+      {
+        "digest": null,
+        "digest_algorithm": "sha256",
+        "digest_field": "artifact_sha256",
+        "id": "rapplication",
+        "order": 2,
+        "schema": "rapp-application/1.0"
+      },
+      {
+        "digest": null,
+        "digest_algorithm": "sha256",
+        "digest_field": "artifact_sha256",
+        "id": "cubby-egg",
+        "order": 3,
+        "schema": "brainstem-egg/2.3-cubby"
+      },
+      {
+        "digest": null,
+        "digest_algorithm": "sha256",
+        "digest_field": "installed_manifest_sha256",
+        "id": "isolated-installed-twin",
+        "isolation_requirements": [
+          "dedicated workspace",
+          "dedicated Python virtual environment",
+          "dedicated identity and transport-key references",
+          "no shared mutable agent directory"
+        ],
+        "order": 4,
+        "schema": "rapp-installed-twin/1.0"
+      }
+    ],
+    "shortcuts_permitted": false,
+    "source_manifest_policy": {
+      "commit_field_permitted": false,
+      "exact_head_verified_separately": true,
+      "manifest_self_excluded": true,
+      "release_sidecar_binds_commit_tree_and_artifacts": true
+    },
+    "unresolved_id": "live-enrollment-publication-proof"
+  },
+  "build_policy": {
+    "actual_agent_manifest": {
+      "agent_catalog": {
+        "path": "cubbies/kody-w/rapplications/rapp-stack/twin/catalog/agent-catalog.json",
+        "provenance": "generated_local",
+        "sha256": "50ecd310a43a583fe6d00678ba7ff6739347733ce54e14a97ea0f84b431118e5"
+      },
+      "files": [
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/agent_factory_agent.py",
+          "provenance": "original_new",
+          "sha256": "3a5a67380daf14530dbee3c6054bc84ec82d13507aa26b83599d4d245d21c64c"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/cubby_agent.py",
+          "provenance": "original_new",
+          "sha256": "5def40427352a7c4d17f279ebd630d5bcc7ff581dec42852458d04fb6f56e1de"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/deployment_agent.py",
+          "provenance": "original_new",
+          "sha256": "6a50dd840acccee6925e447e1b789749adce0d42e4ed70ee5db4341ea150ef0f"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/imessage_agent.py",
+          "provenance": "original_new",
+          "sha256": "c31756909c18a784754aa7cf0e82da6a8c83709ce898ecd8cdb9e5f64c822d6a"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/memory_agent.py",
+          "provenance": "original_new",
+          "sha256": "985768c75c1d2cdb3dfa9714e11b60a4ceb2aa86379a06307f90e472407df4a1"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rappid_agent.py",
+          "provenance": "original_new",
+          "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rapplication_agent.py",
+          "provenance": "original_new",
+          "sha256": "d21f0921dc2916a0d61a25c300378e0098030d6685d0becd7464d64129ebe707"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/registry_agent.py",
+          "provenance": "original_new",
+          "sha256": "2e8105f171d6c0181b3b7b3e60a375af61dd2a09600f3cd8d06c9b7f3fea2a56"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/security_agent.py",
+          "provenance": "original_new",
+          "sha256": "f259307a3c1c4ef5705c2288d830b1f8c217b9b2e07b60bc034b0ade62902f79"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/self_test_agent.py",
+          "provenance": "original_new",
+          "sha256": "a084bb58d0548376c45798c7e7948d10e59324d24af7667d47ed5ec40a000102"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/stack_map_agent.py",
+          "provenance": "original_new",
+          "sha256": "50b346ebffe20ed095363abd9bbf53a16ced2d6dc0b6162f30b26d64919951d8"
+        },
+        {
+          "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/twin_chat_agent.py",
+          "provenance": "original_new",
+          "sha256": "251af0b397ecb4dd735e9fe24d4d8b021c6f8b2842e513ef76e4ed3b43fd5d79"
+        }
+      ],
+      "implementation_matrix": {
+        "path": "cubbies/kody-w/rapplications/rapp-stack/twin/catalog/implementation-matrix.json",
+        "provenance": "generated_local",
+        "sha256": "8b00634647c7a6437d94f70f16f732668c9a1649db6eafb0e454ca6d38cb3d49"
+      },
+      "manifest_sha256": "e5ac61881dce94a11a544a075eff084a14b52cb27d153b523de91616e70474ef",
+      "policy": "Actual agents and soul are newly authored and survive deterministic Store/egg/hatch round trips; catalogs are generated local metadata. Final public release attestation remains unresolved.",
+      "soul": {
+        "path": "cubbies/kody-w/rapplications/rapp-stack/twin/soul.md",
+        "provenance": "original_new",
+        "sha256": "ee9080f88e44fdfe97a3392269b9e38b9363fa0e9d4a28f353368c56c94d6458"
+      },
+      "support_files": [
+        {
+          "path": "src/rapp_stack_cubby/agents/__init__.py",
+          "provenance": "original_new",
+          "sha256": "9208e49a9a146eb1e2dce6a4486c2f5600e09fee5f2bb91a5b3dc02d64d01a52"
+        },
+        {
+          "path": "src/rapp_stack_cubby/agents/source_scan.py",
+          "provenance": "original_new",
+          "sha256": "6f58d06c8048474097d61d8807573374c133e74b7851fa6fa8518c071f5d8882"
+        },
+        {
+          "path": "src/rapp_stack_cubby/catalog.py",
+          "provenance": "original_new",
+          "sha256": "7919c85603b4fd657b60ca0c3ba607041b1546eed06766177349fef3df18c6e6"
+        }
+      ],
+      "support_manifest_sha256": "6635972476f39f4af81092641d8b4cb06d7194c3d6b9010e38d2a6ca880e2022"
+    },
+    "allow_release": false,
+    "context_manifest": {
+      "context_index": {
+        "path": "CONTEXT_INDEX.json",
+        "provenance": "generated_local",
+        "sha256": "e0ea17b095d51df67cc58584c85906ada0af171e083fa4e3e72fc4863354ddab"
+      },
+      "context_schema": {
+        "path": "schemas/context-index.schema.json",
+        "provenance": "original_new",
+        "sha256": "241932b542e3f526944d8282195a363ab6e3abe78a51ffa5abb994a8de0364e9"
+      },
+      "files": [
+        {
+          "path": "AI_CONTEXT.md",
+          "provenance": "original_new",
+          "sha256": "d43c5fabdf6e6d88f4331a64d7ee9f72f6b3d8e5d7c441f60716bca603e19b94"
+        },
+        {
+          "path": "CONTEXT_INDEX.json",
+          "provenance": "generated_local",
+          "sha256": "e0ea17b095d51df67cc58584c85906ada0af171e083fa4e3e72fc4863354ddab"
+        },
+        {
+          "path": "schemas/agent-manifest.schema.json",
+          "provenance": "original_new",
+          "sha256": "f318c8e867cc75c8068cebd7a209893de4350bf9feea0c5405c4f617f0954c30"
+        },
+        {
+          "path": "schemas/birth.schema.json",
+          "provenance": "original_new",
+          "sha256": "ddf060bde855556786a9c14fc770615a5fd38020fb7cc27caaa758f5bd6c4dd5"
+        },
+        {
+          "path": "schemas/brainstem-chat-request.schema.json",
+          "provenance": "original_new",
+          "sha256": "99fcd5526285264ed45286eb8f7f01c891bc369372a8823820e565776e071d50"
+        },
+        {
+          "path": "schemas/brainstem-chat-response.schema.json",
+          "provenance": "original_new",
+          "sha256": "fb9f7819880932d7fc00ad8f23853411c84d5576b2739dbee4e3d6c985f7c393"
+        },
+        {
+          "path": "schemas/brainstem-egg.schema.json",
+          "provenance": "original_new",
+          "sha256": "19b9a41d4a656628f2d02b4bac634d36217038ac64b0ab26054e3b618ffd8b83"
+        },
+        {
+          "path": "schemas/capability-matrix.schema.json",
+          "provenance": "original_new",
+          "sha256": "7b4b41d511e85abb3b5346719454f8f547192adc947123c4684af2374bdf62d4"
+        },
+        {
+          "path": "schemas/command-manifest.schema.json",
+          "provenance": "original_new",
+          "sha256": "c7ab65e783466a61c083311d812fbdc6f85069b1913ffde0cbe0decb120429ed"
+        },
+        {
+          "path": "schemas/commons-signed-wrapper.schema.json",
+          "provenance": "original_new",
+          "sha256": "953c69b1785dcee75eb4ee6245e9a72ae884a45702bebc835e7836839d5e263f"
+        },
+        {
+          "path": "schemas/context-index.schema.json",
+          "provenance": "original_new",
+          "sha256": "241932b542e3f526944d8282195a363ab6e3abe78a51ffa5abb994a8de0364e9"
+        },
+        {
+          "path": "schemas/controller-action.schema.json",
+          "provenance": "original_new",
+          "sha256": "e3d48328b6f93684f8fd1179ff35162b4de8e6930b28d380299eaa04efd8f9b1"
+        },
+        {
+          "path": "schemas/controller-journal.schema.json",
+          "provenance": "original_new",
+          "sha256": "d2725ba8e494031412603393e762c4c47fb566ce8d8a5034e82a3b22a9be45f2"
+        },
+        {
+          "path": "schemas/controller-loadout.schema.json",
+          "provenance": "original_new",
+          "sha256": "bc51fca240aed4cf7d5f406d55c2002ff83223ebbec572b484807e4f71912517"
+        },
+        {
+          "path": "schemas/controller-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "fa116b3c4a129108ab9b5fa098cbc0a55b3630605e682b5f657ee3ecc417a167"
+        },
+        {
+          "path": "schemas/controller-result-proof.schema.json",
+          "provenance": "original_new",
+          "sha256": "f9f2b21fd4e721c60de6922fb9632f109ad3ff77408ad9a63ba8cc3a9e89e068"
+        },
+        {
+          "path": "schemas/controller-state.schema.json",
+          "provenance": "original_new",
+          "sha256": "e40fbc3c67e2c26e7ca6bc631a43fd2564f2d5d4065d9ffa3d07312c2f1616f2"
+        },
+        {
+          "path": "schemas/controller-tombstone.schema.json",
+          "provenance": "original_new",
+          "sha256": "55aee9a26a23efbbef55dc3b0ed2f568be0a27b90c3411078c2bee85a07b1445"
+        },
+        {
+          "path": "schemas/copilot-token.schema.json",
+          "provenance": "original_new",
+          "sha256": "9770d5a09fb096d85f06acfb63f01f06ceff3d1936bae773619556537c658279"
+        },
+        {
+          "path": "schemas/cubby.schema.json",
+          "provenance": "original_new",
+          "sha256": "40a93fa20bc4a1c8ac6be62f93a990889dd956f8098a10dcf07b168daed5b9cb"
+        },
+        {
+          "path": "schemas/demo-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "ba2b613297662f463de3eeb36b044906d31034f36c4c65470c2c04acb411e2bc"
+        },
+        {
+          "path": "schemas/detached-signature.schema.json",
+          "provenance": "original_new",
+          "sha256": "dd7c622e93992d93a671fccf0d39f6992fcd5e39d89f97103bc8ef6669c42954"
+        },
+        {
+          "path": "schemas/evidence-signature.schema.json",
+          "provenance": "original_new",
+          "sha256": "d97ee53550778d473eb4899ea031dab0c96661012ef96bc794e6e3ea65ac2c9c"
+        },
+        {
+          "path": "schemas/github-actions-lock.schema.json",
+          "provenance": "original_new",
+          "sha256": "08b2e01bd9cc240862dd8649b456ebdefbae0f32fb85819589ded208c21194b7"
+        },
+        {
+          "path": "schemas/github-attestation-result.schema.json",
+          "provenance": "original_new",
+          "sha256": "c8758c3caea40090821ded003494c1ed7bca33195868d88805e5f54f66944899"
+        },
+        {
+          "path": "schemas/hatch-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "b51da2aaba9d96ae4fc3f1939088dbce727a1c4a889bb822d559f60875106a09"
+        },
+        {
+          "path": "schemas/imessage-local-config.schema.json",
+          "provenance": "original_new",
+          "sha256": "8749e7173d5bda1d2a041e8a0c7a9405a099added59581d85199e717ada2bec6"
+        },
+        {
+          "path": "schemas/imessage-status.schema.json",
+          "provenance": "original_new",
+          "sha256": "697d760741d1e8ee252b027bc7804a88420561b6e6d424f2265d75887ade28b9"
+        },
+        {
+          "path": "schemas/implementation-matrix.schema.json",
+          "provenance": "original_new",
+          "sha256": "2edf1467a6932fb4c140748d683862f462bcac6fc9445b9d00edb8852674bcd1"
+        },
+        {
+          "path": "schemas/installed-offline-attestation.schema.json",
+          "provenance": "original_new",
+          "sha256": "04420124b406e400591c5a425d463ab1a95ff27baf5cf107f8ef46cd9a10678b"
+        },
+        {
+          "path": "schemas/installed-twin.schema.json",
+          "provenance": "original_new",
+          "sha256": "0107e69723264bea13aa4550ace44fa03c7bf3aadef023fcd336836bed21e851"
+        },
+        {
+          "path": "schemas/live-proof.schema.json",
+          "provenance": "original_new",
+          "sha256": "de92606b19810342c29bced15b945d29ccb5221236456f3471809e51fc2f00d6"
+        },
+        {
+          "path": "schemas/live-provider-status.schema.json",
+          "provenance": "original_new",
+          "sha256": "6be04eccf03c6445071b5dfeeb96696b6cd271d4893a54dcc3246a62a945cf36"
+        },
+        {
+          "path": "schemas/local-agent-catalog.schema.json",
+          "provenance": "original_new",
+          "sha256": "574e8b3ff64defa7ec3ad529800a4e584cd98b352178890a1b757923c156706b"
+        },
+        {
+          "path": "schemas/pages-api.schema.json",
+          "provenance": "original_new",
+          "sha256": "6a39bd52bd8a57ac810ddd87f4e0d19f1f1191c50933e3ba4be8f50996822c69"
+        },
+        {
+          "path": "schemas/pages-manifest.schema.json",
+          "provenance": "original_new",
+          "sha256": "4b2c014179562a9585841f4b8c43b998e6a25018f8ff8ef565007f5b73256f58"
+        },
+        {
+          "path": "schemas/promotion-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "1addac89433d034afb3dec3e972ee8f2357a3aab3d0e56281f96da5f120f1937"
+        },
+        {
+          "path": "schemas/publication-attestation-result.schema.json",
+          "provenance": "original_new",
+          "sha256": "aaa7f88df5c9810f0976e613819cf4de0bf3a494d2f74304f57b26c4497cf450"
+        },
+        {
+          "path": "schemas/publication-scan-policy.schema.json",
+          "provenance": "original_new",
+          "sha256": "ffad3865068e6072ef9eca20336903a32ffd8e03cf2fc5320d891aa5f8af66c6"
+        },
+        {
+          "path": "schemas/publication-scan-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "e90cf9a912c93061e7bbfe56cc6e17a7f608bd72c4e456176bc79bf7882cb56f"
+        },
+        {
+          "path": "schemas/publication-scan-signature.schema.json",
+          "provenance": "original_new",
+          "sha256": "be19f7fc147bccacc7b9ebabd2fc37280ad3b0c02cd3775e03733ae3e32192a2"
+        },
+        {
+          "path": "schemas/rappid.schema.json",
+          "provenance": "original_new",
+          "sha256": "d74d4db8bdf1b1c97742bfa2e74044ccc85de6646606c183ade93198bcfc5fcb"
+        },
+        {
+          "path": "schemas/rapplication.schema.json",
+          "provenance": "original_new",
+          "sha256": "3e022ab6baebe36542c80770fcbdd4e576e2bdd5ae6328498ea0e18e86b14269"
+        },
+        {
+          "path": "schemas/release-manifest.schema.json",
+          "provenance": "original_new",
+          "sha256": "749004b7154eae920b05c8e6b7e45ca327d9b9b1c85eaedb96db35deace339f3"
+        },
+        {
+          "path": "schemas/release-postflight.schema.json",
+          "provenance": "original_new",
+          "sha256": "05651d8a0b40e2ce5dab599b948aab21f8bd4b74d640b501a344db4c2ff57a5c"
+        },
+        {
+          "path": "schemas/release-provenance.schema.json",
+          "provenance": "original_new",
+          "sha256": "34bdde50590a85acec376f1ea8006500d118fbbc04b2b3142ba8f1170b2a95fd"
+        },
+        {
+          "path": "schemas/release-status.schema.json",
+          "provenance": "original_new",
+          "sha256": "978f4cec19b6643598c1654143752f075e54f1c839eb6de583b1453e85b24cc9"
+        },
+        {
+          "path": "schemas/release-trust.schema.json",
+          "provenance": "original_new",
+          "sha256": "d41b448753afaf19e1c3a3c1143dc0073cdbf18011d1af6dc0ef8b1bbaa69326"
+        },
+        {
+          "path": "schemas/rollback-receipt.schema.json",
+          "provenance": "original_new",
+          "sha256": "6ead0f671c403001bdd857beff7f898245321794e97b8cb9152e1d2d6611a4d2"
+        },
+        {
+          "path": "schemas/source-census.schema.json",
+          "provenance": "original_new",
+          "sha256": "bce238917943c13d36282f4d6c084f72743d09b58674a651ac7233fc1cbf34d2"
+        },
+        {
+          "path": "schemas/source-release-manifest.schema.json",
+          "provenance": "original_new",
+          "sha256": "3cfea2c2fb55aea9e3a13a3254df3fbe982e5c9e314cbbe34fa56ffe0da31bae"
+        },
+        {
+          "path": "schemas/source-tree.schema.json",
+          "provenance": "original_new",
+          "sha256": "9a43f2d9913a2c0772a46f06b798725d92f579e8bb96638766cb0c971a0b813c"
+        },
+        {
+          "path": "schemas/store-index.schema.json",
+          "provenance": "original_new",
+          "sha256": "ac06156f27a387af8b9f03f1cb700599c44f43362684659ee5457ea6f97c69b8"
+        },
+        {
+          "path": "schemas/super-rar.schema.json",
+          "provenance": "original_new",
+          "sha256": "75d12b28386bdc6a433c5de9aaf4f657b551ab2261e3c8a0fce2e7fe92c9282f"
+        },
+        {
+          "path": "schemas/system-graph.schema.json",
+          "provenance": "original_new",
+          "sha256": "2c21a4a00fa021d6cfb0888f22bd57e7e38614532d9668034dc9adadbca30159"
+        },
+        {
+          "path": "schemas/twin-chat-pairing.schema.json",
+          "provenance": "original_new",
+          "sha256": "2b19f80e1269d36e9b2751f2bff5db45a6e9d4c7db71bfd64a8113ee7db11d01"
+        },
+        {
+          "path": "schemas/twin-chat-request.schema.json",
+          "provenance": "original_new",
+          "sha256": "93827f579d7bf3c7b7e6619ffd0ff4fe6aeb4d1c569406c3a7e8c29b89f566f5"
+        },
+        {
+          "path": "schemas/twin-chat-signed-response.schema.json",
+          "provenance": "original_new",
+          "sha256": "f2d97be55bb92eed82c0b874c12904ec57eb4b2df4d67ef4452e03d6a138d743"
+        },
+        {
+          "path": "schemas/uninstall-journal.schema.json",
+          "provenance": "original_new",
+          "sha256": "6943c67bdbfaf079a91ca5b407292f48931b12f3ce09d57efa03b953129dd9dc"
+        },
+        {
+          "path": "scripts/context-check.sh",
+          "provenance": "original_new",
+          "sha256": "811040e19c9fa2212d1f3b49bdd23aafd557ed521c1468f1b3b43f9b32e0b3ac"
+        },
+        {
+          "path": "src/rapp_stack_cubby/context.py",
+          "provenance": "original_new",
+          "sha256": "b7682c4c84579161ab1d50a308cfc1e19294a4aed732e77050e12ff26623662c"
+        },
+        {
+          "path": "tests/test_context.py",
+          "provenance": "original_new",
+          "sha256": "28e7711fc80f96cdfc10bf6ed90d0eee1d2803c8e9aabda521386488da61cf3c"
+        }
+      ],
+      "manifest_sha256": "171d623b892b7277b1a9a4b47c33384da7e2b0c597c039532c429adbaa0d92d4"
+    },
+    "controller_manifest": {
+      "catalog": {
+        "path": "cubbies/kody-w/catalog/controller-catalog.json",
+        "provenance": "generated_local",
+        "sha256": "cd7cf2b9a6a605a60ca15a0801aa9f92c30010bf236310ab80629603252b33c8"
+      },
+      "manifest_sha256": "cbd09a982d4707e86ec5df38a5b2f0a9f01a0daaeba04cbf93c63267460c43c1",
+      "receipt_template": {
+        "path": "cubbies/kody-w/catalog/controller-receipt-template.json",
+        "provenance": "original_new",
+        "sha256": "8347f96cdaedacaae440683e12bd82e496603ad6ee569bf9fb42ee1d1c9781e3"
+      },
+      "source": {
+        "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
+        "provenance": "original_new",
+        "sha256": "17ce75f74563a2c167e12079cf74eefa89edb7679bb342a541329c821f50ae5b"
+      },
+      "support_files": [
+        {
+          "path": "cubbies/kody-w/soul.md",
+          "provenance": "original_new",
+          "sha256": "0d43c721a8b2b92f08e4465123cdfdf6349c5b3d22643a86c5aedfe23fe3c137"
+        },
+        {
+          "path": "scripts/check.sh",
+          "provenance": "original_new",
+          "sha256": "26bd421a665a56e7f0089ddf8fa814becc1b6996ff328be93b0801e1bbdf3ee0"
+        },
+        {
+          "path": "scripts/context-check.sh",
+          "provenance": "original_new",
+          "sha256": "811040e19c9fa2212d1f3b49bdd23aafd557ed521c1468f1b3b43f9b32e0b3ac"
+        },
+        {
+          "path": "src/rapp_stack_cubby/cli.py",
+          "provenance": "original_new",
+          "sha256": "82fb4f38018ec78e290a080a6a32e5be35bf3a842fc862880851db4fd6abb62c"
+        },
+        {
+          "path": "src/rapp_stack_cubby/constants.py",
+          "provenance": "original_new",
+          "sha256": "bd5695f2e85c095a845b3de050ec0fec0d9d348dd088f3c875f2ad8c064d84cd"
+        },
+        {
+          "path": "src/rapp_stack_cubby/context.py",
+          "provenance": "original_new",
+          "sha256": "b7682c4c84579161ab1d50a308cfc1e19294a4aed732e77050e12ff26623662c"
+        },
+        {
+          "path": "src/rapp_stack_cubby/controller/__init__.py",
+          "provenance": "original_new",
+          "sha256": "8d877e1911cc7a61da9a6f975810728dcd6809cca9a85d24e926cf40ef55cd27"
+        },
+        {
+          "path": "src/rapp_stack_cubby/controller/loadout.py",
+          "provenance": "original_new",
+          "sha256": "a4c46ee0488939623b81a95bcc7a6df194d133b486b967ccdd255e942b17f0e0"
+        },
+        {
+          "path": "src/rapp_stack_cubby/controller/source_scan.py",
+          "provenance": "original_new",
+          "sha256": "59ec9ca0241dec1ff14b48b20dc0a70c64bbb074b4ab5d6e2912ff21ca8db056"
+        },
+        {
+          "path": "src/rapp_stack_cubby/verification.py",
+          "provenance": "original_new",
+          "sha256": "487fb9e886dffa32284ffb111df5aaeb16ffa5fca5a2240dd660762920c57ea6"
+        },
+        {
+          "path": "tools/build_controller_loadout.py",
+          "provenance": "original_new",
+          "sha256": "1dfab1bbaf9d5e23e5c8fcebaf602fe52eb29d51b77302c38cca1a12f6809bc0"
+        }
+      ]
+    },
+    "fail_on_null_required_lock_value": true,
+    "fail_on_unresolved": true,
+    "original_runtime_manifest": {
+      "files": [
+        {
+          "path": "src/rapp_stack_cubby/command_manifest.py",
+          "provenance": "original_new",
+          "sha256": "620a93d5e13049bd98678b0e048c6a323d773f645d471f6fdbfc4433f65bed8e"
+        },
+        {
+          "path": "src/rapp_stack_cubby/demo.py",
+          "provenance": "original_new",
+          "sha256": "7b00c55dbf95eb1683f18c3c8be94abaad4a24a3d88f134bf1a7057e55e5d8f0"
+        },
+        {
+          "path": "src/rapp_stack_cubby/dependencies.py",
+          "provenance": "original_new",
+          "sha256": "bdec7ebae7753c65c1248ee7e2961ef14156f6f086a37e36d76f0d3a1e0f70be"
+        },
+        {
+          "path": "src/rapp_stack_cubby/doctor.py",
+          "provenance": "original_new",
+          "sha256": "b42a3b1b118296c851fcc9253e2403a2cb6c0ebbe41de95be58b196bb19c33dd"
+        },
+        {
+          "path": "src/rapp_stack_cubby/imessage/__init__.py",
+          "provenance": "original_new",
+          "sha256": "31492ae894bf5eb10b677d8930fe36748b70402674eed16fc961aa88c106774b"
+        },
+        {
+          "path": "src/rapp_stack_cubby/imessage/source_scan.py",
+          "provenance": "original_new",
+          "sha256": "76d1f7804629ba8c1f3e4723fc4877295a73b8b343cb7eed72bbba6bc0d0458e"
+        },
+        {
+          "path": "src/rapp_stack_cubby/imessage/tooling.py",
+          "provenance": "original_new",
+          "sha256": "97d0ff44ff2a2ab0d6766cddf8f04bb8a1eaaffc83dd160f5ac6e93096c45b05"
+        },
+        {
+          "path": "src/rapp_stack_cubby/protocols/__init__.py",
+          "provenance": "original_new",
+          "sha256": "80fee6a4c9b0b5aa5802831928a6e1ef45d14b256a1544be30fe26646005e709"
+        },
+        {
+          "path": "src/rapp_stack_cubby/protocols/canonical.py",
+          "provenance": "original_new",
+          "sha256": "45ec8f326bf256b0cb74e4027d5c3bc0d8852f110a36359f4f7c52c5a883d3ac"
+        },
+        {
+          "path": "src/rapp_stack_cubby/protocols/crypto.py",
+          "provenance": "original_new",
+          "sha256": "fc659abea5553e64b18258326ea21c279f223022168cb5d459dfbd7459b8eb56"
+        },
+        {
+          "path": "src/rapp_stack_cubby/protocols/replay.py",
+          "provenance": "original_new",
+          "sha256": "374767dfb4395d54bddab402dec56ac795af59e9a06576a32ce7f512e12d269b"
+        },
+        {
+          "path": "src/rapp_stack_cubby/protocols/twin_chat.py",
+          "provenance": "original_new",
+          "sha256": "a5c4c8f6ce109172ee0c1999a5152b32a2b541d45338f5256172e31d887e1d12"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/__init__.py",
+          "provenance": "original_new",
+          "sha256": "96a62341001d8e3283897996dd2ab4e2264ca67d6630893fe4c368e6e71ea45d"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/app.py",
+          "provenance": "original_new",
+          "sha256": "45ee6b99f8254eb624bbcf4c6ff272187e30bf25fce1b59e8e0019aa494c5baf"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/auth.py",
+          "provenance": "original_new",
+          "sha256": "7763079edba2e559043c448eda060eab1ba72dadca0008243fc85d99fa126585"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/basic_agent.py",
+          "provenance": "original_new",
+          "sha256": "71b038ce5b637c618a75d3918fd02d9b826a577dd4c8c338a2cee3c34e965124"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/config.py",
+          "provenance": "original_new",
+          "sha256": "ee0fa8e0344f0cf82ed376f46083a8d5c955d8cad450ca55116c29608bcf5443"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/github_auth.py",
+          "provenance": "original_new",
+          "sha256": "0f68d8b6171add6e763f6c09dd72641d07c24d0629c9a97e53535337893f6efb"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/orchestrator.py",
+          "provenance": "original_new",
+          "sha256": "aba077285c1dae4e14ee2e3e426f5036dfe7873ad49c6ffc7db920f854f82d1b"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/provider.py",
+          "provenance": "original_new",
+          "sha256": "d4006621c128b5829b40a1d83c897c562a0671d51ff1c453b20856c07f0e99e1"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/registry.py",
+          "provenance": "original_new",
+          "sha256": "71873310d97e6ca1e6178608135214953bd0e01560cce0caa827956d278d3fef"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/server.py",
+          "provenance": "original_new",
+          "sha256": "7b3869faace89a83bb4c32d6df156d5790381afa84ee6d823dd2611ed1b8ed9e"
+        },
+        {
+          "path": "src/rapp_stack_cubby/runtime/storage.py",
+          "provenance": "original_new",
+          "sha256": "cf5d5fd78decbd2ec2df35a347ecd5bdad604699cec6a627814d939afc62bf3c"
+        }
+      ],
+      "manifest_sha256": "bd01be02e0cc73f3a7d8c5ea05cd73d22ee9b208829f39bab92a3cfa097ab094",
+      "policy": "Original runtime, protocol, imsg tooling/privacy scanner, and dependency-verification files; adapted bridge files are tracked separately in PROVENANCE.json."
+    },
+    "packaging_implementation": {
+      "archive_profile": "single no-follow descriptor through verification and extraction",
+      "bundled_secrets": false,
+      "bundled_state": false,
+      "dependency_fetch": "explicit external cache; exact locked URL/size/SHA; never execute",
+      "implemented": true,
+      "installed_schema": "rapp-installed-twin/1.1",
+      "path": "src/rapp_stack_cubby/packaging",
+      "release_trust": "RELEASE_TRUST.json",
+      "release_verification": "canonical low-S P-256, exact assets/checksums/source binding",
+      "schemas": [
+        "rapp-release-source-manifest/1.0",
+        "rapp-release-trust/1.0",
+        "rapp-release-manifest/1.0",
+        "rapp-application/1.0",
+        "brainstem-egg/2.3-cubby",
+        "rapp-installed-twin/1.1",
+        "rapp-super-rar/1.0"
+      ],
+      "signed_worktree_output": "development_only",
+      "source_staging": "immutable git archive for exact revisions",
+      "uninstall": "identity-bound quarantine/delete journal",
+      "unsigned_output": "development_only"
+    },
+    "pages_manifest": {
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "provenance": "original_new",
+          "sha256": "1fe1f938b64fc7d7c9cd4c809c3ea2eb965c34b8347fec1354350051e9d1de46"
+        },
+        {
+          "path": ".github/workflows/pages.yml",
+          "provenance": "original_new",
+          "sha256": "b42744731794e305e80eeacb42da5b040e6611845ddd6bbf059bd880fd2ccecc"
+        },
+        {
+          "path": ".github/workflows/promote.yml",
+          "provenance": "original_new",
+          "sha256": "72f76fc03e4838411c1904a2dcf2e07493f09d7e2111db908b11e4c481b4c894"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "provenance": "original_new",
+          "sha256": "fc72e788c946eef9119c30a3b6a60cb6017013074ff02856d084c0f431f936a3"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "provenance": "original_new",
+          "sha256": "17c19c5d2483426ebfafaec1babb3641addfb230e0781f87504583c16a922892"
+        },
+        {
+          "path": "GITHUB_ACTIONS_LOCK.json",
+          "provenance": "original_new",
+          "sha256": "46e2a853102c92a192adee00e454505ec2eca88d059ab00d203aa474ed3664cd"
+        },
+        {
+          "path": "RELEASE_CHECKLIST.md",
+          "provenance": "original_new",
+          "sha256": "3725a10e93923a6795a388bc547cc511fdf97145ba24ca8214a0cae2b61ab509"
+        },
+        {
+          "path": "RELEASE_STATUS.json",
+          "provenance": "original_new",
+          "sha256": "d747afd8978c7112b8e32ff6297405b34f68cb6748ea8f43942298eaa336ec6b"
+        },
+        {
+          "path": "RELEASE_TRUST.json",
+          "provenance": "original_new",
+          "sha256": "04e804a1b9008cdb395bf134601d5686cd5dc70f74d805c4e20c37d2d7fcb623"
+        },
+        {
+          "path": "VERSION",
+          "provenance": "original_new",
+          "sha256": "dd75a9ea9341b6141988c20e8b19c0fc85afffd28d44179e4869faaa6fa23aa5"
+        },
+        {
+          "path": "docs/.nojekyll",
+          "provenance": "original_new",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "docs/404.html",
+          "provenance": "original_new",
+          "sha256": "0544a7074975817fafeb27e26385b69d42d19519b4593d865fc020ae2025c317"
+        },
+        {
+          "path": "docs/api/v1/architecture.json",
+          "provenance": "generated_local",
+          "sha256": "cdcc3a229d7db65adccf4d7a41690c0ffcab54bb84cd9197f5e2fc3c0101207a"
+        },
+        {
+          "path": "docs/api/v1/capabilities.json",
+          "provenance": "generated_local",
+          "sha256": "c141418fca3ec68f957c9dbc3b8fc0278c75f72d1fce6219b661bbdbdfd7bb0d"
+        },
+        {
+          "path": "docs/api/v1/context.json",
+          "provenance": "generated_local",
+          "sha256": "c4d575ec80abc53eb06d5937e08866ca6c56453e07d46bf4ff08ed283bba6658"
+        },
+        {
+          "path": "docs/api/v1/downloads.json",
+          "provenance": "generated_local",
+          "sha256": "e52911ae199c5167699ea54ac0d4a8155d8a59c73231ce8a06a33d5cbf72d606"
+        },
+        {
+          "path": "docs/api/v1/prompts.json",
+          "provenance": "generated_local",
+          "sha256": "af5b4c785e879a3eb24565e470145ec1609b8d5cd72b5180a2db546ed96f02ed"
+        },
+        {
+          "path": "docs/api/v1/status.json",
+          "provenance": "generated_local",
+          "sha256": "7b25689908c2f66d1ec754458014cc6b4759e05dee1c0444b8f5b1ceb8628f38"
+        },
+        {
+          "path": "docs/assets/favicon.svg",
+          "provenance": "original_new",
+          "sha256": "6c649da7e29b808f7c44f1fe460069cacab217950bf2d58e10015f3c56a7364d"
+        },
+        {
+          "path": "docs/assets/styles.css",
+          "provenance": "original_new",
+          "sha256": "9924d080a61faf67d0679ee641b6f3dec7b1d26b80dee331f4cf17c86334d96c"
+        },
+        {
+          "path": "docs/canon/SHOWCASE_PROMPTS.md",
+          "provenance": "original_new",
+          "sha256": "a516c5f66f4b9f553771daddfbf1a2cd88f086f18b577db00c8a589d61168147"
+        },
+        {
+          "path": "docs/decisions/static-pages-public-boundary.md",
+          "provenance": "original_new",
+          "sha256": "2f174605ca4b778640ea75cdbc7287f69167f7a3609454cb1cbe15dc7e38713f"
+        },
+        {
+          "path": "docs/index.html",
+          "provenance": "original_new",
+          "sha256": "7beaa9e5245286461f2e287c950a073f6f00f10a42db5f7647f527fb5e8f9aab"
+        },
+        {
+          "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
+          "provenance": "original_new",
+          "sha256": "7df898bbd572fa65dabc6d9ed8de4aae21b30fd26b8d6d4da3a3b00e5badbb4a"
+        },
+        {
+          "path": "docs/operations/PAGES_OPERATIONS.md",
+          "provenance": "original_new",
+          "sha256": "c318f305ae2f8f30e6b15e98965868ff4f03d5bc3a6f6e43610434d68631895d"
+        },
+        {
+          "path": "docs/operations/REPOSITORY_SETTINGS.md",
+          "provenance": "original_new",
+          "sha256": "5cddf05c8cdbb4dea1c4a785530f01d183c3f56658b97e8a71ec56a295468b78"
+        },
+        {
+          "path": "docs/pages-manifest.json",
+          "provenance": "generated_local",
+          "sha256": "4ac9ece0650142062a866817f322b53cc2fd865818786ef91f64032e6928eac4"
+        },
+        {
+          "path": "docs/robots.txt",
+          "provenance": "original_new",
+          "sha256": "ffb5bba5e8d98e0da65f49ec3b34684ad01978f9265a6910dd5a5c31cd2b657a"
+        },
+        {
+          "path": "docs/sitemap.xml",
+          "provenance": "original_new",
+          "sha256": "8a30ac0f5c5d3978443b30ae60e07f20bf288972c4b94272b84bad836e5f0657"
+        },
+        {
+          "path": "requirements-ci.lock",
+          "provenance": "original_new",
+          "sha256": "2297d1bcd33defcb0feffac80eda0e9516f7fdb1e5e4fbf8ecef58b9ff8be462"
+        },
+        {
+          "path": "scripts/check-toolchain.sh",
+          "provenance": "original_new",
+          "sha256": "6eff7dc4f8798ea045a001253f5cafdd37fe22294450e70eb51bc3c7dc3b2cb7"
+        },
+        {
+          "path": "scripts/configure-repository.sh",
+          "provenance": "original_new",
+          "sha256": "8f7bcf9aed8cf63055125b7ab7cd532ac5d569b26a2973706a1c073b30d37aa2"
+        },
+        {
+          "path": "scripts/pages-build.sh",
+          "provenance": "original_new",
+          "sha256": "164889bb8715d718ea4d6ce82bb79c778c28a58aba16ba5ca00b06c2f191a406"
+        },
+        {
+          "path": "scripts/pages-check.sh",
+          "provenance": "original_new",
+          "sha256": "39acea95e7dc7a593988b36f08713b732d4458f16eb2b837d048305129da0857"
+        },
+        {
+          "path": "scripts/postflight-release.sh",
+          "provenance": "original_new",
+          "sha256": "c41745808fca684aed8fe094f458437e5968fafb4333e3dbceaecda1aa514ac7"
+        },
+        {
+          "path": "scripts/prepare-release.sh",
+          "provenance": "original_new",
+          "sha256": "983d56fcf25bb971c1e82852877e7251df21453a62d014476064beb515ca2a61"
+        },
+        {
+          "path": "scripts/promote-release.sh",
+          "provenance": "original_new",
+          "sha256": "e4f1e3aada890ce322b676c7c8bca474d3092c0103f76268e85220c14ab9cccb"
+        },
+        {
+          "path": "scripts/record-attestations.py",
+          "provenance": "original_new",
+          "sha256": "a23f7173421ad2c24374249e05f5d8fd434412fceae3feeca3e89a1134dce25c"
+        },
+        {
+          "path": "scripts/resolve-release-tag.sh",
+          "provenance": "original_new",
+          "sha256": "cf64577058eef85b193720ac994d098f240c1afd23a0860c68febd0ad58e05c1"
+        },
+        {
+          "path": "scripts/validate-release-inputs.sh",
+          "provenance": "original_new",
+          "sha256": "208c9e973c72d2933b8b2a83f432fa4fcb0c181c49d2d993b82fc37b06bb9621"
+        },
+        {
+          "path": "scripts/verify-github-attestations.sh",
+          "provenance": "original_new",
+          "sha256": "8fc7ff541838e8e5bc20bf5c3a151960eac5f45f8bddab02e16718439ef287b0"
+        },
+        {
+          "path": "src/rapp_stack_cubby/pages.py",
+          "provenance": "original_new",
+          "sha256": "58f7b3f87bc5da98c12402ff63cdf8c1794e51d9b613408ce09d90635de9816c"
+        },
+        {
+          "path": "src/rapp_stack_cubby/promotion.py",
+          "provenance": "original_new",
+          "sha256": "1bc4dae2d8ffa1697501d2763937dc8b689603059743f4ffa4af6bb8259e529a"
+        },
+        {
+          "path": "tests/packaging/test_release_scripts.py",
+          "provenance": "original_new",
+          "sha256": "a4b860d90fe83999df2ddc0961503e64cbd5ea801146e1996f24e6c21917683e"
+        },
+        {
+          "path": "tests/pages/__init__.py",
+          "provenance": "original_new",
+          "sha256": "1f2d6b79543884c6d48bcd077cd2b26d5685266d332d1ea4ec617a99f0c71a58"
+        },
+        {
+          "path": "tests/pages/test_pages.py",
+          "provenance": "original_new",
+          "sha256": "3d9e432baa0b0a20ad8cf1f2708994778bd674dbacdca07268a944443ef27d86"
+        }
+      ],
+      "manifest_sha256": "b9e4697649ae749fcb9f5e1af073d13b2be827e0b76cab5fe5be153bf52042ee",
+      "release_status": "pending",
+      "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
+    },
+    "publication_scanner": {
+      "candidate_gate": "zero findings over exact source, every reachable Git ref/blob/tag, generated Pages, and release assets; signed candidate receipt is an asset",
+      "files": [
+        {
+          "path": "PUBLICATION_SCAN_POLICY.json",
+          "sha256": "8f61e0daa0d168c8a0cda624015dbbe0b52f9d20604ada6fb1b9532586db8329"
+        },
+        {
+          "path": "schemas/publication-scan-policy.schema.json",
+          "sha256": "ffad3865068e6072ef9eca20336903a32ffd8e03cf2fc5320d891aa5f8af66c6"
+        },
+        {
+          "path": "schemas/publication-scan-receipt.schema.json",
+          "sha256": "e90cf9a912c93061e7bbfe56cc6e17a7f608bd72c4e456176bc79bf7882cb56f"
+        },
+        {
+          "path": "schemas/publication-scan-signature.schema.json",
+          "sha256": "be19f7fc147bccacc7b9ebabd2fc37280ad3b0c02cd3775e03733ae3e32192a2"
+        },
+        {
+          "path": "scripts/scan-publication.sh",
+          "sha256": "8f5f770a6374110024edf1fa26919b870d357ecd6bc9ea386776fe54628408e5"
+        },
+        {
+          "path": "scripts/verify-publication-scan.sh",
+          "sha256": "8f382035ce1527823f24f7de7263863756e879a365aaad7b5e77fa8295594282"
+        },
+        {
+          "path": "src/rapp_stack_cubby/packaging/publication.py",
+          "sha256": "8944210c9282c9886e961798d5f73b5ebf195645762e5a6da409657952153f24"
+        },
+        {
+          "path": "tests/packaging/test_publication_scan.py",
+          "sha256": "45e03d23df1b121a8de7e0f54166c60cec4bfa8279dde340fa2b90136fb9840b"
+        }
+      ],
+      "final_gate": "second zero-finding signed receipt over public redownload plus complete supplied Actions log archives",
+      "history_release_requirement": "real commit and complete reachable history; development without HEAD records not_available_development",
+      "network_used": false,
+      "policy_path": "PUBLICATION_SCAN_POLICY.json",
+      "policy_sha256": "8f61e0daa0d168c8a0cda624015dbbe0b52f9d20604ada6fb1b9532586db8329",
+      "receipt_schema": "rapp-publication-scan-receipt/1.0",
+      "status": "implemented_gate_execution_unresolved"
+    },
+    "release_stages": {
+      "candidate": {
+        "allowed_unresolved_ids": [
+          "final-release-sha",
+          "live-enrollment-publication-proof",
+          "public-end-to-end-attestation",
+          "publication-scan"
+        ],
+        "asset_mutation_after_attestation": false,
+        "offline_installed_attestation_required": true,
+        "phase": "A-source-offline",
+        "publication": "protected_prerelease_only",
+        "publication_scan_receipt": "signed_source_history_pages_release_assets_zero_findings"
+      },
+      "final": {
+        "allowed_unresolved_ids": [],
+        "external_promotion_receipt_closes_source_gates": true,
+        "new_source_commit_allowed": false,
+        "phase": "D-pages-promotion",
+        "promotion": "same_prerelease_assets_tag_and_commit_only",
+        "promotion_evidence": "signed_attested_actions_artifact_then_verified_pages",
+        "receipt_signature_required": true,
+        "requires_live_private_and_public_postflight": true,
+        "same_source_commit_required": true,
+        "second_publication_scan_required": "signed_public_redownload_and_completed_actions_logs",
+        "source_allowed_unresolved_ids": [
+          "final-release-sha",
+          "live-enrollment-publication-proof",
+          "public-end-to-end-attestation",
+          "publication-scan"
+        ]
+      },
+      "follow_up_source_commit_allowed": false,
+      "live_private": {
+        "model_preflight_required": true,
+        "owner_enrollment_private": true,
+        "phase": "C-live-private",
+        "same_public_commit_required": true
+      },
+      "phase_order": [
+        "A-source-offline",
+        "B-protected-prerelease",
+        "C-live-private",
+        "D-pages-promotion"
+      ],
+      "profile": "unchanged-candidate/1.0",
+      "protected_prerelease": {
+        "candidate_publication_scan_asset_required": true,
+        "commit_and_assets": "unchanged_from_phase_a",
+        "failure_state": "explicit_failed_prerelease_no_pages",
+        "phase": "B-protected-prerelease",
+        "postflight_evidence": "signed_attested_actions_artifact_not_release_mutation",
+        "public_redownload_attestation_required": true
+      }
+    },
+    "required_unresolved_state_for_build": "source_stays_unresolved_until_external_signed_promotion_receipt"
+  },
+  "dependency_policy": {
+    "allowed_install_phase": "build_or_explicit_install_only",
+    "github_actions": {
+      "action_count": 8,
+      "actions": [
+        {
+          "commit": "0f67c3f4856b2e3261c31976d6725780e5e4c373",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "32d0bae2419f014f5066af5915264c966efdb7b6e7fe8f90cf87dc75c5a8d6d0",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/attest-build-provenance",
+          "tag": "v4.1.1",
+          "uses": "actions/attest-build-provenance"
+        },
+        {
+          "commit": "9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/checkout",
+          "tag": "v7.0.0",
+          "uses": "actions/checkout"
+        },
+        {
+          "commit": "45bfe0192ca1faeb007ade9deae92b16b8254a0d",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "741d1031b351a6dc8421130e3282456afe884068596134683fd5e5f8188363ee",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/configure-pages",
+          "tag": "v6.0.0",
+          "uses": "actions/configure-pages"
+        },
+        {
+          "commit": "cd2ce8fcbc39b97be8ca5fce6e763baed58fa128",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "741d1031b351a6dc8421130e3282456afe884068596134683fd5e5f8188363ee",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/deploy-pages",
+          "tag": "v5.0.0",
+          "uses": "actions/deploy-pages"
+        },
+        {
+          "commit": "d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/download-artifact",
+          "tag": "v4.3.0",
+          "uses": "actions/download-artifact"
+        },
+        {
+          "commit": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "7d070f6b64d9bcc530fe99cc21eaaa4b3c364e0b2d367d7735671fa202a03b32",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/setup-python",
+          "tag": "v6.3.0",
+          "uses": "actions/setup-python"
+        },
+        {
+          "commit": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "3e855ffa704114a51628ef8f0bf3aeb41728adf9d9070e263bf58aa5640b0eb5",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/upload-artifact",
+          "tag": "v4.6.2",
+          "uses": "actions/upload-artifact"
+        },
+        {
+          "commit": "fc324d3547104276b827a68afc52ff2a11cc49c9",
+          "license": {
+            "path": "LICENSE",
+            "sha256": "b1bb6c1d76d90892ac4a9d1cca6380316df22671560c6cf4a5e298dcfa26bb4d",
+            "spdx": "MIT"
+          },
+          "repository": "https://github.com/actions/upload-pages-artifact",
+          "tag": "v5.0.0",
+          "uses": "actions/upload-pages-artifact"
+        }
+      ],
+      "lock": "GITHUB_ACTIONS_LOCK.json",
+      "mutable_tags_allowed": false,
+      "runner": {
+        "architecture": "arm64",
+        "label": "macos-15",
+        "label_source": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories",
+        "operating_system": "macOS 15",
+        "python": "3.11.9",
+        "reproducibility_scope": "Byte equality is asserted only for repeated builds on this locked runner image and toolchain.",
+        "requirements": "requirements-ci.lock",
+        "source": "https://github.com/actions/runner-images/blob/10e2fdee9fd1d2e90e70186d4adf3c9bc04eaa93/images/macos/macos-15-arm64-Readme.md",
+        "source_commit": "10e2fdee9fd1d2e90e70186d4adf3c9bc04eaa93",
+        "source_license_sha256": "60eb5d7deb8d13876be870afae1481c3b8a9446f062f0d99fdef38ac0945646a",
+        "toolchain": {
+          "gh": "recorded from locked runner image at runtime",
+          "git": "recorded from locked runner image at runtime",
+          "python": "3.11.9",
+          "zlib": "recorded from locked CPython at runtime"
+        }
+      }
+    },
+    "imsg": {
+      "annotated_ref": "76585a9e13a33534bec26d5478482efcc238f803",
+      "architectures": {
+        "helper": [
+          "x86_64",
+          "arm64",
+          "arm64e"
+        ],
+        "imsg": [
+          "x86_64",
+          "arm64"
+        ]
+      },
+      "code_signing_requirement": {
+        "authority_contains": "Developer ID Application: Peter Steinberger",
+        "strict": true,
+        "team_id": "Y5PE65HELJ"
+      },
+      "installed_verification": {
+        "architectures_verified": true,
+        "archive_hash_verified": true,
+        "codesign_strict_verified": true,
+        "layout_verified": true,
+        "message_sent": false,
+        "owner_config_initialized": false,
+        "team_and_authority_verified": true,
+        "verified_at": "2026-07-12",
+        "version_verified": true
+      },
+      "license": {
+        "blob": "0ae0cb57d8c6c1417f796b39fc0d6a7f2f7c5c39",
+        "copyright": "Copyright (c) 2026 Peter Steinberger",
+        "spdx": "MIT"
+      },
+      "release_asset_name": "imsg-macos.zip",
+      "release_url": "https://github.com/openclaw/imsg/releases/download/v0.12.3/imsg-macos.zip",
+      "sha256": "35977a22e9721440acf9f5b945d67034939948ba4fa4ea46b0f55d527f24d4f2",
+      "source_commit": "dea78a9e9c493740575b03e443041ef5fbd2d463",
+      "status": "resolved_pinned_verified_installer",
+      "tag": "v0.12.3",
+      "verification_requirements": [
+        "archive members are contained before extraction",
+        "executable contains x86_64 and arm64",
+        "helper contains x86_64, arm64, and arm64e",
+        "required executable, helper, and bundle files exist",
+        "release URL is immutable",
+        "source and release are pinned",
+        "SHA-256 matches before execution",
+        "strict Developer ID authority and Team ID match the lock"
+      ],
+      "version": "0.12.3"
+    },
+    "network_during_request": "forbidden",
+    "p256_library": {
+      "artifact_hashes": [
+        "sha256:966fe0e9c67490071f14c0d2b1cb2dfb3023c5ce39457343931415f08382f2db",
+        "sha256:f89660a348f4f78a92366240a61404e337586ef7f5909a2fef59ca88ef505493",
+        "sha256:f5bce581e6b8c235e566a14768a943b172ada3ed73537bb0c0be1edee312d4e7",
+        "sha256:efc1cdd798b1aaf39b4610bba7aad28c9bea9b910f25c784ccf9ec1fa719d1f9",
+        "sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+        "sha256:600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29"
+      ],
+      "dependency_lock": "DEPENDENCY_LOCK.json",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "package_name": "cryptography",
+      "package_version": "49.0.0",
+      "source_commit": "e300bbe2f1bec75e5ee7e0ab7b196958831b3db6",
+      "status": "resolved_target_locked",
+      "target_wheel": "cryptography-49.0.0-cp311-abi3-macosx_11_0_arm64.whl",
+      "transitive_packages": [
+        "cffi==2.1.0",
+        "pycparser==3.0"
+      ]
+    },
+    "python": {
+      "hashes_required": true,
+      "index_policy": "one explicitly configured package index; no dependency links or mutable VCS references",
+      "lock_required": true,
+      "sdist_policy": "forbidden unless separately reviewed, pinned, hashed, and built in the attested builder",
+      "version_range": ">=3.11,<3.12"
+    },
+    "request_time_auto_pip": false,
+    "runtime_remote_code_fetch": false,
+    "transitive_dependencies": "Every transitive package, artifact hash, license, and source commit must be locked before release."
+  },
+  "determinism": {
+    "array_order": "as declared; pin arrays are ordered by id and artifact nodes by order",
+    "encoding": "UTF-8",
+    "indent_spaces": 2,
+    "key_order": "lexicographic",
+    "newline": "LF",
+    "timestamps_in_build_artifacts": "normalized from SOURCE_DATE_EPOCH derived from the final release commit",
+    "trailing_newline": true
+  },
+  "evidence_inputs": [
+    {
+      "id": "account-crawl",
+      "path": "docs/research/account-crawl.md",
+      "sha256": "fd8fddab289b827f03405de7d6274fd60216c030db148a01c721da71d4eaac15",
+      "status": "local_audit_evidence_not_source"
+    },
+    {
+      "id": "source-census",
+      "path": "SOURCE_CENSUS.json",
+      "sha256": "395ca4535f54fde1551d5547400a4643c8e26786f20f3eda0d24d1c9c46d0b90",
+      "status": "local_audit_evidence_not_source"
+    }
+  ],
+  "lock_status": {
+    "build_blocked": true,
+    "conformance_claim_allowed": false,
+    "reason": "Offline source, packaging, exhaustive installed-byte inventory, publication scanner, and signed installed-byte attestation are implemented; exact public commit, signed candidate/final scan receipts, live owner proof, public redownload, and released Pages remain external gates.",
+    "unresolved_count": 4
+  },
+  "pin_counts": {
+    "protocol": 2,
+    "runtime": 1,
+    "source": 4,
+    "total": 7,
+    "unresolved_commit_pins": 0,
+    "verified_commit_pins": 7
+  },
+  "profile": {
+    "artifact_profile_ids": [
+      "rapp-cubby/1.0",
+      "rapp-application/1.0",
+      "brainstem-egg/2.3-cubby",
+      "rapp-installed-twin/1.1"
+    ],
+    "attested": false,
+    "context_profile": {
+      "entrypoint": "AI_CONTEXT.md",
+      "external_repository_policy": "provenance_evidence_only_not_required_working_context",
+      "index": "CONTEXT_INDEX.json",
+      "schema": "rapp-context-index/1.0",
+      "status": "repository_local_context_complete"
+    },
+    "controller_model": {
+      "adoption_status": "verified_install_adoption_implemented",
+      "identity_rule": "public product RAPPID is immutable; every installed/controller instance has a distinct private RAPPID",
+      "implementation_status": "guarded_local_recoverable",
+      "internal_agent_rule": "Actual internal *_agent.py sources remain actual agents inside the rapplication.",
+      "lifecycle_recovery": "exclusive-lock phase journals with stale PID/start-identity leases",
+      "production_hatch_manifest_schema": "rapp-release-source-manifest/1.0 (self-excluding; exact HEAD verified separately)",
+      "route": "explicit controller-only deterministic RAPP_CONTROLLER_ROUTE/1.0 through POST /chat",
+      "signed_twin_chat_status": "implemented_local_attestation_pending",
+      "start_rule": "exact preflighted model and signed-only child ingress are mandatory",
+      "streaming_rule": "Only the top-level controller agent streams.",
+      "tool_flattening_permitted": false
+    },
+    "id": "rapp-stack-cubby/macos-arm64-python311/1.0",
+    "imessage": {
+      "account_policy": "one enrolled owner account and one active writer",
+      "content_storage": "local only",
+      "group_conversations": false,
+      "identifier_storage": "local only; mode 0600 when file-backed or Keychain for secrets",
+      "profile_id": "rapp-messaging-imessage/1.0",
+      "sms_fallback": false,
+      "transport": "signed imsg JSON-RPC over supervised stdio",
+      "v1_scope": "owner-only direct message"
+    },
+    "pages": {
+      "api_version": "v1",
+      "backend": false,
+      "browser_persistence": false,
+      "implemented_local": true,
+      "release_status": "pending",
+      "site_root": "docs/"
+    },
+    "platform_minimums": {
+      "architecture": "arm64",
+      "attestation_required_before_release": true,
+      "gh_cli": "2.88.1",
+      "git": "2.50.1",
+      "github_copilot_access": "required",
+      "messages_app": "26.0",
+      "operating_system": "macOS",
+      "operating_system_version": "26.5.1",
+      "python": ">=3.11,<3.12"
+    },
+    "profile_ids": [
+      "rapp-stack-cubby/macos-arm64-python311/1.0",
+      "rapp-twin-chat/1.0",
+      "rapp-twin-chat-response/1.0",
+      "rapp-commons-event/1.0",
+      "rapp-messaging/1.0",
+      "rapp-messaging-imessage/1.0"
+    ],
+    "signed_twin_chat_status": "implemented_local_offline_attested",
+    "twin_chat": {
+      "canonicalization": "received signed wire bytes must already equal the project-owned bounded UTF-8 sorted-key compact JSON encoding; no floats; signed 64-bit integers; only top-level sig omitted",
+      "idempotency": {
+        "controller_action_key": "required for chat and self_test; exact signed request and terminal controller result persist privately",
+        "different_digest_for_existing_nonce": "reject",
+        "duplicate_completed_request": "return the previously journaled signed response",
+        "journal_before_side_effect": true,
+        "timeout_retry": "reuse exact request bytes and nonce; never re-sign"
+      },
+      "inner_envelope": "rapp-twin-chat/1.0",
+      "paired_transport_keys": {
+        "algorithm": "ECDSA-P256-SHA256 via cryptography==49.0.0",
+        "private_key_storage": "exact unencrypted BEGIN PRIVATE KEY PKCS8 PEM mode 0600 beneath explicit mode-0700 private state",
+        "public_key_encoding": "P-256 JWK",
+        "signature_encoding": "canonical base64url without padding of fixed-width low-S IEEE P1363 r||s"
+      },
+      "rappid_binding": [
+        "wrapper from equals inner from_rappid",
+        "inner to_rappid equals the installed twin rappid for inbound requests",
+        "paired public key is bound locally to wrapper from",
+        "signed response swaps the bound from_rappid and to_rappid and cites the request nonce, digest, and current key epoch"
+      ],
+      "rappid_fixture": {
+        "production_identity": false,
+        "schema": "rapp-twin-chat-synthetic-vector/1.0",
+        "status": "synthetic_test_only",
+        "vector": "tests/fixtures/twin-chat-vector.json"
+      },
+      "relay_wrapper": "rapp-commons-event/1.0",
+      "replay_journal": {
+        "crash_policy": "expired pre-dispatch claims may be reclaimed; a dispatch marker becomes a signed terminal ambiguous rejection without redispatch",
+        "durability": "SQLite WAL, synchronous FULL, owner lease and immediate claim transaction plus dispatch marker",
+        "key": "sender_rappid, key_id, key_epoch, nonce",
+        "stores": [
+          "canonical request digest",
+          "claim/dispatch phase and owner lease",
+          "signed response or terminal rejection"
+        ]
+      },
+      "response_envelope": "rapp-twin-chat-response/1.0",
+      "response_signature_required": true
+    },
+    "wire": {
+      "capability_endpoint": {
+        "method": "POST",
+        "path": "/chat"
+      },
+      "child_ingress": "Controller-launched and adopted child ports are signed-only and reject plaintext before provider or tools.",
+      "cors": "disabled by default; if a bundled local UI requires CORS, use one exact loopback origin",
+      "global_controller_ingress": "The separately configured global controller accepts plain local control pending authenticated iMessage repair; loopback is not authentication.",
+      "listen_addresses": [
+        "127.0.0.1",
+        "::1"
+      ],
+      "other_capability_routes": false,
+      "privileged_controls": "Require a valid paired P-256 signature, exact rappid binding, replay acceptance, and an enumerated non-code-execution operation."
+    }
+  },
+  "prohibited_surfaces": [
+    {
+      "id": "api-agent-route",
+      "value": "/api/agent"
+    },
+    {
+      "id": "eval-route",
+      "value": "/eval"
+    },
+    {
+      "id": "mutable-remote-execution",
+      "value": "execution or import of code obtained from a branch, mutable URL, request body, message, or remote repository"
+    },
+    {
+      "id": "non-loopback-listener",
+      "value": "LAN, wildcard, public, relay, or cloud listener in the v1 attested profile"
+    },
+    {
+      "id": "remote-console",
+      "value": "shell, eval, arbitrary process execution, or unrestricted console semantics even when signed"
+    },
+    {
+      "id": "request-time-package-install",
+      "value": "auto-pip or any dependency installation during request handling"
+    },
+    {
+      "id": "unauthenticated-mutation",
+      "value": "any unauthenticated route or message that changes agents, packages, files, configuration, identity, keys, memory policy, or process state"
+    },
+    {
+      "id": "wildcard-cors",
+      "value": "Access-Control-Allow-Origin: *"
+    }
+  ],
+  "project": {
+    "candidate_tag": "v0.1.0-rc.1",
+    "candidate_version": "0.1.0rc1",
+    "final_release_sha": null,
+    "newly_authored_code_license": "MIT",
+    "pages_url": "https://kody-w.github.io/rapp-stack-cubby/",
+    "public_repository": "kody-w/rapp-stack-cubby",
+    "release_policy": "The public repository may contain reviewed source and reproducible artifacts only; private runtime state is never a release input.",
+    "release_status": "pending",
+    "repository_url": "https://github.com/kody-w/rapp-stack-cubby"
+  },
+  "protocol_pins": [
+    {
+      "commit": "0586678530bb16215f91104a11737bc69c6f0c48",
+      "commit_url": "https://github.com/kody-w/rapp-messaging/tree/0586678530bb16215f91104a11737bc69c6f0c48",
+      "evidence_urls": [
+        "https://github.com/kody-w/rapp-messaging/blob/0586678530bb16215f91104a11737bc69c6f0c48/SPEC.md",
+        "https://github.com/kody-w/rapp-messaging/blob/0586678530bb16215f91104a11737bc69c6f0c48/IMESSAGE.md",
+        "https://github.com/kody-w/rapp-messaging/blob/0586678530bb16215f91104a11737bc69c6f0c48/LICENSE"
+      ],
+      "id": "protocol-rapp-messaging",
+      "license": {
+        "file_url": "https://github.com/kody-w/rapp-messaging/blob/0586678530bb16215f91104a11737bc69c6f0c48/LICENSE",
+        "spdx": "MIT",
+        "status": "verified_root_license_at_pin"
+      },
+      "repository_url": "https://github.com/kody-w/rapp-messaging",
+      "role": "normative messaging trust and iMessage profile reference",
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "reference_only"
+      },
+      "verification": {
+        "status": "verified"
+      }
+    },
+    {
+      "commit": "44e0c6eb49d619932e645fb9d9b12a5fa37f71b1",
+      "commit_url": "https://github.com/kody-w/rapp-neighborhood-protocol/tree/44e0c6eb49d619932e645fb9d9b12a5fa37f71b1",
+      "evidence_urls": [
+        "https://github.com/kody-w/rapp-neighborhood-protocol/blob/44e0c6eb49d619932e645fb9d9b12a5fa37f71b1/NEIGHBORHOOD_PROTOCOL.md",
+        "https://github.com/kody-w/rapp-neighborhood-protocol/blob/44e0c6eb49d619932e645fb9d9b12a5fa37f71b1/LICENSE"
+      ],
+      "id": "protocol-rapp-neighborhood",
+      "license": {
+        "file_url": "https://github.com/kody-w/rapp-neighborhood-protocol/blob/44e0c6eb49d619932e645fb9d9b12a5fa37f71b1/LICENSE",
+        "spdx": "MIT",
+        "status": "verified_root_license_at_pin"
+      },
+      "repository_url": "https://github.com/kody-w/rapp-neighborhood-protocol",
+      "role": "normative twin-chat envelope and signed relay-wrapper reference",
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "reference_only"
+      },
+      "verification": {
+        "status": "verified"
+      }
+    }
+  ],
+  "runtime_pins": [
+    {
+      "commit": "29e49d04e830012494198d746734cb19bc6eea60",
+      "commit_url": "https://github.com/microsoft/aibast-agents-library/tree/29e49d04e830012494198d746734cb19bc6eea60",
+      "evidence_urls": [
+        "https://github.com/microsoft/aibast-agents-library/blob/29e49d04e830012494198d746734cb19bc6eea60/README.md",
+        "https://github.com/microsoft/aibast-agents-library/blob/29e49d04e830012494198d746734cb19bc6eea60/LICENSE"
+      ],
+      "id": "runtime-microsoft-aibast",
+      "license": {
+        "copyright": "Copyright (c) 2025 Microsoft",
+        "file_url": "https://github.com/microsoft/aibast-agents-library/blob/29e49d04e830012494198d746734cb19bc6eea60/LICENSE",
+        "spdx": "MIT",
+        "status": "verified_root_license_at_pin"
+      },
+      "repository_url": "https://github.com/microsoft/aibast-agents-library",
+      "role": "behavioral and license reference for the clean-room runtime; no source copied or adapted",
+      "vendoring_policy": {
+        "copy_source": false,
+        "endorsement_claim": false,
+        "policy": "reference_only"
+      },
+      "verification": {
+        "status": "verified"
+      }
+    }
+  ],
+  "schema": "rapp-stack-lock/1.0",
+  "source_pins": [
+    {
+      "commit": "dea78a9e9c493740575b03e443041ef5fbd2d463",
+      "commit_url": "https://github.com/openclaw/imsg/tree/dea78a9e9c493740575b03e443041ef5fbd2d463",
+      "evidence_urls": [
+        "https://github.com/openclaw/imsg/releases/download/v0.12.3/imsg-macos.zip",
+        "https://github.com/openclaw/imsg/blob/dea78a9e9c493740575b03e443041ef5fbd2d463/LICENSE"
+      ],
+      "id": "dependency-imsg",
+      "license": {
+        "blob": "0ae0cb57d8c6c1417f796b39fc0d6a7f2f7c5c39",
+        "copyright": "Copyright (c) 2026 Peter Steinberger",
+        "file_url": "https://github.com/openclaw/imsg/blob/dea78a9e9c493740575b03e443041ef5fbd2d463/LICENSE",
+        "spdx": "MIT",
+        "status": "verified_blob_at_peeled_source_commit"
+      },
+      "repository_url": "https://github.com/openclaw/imsg",
+      "role": "pinned signed macOS iMessage transport dependency",
+      "tag": {
+        "annotated_object": "76585a9e13a33534bec26d5478482efcc238f803",
+        "name": "v0.12.3",
+        "peeled_commit": "dea78a9e9c493740575b03e443041ef5fbd2d463"
+      },
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "install_verified_release_asset_only"
+      },
+      "verification": {
+        "archive_sha256": "35977a22e9721440acf9f5b945d67034939948ba4fa4ea46b0f55d527f24d4f2",
+        "status": "verified_source_release_hash_license_signer_architectures_layout"
+      }
+    },
+    {
+      "commit": "5fbde1776a72715935c3d597a9ddfce28a04032b",
+      "commit_url": "https://github.com/kody-w/rapp-installer/tree/5fbde1776a72715935c3d597a9ddfce28a04032b",
+      "evidence_urls": [
+        "https://github.com/kody-w/rapp-installer/blob/5fbde1776a72715935c3d597a9ddfce28a04032b/rapp_brainstem/VERSION",
+        "https://github.com/kody-w/rapp-installer/blob/5fbde1776a72715935c3d597a9ddfce28a04032b/.github/workflows/preflight.yml"
+      ],
+      "id": "pointer-rapp-installer",
+      "license": {
+        "file_url": null,
+        "spdx": null,
+        "status": "root_license_absent_at_pin"
+      },
+      "repository_url": "https://github.com/kody-w/rapp-installer",
+      "role": "grail pointer and behavioral authority only",
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "never_vendor",
+        "reason": "The pinned root has no LICENSE; behavioral authority is not source permission."
+      },
+      "verification": {
+        "status": "verified"
+      },
+      "version": "0.6.16"
+    },
+    {
+      "commit": "7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "commit_url": "https://github.com/kody-w/openrappter/tree/7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a",
+      "evidence_urls": [
+        "https://github.com/kody-w/openrappter/blob/7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a/README.md",
+        "https://github.com/kody-w/openrappter/blob/7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a/LICENSE"
+      ],
+      "id": "reference-openrappter",
+      "license": {
+        "file_url": "https://github.com/kody-w/openrappter/blob/7b6dbca2cf23f3a21dacc604d2bda34e7e13cd6a/LICENSE",
+        "spdx": "MIT",
+        "status": "verified_root_license_at_pin"
+      },
+      "repository_url": "https://github.com/kody-w/openrappter",
+      "role": "secondary implementation and initial iMessage reference only",
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "reference_only_pending_per_file_review"
+      },
+      "verification": {
+        "status": "verified"
+      }
+    },
+    {
+      "commit": "32f1932f4213ed92dd867325b410f59be535ba19",
+      "commit_url": "https://github.com/kody-w/RAPP/tree/32f1932f4213ed92dd867325b410f59be535ba19",
+      "evidence_urls": [
+        "https://github.com/kody-w/RAPP/blob/32f1932f4213ed92dd867325b410f59be535ba19/README.md",
+        "https://github.com/kody-w/RAPP/blob/32f1932f4213ed92dd867325b410f59be535ba19/pages/docs/rapplication-sdk.md"
+      ],
+      "id": "reference-rapp",
+      "license": {
+        "file_url": null,
+        "spdx": null,
+        "status": "mixed_repository_requires_per_file_review"
+      },
+      "repository_url": "https://github.com/kody-w/RAPP",
+      "role": "secondary implementation and artifact-contract reference only",
+      "vendoring_policy": {
+        "copy_source": false,
+        "policy": "reference_only",
+        "reason": "Only directly owner-authored and separately reviewed material could ever be considered; third-party, forked, copied, generated, and differently licensed material remains excluded."
+      },
+      "verification": {
+        "status": "verified_reference_only"
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "build_blocking": true,
+      "id": "final-release-sha",
+      "required_value": "immutable 40-hex commit for the released public tree",
+      "status": "unresolved"
+    },
+    {
+      "build_blocking": true,
+      "id": "live-enrollment-publication-proof",
+      "required_value": "owner-only live enrollment plus published Pages/release asset and downloaded-byte equality proof",
+      "status": "unresolved"
+    },
+    {
+      "build_blocking": true,
+      "id": "publication-scan",
+      "required_value": "signed zero-finding candidate receipt included with prerelease, then a second signed zero-finding final receipt covering public redownload and completed Actions logs",
+      "status": "unresolved"
+    },
+    {
+      "build_blocking": true,
+      "id": "public-end-to-end-attestation",
+      "required_value": "passing public live-provider/iMessage supported-host receipt for the same publicly redownloaded arm64 macOS/Python 3.11 commit; offline local attestation is already implemented",
+      "status": "unresolved"
+    }
+  ]
+}

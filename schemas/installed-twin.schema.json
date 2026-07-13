@@ -1,0 +1,199 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "file": {
+      "additionalProperties": true,
+      "properties": {
+        "mode": {
+          "pattern": "^[0-7]{4}$",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "$ref": "#/$defs/digest"
+        },
+        "size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "type": {
+          "enum": [
+            "directory",
+            "file",
+            "symlink"
+          ]
+        }
+      },
+      "required": [
+        "mode",
+        "path",
+        "type"
+      ],
+      "type": "object"
+    },
+    "rappid": {
+      "pattern": "^rappid:@[a-z0-9][a-z0-9-]{0,62}/[a-z0-9][a-z0-9-]{0,62}:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:installed-twin:1.1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_catalog_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "application_manifest_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "archive_files": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "type": "array"
+    },
+    "artifact_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "dependency_versions": {
+      "type": "object"
+    },
+    "distributions": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/file"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "identity_hash": {
+      "$ref": "#/$defs/digest"
+    },
+    "imsg": {
+      "type": "object"
+    },
+    "instance_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "isolation": {
+      "type": "object"
+    },
+    "immutable_inventory": {
+      "additionalProperties": false,
+      "properties": {
+        "excluded_self_records": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "record_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/file"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "root_mode": {
+          "pattern": "^[0-7]{4}$",
+          "type": "string"
+        },
+        "scopes": {
+          "additionalProperties": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "type": "object"
+        },
+        "sha256": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "required": [
+        "excluded_self_records",
+        "record_count",
+        "records",
+        "root_mode",
+        "scopes",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "product_rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "python": {
+      "type": "object"
+    },
+    "rappid": {
+      "$ref": "#/$defs/rappid"
+    },
+    "release_verification": {
+      "type": "object"
+    },
+    "requirements": {
+      "$ref": "#/$defs/file"
+    },
+    "schema": {
+      "const": "rapp-installed-twin/1.1"
+    },
+    "source_revision": {
+      "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+      "type": "string"
+    },
+    "source_tree_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "started": {
+      "const": false
+    },
+    "streamable_agent_count": {
+      "const": 0
+    },
+    "test_only_environment": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema",
+    "rappid",
+    "instance_rappid",
+    "product_rappid",
+    "identity_hash",
+    "source_revision",
+    "source_tree_digest",
+    "artifact_sha256",
+    "application_manifest_sha256",
+    "agent_catalog_sha256",
+    "dependency_versions",
+    "streamable_agent_count",
+    "started",
+    "isolation",
+    "immutable_inventory",
+    "files",
+    "archive_files",
+    "requirements",
+    "distributions",
+    "python",
+    "imsg",
+    "release_verification",
+    "test_only_environment"
+  ],
+  "title": "Private isolated installed-twin integrity manifest",
+  "type": "object"
+}

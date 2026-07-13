@@ -1,0 +1,364 @@
+name: Protected release candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing exact version tag (v0.1.0-rc.1)
+        required: true
+        type: string
+      commit:
+        description: Exact 40-hex commit peeled from the tag
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: protected-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    environment:
+      name: release
+    runs-on: macos-15
+    timeout-minutes: 90
+    permissions:
+      attestations: write
+      checks: read
+      contents: write
+      id-token: write
+    steps:
+      - name: Bind dispatch to the exact tag and attestation commit
+        id: inputs
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          INPUT_COMMIT: ${{ inputs.commit }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          test "${INPUT_TAG}" = "v0.1.0-rc.1"
+          case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
+          test "${#INPUT_COMMIT}" -eq 40
+          test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"
+          test "${DISPATCH_SHA}" = "${INPUT_COMMIT}"
+          printf 'tag=%s\ncommit=%s\n' "${INPUT_TAG}" "${INPUT_COMMIT}" \
+            >> "${GITHUB_OUTPUT}"
+      - name: Check out only the validated exact commit
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ steps.inputs.outputs.commit }}
+      - name: Establish protected-main and remote-tag trust before source execution
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          test "${DISPATCH_REF}" = "refs/tags/${RELEASE_TAG}"
+          test "${DISPATCH_SHA}" = "${RELEASE_COMMIT}"
+          test "$(git rev-parse HEAD)" = "${RELEASE_COMMIT}"
+          git fetch --quiet --no-tags origin main
+          MAIN_COMMIT="$(git rev-parse FETCH_HEAD)"
+          git merge-base --is-ancestor "${RELEASE_COMMIT}" "${MAIN_COMMIT}"
+          REMOTE_TAGS="$(git ls-remote --exit-code origin \
+            "refs/tags/${RELEASE_TAG}" "refs/tags/${RELEASE_TAG}^{}")"
+          DIRECT="$(printf '%s\n' "${REMOTE_TAGS}" | awk \
+            -v ref="refs/tags/${RELEASE_TAG}" '$2 == ref {print $1}')"
+          PEELED="$(printf '%s\n' "${REMOTE_TAGS}" | awk \
+            -v ref="refs/tags/${RELEASE_TAG}^{}" '$2 == ref {print $1}')"
+          test "${PEELED:-${DIRECT}}" = "${RELEASE_COMMIT}"
+          git fetch --quiet --no-tags origin "refs/tags/${RELEASE_TAG}"
+          test "$(git rev-parse 'FETCH_HEAD^{commit}')" = "${RELEASE_COMMIT}"
+      - name: Authorize exact commit before source execution
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" \
+            >/dev/null 2>&1; then
+            echo "error: release already exists" >&2
+            exit 2
+          fi
+          SUCCESS_COUNT="$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/commits/${RELEASE_COMMIT}/check-runs" \
+            --jq '[.check_runs[] | select(.name == "verify" and .conclusion == "success" and .app.slug == "github-actions")] | length')"
+          case "${SUCCESS_COUNT}" in *[!0-9]*|'') exit 2 ;; esac
+          test "${SUCCESS_COUNT}" -gt 0
+          gh api -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/immutable_releases/enforcement" \
+            >/dev/null
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.11.9"
+      - name: Validate locked runner toolchain
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+        run: scripts/check-toolchain.sh
+      - name: Install exact CI wheels
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          --only-binary=:all: --require-hashes -r requirements-ci.lock
+      - name: Revalidate exact tag before repository source gates
+        env:
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          test "$(git rev-parse HEAD)" = "${RELEASE_COMMIT}"
+          PYTHON="$(command -v python)" \
+            scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Run every source and Pages gate
+        run: |
+          PYTHON="$(command -v python)" scripts/context-check.sh
+          PYTHON="$(command -v python)" scripts/check.sh
+          PYTHON="$(command -v python)" scripts/pages-check.sh
+      - name: Fetch only locked release inputs
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RAPP_DEPENDENCY_CACHE: ${{ runner.temp }}/rapp-cache
+        run: scripts/fetch-dependencies.sh
+      - name: Materialize the protected environment signer
+        env:
+          RELEASE_SIGNING_KEY: ${{ secrets.RAPP_RELEASE_SIGNING_KEY_PEM }}
+        run: |
+          test -n "${RELEASE_SIGNING_KEY}"
+          KEY_PATH="${RUNNER_TEMP}/release-signing-key.pem"
+          export KEY_PATH
+          umask 077
+          python -c 'import os,pathlib; pathlib.Path(os.environ["KEY_PATH"]).write_text(os.environ["RELEASE_SIGNING_KEY"], encoding="ascii")'
+          printf 'RAPP_RELEASE_SIGNING_KEY=%s\n' "${KEY_PATH}" >> "${GITHUB_ENV}"
+      - name: Build signed assets twice with the protected signer
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RAPP_DEPENDENCY_CACHE: ${{ runner.temp }}/rapp-cache
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+        run: |
+          export RAPP_SOURCE_REVISION="${RELEASE_COMMIT}"
+          SOURCE_DATE_EPOCH="$(git show -s --format=%ct "${RELEASE_COMMIT}")"
+          export SOURCE_DATE_EPOCH
+          RAPP_BUILD_OUTPUT="${RUNNER_TEMP}/build-one" scripts/build-release.sh
+          RAPP_BUILD_OUTPUT="${RUNNER_TEMP}/build-two" scripts/build-release.sh
+          diff -rq "${RUNNER_TEMP}/build-one" "${RUNNER_TEMP}/build-two"
+      - name: Verify signed candidate with pinned public trust
+        env:
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+        run: |
+          MANIFEST_SHA="$(shasum -a 256 "${RUNNER_TEMP}/build-one/release-manifest.json" | awk '{print $1}')"
+          EGG_SHA="$(shasum -a 256 "${RUNNER_TEMP}/build-one/rapp-stack-cubby.egg" | awk '{print $1}')"
+          PYTHONPATH=src python -m rapp_stack_cubby verify-release \
+            --release-manifest "${RUNNER_TEMP}/build-one/release-manifest.json" \
+            --release-manifest-sha256 "${MANIFEST_SHA}" \
+            --trust RELEASE_TRUST.json \
+            --signature "${RUNNER_TEMP}/build-one/release-manifest.json.sig" \
+            --checksums "${RUNNER_TEMP}/build-one/SHA256SUMS" \
+            --source-root .
+          PYTHONPATH=src python -m rapp_stack_cubby verify-artifact \
+            --artifact "${RUNNER_TEMP}/build-one/rapp-stack-cubby.egg" \
+            --sha256 "${EGG_SHA}"
+          PYTHONPATH=src python -m rapp_stack_cubby verify-artifact \
+            --artifact "${RUNNER_TEMP}/build-one/rapp-stack-cubby-store.zip"
+          printf 'MANIFEST_SHA=%s\nEGG_SHA=%s\n' "${MANIFEST_SHA}" "${EGG_SHA}" \
+            >> "${GITHUB_ENV}"
+      - name: Temporary offline hatch and installed verification
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RAPP_EGG: ${{ runner.temp }}/build-one/rapp-stack-cubby.egg
+          RAPP_EGG_SHA256: ${{ env.EGG_SHA }}
+          RAPP_INSTALL_ROOT: ${{ runner.temp }}/release-hatch
+          RAPP_RELEASE_MANIFEST: ${{ runner.temp }}/build-one/release-manifest.json
+          RAPP_RELEASE_MANIFEST_SHA256: ${{ env.MANIFEST_SHA }}
+          RAPP_RELEASE_TRUST: ${{ github.workspace }}/RELEASE_TRUST.json
+        run: |
+          scripts/hatch.sh
+          PYTHONPATH=src python -m rapp_stack_cubby verify-install \
+            --install-root "${RAPP_INSTALL_ROOT}"
+      - name: Prove installed bytes through signed offline attestation child
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RAPP_INSTALL_ROOT: ${{ runner.temp }}/release-hatch
+        run: |
+          scripts/attest-installed-offline.sh \
+            "${PYTHON}" \
+            "${RAPP_INSTALL_ROOT}" \
+            "${RUNNER_TEMP}/offline-attestation-controller" \
+            "${RUNNER_TEMP}/offline-attestation-receipt.json"
+          python - "${RUNNER_TEMP}/offline-attestation-receipt.json" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          value = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          assert value["verified"] is True
+          assert value["signed_only"] is True
+          assert value["orphan_count"] == 0
+          assert value["imessage_sent"] is False
+          PY
+      - name: Scan exact candidate source history Pages and assets
+        env:
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+        run: |
+          SCAN_TIMESTAMP="$(python - "${RELEASE_COMMIT}" <<'PY'
+          import datetime
+          import subprocess
+          import sys
+          epoch = int(subprocess.check_output(
+              ["git", "show", "-s", "--format=%ct", sys.argv[1]], text=True
+          ))
+          print(datetime.datetime.fromtimestamp(
+              epoch, datetime.UTC
+          ).strftime("%Y-%m-%dT%H:%M:%SZ"))
+          PY
+          )"
+          scripts/scan-publication.sh \
+            --phase candidate \
+            --pages "${GITHUB_WORKSPACE}/docs" \
+            --release-assets "${RUNNER_TEMP}/build-one" \
+            --timestamp "${SCAN_TIMESTAMP}" \
+            --output "${RUNNER_TEMP}/candidate-publication-scan.json" \
+            --signing-key "${RAPP_RELEASE_SIGNING_KEY}" \
+            --signing-trust "${GITHUB_WORKSPACE}/RELEASE_TRUST.json" \
+            --signature-output "${RUNNER_TEMP}/candidate-publication-scan.json.sig"
+          scripts/verify-publication-scan.sh \
+            --receipt "${RUNNER_TEMP}/candidate-publication-scan.json" \
+            --phase candidate \
+            --signature "${RUNNER_TEMP}/candidate-publication-scan.json.sig" \
+            --trust "${GITHUB_WORKSPACE}/RELEASE_TRUST.json" \
+            --source-commit "${RELEASE_COMMIT}"
+          cp "${RUNNER_TEMP}/candidate-publication-scan.json" \
+            "${RUNNER_TEMP}/build-one/candidate-publication-scan.json"
+          cp "${RUNNER_TEMP}/candidate-publication-scan.json.sig" \
+            "${RUNNER_TEMP}/build-one/candidate-publication-scan.json.sig"
+      - name: Enforce candidate lock gate against signed scanner source
+        env:
+          RAPP_PUBLICATION_SCAN_RECEIPT: ${{ runner.temp }}/candidate-publication-scan.json
+          RAPP_PUBLICATION_SCAN_SIGNATURE: ${{ runner.temp }}/candidate-publication-scan.json.sig
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          PYTHON="$(command -v python)" \
+            scripts/prepare-release.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}" candidate
+      - name: Attest each explicit candidate release asset
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: |
+            ${{ runner.temp }}/build-one/SBOM.spdx.json
+            ${{ runner.temp }}/build-one/SHA256SUMS
+            ${{ runner.temp }}/build-one/candidate-publication-scan.json
+            ${{ runner.temp }}/build-one/candidate-publication-scan.json.sig
+            ${{ runner.temp }}/build-one/rapp-stack-cubby-store.zip
+            ${{ runner.temp }}/build-one/rapp-stack-cubby.egg
+            ${{ runner.temp }}/build-one/rapp-super-rar.json
+            ${{ runner.temp }}/build-one/release-manifest.json
+            ${{ runner.temp }}/build-one/release-manifest.json.sig
+            ${{ runner.temp }}/build-one/release-provenance.json
+            ${{ runner.temp }}/build-one/store-index.json
+      - name: Stage all assets then publish unchanged protected prerelease
+        id: create
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          PYTHON="$(command -v python)" \
+            scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" \
+            >/dev/null 2>&1; then
+            echo "error: release appeared during build" >&2
+            exit 2
+          fi
+          gh release create "${RELEASE_TAG}" \
+            "${RUNNER_TEMP}/build-one/SBOM.spdx.json" \
+            "${RUNNER_TEMP}/build-one/SHA256SUMS" \
+            "${RUNNER_TEMP}/build-one/candidate-publication-scan.json" \
+            "${RUNNER_TEMP}/build-one/candidate-publication-scan.json.sig" \
+            "${RUNNER_TEMP}/build-one/rapp-stack-cubby-store.zip" \
+            "${RUNNER_TEMP}/build-one/rapp-stack-cubby.egg" \
+            "${RUNNER_TEMP}/build-one/rapp-super-rar.json" \
+            "${RUNNER_TEMP}/build-one/release-manifest.json" \
+            "${RUNNER_TEMP}/build-one/release-manifest.json.sig" \
+            "${RUNNER_TEMP}/build-one/release-provenance.json" \
+            "${RUNNER_TEMP}/build-one/store-index.json" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --target "${RELEASE_COMMIT}" \
+            --verify-tag \
+            --draft \
+            --prerelease \
+            --title "RAPP Stack CUBBY ${RELEASE_TAG}" \
+            --notes-file CHANGELOG.md
+          gh release edit "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --draft=false \
+            --prerelease
+          printf 'created=true\n' >> "${GITHUB_OUTPUT}"
+      - name: Verify initial public candidate and create postflight receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          scripts/postflight-release.sh \
+            "${RELEASE_TAG}" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/build-one" \
+            "${RUNNER_TEMP}/public-download" \
+            "${RUNNER_TEMP}/postflight-evidence" \
+            "${RUNNER_TEMP}/candidate-attestations.json" \
+            "${RUNNER_TEMP}/postflight-success.json" \
+            candidate
+          PYTHONPATH=src python -m rapp_stack_cubby sign-evidence \
+            --artifact "${RUNNER_TEMP}/postflight-success.json" \
+            --signature "${RUNNER_TEMP}/postflight-success.json.sig" \
+            --signing-key "${RAPP_RELEASE_SIGNING_KEY}" \
+            --trust "${GITHUB_WORKSPACE}/RELEASE_TRUST.json"
+      - name: Attest explicit postflight evidence assets
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: |
+            ${{ runner.temp }}/postflight-success.json
+            ${{ runner.temp }}/postflight-success.json.sig
+      - name: Upload immutable candidate postflight evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          compression-level: 0
+          if-no-files-found: error
+          name: candidate-postflight-evidence
+          path: |
+            ${{ runner.temp }}/postflight-success.json
+            ${{ runner.temp }}/postflight-success.json.sig
+          retention-days: 90
+      - name: Recheck immutable release inventory and remote tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          gh api -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" |
+            python -c 'import json,sys; v=json.load(sys.stdin); expected={"SBOM.spdx.json","SHA256SUMS","candidate-publication-scan.json","candidate-publication-scan.json.sig","rapp-stack-cubby-store.zip","rapp-stack-cubby.egg","rapp-super-rar.json","release-manifest.json","release-manifest.json.sig","release-provenance.json","store-index.json"}; assert v["draft"] is False and v["prerelease"] is True and v["immutable"] is True and {a["name"] for a in v["assets"]} == expected'
+          PYTHON="$(command -v python)" \
+            scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Mark any created prerelease explicitly failed
+        if: ${{ failure() && steps.create.outputs.created == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          if gh release view "${RELEASE_TAG}" --repo "${GITHUB_REPOSITORY}" \
+            >/dev/null 2>&1; then
+            gh release edit "${RELEASE_TAG}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --prerelease \
+              --title "FAILED POSTFLIGHT: RAPP Stack CUBBY ${RELEASE_TAG}" \
+              --notes "FAILED POSTFLIGHT. Candidate failed a protected public-byte, trust, inventory, signature, or attestation gate. Do not promote or deploy Pages."
+          fi
+      - name: Remove protected signer material
+        if: ${{ always() }}
+        run: rm -f "${RUNNER_TEMP}/release-signing-key.pem"

@@ -1,0 +1,77 @@
+{
+  "$id": "urn:rapp:schema:product-demo-receipt:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attestation_mode": {
+      "const": "offline-self-test"
+    },
+    "attestation_model": {
+      "const": "attestation-self-test/1.0"
+    },
+    "cleanup_requested": {
+      "type": "boolean"
+    },
+    "failure_code": {
+      "anyOf": [
+        {
+          "const": "demo_failed"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "imessage_sent": {
+      "const": false
+    },
+    "installed_source_digest_matches": {
+      "type": "boolean"
+    },
+    "offline": {
+      "const": true
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "published": {
+      "const": false
+    },
+    "schema": {
+      "const": "rapp-product-demo-receipt/1.0"
+    },
+    "source_tree_digest": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stages": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "ok",
+    "offline",
+    "published",
+    "imessage_sent",
+    "attestation_mode",
+    "attestation_model",
+    "source_tree_digest",
+    "installed_source_digest_matches",
+    "stages",
+    "cleanup_requested",
+    "failure_code"
+  ],
+  "title": "Content-free local product demo receipt",
+  "type": "object"
+}

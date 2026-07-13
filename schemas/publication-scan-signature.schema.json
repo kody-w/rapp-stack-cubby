@@ -1,0 +1,39 @@
+{
+  "$id": "urn:rapp:schema:publication-scan-signature:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "algorithm": {
+      "const": "ecdsa-p256-sha256"
+    },
+    "artifact": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "key_id": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-publication-scan-signature/1.0"
+    },
+    "signature_der_base64": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "algorithm",
+    "artifact",
+    "artifact_sha256",
+    "key_id",
+    "signature_der_base64"
+  ],
+  "title": "Detached publication scan receipt signature",
+  "type": "object"
+}

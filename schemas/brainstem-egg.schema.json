@@ -1,0 +1,49 @@
+{
+  "$id": "urn:rapp:schema:brainstem-egg:2.3-cubby",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact": {
+      "type": "object"
+    },
+    "bundled_secrets": {
+      "const": false
+    },
+    "bundled_state": {
+      "const": false
+    },
+    "files": {
+      "items": {
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "identity": {
+      "pattern": "^rappid:@kody-w/rapp-stack-cubby:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "profile": {
+      "type": "object"
+    },
+    "schema": {
+      "const": "brainstem-egg/2.3-cubby"
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:rc[0-9]+)?$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "identity",
+    "artifact",
+    "profile",
+    "bundled_state",
+    "bundled_secrets",
+    "files",
+    "version"
+  ],
+  "title": "Verified offline cubby egg",
+  "type": "object"
+}

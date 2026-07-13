@@ -1,0 +1,362 @@
+name: Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      release_stage:
+        description: Exact release publication stage
+        required: true
+        type: choice
+        options:
+          - final
+      release_tag:
+        description: Exact promoted release tag
+        required: true
+        type: string
+      release_commit:
+        description: Exact 40-hex commit peeled from the release tag
+        required: true
+        type: string
+      release_manifest_sha256:
+        description: Externally recorded SHA-256 of release-manifest.json
+        required: true
+        type: string
+      promotion_receipt_sha256:
+        description: Externally recorded SHA-256 of promotion-receipt.json
+        required: true
+        type: string
+      promotion_run_id:
+        description: Completed protected promotion workflow run ID
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  policy:
+    runs-on: macos-15
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      commit: ${{ steps.policy.outputs.commit }}
+      manifest_sha256: ${{ steps.policy.outputs.manifest_sha256 }}
+      mode: ${{ steps.policy.outputs.mode }}
+      promotion_sha256: ${{ steps.policy.outputs.promotion_sha256 }}
+      promotion_run_id: ${{ steps.policy.outputs.promotion_run_id }}
+      publish: ${{ steps.policy.outputs.publish }}
+      tag: ${{ steps.policy.outputs.tag }}
+    steps:
+      - name: Validate exact final dispatch before token use
+        id: inputs
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_COMMIT: ${{ inputs.release_commit }}
+          INPUT_MANIFEST_SHA256: ${{ inputs.release_manifest_sha256 }}
+          INPUT_PROMOTION_SHA256: ${{ inputs.promotion_receipt_sha256 }}
+          INPUT_PROMOTION_RUN_ID: ${{ inputs.promotion_run_id }}
+          INPUT_STAGE: ${{ inputs.release_stage }}
+          INPUT_TAG: ${{ inputs.release_tag }}
+        run: |
+          if [ "${EVENT_NAME}" = "workflow_dispatch" ]; then
+            test "${INPUT_STAGE}" = "final"
+            case "${INPUT_TAG}" in v*) ;; *) exit 2 ;; esac
+            case "${INPUT_TAG}" in *[!A-Za-z0-9.-]*) exit 2 ;; esac
+            case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
+            case "${INPUT_MANIFEST_SHA256}" in *[!0-9a-f]*|'') exit 2 ;; esac
+            case "${INPUT_PROMOTION_SHA256}" in *[!0-9a-f]*|'') exit 2 ;; esac
+            case "${INPUT_PROMOTION_RUN_ID}" in *[!0-9]*|'') exit 2 ;; esac
+            test "${#INPUT_COMMIT}" -eq 40
+            test "${#INPUT_MANIFEST_SHA256}" -eq 64
+            test "${#INPUT_PROMOTION_SHA256}" -eq 64
+            test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"
+            test "${DISPATCH_SHA}" = "${INPUT_COMMIT}"
+            printf 'tag=%s\ncommit=%s\nmanifest_sha256=%s\npromotion_sha256=%s\npromotion_run_id=%s\n' \
+              "${INPUT_TAG}" "${INPUT_COMMIT}" "${INPUT_MANIFEST_SHA256}" \
+              "${INPUT_PROMOTION_SHA256}" "${INPUT_PROMOTION_RUN_ID}" \
+              >> "${GITHUB_OUTPUT}"
+          fi
+      - name: Require the completed successful protected promotion run
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROMOTION_COMMIT: ${{ steps.inputs.outputs.commit }}
+          PROMOTION_RUN_ID: ${{ steps.inputs.outputs.promotion_run_id }}
+        run: |
+          ATTEMPTS=0
+          while [ "${ATTEMPTS}" -lt 60 ]; do
+            RUN_JSON="$(gh run view "${PROMOTION_RUN_ID}" \
+              --repo "${GITHUB_REPOSITORY}" \
+              --json conclusion,event,headSha,status,workflowName)"
+            STATUS="$(printf '%s' "${RUN_JSON}" | python -c 'import json,sys; print(json.load(sys.stdin)["status"])')"
+            [ "${STATUS}" = completed ] && break
+            ATTEMPTS=$((ATTEMPTS + 1))
+            sleep 5
+          done
+          printf '%s' "${RUN_JSON}" |
+            python -c 'import json,sys; v=json.load(sys.stdin); assert v["status"]=="completed" and v["conclusion"]=="success" and v["event"]=="workflow_dispatch" and v["headSha"]==sys.argv[1] and v["workflowName"]=="Protected final promotion"' \
+              "${PROMOTION_COMMIT}"
+      - name: Preserve a released site on normal main pushes
+        id: release-policy
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RELEASE_COUNT="$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+            --jq '[.[] | select(.draft == false and (.prerelease == false or ((.name // "") | startswith("PROMOTED:"))))] | length')"
+          case "${RELEASE_COUNT}" in *[!0-9]*|'') exit 2 ;; esac
+          if [ "${RELEASE_COUNT}" -eq 0 ]; then
+            printf 'publish=true\nmode=pending\n' >> "${GITHUB_OUTPUT}"
+          else
+            printf 'publish=false\nmode=preserve\n' >> "${GITHUB_OUTPUT}"
+            echo "A final public release exists; preserving the trusted released site. Use exact-tag promotion to update it."
+          fi
+      - name: Select validated publication policy
+        id: policy
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_COMMIT: ${{ steps.inputs.outputs.commit }}
+          INPUT_MANIFEST_SHA256: ${{ steps.inputs.outputs.manifest_sha256 }}
+          INPUT_PROMOTION_SHA256: ${{ steps.inputs.outputs.promotion_sha256 }}
+          INPUT_PROMOTION_RUN_ID: ${{ steps.inputs.outputs.promotion_run_id }}
+          INPUT_TAG: ${{ steps.inputs.outputs.tag }}
+          PUSH_COMMIT: ${{ github.sha }}
+          PUSH_MODE: ${{ steps.release-policy.outputs.mode }}
+          PUSH_PUBLISH: ${{ steps.release-policy.outputs.publish }}
+        run: |
+          if [ "${EVENT_NAME}" = "workflow_dispatch" ]; then
+            printf 'publish=true\nmode=final\ntag=%s\ncommit=%s\nmanifest_sha256=%s\npromotion_sha256=%s\npromotion_run_id=%s\n' \
+              "${INPUT_TAG}" "${INPUT_COMMIT}" "${INPUT_MANIFEST_SHA256}" \
+              "${INPUT_PROMOTION_SHA256}" "${INPUT_PROMOTION_RUN_ID}" \
+              >> "${GITHUB_OUTPUT}"
+          else
+            printf 'publish=%s\nmode=%s\ncommit=%s\n' \
+              "${PUSH_PUBLISH}" "${PUSH_MODE}" "${PUSH_COMMIT}" \
+              >> "${GITHUB_OUTPUT}"
+          fi
+
+  build:
+    needs: policy
+    if: needs.policy.outputs.publish == 'true'
+    runs-on: macos-15
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      attestations: read
+      contents: read
+    steps:
+      - name: Check out selected exact source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ needs.policy.outputs.commit }}
+      - name: Establish exact promoted tag before source execution
+        if: needs.policy.outputs.mode == 'final'
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          RELEASE_COMMIT: ${{ needs.policy.outputs.commit }}
+          RELEASE_TAG: ${{ needs.policy.outputs.tag }}
+        run: |
+          test "${DISPATCH_REF}" = "refs/tags/${RELEASE_TAG}"
+          test "${DISPATCH_SHA}" = "${RELEASE_COMMIT}"
+          test "$(git rev-parse HEAD)" = "${RELEASE_COMMIT}"
+          git fetch --quiet --no-tags origin main
+          git merge-base --is-ancestor "${RELEASE_COMMIT}" FETCH_HEAD
+          scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.11.9"
+      - name: Validate locked runner toolchain
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+        run: scripts/check-toolchain.sh
+      - name: Install exact CI wheels
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          --only-binary=:all: --require-hashes -r requirements-ci.lock
+      - name: Run source checks
+        run: |
+          PYTHON="$(command -v python)" scripts/context-check.sh
+          PYTHON="$(command -v python)" scripts/check.sh
+      - name: Download exact completed promotion evidence
+        if: needs.policy.outputs.mode == 'final'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          github-token: ${{ github.token }}
+          name: final-promotion-evidence
+          path: ${{ runner.temp }}/promotion-evidence
+          repository: ${{ github.repository }}
+          run-id: ${{ needs.policy.outputs.promotion_run_id }}
+      - name: Download all public assets and exact release metadata
+        if: needs.policy.outputs.mode == 'final'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.policy.outputs.tag }}
+        run: |
+          mkdir -m 700 "${RUNNER_TEMP}/release-assets"
+          gh api -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" \
+            > "${RUNNER_TEMP}/release-metadata.json"
+          gh release download "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --dir "${RUNNER_TEMP}/release-assets"
+          mkdir -m 700 "${RUNNER_TEMP}/release-core"
+          cp "${RUNNER_TEMP}/release-assets/SBOM.spdx.json" "${RUNNER_TEMP}/release-core/SBOM.spdx.json"
+          cp "${RUNNER_TEMP}/release-assets/SHA256SUMS" "${RUNNER_TEMP}/release-core/SHA256SUMS"
+          cp "${RUNNER_TEMP}/release-assets/rapp-stack-cubby-store.zip" "${RUNNER_TEMP}/release-core/rapp-stack-cubby-store.zip"
+          cp "${RUNNER_TEMP}/release-assets/rapp-stack-cubby.egg" "${RUNNER_TEMP}/release-core/rapp-stack-cubby.egg"
+          cp "${RUNNER_TEMP}/release-assets/rapp-super-rar.json" "${RUNNER_TEMP}/release-core/rapp-super-rar.json"
+          cp "${RUNNER_TEMP}/release-assets/release-manifest.json" "${RUNNER_TEMP}/release-core/release-manifest.json"
+          cp "${RUNNER_TEMP}/release-assets/release-manifest.json.sig" "${RUNNER_TEMP}/release-core/release-manifest.json.sig"
+          cp "${RUNNER_TEMP}/release-assets/release-provenance.json" "${RUNNER_TEMP}/release-core/release-provenance.json"
+          cp "${RUNNER_TEMP}/release-assets/store-index.json" "${RUNNER_TEMP}/release-core/store-index.json"
+      - name: Verify release and promotion attestations
+        if: needs.policy.outputs.mode == 'final'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RELEASE_COMMIT: ${{ needs.policy.outputs.commit }}
+        run: |
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/release-core" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/core-attestation-evidence" \
+            "${RUNNER_TEMP}/github-attestation.json" \
+            core
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/release-assets" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/publication-attestation-evidence" \
+            "${RUNNER_TEMP}/publication-attestation.json" \
+            candidate
+          mkdir -m 700 "${RUNNER_TEMP}/postflight-attested-assets"
+          cp "${RUNNER_TEMP}/promotion-evidence/postflight-success.json" "${RUNNER_TEMP}/postflight-attested-assets/postflight-success.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/postflight-success.json.sig" "${RUNNER_TEMP}/postflight-attested-assets/postflight-success.json.sig"
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/postflight-attested-assets" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/postflight-attestation-evidence" \
+            "${RUNNER_TEMP}/postflight-attestation.json" \
+            postflight
+          mkdir -m 700 "${RUNNER_TEMP}/promotion-attested-assets"
+          cp "${RUNNER_TEMP}/promotion-evidence/final-publication-scan.json" "${RUNNER_TEMP}/promotion-attested-assets/final-publication-scan.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/final-publication-scan.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/final-publication-scan.json.sig"
+          cp "${RUNNER_TEMP}/promotion-evidence/live-proof-receipt.json" "${RUNNER_TEMP}/promotion-attested-assets/live-proof-receipt.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/live-proof-receipt.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/live-proof-receipt.json.sig"
+          cp "${RUNNER_TEMP}/promotion-evidence/promotion-receipt.json" "${RUNNER_TEMP}/promotion-attested-assets/promotion-receipt.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/promotion-receipt.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/promotion-receipt.json.sig"
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/promotion-attested-assets" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/promotion-attestation-evidence" \
+            "${RUNNER_TEMP}/promotion-attestation.json" \
+            promotion
+      - name: Build pending static site
+        if: needs.policy.outputs.mode == 'pending'
+        run: PYTHON="$(command -v python)" scripts/pages-build.sh
+      - name: Build final site through the complete promotion verifier
+        if: needs.policy.outputs.mode == 'final'
+        env:
+          MANIFEST_SHA256: ${{ needs.policy.outputs.manifest_sha256 }}
+          PROMOTION_SHA256: ${{ needs.policy.outputs.promotion_sha256 }}
+          PROMOTION_RUN_ID: ${{ needs.policy.outputs.promotion_run_id }}
+          RELEASE_TAG: ${{ needs.policy.outputs.tag }}
+        run: |
+          PYTHON="$(command -v python)" scripts/pages-build.sh --final \
+            --release-directory "${RUNNER_TEMP}/release-assets" \
+            --release-manifest "${RUNNER_TEMP}/release-assets/release-manifest.json" \
+            --release-manifest-sha256 "${MANIFEST_SHA256}" \
+            --release-signature "${RUNNER_TEMP}/release-assets/release-manifest.json.sig" \
+            --release-trust "${GITHUB_WORKSPACE}/RELEASE_TRUST.json" \
+            --checksums "${RUNNER_TEMP}/release-assets/SHA256SUMS" \
+            --source-root "${GITHUB_WORKSPACE}" \
+            --github-attestation "${RUNNER_TEMP}/github-attestation.json" \
+            --publication-attestation "${RUNNER_TEMP}/publication-attestation.json" \
+            --postflight-attestation "${RUNNER_TEMP}/postflight-attestation.json" \
+            --promotion-attestation "${RUNNER_TEMP}/promotion-attestation.json" \
+            --promotion-evidence-directory "${RUNNER_TEMP}/promotion-evidence" \
+            --promotion-run-id "${PROMOTION_RUN_ID}" \
+            --release-metadata "${RUNNER_TEMP}/release-metadata.json" \
+            --candidate-publication-scan "${RUNNER_TEMP}/release-assets/candidate-publication-scan.json" \
+            --candidate-publication-scan-signature "${RUNNER_TEMP}/release-assets/candidate-publication-scan.json.sig" \
+            --postflight-receipt "${RUNNER_TEMP}/promotion-evidence/postflight-success.json" \
+            --postflight-signature "${RUNNER_TEMP}/promotion-evidence/postflight-success.json.sig" \
+            --promotion-receipt-sha256 "${PROMOTION_SHA256}" \
+            --release-tag "${RELEASE_TAG}"
+      - name: Check pending static site
+        if: needs.policy.outputs.mode == 'pending'
+        run: PYTHON="$(command -v python)" scripts/pages-check.sh
+      - name: Check final static site through the complete promotion verifier
+        if: needs.policy.outputs.mode == 'final'
+        env:
+          MANIFEST_SHA256: ${{ needs.policy.outputs.manifest_sha256 }}
+          PROMOTION_SHA256: ${{ needs.policy.outputs.promotion_sha256 }}
+          RELEASE_COMMIT: ${{ needs.policy.outputs.commit }}
+          PROMOTION_RUN_ID: ${{ needs.policy.outputs.promotion_run_id }}
+          RELEASE_TAG: ${{ needs.policy.outputs.tag }}
+        run: |
+          PYTHON="$(command -v python)" scripts/pages-check.sh --final \
+            --release-directory "${RUNNER_TEMP}/release-assets" \
+            --release-manifest "${RUNNER_TEMP}/release-assets/release-manifest.json" \
+            --release-manifest-sha256 "${MANIFEST_SHA256}" \
+            --release-signature "${RUNNER_TEMP}/release-assets/release-manifest.json.sig" \
+            --release-trust "${GITHUB_WORKSPACE}/RELEASE_TRUST.json" \
+            --checksums "${RUNNER_TEMP}/release-assets/SHA256SUMS" \
+            --source-root "${GITHUB_WORKSPACE}" \
+            --github-attestation "${RUNNER_TEMP}/github-attestation.json" \
+            --publication-attestation "${RUNNER_TEMP}/publication-attestation.json" \
+            --postflight-attestation "${RUNNER_TEMP}/postflight-attestation.json" \
+            --promotion-attestation "${RUNNER_TEMP}/promotion-attestation.json" \
+            --promotion-evidence-directory "${RUNNER_TEMP}/promotion-evidence" \
+            --promotion-run-id "${PROMOTION_RUN_ID}" \
+            --release-metadata "${RUNNER_TEMP}/release-metadata.json" \
+            --candidate-publication-scan "${RUNNER_TEMP}/release-assets/candidate-publication-scan.json" \
+            --candidate-publication-scan-signature "${RUNNER_TEMP}/release-assets/candidate-publication-scan.json.sig" \
+            --postflight-receipt "${RUNNER_TEMP}/promotion-evidence/postflight-success.json" \
+            --postflight-signature "${RUNNER_TEMP}/promotion-evidence/postflight-success.json.sig" \
+            --promotion-receipt-sha256 "${PROMOTION_SHA256}" \
+            --release-tag "${RELEASE_TAG}"
+          scripts/resolve-release-tag.sh \
+            "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Verify exact Pages upload archive
+        run: |
+          gtar --format=ustar -cf "${RUNNER_TEMP}/pages-artifact.tar" -C docs .
+          PYTHON="$(command -v python)" scripts/pages-check.sh \
+            check-artifact --artifact "${RUNNER_TEMP}/pages-artifact.tar"
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Upload exact static inventory including .nojekyll
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          include-hidden-files: true
+          path: ./docs
+
+  deploy:
+    needs: build
+    runs-on: macos-15
+    timeout-minutes: 15
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy immutable Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

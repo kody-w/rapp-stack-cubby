@@ -1,0 +1,26 @@
+{
+  "$id": "urn:rapp:schema:copilot-token:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "access_token": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "type": "string"
+    },
+    "refresh_token": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "rapp-copilot-token/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "access_token"
+  ],
+  "title": "Private GitHub Copilot-compatible OAuth token file",
+  "type": "object"
+}

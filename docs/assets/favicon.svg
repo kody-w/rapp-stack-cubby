@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <title>RAPP Stack CUBBY mark</title>
+  <rect width="64" height="64" rx="14" fill="#101923"/>
+  <path d="M16 17h22c8 0 13 4 13 11 0 5-3 9-8 10l10 10H40L30 38h-4v10H16V17zm10 9v5h11c3 0 4-1 4-3s-1-2-4-2H26z" fill="#65e6c4"/>
+</svg>

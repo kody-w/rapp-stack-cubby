@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "sourceFile": {
+      "additionalProperties": false,
+      "properties": {
+        "executable": {
+          "type": "boolean"
+        },
+        "mode": {
+          "enum": [
+            "0644",
+            "0755"
+          ]
+        },
+        "path": {
+          "maxLength": 1024,
+          "not": {
+            "pattern": "(^/|(^|/)\\.\\.(/|$)|\\\\)"
+          },
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "size": {
+          "maximum": 33554432,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "executable",
+        "mode",
+        "path",
+        "sha256",
+        "size"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:source-release-manifest:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "exclusions": {
+      "additionalProperties": false,
+      "properties": {
+        "generated_release_assets": {
+          "const": true
+        },
+        "manifest_self": {
+          "const": "rapp-release-source-manifest.json"
+        },
+        "private_and_runtime_state": {
+          "const": true
+        },
+        "repository_metadata_and_caches": {
+          "const": true
+        }
+      },
+      "required": [
+        "generated_release_assets",
+        "manifest_self",
+        "private_and_runtime_state",
+        "repository_metadata_and_caches"
+      ],
+      "type": "object"
+    },
+    "file_count": {
+      "maximum": 20000,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "files": {
+      "items": {
+        "$ref": "#/$defs/sourceFile"
+      },
+      "maxItems": 20000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "repository_url": {
+      "const": "https://github.com/kody-w/rapp-stack-cubby.git"
+    },
+    "schema": {
+      "const": "rapp-release-source-manifest/1.0"
+    },
+    "source_tree_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "total_bytes": {
+      "maximum": 536870912,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "repository_url",
+    "source_tree_digest",
+    "file_count",
+    "total_bytes",
+    "exclusions",
+    "files"
+  ],
+  "title": "Self-excluding exact release source manifest",
+  "type": "object"
+}

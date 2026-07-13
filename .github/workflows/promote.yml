@@ -1,0 +1,303 @@
+name: Protected final promotion
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Exact successful candidate tag
+        required: true
+        type: string
+      commit:
+        description: Exact 40-hex candidate commit
+        required: true
+        type: string
+      live_proof_sha256:
+        description: SHA-256 of the sanitized signed live-proof receipt
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: protected-promotion
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    environment:
+      name: promotion
+    runs-on: macos-15
+    timeout-minutes: 90
+    permissions:
+      actions: write
+      attestations: write
+      contents: write
+      id-token: write
+    steps:
+      - name: Bind promotion dispatch to exact tag and commit
+        id: inputs
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          INPUT_COMMIT: ${{ inputs.commit }}
+          INPUT_LIVE_PROOF_SHA256: ${{ inputs.live_proof_sha256 }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          test "${INPUT_TAG}" = "v0.1.0-rc.1"
+          case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
+          case "${INPUT_LIVE_PROOF_SHA256}" in *[!0-9a-f]*|'') exit 2 ;; esac
+          test "${#INPUT_COMMIT}" -eq 40
+          test "${#INPUT_LIVE_PROOF_SHA256}" -eq 64
+          test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"
+          test "${DISPATCH_SHA}" = "${INPUT_COMMIT}"
+          printf 'tag=%s\ncommit=%s\nlive_proof_sha256=%s\n' \
+            "${INPUT_TAG}" "${INPUT_COMMIT}" "${INPUT_LIVE_PROOF_SHA256}" \
+            >> "${GITHUB_OUTPUT}"
+      - name: Check out exact candidate source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ steps.inputs.outputs.commit }}
+      - name: Rebind tag and protected main before source execution
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_SHA: ${{ github.sha }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          test "${DISPATCH_REF}" = "refs/tags/${RELEASE_TAG}"
+          test "${DISPATCH_SHA}" = "${RELEASE_COMMIT}"
+          test "$(git rev-parse HEAD)" = "${RELEASE_COMMIT}"
+          git fetch --quiet --no-tags origin main
+          git merge-base --is-ancestor "${RELEASE_COMMIT}" FETCH_HEAD
+          PYTHON="/usr/bin/python3" \
+            scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Set up exact Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.11.9"
+      - name: Validate locked runner toolchain
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+        run: scripts/check-toolchain.sh
+      - name: Install exact CI wheels
+        run: >-
+          python -m pip install --disable-pip-version-check --no-deps
+          --only-binary=:all: --require-hashes -r requirements-ci.lock
+      - name: Validate context and source
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+        run: |
+          scripts/context-check.sh
+          scripts/check.sh
+      - name: Materialize protected signer and sanitized live proof
+        env:
+          LIVE_PROOF_JSON: ${{ secrets.RAPP_LIVE_PROOF_RECEIPT_JSON }}
+          LIVE_PROOF_SIGNATURE_JSON: ${{ secrets.RAPP_LIVE_PROOF_SIGNATURE_JSON }}
+          RELEASE_SIGNING_KEY: ${{ secrets.RAPP_RELEASE_SIGNING_KEY_PEM }}
+        run: |
+          test -n "${LIVE_PROOF_JSON}"
+          test -n "${LIVE_PROOF_SIGNATURE_JSON}"
+          test -n "${RELEASE_SIGNING_KEY}"
+          export LIVE_PROOF_JSON LIVE_PROOF_SIGNATURE_JSON RELEASE_SIGNING_KEY
+          umask 077
+          python - <<'PY'
+          import os
+          import pathlib
+          root = pathlib.Path(os.environ["RUNNER_TEMP"])
+          (root / "release-signing-key.pem").write_text(
+              os.environ["RELEASE_SIGNING_KEY"], encoding="ascii"
+          )
+          (root / "live-proof-receipt.json").write_text(
+              os.environ["LIVE_PROOF_JSON"], encoding="utf-8"
+          )
+          (root / "live-proof-receipt.json.sig").write_text(
+              os.environ["LIVE_PROOF_SIGNATURE_JSON"], encoding="utf-8"
+          )
+          PY
+      - name: Download exact candidate postflight evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+        run: |
+          RELEASE_RUNS="$(
+            gh run list \
+              --repo "${GITHUB_REPOSITORY}" \
+              --workflow release.yml \
+              --commit "${RELEASE_COMMIT}" \
+              --status success \
+              --limit 10 \
+              --json databaseId,conclusion,headSha,status,workflowName
+          )"
+          RELEASE_RUN_ID="$(
+            printf '%s' "${RELEASE_RUNS}" |
+              python -c 'import json,sys; runs=json.load(sys.stdin); commit=sys.argv[1]; ids=[str(r["databaseId"]) for r in runs if r.get("headSha")==commit and r.get("status")=="completed" and r.get("conclusion")=="success" and r.get("workflowName")=="Protected release candidate"]; assert len(ids)==1; print(ids[0])' \
+                "${RELEASE_COMMIT}"
+          )"
+          mkdir -m 700 "${RUNNER_TEMP}/candidate-postflight"
+          gh run download "${RELEASE_RUN_ID}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --name candidate-postflight-evidence \
+            --dir "${RUNNER_TEMP}/candidate-postflight"
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/candidate-postflight" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/candidate-postflight-attestation-evidence" \
+            "${RUNNER_TEMP}/candidate-postflight-attestation.json" \
+            postflight
+      - name: Verify candidate live proof logs and prepare promotion evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+          LIVE_PROOF_SHA256: ${{ steps.inputs.outputs.live_proof_sha256 }}
+        run: |
+          MANIFEST_SHA="$(
+            gh api -H "Accept: application/octet-stream" \
+              "repos/${GITHUB_REPOSITORY}/releases/assets/$(
+                gh api -H "Accept: application/vnd.github+json" \
+                  "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" \
+                  --jq '.assets[] | select(.name == "release-manifest.json") | .id'
+              )" | shasum -a 256 | awk '{print $1}'
+          )"
+          scripts/promote-release.sh \
+            --tag "${RELEASE_TAG}" \
+            --commit "${RELEASE_COMMIT}" \
+            --release-manifest-sha256 "${MANIFEST_SHA}" \
+            --live-proof "${RUNNER_TEMP}/live-proof-receipt.json" \
+            --live-proof-signature "${RUNNER_TEMP}/live-proof-receipt.json.sig" \
+            --live-proof-sha256 "${LIVE_PROOF_SHA256}" \
+            --postflight-receipt "${RUNNER_TEMP}/candidate-postflight/postflight-success.json" \
+            --postflight-signature "${RUNNER_TEMP}/candidate-postflight/postflight-success.json.sig" \
+            --postflight-attestation "${RUNNER_TEMP}/candidate-postflight-attestation.json" \
+            --signing-key "${RUNNER_TEMP}/release-signing-key.pem" \
+            --candidate-dir "${RUNNER_TEMP}/candidate-assets" \
+            --redownload-dir "${RUNNER_TEMP}/public-redownload" \
+            --logs-dir "${RUNNER_TEMP}/release-logs" \
+            --output-dir "${RUNNER_TEMP}/promotion-evidence" \
+            --timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          printf 'MANIFEST_SHA=%s\n' "${MANIFEST_SHA}" >> "${GITHUB_ENV}"
+          PROMOTION_SHA="$(
+            shasum -a 256 "${RUNNER_TEMP}/promotion-evidence/promotion-receipt.json" |
+              awk '{print $1}'
+          )"
+          printf 'PROMOTION_SHA=%s\n' "${PROMOTION_SHA}" >> "${GITHUB_ENV}"
+      - name: Attest each explicit final promotion evidence asset
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: |
+            ${{ runner.temp }}/promotion-evidence/final-publication-scan.json
+            ${{ runner.temp }}/promotion-evidence/final-publication-scan.json.sig
+            ${{ runner.temp }}/promotion-evidence/live-proof-receipt.json
+            ${{ runner.temp }}/promotion-evidence/live-proof-receipt.json.sig
+            ${{ runner.temp }}/promotion-evidence/promotion-receipt.json
+            ${{ runner.temp }}/promotion-evidence/promotion-receipt.json.sig
+      - name: Upload exact immutable promotion evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          compression-level: 0
+          if-no-files-found: error
+          name: final-promotion-evidence
+          path: |
+            ${{ runner.temp }}/promotion-evidence/candidate-publication-scan.json
+            ${{ runner.temp }}/promotion-evidence/candidate-publication-scan.json.sig
+            ${{ runner.temp }}/promotion-evidence/final-publication-scan.json
+            ${{ runner.temp }}/promotion-evidence/final-publication-scan.json.sig
+            ${{ runner.temp }}/promotion-evidence/live-proof-receipt.json
+            ${{ runner.temp }}/promotion-evidence/live-proof-receipt.json.sig
+            ${{ runner.temp }}/promotion-evidence/postflight-success.json
+            ${{ runner.temp }}/promotion-evidence/postflight-success.json.sig
+            ${{ runner.temp }}/promotion-evidence/promotion-receipt.json
+            ${{ runner.temp }}/promotion-evidence/promotion-receipt.json.sig
+          retention-days: 90
+      - name: Verify exact final public inventory bytes and attestations
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          mkdir -m 700 "${RUNNER_TEMP}/final-assets"
+          gh release download "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --dir "${RUNNER_TEMP}/final-assets"
+          PYTHONPATH=src python - "${RUNNER_TEMP}/final-assets" \
+            "${RUNNER_TEMP}/candidate-assets" <<'PY'
+          import pathlib
+          import sys
+          from rapp_stack_cubby.promotion import (
+              FINAL_RELEASE_ASSETS,
+          )
+          final, candidate = map(pathlib.Path, sys.argv[1:])
+          if {item.name for item in final.iterdir()} != set(FINAL_RELEASE_ASSETS):
+              raise SystemExit("error: final remote release inventory is not exact")
+          for name in FINAL_RELEASE_ASSETS:
+              if (final / name).read_bytes() != (candidate / name).read_bytes():
+                  raise SystemExit(f"error: candidate asset changed: {name}")
+          PY
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/final-assets" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/final-attestation-evidence" \
+            "${RUNNER_TEMP}/final-attestation-result.json" \
+            candidate
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/candidate-postflight" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/postflight-attestation-evidence" \
+            "${RUNNER_TEMP}/postflight-attestation-result.json" \
+            postflight
+          mkdir -m 700 "${RUNNER_TEMP}/promotion-attested-assets"
+          cp "${RUNNER_TEMP}/promotion-evidence/final-publication-scan.json" "${RUNNER_TEMP}/promotion-attested-assets/final-publication-scan.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/final-publication-scan.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/final-publication-scan.json.sig"
+          cp "${RUNNER_TEMP}/promotion-evidence/live-proof-receipt.json" "${RUNNER_TEMP}/promotion-attested-assets/live-proof-receipt.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/live-proof-receipt.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/live-proof-receipt.json.sig"
+          cp "${RUNNER_TEMP}/promotion-evidence/promotion-receipt.json" "${RUNNER_TEMP}/promotion-attested-assets/promotion-receipt.json"
+          cp "${RUNNER_TEMP}/promotion-evidence/promotion-receipt.json.sig" "${RUNNER_TEMP}/promotion-attested-assets/promotion-receipt.json.sig"
+          scripts/verify-github-attestations.sh \
+            "${RUNNER_TEMP}/promotion-attested-assets" \
+            "${RELEASE_COMMIT}" \
+            "${RUNNER_TEMP}/promotion-attestation-evidence" \
+            "${RUNNER_TEMP}/promotion-attestation-result.json" \
+            promotion
+          PYTHONPATH=src python -m rapp_stack_cubby verify-promotion \
+            --evidence-directory "${RUNNER_TEMP}/promotion-evidence" \
+            --policy PUBLICATION_SCAN_POLICY.json \
+            --trust RELEASE_TRUST.json \
+            --tag "${RELEASE_TAG}" \
+            --commit "${RELEASE_COMMIT}" \
+            --live-proof-sha256 "${{ steps.inputs.outputs.live_proof_sha256 }}"
+      - name: Promote unchanged prerelease and dispatch trusted released Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ steps.inputs.outputs.commit }}
+          RELEASE_TAG: ${{ steps.inputs.outputs.tag }}
+        run: |
+          scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+          gh release edit "${RELEASE_TAG}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "PROMOTED: RAPP Stack CUBBY ${RELEASE_TAG}" \
+            --notes "Promoted after signed live proof, final publication scan, exact inventory, public-byte, signature, and GitHub attestation verification."
+          gh api -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" |
+            python -c 'import json,sys; v=json.load(sys.stdin); assert v["draft"] is False and v["prerelease"] is True and v["immutable"] is True and v["name"] == "PROMOTED: RAPP Stack CUBBY " + sys.argv[1] and v["tag_name"] == sys.argv[1] and v["target_commitish"] == sys.argv[2] and len(v["assets"]) == 11' \
+              "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+          scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+          gh workflow run pages.yml \
+            --repo "${GITHUB_REPOSITORY}" \
+            --ref "${RELEASE_TAG}" \
+            -f "release_stage=final" \
+            -f "release_tag=${RELEASE_TAG}" \
+            -f "release_commit=${RELEASE_COMMIT}" \
+            -f "release_manifest_sha256=${MANIFEST_SHA}" \
+            -f "promotion_receipt_sha256=${PROMOTION_SHA}" \
+            -f "promotion_run_id=${GITHUB_RUN_ID}"
+          scripts/resolve-release-tag.sh "${RELEASE_TAG}" "${RELEASE_COMMIT}"
+      - name: Remove protected material
+        if: ${{ always() }}
+        run: |
+          rm -f "${RUNNER_TEMP}/release-signing-key.pem"
+          rm -f "${RUNNER_TEMP}/live-proof-receipt.json"
+          rm -f "${RUNNER_TEMP}/live-proof-receipt.json.sig"

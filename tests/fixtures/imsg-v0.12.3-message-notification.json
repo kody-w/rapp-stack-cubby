@@ -1,0 +1,28 @@
+{
+  "jsonrpc": "2.0",
+  "method": "message",
+  "params": {
+    "message": {
+      "attachments": [],
+      "chat_guid": "iMessage;-;synthetic-owner-handle",
+      "chat_id": 42,
+      "chat_identifier": "synthetic-owner-handle",
+      "chat_name": "Synthetic Owner",
+      "created_at": "2026-07-12T20:00:00.000Z",
+      "destination_caller_id": "synthetic-owner@invalid.example",
+      "guid": "synthetic-v0123-message-guid",
+      "id": 314,
+      "is_from_me": true,
+      "is_group": false,
+      "participants": [
+        "synthetic-owner-handle"
+      ],
+      "reactions": [],
+      "sender": "synthetic-owner-handle",
+      "sender_name": "Synthetic Owner",
+      "service": "iMessage",
+      "text": "synthetic pinned payload turn"
+    },
+    "subscription": 7
+  }
+}

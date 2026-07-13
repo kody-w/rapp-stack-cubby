@@ -1,0 +1,49 @@
+# Python bytecode and tooling
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Environments and build output
+.venv/
+venv/
+build/
+dist/*
+!dist/.gitignore
+.check-cache/
+.test-*/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Runtime-private state
+/.rapp-stack-cubby/
+/runtime/
+/state/
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.journal
+*.log
+*.pid
+
+# Editors and operating systems
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

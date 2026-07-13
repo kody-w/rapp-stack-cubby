@@ -1,0 +1,258 @@
+{
+  "$defs": {
+    "repository": {
+      "additionalProperties": true,
+      "properties": {
+        "audit_shard": {
+          "maximum": 7,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "audited": {
+          "const": true
+        },
+        "classification": {
+          "enum": [
+            "A",
+            "C",
+            "I",
+            "L",
+            "U"
+          ]
+        },
+        "direct_evidence_note": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "current_head_sha": {
+          "oneOf": [
+            {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "current_observed_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "created_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "default_branch": {
+          "oneOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_head_sha": {
+          "oneOf": [
+            {
+              "pattern": "^[0-9a-f]{40}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_locators": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "evidence_release": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "evidence_scope": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "head_drift": {
+          "enum": [
+            "empty_repository",
+            "new_repository_inspected_at_current_head",
+            "observed_changed_since_evidence",
+            "post_window_drift",
+            "unchanged"
+          ]
+        },
+        "head_observed_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "private": {
+          "const": false
+        },
+        "primary_plane": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rapp_relevance": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "repository_id": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "sorted_index": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "topics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "visibility": {
+          "const": "public"
+        }
+      },
+      "required": [
+        "sorted_index",
+        "name",
+        "audit_shard",
+        "audited",
+        "classification",
+        "direct_evidence_note",
+        "evidence_locators",
+        "evidence_head_sha",
+        "current_head_sha",
+        "current_observed_at",
+        "head_observed_at",
+        "created_at",
+        "default_branch",
+        "head_drift",
+        "evidence_release",
+        "evidence_scope",
+        "primary_plane",
+        "private",
+        "rapp_relevance",
+        "repository_id",
+        "topics",
+        "visibility"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:source-census:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregates": {
+      "type": "object"
+    },
+    "antecedent_audit": {
+      "type": "object"
+    },
+    "audited_at": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "type": "string"
+    },
+    "classification_legend": {
+      "type": "object"
+    },
+    "existence_cutoff": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+      "type": "string"
+    },
+    "methodology": {
+      "type": "object"
+    },
+    "local_product": {
+      "type": "object"
+    },
+    "owner": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "observation_window": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_completed_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "capture_started_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "heads_started_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        },
+        "inventory_completed_at": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "capture_started_at",
+        "inventory_completed_at",
+        "heads_started_at",
+        "capture_completed_at"
+      ],
+      "type": "object"
+    },
+    "repositories": {
+      "items": {
+        "$ref": "#/$defs/repository"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "raw_inventory": {
+      "type": "object"
+    },
+    "repository_count": {
+      "const": 307
+    },
+    "schema": {
+      "const": "rapp-source-census/1.0"
+    },
+    "snapshot_comparison": {
+      "type": "object"
+    },
+    "snapshot_cutoff": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "owner",
+    "existence_cutoff",
+    "observation_window",
+    "audited_at",
+    "repository_count",
+    "snapshot_cutoff",
+    "antecedent_audit",
+    "local_product",
+    "raw_inventory",
+    "snapshot_comparison",
+    "methodology",
+    "classification_legend",
+    "aggregates",
+    "repositories"
+  ],
+  "title": "Direct public source census evidence",
+  "type": "object"
+}

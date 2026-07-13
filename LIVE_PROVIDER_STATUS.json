@@ -1,0 +1,13 @@
+{
+  "latency_ms": 3068,
+  "model": "gpt-5.4",
+  "response_shape": {
+    "completion_content_present": false,
+    "completion_finish_reason_present": true,
+    "completion_tool_calls": 0,
+    "initial_content_present": false,
+    "initial_tool_calls": 1
+  },
+  "schema": "rapp-live-provider-status/1.0",
+  "success": true
+}

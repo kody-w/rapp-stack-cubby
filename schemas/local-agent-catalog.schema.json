@@ -1,0 +1,123 @@
+{
+  "$defs": {
+    "agent": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "capability_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "description": {
+          "maxLength": 240,
+          "minLength": 1,
+          "type": "string"
+        },
+        "enabled_by_default": {
+          "type": "boolean"
+        },
+        "manifest_name": {
+          "type": "string"
+        },
+        "manifest_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "type": "string"
+        },
+        "mutability": {
+          "enum": [
+            "read_only",
+            "guarded_generated_files",
+            "guarded_local_state"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "provenance": {
+          "enum": [
+            "generated_local",
+            "original_new"
+          ]
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "tool_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "tool_name",
+        "manifest_name",
+        "manifest_version",
+        "description",
+        "actions",
+        "capability_ids",
+        "mutability",
+        "enabled_by_default",
+        "provenance",
+        "dependencies",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "urn:rapp:schema:local-agent-catalog:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_abi": {
+      "const": {
+        "decorated": false,
+        "signature": "def perform(self, **kwargs)",
+        "synchronous": true
+      }
+    },
+    "agent_count": {
+      "const": 12
+    },
+    "agents": {
+      "items": {
+        "$ref": "#/$defs/agent"
+      },
+      "maxItems": 12,
+      "minItems": 12,
+      "type": "array"
+    },
+    "aggregates": {
+      "type": "object"
+    },
+    "determinism": {
+      "type": "object"
+    },
+    "schema": {
+      "const": "rapp-local-agent-catalog/1.0"
+    }
+  },
+  "required": [
+    "schema",
+    "agent_abi",
+    "agent_count",
+    "agents",
+    "aggregates",
+    "determinism"
+  ],
+  "title": "Generated local actual-agent catalog",
+  "type": "object"
+}

@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:promotion-receipt:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "actions_logs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {"pattern": "^[0-9]+$", "type": "string"},
+          "sha256": {"$ref": "#/$defs/digest"},
+          "size": {"minimum": 1, "type": "integer"}
+        },
+        "required": ["run_id", "sha256", "size"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "candidate_publication_scan_sha256": {"$ref": "#/$defs/digest"},
+    "final_publication_scan_sha256": {"$ref": "#/$defs/digest"},
+    "live_proof_sha256": {"$ref": "#/$defs/digest"},
+    "new_source_commit": {"const": false},
+    "pages_target": {
+      "const": "https://kody-w.github.io/rapp-stack-cubby/"
+    },
+    "postflight_success_sha256": {"$ref": "#/$defs/digest"},
+    "promoted": {"const": true},
+    "release_assets_rebuilt": {"const": false},
+    "release_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "schema": {"const": "rapp-promotion-receipt/1.0"},
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "tag": {
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-rc\\.[1-9][0-9]*)?$",
+      "type": "string"
+    },
+    "timestamp": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "tag",
+    "source_commit",
+    "release_manifest_sha256",
+    "candidate_publication_scan_sha256",
+    "postflight_success_sha256",
+    "live_proof_sha256",
+    "final_publication_scan_sha256",
+    "actions_logs",
+    "pages_target",
+    "timestamp",
+    "promoted",
+    "new_source_commit",
+    "release_assets_rebuilt"
+  ],
+  "title": "Signed same-commit final promotion receipt",
+  "type": "object"
+}

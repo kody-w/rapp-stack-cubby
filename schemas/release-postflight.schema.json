@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "urn:rapp:schema:release-postflight:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asset_count": {
+      "const": 11
+    },
+    "bytes_equal": {
+      "const": true
+    },
+    "candidate_publication_scan_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "draft": {
+      "const": false
+    },
+    "failed_postflight": {
+      "const": false
+    },
+    "github_attestations_verified": {
+      "const": true
+    },
+    "immutable": {
+      "const": true
+    },
+    "prerelease": {
+      "const": true
+    },
+    "release_manifest_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "remote_inventory": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+        "type": "string"
+      },
+      "minItems": 11,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "remote_inventory_sha256": {
+      "$ref": "#/$defs/digest"
+    },
+    "schema": {
+      "const": "rapp-release-postflight/1.0"
+    },
+    "source_commit": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "tag": {
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+(?:-rc\\.[1-9][0-9]*)?$",
+      "type": "string"
+    },
+    "verified": {
+      "const": true
+    }
+  },
+  "required": [
+    "schema",
+    "tag",
+    "source_commit",
+    "release_manifest_sha256",
+    "candidate_publication_scan_sha256",
+    "asset_count",
+    "remote_inventory",
+    "remote_inventory_sha256",
+    "bytes_equal",
+    "github_attestations_verified",
+    "immutable",
+    "draft",
+    "prerelease",
+    "failed_postflight",
+    "verified"
+  ],
+  "title": "Signed public candidate postflight result",
+  "type": "object"
+}

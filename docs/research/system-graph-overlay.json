@@ -1,0 +1,2099 @@
+{
+  "canonical_end_to_end_paths": [
+    {
+      "id": "path:cloud-progression",
+      "name": "Cloud progression",
+      "ordered_edges": [
+        "edge:path:cloud:01",
+        "edge:path:cloud:02",
+        "edge:path:cloud:03",
+        "edge:path:cloud:04"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "artifact:rapp-application-1.0",
+        "runtime:azure-functions-body",
+        "runtime:dataverse-twin",
+        "runtime:m365-surface"
+      ],
+      "outcome": "A reviewed local application reaches Azure, Dataverse, and M365 without exporting private runtime state.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:disaster-recovery-offline-egg",
+      "name": "Disaster recovery / offline egg",
+      "ordered_edges": [
+        "edge:path:recovery:01",
+        "edge:path:recovery:02",
+        "edge:path:recovery:03"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:restored-isolated-twin",
+        "protocol:post-chat"
+      ],
+      "outcome": "An independently verified offline egg restores an isolated twin before replacement.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:fleet-coordination",
+      "name": "Fleet coordination",
+      "ordered_edges": [
+        "edge:path:fleet:01",
+        "edge:path:fleet:02",
+        "edge:path:fleet:03",
+        "edge:path:fleet:04"
+      ],
+      "ordered_nodes": [
+        "runtime:leviathan-controller",
+        "protocol:rapp-fleet-chat-1.0",
+        "runtime:leviathan-node",
+        "protocol:post-chat",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "A controller fans bounded signed operations to enrolled nodes and aggregates signed results.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:fresh-local-agent",
+      "name": "Fresh local agent",
+      "ordered_edges": [
+        "edge:path:fresh:01",
+        "edge:path:fresh:02",
+        "edge:path:fresh:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05",
+        "edge:path:fresh:06"
+      ],
+      "ordered_nodes": [
+        "repo:kody-w/RAR",
+        "artifact:single-file-agent",
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin",
+        "protocol:post-chat"
+      ],
+      "outcome": "A reviewed one-file agent becomes an independently discoverable local capability.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:global-brainstem-isolated-twin",
+      "name": "Global brainstem to isolated twin",
+      "ordered_edges": [
+        "edge:path:global:00",
+        "edge:path:global:00b",
+        "edge:path:global:01",
+        "edge:path:fresh:02",
+        "edge:path:fresh:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05"
+      ],
+      "ordered_nodes": [
+        "actor:local-owner",
+        "product:local/rapp-stack-cubby",
+        "runtime:global-controller",
+        "artifact:single-file-agent",
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "The authenticated local owner operates this product, whose controller builds and supervises a child with separate workspace, venv, identity, keys, and state.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:neighborhood-sharing",
+      "name": "Neighborhood sharing",
+      "ordered_edges": [
+        "edge:path:neighborhood:01",
+        "edge:path:neighborhood:02",
+        "edge:path:neighborhood:03",
+        "edge:path:neighborhood:04",
+        "edge:path:neighborhood:05"
+      ],
+      "ordered_nodes": [
+        "runtime:isolated-installed-twin",
+        "protocol:rapp-twin-chat-1.0",
+        "protocol:rapp-commons-event-1.0",
+        "network:neighborhood",
+        "runtime:resident-relay",
+        "runtime:neighborhood-peer"
+      ],
+      "outcome": "A signed event crosses an untrusted relay and is independently verified by an admitted peer.",
+      "scope": "mapped_reference_only"
+    },
+    {
+      "id": "path:owner-imessage-rapplication-reply",
+      "name": "Owner iMessage to rapplication to reply",
+      "ordered_edges": [
+        "edge:path:imessage:00",
+        "edge:path:imessage:01",
+        "edge:path:imessage:02",
+        "edge:path:imessage:03",
+        "edge:path:imessage:04",
+        "edge:path:imessage:05",
+        "edge:path:imessage:06",
+        "edge:path:imessage:07",
+        "edge:path:imessage:08"
+      ],
+      "ordered_nodes": [
+        "actor:local-owner",
+        "transport:imsg-json-rpc",
+        "runtime:imessage-adapter",
+        "protocol:rapp-commons-event-1.0",
+        "protocol:rapp-twin-chat-1.0",
+        "runtime:isolated-installed-twin",
+        "artifact:rapp-application-1.0",
+        "protocol:rapp-twin-chat-response-1.0",
+        "runtime:imessage-adapter",
+        "transport:imsg-json-rpc"
+      ],
+      "outcome": "One enrolled owner DM is rejected or becomes one durable signed request and one durable reply.",
+      "scope": "selected_target"
+    },
+    {
+      "id": "path:public-rapplication-publish-hatch",
+      "name": "Public rapplication publish / hatch",
+      "ordered_edges": [
+        "edge:path:publish:01",
+        "edge:path:publish:02",
+        "edge:path:publish:03",
+        "edge:path:fresh:04",
+        "edge:path:fresh:05"
+      ],
+      "ordered_nodes": [
+        "repo:kody-w/RAPP_Store",
+        "transport:github-pages",
+        "store:rapplication",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "runtime:isolated-installed-twin"
+      ],
+      "outcome": "Immutable public discovery leads to verified, contained, isolated local installation.",
+      "scope": "selected_target"
+    }
+  ],
+  "collisions": [
+    {
+      "id": "collision:agent-vs-skill",
+      "issue": "Host guidance and executable BasicAgents are both called agents/capabilities.",
+      "node_refs": [
+        "artifact:single-file-agent",
+        "repo:kody-w/rapp-claude-skills"
+      ],
+      "resolution": "Only ABI-conforming reviewed Python enters the agent manifest; skills remain host integration material."
+    },
+    {
+      "id": "collision:cubby-families",
+      "issue": "double-jump and lisppy use incompatible cubby schemas.",
+      "node_refs": [
+        "repo:kody-w/double-jump",
+        "repo:kody-w/lisppy",
+        "artifact:rapp-cubby-1.0"
+      ],
+      "resolution": "CUBBY defines one new exact profile and rejects both as implicit substitutes."
+    },
+    {
+      "id": "collision:cubby-rapplication-egg-cart",
+      "issue": "Four lifecycle stages are often flattened into one cartridge/egg concept.",
+      "node_refs": [
+        "artifact:rapp-cubby-1.0",
+        "artifact:rapp-application-1.0",
+        "artifact:brainstem-egg-2.3-cubby",
+        "artifact:rapp-cart-1.0"
+      ],
+      "resolution": "The first three are mandatory ordered artifacts; cart remains a non-selected UX contract."
+    },
+    {
+      "id": "collision:grail-source",
+      "issue": "Behavioral grail authority is mistaken for licensed source authority.",
+      "node_refs": [
+        "repo:kody-w/rapp-installer",
+        "external:microsoft-aibast-29e49d0",
+        "runtime:clean-room-brainstem"
+      ],
+      "resolution": "Installer and Microsoft are reference-only; the selected project runtime is original clean-room implementation with no adapted external runtime source."
+    },
+    {
+      "id": "collision:leviathan-homonym",
+      "issue": "Fleet coordination and one wrapped multicellular being share the Leviathan name.",
+      "node_refs": [
+        "runtime:leviathan-controller",
+        "runtime:wrapped-organism",
+        "artifact:wrapped-leviathan-egg"
+      ],
+      "resolution": "Model, test, and exclude/select them independently; neither authorizes the other."
+    },
+    {
+      "id": "collision:local-controller-child",
+      "issue": "Child twins are sometimes flattened into tools of one mutable global runtime.",
+      "node_refs": [
+        "runtime:global-controller",
+        "runtime:isolated-installed-twin"
+      ],
+      "resolution": "Controller streams/supervises; each child keeps independent agents, workspace, venv, identity, keys, and state."
+    },
+    {
+      "id": "collision:moment-shapes",
+      "issue": "Double Jump strict Moment fields reject Hologram organism fields.",
+      "node_refs": [
+        "repo:kody-w/double-jump",
+        "repo:kody-w/rapp-hologram"
+      ],
+      "resolution": "No implicit compatibility; use explicit versioned projection only."
+    },
+    {
+      "id": "collision:pages-runtime",
+      "issue": "Static front doors and landing pages are presented as if they were running twins.",
+      "node_refs": [
+        "transport:github-pages",
+        "runtime:isolated-installed-twin",
+        "repo:kody-w/RappterNest"
+      ],
+      "resolution": "Pages is public static substrate only and is excluded from v1 runtime."
+    },
+    {
+      "id": "collision:rapp-vs-openrappter",
+      "issue": "Species-root/reference distro and consumer runtime are treated as one distribution.",
+      "node_refs": [
+        "repo:kody-w/RAPP",
+        "repo:kody-w/openrappter",
+        "profile:rapp-stack-cubby-v1"
+      ],
+      "resolution": "Both are reference-only; selected source is Microsoft and selected integration is new."
+    },
+    {
+      "id": "collision:rappid-families",
+      "issue": "Legacy/current widths, canonicalizers, lineage, and display namespaces conflict.",
+      "node_refs": [
+        "protocol:rapp-eternity-1.0",
+        "repo:kody-w/rapp-zoo",
+        "repo:kody-w/rapp-estate",
+        "repo:kody-w/twin",
+        "repo:kody-w/kody-w-twin"
+      ],
+      "resolution": "One approved fixture and explicit version; never infer equality from display owner/slug."
+    },
+    {
+      "id": "collision:static-mcp",
+      "issue": "Two incompatible implementations claim rapp-static-mcp/1.0.",
+      "node_refs": [
+        "protocol:rapp-static-mcp-python-1.0",
+        "protocol:rapp-static-mcp-js-1.0"
+      ],
+      "resolution": "No cross-compatibility claim; both are outside v1."
+    },
+    {
+      "id": "collision:twin-chat-alias",
+      "issue": "Twin-chat is described as if it were the complete neighborhood protocol.",
+      "node_refs": [
+        "protocol:rapp-twin-chat-1.0",
+        "protocol:rapp-neighborhood-1.0"
+      ],
+      "resolution": "Twin-chat is the inner envelope owned by the broader pinned neighborhood contract."
+    }
+  ],
+  "determinism": {
+    "edge_order": "id",
+    "encoding": "UTF-8",
+    "indent_spaces": 2,
+    "key_order": "lexicographic",
+    "non_repo_node_order": "id",
+    "repo_node_order": "case-insensitive repository name from the census",
+    "trailing_newline": true
+  },
+  "edges": [
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:collision:staticmcp",
+      "source": [
+        "rapp-mcp direct evidence",
+        "rapp-static-mcp direct evidence"
+      ],
+      "source_id": "protocol:rapp-static-mcp-python-1.0",
+      "target_id": "protocol:rapp-static-mcp-js-1.0",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:cubby-double-lisppy",
+      "source": [
+        "kody-w/double-jump:README.md:1-33",
+        "kody-w/lisppy:README.md:1-42"
+      ],
+      "source_id": "repo:kody-w/double-jump",
+      "target_id": "repo:kody-w/lisppy",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:identity-estate",
+      "source": [
+        "kody-w/rapp-estate:METROPOLIS.md:1-38"
+      ],
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:moment",
+      "source": [
+        "kody-w/double-jump:README.md:1-33",
+        "kody-w/rapp-hologram:README.md:1-50"
+      ],
+      "source_id": "repo:kody-w/double-jump",
+      "target_id": "repo:kody-w/rapp-hologram",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:rapp-chat",
+      "source": [
+        "kody-w/RAPP:README.md:1-73"
+      ],
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "protocol:rapp-frozen-chat-wire",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:conflict:twin-display",
+      "source": [
+        "kody-w/twin:README.md:1-29",
+        "kody-w/kody-w-twin:README.md:1-31"
+      ],
+      "source_id": "repo:kody-w/twin",
+      "target_id": "repo:kody-w/kody-w-twin",
+      "type": "conflicts_with"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:commons-source",
+      "source": [
+        "PROVENANCE.json:excluded-rapp-commons-implementation"
+      ],
+      "source_id": "repo:kody-w/rapp-commons",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:exclude:hatcher-source",
+      "source": [
+        "kody-w/twin-egg-hatcher:twin_egg_hatcher_agent.py:1-65"
+      ],
+      "source_id": "repo:kody-w/twin-egg-hatcher",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:leviathan",
+      "source": [
+        "CONFORMANCE.md:Non-goals"
+      ],
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:owner-aibast",
+      "source": [
+        "PROVENANCE.json:excluded-kody-aibast"
+      ],
+      "source_id": "repo:kody-w/aibast-agents-library",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:pages-runtime",
+      "source": [
+        "CONFORMANCE.md:Non-goals"
+      ],
+      "source_id": "transport:github-pages",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:exclude:rapp-source",
+      "source": [
+        "PROVENANCE.json:reference-rapp-species-root"
+      ],
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "excluded_from_cubby"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:heimdall",
+      "source": [
+        "kody-w/heimdall:README.md:1-54",
+        "kody-w/heimdall:rapp_brainstem/VERSION:1"
+      ],
+      "source_id": "repo:kody-w/heimdall",
+      "target_id": "transport:github-pages",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:lumen",
+      "source": [
+        "kody-w/lumen-brainstem:README.md:1-27"
+      ],
+      "source_id": "repo:kody-w/lumen-brainstem",
+      "target_id": "concept:static-planted-twin",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:pkstop-bean",
+      "source": [
+        "kody-w/pkstop-the-bean:README.md:1-48"
+      ],
+      "source_id": "repo:kody-w/pkstop-the-bean",
+      "target_id": "transport:github-pages",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:instance:tide",
+      "source": [
+        "kody-w/tide-brainstem:README.md:1-27"
+      ],
+      "source_id": "repo:kody-w/tide-brainstem",
+      "target_id": "concept:static-planted-twin",
+      "type": "instance_of"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:mirror:orion",
+      "source": [
+        "kody-w/rapp_orion:README.md:1-34"
+      ],
+      "source_id": "repo:kody-w/rapp_orion",
+      "target_id": "repo:kody-w/pkstop-pike-place-market",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:mirror:pkstop-pike",
+      "source": [
+        "kody-w/pkstop-pike-place-market:README.md:1-31"
+      ],
+      "source_id": "repo:kody-w/pkstop-pike-place-market",
+      "target_id": "repo:kody-w/RAPP",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:network:estate:extends",
+      "source": [
+        "kody-w/rapp-estate:METROPOLIS.md:1-38"
+      ],
+      "source_id": "network:metropolis",
+      "target_id": "network:estate",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:01",
+      "source": [
+        "RAPP_END_TO_END.md:Cloud progression"
+      ],
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:02",
+      "source": [
+        "kody-w/CommunityRAPP:README.md:84-231",
+        "kody-w/rapp-oneclick-deploy:agent.py:1-31"
+      ],
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "runtime:azure-functions-body",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "synthesis",
+      "id": "edge:path:cloud:03",
+      "source": [
+        "CommunityRAPP direct evidence",
+        "rapp-dataverse direct evidence"
+      ],
+      "source_id": "runtime:azure-functions-body",
+      "target_id": "runtime:dataverse-twin",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:cloud:04",
+      "source": [
+        "kody-w/rapp-oneclick-deploy:agent.py:1-31"
+      ],
+      "source_id": "runtime:dataverse-twin",
+      "target_id": "runtime:m365-surface",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:01",
+      "source": [
+        "kody-w/leviathan:README.md:1-91"
+      ],
+      "source_id": "runtime:leviathan-controller",
+      "target_id": "protocol:rapp-fleet-chat-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:02",
+      "source": [
+        "kody-w/leviathan:README.md:1-91"
+      ],
+      "source_id": "protocol:rapp-fleet-chat-1.0",
+      "target_id": "runtime:leviathan-node",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fleet:03",
+      "source": [
+        "kody-w/leviathan:README.md:1-91"
+      ],
+      "source_id": "runtime:leviathan-node",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fleet:04",
+      "source": [
+        "CONFORMANCE.md:Profile to be implemented"
+      ],
+      "source_id": "protocol:post-chat",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:fresh:01",
+      "source": [
+        "kody-w/RAR:build_registry.py:567-690",
+        "kody-w/RAR:.github/workflows/test.yml:1-67"
+      ],
+      "source_id": "repo:kody-w/RAR",
+      "target_id": "artifact:single-file-agent",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:02",
+      "source": [
+        "STACK_LOCK.json:artifact_chain"
+      ],
+      "source_id": "artifact:single-file-agent",
+      "target_id": "artifact:rapp-cubby-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:03",
+      "source": [
+        "STACK_LOCK.json:artifact_chain"
+      ],
+      "source_id": "artifact:rapp-cubby-1.0",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:04",
+      "source": [
+        "STACK_LOCK.json:artifact_chain"
+      ],
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "artifact:brainstem-egg-2.3-cubby",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:05",
+      "source": [
+        "STACK_LOCK.json:artifact_chain"
+      ],
+      "source_id": "artifact:brainstem-egg-2.3-cubby",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:fresh:06",
+      "source": [
+        "STACK_LOCK.json:profile.wire"
+      ],
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:global:00",
+      "source": [
+        "docs/canon/SYSTEM_MODEL.md:Selected model"
+      ],
+      "source_id": "actor:local-owner",
+      "target_id": "product:local/rapp-stack-cubby",
+      "type": "operates"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:path:global:00b",
+      "source": [
+        "docs/canon/SYSTEM_MODEL.md:Selected model",
+        "cubbies/kody-w/agents/rapp_stack_cubby_agent.py"
+      ],
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "runtime:global-controller",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:global:01",
+      "source": [
+        "STACK_LOCK.json:profile.controller_model"
+      ],
+      "source_id": "runtime:global-controller",
+      "target_id": "artifact:single-file-agent",
+      "type": "hosts"
+    },
+    {
+      "authentication": "owner allowlist plus authenticated global IPC; live enrollment pending",
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:path:imessage:00",
+      "source": [
+        "docs/canon/MESSAGING_IMESSAGE.md",
+        "tests/imessage/test_bridge.py"
+      ],
+      "source_id": "actor:local-owner",
+      "target_id": "transport:imsg-json-rpc",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:01",
+      "source": [
+        "STACK_LOCK.json:profile.imessage"
+      ],
+      "source_id": "transport:imsg-json-rpc",
+      "target_id": "runtime:imessage-adapter",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:02",
+      "source": [
+        "CONFORMANCE.md:Profile to be implemented"
+      ],
+      "source_id": "runtime:imessage-adapter",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:03",
+      "source": [
+        "STACK_LOCK.json:profile.twin_chat"
+      ],
+      "source_id": "protocol:rapp-commons-event-1.0",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:04",
+      "source": [
+        "STACK_LOCK.json:profile.twin_chat"
+      ],
+      "source_id": "protocol:rapp-twin-chat-1.0",
+      "target_id": "runtime:isolated-installed-twin",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:05",
+      "source": [
+        "STACK_LOCK.json:artifact_chain"
+      ],
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:06",
+      "source": [
+        "STACK_LOCK.json:profile.twin_chat"
+      ],
+      "source_id": "artifact:rapp-application-1.0",
+      "target_id": "protocol:rapp-twin-chat-response-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:07",
+      "source": [
+        "STACK_LOCK.json:profile.twin_chat"
+      ],
+      "source_id": "protocol:rapp-twin-chat-response-1.0",
+      "target_id": "runtime:imessage-adapter",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:imessage:08",
+      "source": [
+        "STACK_LOCK.json:profile.imessage"
+      ],
+      "source_id": "runtime:imessage-adapter",
+      "target_id": "transport:imsg-json-rpc",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:neighborhood:01",
+      "source": [
+        "CONFORMANCE.md:Profile to be implemented"
+      ],
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:02",
+      "source": [
+        "kody-w/rapp-neighborhood-protocol:NEIGHBORHOOD_PROTOCOL.md:120-169"
+      ],
+      "source_id": "protocol:rapp-twin-chat-1.0",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:03",
+      "source": [
+        "kody-w/rapp-commons:README.md:1-44"
+      ],
+      "source_id": "protocol:rapp-commons-event-1.0",
+      "target_id": "network:neighborhood",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:04",
+      "source": [
+        "kody-w/rapp-resident:README.md:1-34"
+      ],
+      "source_id": "network:neighborhood",
+      "target_id": "runtime:resident-relay",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:neighborhood:05",
+      "source": [
+        "kody-w/rapp-resident:README.md:1-34"
+      ],
+      "source_id": "runtime:resident-relay",
+      "target_id": "runtime:neighborhood-peer",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:01",
+      "source": [
+        "kody-w/RAPP_Store:scripts/lib_rapp.py:1-86"
+      ],
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "transport:github-pages",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:02",
+      "source": [
+        "kody-w/RAPP_Store:scripts/lib_rapp.py:1-86"
+      ],
+      "source_id": "transport:github-pages",
+      "target_id": "store:rapplication",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:path:publish:03",
+      "source": [
+        "kody-w/RAPP_Store:scripts/lib_rapp.py:1-86"
+      ],
+      "source_id": "store:rapplication",
+      "target_id": "artifact:rapp-application-1.0",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:01",
+      "source": [
+        "RAPP_END_TO_END.md:Disaster recovery and offline egg"
+      ],
+      "source_id": "runtime:isolated-installed-twin",
+      "target_id": "artifact:brainstem-egg-2.3-cubby",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:02",
+      "source": [
+        "RAPP_END_TO_END.md:Disaster recovery and offline egg"
+      ],
+      "source_id": "artifact:brainstem-egg-2.3-cubby",
+      "target_id": "runtime:restored-isolated-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:path:recovery:03",
+      "source": [
+        "CONFORMANCE.md:Gates before a conformance claim"
+      ],
+      "source_id": "runtime:restored-isolated-twin",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "reference_only",
+      "id": "edge:reference:runtime:microsoft-behavior",
+      "source": [
+        "docs/decisions/clean-room-runtime.md",
+        "PROVENANCE.json"
+      ],
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "external:microsoft-aibast-29e49d0",
+      "type": "references"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:agents:packages",
+      "source": [
+        "kody-w/rapp-agents:README.md:1-48"
+      ],
+      "source_id": "repo:kody-w/rapp-agents",
+      "target_id": "artifact:single-file-agent",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:bible:mirror",
+      "source": [
+        "kody-w/RAPP-Bible:README.md:1-22"
+      ],
+      "source_id": "repo:kody-w/RAPP-Bible",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:brainstem-sdk:chat",
+      "source": [
+        "kody-w/rapp-brainstem-sdk:README.md:1-34"
+      ],
+      "source_id": "repo:kody-w/rapp-brainstem-sdk",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:cards:spec",
+      "source": [
+        "kody-w/RAPPcards:SPEC.md:1-29"
+      ],
+      "source_id": "repo:kody-w/RAPPcards",
+      "target_id": "protocol:rappcards-1.1.2",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:carts:spec",
+      "source": [
+        "kody-w/rapp-carts:SPEC.md:1-42"
+      ],
+      "source_id": "repo:kody-w/rapp-carts",
+      "target_id": "artifact:rapp-cart-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:commons:wrapper",
+      "source": [
+        "kody-w/rapp-commons:README.md:1-44"
+      ],
+      "source_id": "repo:kody-w/rapp-commons",
+      "target_id": "protocol:rapp-commons-event-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:community:azure",
+      "source": [
+        "kody-w/CommunityRAPP:README.md:84-231"
+      ],
+      "source_id": "repo:kody-w/CommunityRAPP",
+      "target_id": "runtime:azure-functions-body",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:community:memory",
+      "source": [
+        "kody-w/CommunityRAPP:README.md:84-231"
+      ],
+      "source_id": "repo:kody-w/CommunityRAPP",
+      "target_id": "store:memory",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:dataverse:impl",
+      "source": [
+        "kody-w/rapp-dataverse:SPEC.md:1-28"
+      ],
+      "source_id": "repo:kody-w/rapp-dataverse",
+      "target_id": "runtime:dataverse-twin",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:distro:spec",
+      "source": [
+        "kody-w/rapp-distro:spawn-distro.sh:1-72"
+      ],
+      "source_id": "repo:kody-w/rapp-distro",
+      "target_id": "protocol:rapp-distro-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:docs:mirror",
+      "source": [
+        "kody-w/rapp_docs:README.md:1-8"
+      ],
+      "source_id": "repo:kody-w/rapp_docs",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "mirrors"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:egghub:index",
+      "source": [
+        "kody-w/rapp-egg-hub:index.json:1-20",
+        "kody-w/rapp-egg-hub:.github/workflows/pii-gate.yml:1-12"
+      ],
+      "source_id": "repo:kody-w/rapp-egg-hub",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:estate:hosts",
+      "source": [
+        "kody-w/rapp-estate:METROPOLIS.md:1-38"
+      ],
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "network:estate",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:estate:spec",
+      "source": [
+        "kody-w/rapp-estate:METROPOLIS.md:1-38"
+      ],
+      "source_id": "repo:kody-w/rapp-estate",
+      "target_id": "protocol:rapp-metropolis-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:eternity:spec",
+      "source": [
+        "kody-w/rapp-eternity:SPEC.md:1-31"
+      ],
+      "source_id": "repo:kody-w/rapp-eternity",
+      "target_id": "protocol:rapp-eternity-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:frame:spec",
+      "source": [
+        "kody-w/rapp-frame-net:SPEC.md:1-44"
+      ],
+      "source_id": "repo:kody-w/rapp-frame-net",
+      "target_id": "protocol:rapp-frame-2.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:frame:transport",
+      "source": [
+        "kody-w/rapp-frame-net:SPEC.md:1-44"
+      ],
+      "source_id": "repo:kody-w/rapp-frame-net",
+      "target_id": "transport:github-raw-issues",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:god:index",
+      "source": [
+        "kody-w/rapp-god:README.md:1-32"
+      ],
+      "source_id": "repo:kody-w/rapp-god",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:hatcher:hatch",
+      "source": [
+        "kody-w/twin-egg-hatcher:twin_egg_hatcher_agent.py:1-65"
+      ],
+      "source_id": "repo:kody-w/twin-egg-hatcher",
+      "target_id": "runtime:legacy-hatched-twin",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:impossible:receipt",
+      "source": [
+        "kody-w/rappterbook-impossible-product:README.md:1-33"
+      ],
+      "source_id": "repo:kody-w/rappterbook-impossible-product",
+      "target_id": "artifact:release-receipt",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:installer:chat",
+      "source": [
+        "kody-w/rapp-installer:rapp_brainstem/VERSION:1",
+        "kody-w/rapp-installer:.github/workflows/preflight.yml:1-86"
+      ],
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:kited:mark",
+      "source": [
+        "kody-w/rapp-kited-twin:README.md:1-16"
+      ],
+      "source_id": "repo:kody-w/rapp-kited-twin",
+      "target_id": "concept:kite-operator-mark",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:levhub:index",
+      "source": [
+        "kody-w/rapp-leviathan-hub:index.json:1-58"
+      ],
+      "source_id": "repo:kody-w/rapp-leviathan-hub",
+      "target_id": "artifact:wrapped-leviathan-egg",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:levhub:runtime",
+      "source": [
+        "kody-w/rapp-leviathan-hub:index.json:1-58"
+      ],
+      "source_id": "repo:kody-w/rapp-leviathan-hub",
+      "target_id": "runtime:wrapped-organism",
+      "type": "hatches"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:leviathan:controller",
+      "source": [
+        "kody-w/leviathan:README.md:1-91"
+      ],
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "runtime:leviathan-controller",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:leviathan:node",
+      "source": [
+        "kody-w/leviathan:README.md:1-91"
+      ],
+      "source_id": "repo:kody-w/leviathan",
+      "target_id": "runtime:leviathan-node",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:map:index",
+      "source": [
+        "kody-w/rapp-map:build_graph.py:1-32"
+      ],
+      "source_id": "repo:kody-w/rapp-map",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:mcp:python",
+      "source": [
+        "kody-w/rapp-mcp:rapp_mcp.py:104-196",
+        "kody-w/rapp-mcp:tests/test_static_mcp.py:1-25"
+      ],
+      "source_id": "repo:kody-w/rapp-mcp",
+      "target_id": "protocol:rapp-static-mcp-python-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:messaging:imessage",
+      "source": [
+        "kody-w/rapp-messaging:SPEC.md:1-20"
+      ],
+      "source_id": "repo:kody-w/rapp-messaging",
+      "target_id": "protocol:rapp-messaging-imessage-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:messaging:spec",
+      "source": [
+        "kody-w/rapp-messaging:SPEC.md:1-20"
+      ],
+      "source_id": "repo:kody-w/rapp-messaging",
+      "target_id": "protocol:rapp-messaging-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:moment:spec",
+      "source": [
+        "kody-w/rapp-moment:README.md:1-15"
+      ],
+      "source_id": "repo:kody-w/rapp-moment",
+      "target_id": "protocol:rapp-moment-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:neighborhood:spec",
+      "source": [
+        "kody-w/rapp-neighborhood-protocol:NEIGHBORHOOD_PROTOCOL.md:120-169"
+      ],
+      "source_id": "repo:kody-w/rapp-neighborhood-protocol",
+      "target_id": "protocol:rapp-neighborhood-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:neighborhood:twinchat",
+      "source": [
+        "kody-w/rapp-neighborhood-protocol:NEIGHBORHOOD_PROTOCOL.md:120-169"
+      ],
+      "source_id": "repo:kody-w/rapp-neighborhood-protocol",
+      "target_id": "protocol:rapp-twin-chat-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:network:controller",
+      "source": [
+        "kody-w/RAPP-Network:SPEC.md:1-34"
+      ],
+      "source_id": "repo:kody-w/RAPP-Network",
+      "target_id": "runtime:global-controller",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:oneclick:m365",
+      "source": [
+        "kody-w/rapp-oneclick-deploy:agent.py:1-31"
+      ],
+      "source_id": "repo:kody-w/rapp-oneclick-deploy",
+      "target_id": "runtime:m365-surface",
+      "type": "deploys_to"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:openrappter:imessage",
+      "source": [
+        "kody-w/openrappter:README.md:1-76"
+      ],
+      "source_id": "repo:kody-w/openrappter",
+      "target_id": "runtime:imessage-adapter",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:postflight:release",
+      "source": [
+        "kody-w/rapp-postflight:test-mac.sh:1-31,75-151",
+        "kody-w/rapp-postflight:rollback.sh:1-20"
+      ],
+      "source_id": "repo:kody-w/rapp-postflight",
+      "target_id": "runtime:release-gate",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:racon:cart",
+      "source": [
+        "kody-w/racon:SPEC.md:1-36",
+        "kody-w/racon:index.html:55-145"
+      ],
+      "source_id": "repo:kody-w/racon",
+      "target_id": "artifact:rapp-cart-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rapp:abi",
+      "source": [
+        "kody-w/RAPP:README.md:1-73"
+      ],
+      "source_id": "repo:kody-w/RAPP",
+      "target_id": "protocol:brainstem-agent-abi",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappter-distro:implements",
+      "source": [
+        "kody-w/rappter-distro:README.md:1-35"
+      ],
+      "source_id": "repo:kody-w/rappter-distro",
+      "target_id": "protocol:rapp-distro-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappterbook:platform",
+      "source": [
+        "kody-w/rappterbook:sdk/python/rapp.py:30-34,304-360",
+        "kody-w/rappterbook:.github/workflows/run-tests.yml:1-74"
+      ],
+      "source_id": "repo:kody-w/rappterbook",
+      "target_id": "runtime:rappterbook-social-platform",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rappterbox:chat",
+      "source": [
+        "kody-w/rappterbox:README.md:1-13"
+      ],
+      "source_id": "repo:kody-w/rappterbox",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:rar:store",
+      "source": [
+        "kody-w/RAR:build_registry.py:567-690",
+        "kody-w/RAR:.github/workflows/test.yml:1-67"
+      ],
+      "source_id": "repo:kody-w/RAR",
+      "target_id": "store:rar-source",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:resident:impl",
+      "source": [
+        "kody-w/rapp-resident:README.md:1-34"
+      ],
+      "source_id": "repo:kody-w/rapp-resident",
+      "target_id": "runtime:resident-relay",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:sealed:impl",
+      "source": [
+        "kody-w/rapp-sealed:rapp_sealed.mjs:1-48",
+        "kody-w/rapp-sealed:verify.mjs:1-34"
+      ],
+      "source_id": "repo:kody-w/rapp-sealed",
+      "target_id": "protocol:rapp-sealed-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:sense:implements",
+      "source": [
+        "kody-w/RAPP_Sense_Store:SPEC.md:1-54"
+      ],
+      "source_id": "repo:kody-w/RAPP_Sense_Store",
+      "target_id": "store:sense",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "cross_check_only",
+      "id": "edge:repo:spine:index",
+      "source": [
+        "canonical spine cross-check: 47 repository nodes"
+      ],
+      "source_id": "repo:kody-w/rapp-spine",
+      "target_id": "concept:rapp-ecosystem",
+      "type": "indexes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:staticapi:spec",
+      "source": [
+        "kody-w/rapp-static-apis:SPEC.md:1-54"
+      ],
+      "source_id": "repo:kody-w/rapp-static-apis",
+      "target_id": "protocol:rapp-static-api-1.0",
+      "type": "specifies"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:staticmcp:js",
+      "source": [
+        "kody-w/rapp-static-mcp:shim.mjs:1-23,52-126",
+        "kody-w/rapp-static-mcp:.github/workflows/build.yml:1-25"
+      ],
+      "source_id": "repo:kody-w/rapp-static-mcp",
+      "target_id": "protocol:rapp-static-mcp-js-1.0",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:store:implements",
+      "source": [
+        "kody-w/RAPP_Store:scripts/lib_rapp.py:1-86"
+      ],
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "store:rapplication",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:twin:egg",
+      "source": [
+        "kody-w/twin:README.md:1-29"
+      ],
+      "source_id": "repo:kody-w/twin",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:repo:zoo:egg",
+      "source": [
+        "kody-w/rapp-zoo:README.md:1-42"
+      ],
+      "source_id": "repo:kody-w/rapp-zoo",
+      "target_id": "artifact:legacy-egg-families",
+      "type": "packages"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:runtime:rappterbook:transport",
+      "source": [
+        "kody-w/rappterbook:sdk/python/rapp.py:30-34,304-360",
+        "kody-w/rappterbook:.github/workflows/run-tests.yml:1-74"
+      ],
+      "source_id": "runtime:rappterbook-social-platform",
+      "target_id": "transport:github-raw-issues",
+      "type": "transports"
+    },
+    {
+      "authentication": "controller auth token over loopback plain chat",
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:owner:authenticated-global-chat",
+      "source": [
+        "docs/canon/SYSTEM_MODEL.md:Selected model",
+        "tests/runtime/test_controller_route.py",
+        "tests/controller/test_chat_live.py"
+      ],
+      "source_id": "actor:local-owner",
+      "target_id": "runtime:global-controller",
+      "type": "transports"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:product:profile",
+      "source": [
+        "AI_CONTEXT.md",
+        "docs/canon/SYSTEM_MODEL.md"
+      ],
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "profile:rapp-stack-cubby-v1",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:product:runtime",
+      "source": [
+        "src/rapp_stack_cubby/runtime",
+        "docs/decisions/clean-room-runtime.md"
+      ],
+      "source_id": "product:local/rapp-stack-cubby",
+      "target_id": "runtime:clean-room-brainstem",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:messaging",
+      "source": [
+        "STACK_LOCK.json:protocol_pins"
+      ],
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "protocol:rapp-messaging-1.0",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:neighborhood",
+      "source": [
+        "STACK_LOCK.json:protocol_pins"
+      ],
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "protocol:rapp-neighborhood-1.0",
+      "type": "extends"
+    },
+    {
+      "evidence_strength": "contract_selected",
+      "id": "edge:selected:profile:release",
+      "source": [
+        "CONFORMANCE.md:Gates before a conformance claim"
+      ],
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "runtime:release-gate",
+      "type": "hosts"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:profile:runtime",
+      "source": [
+        "docs/decisions/clean-room-runtime.md:Decision",
+        "src/rapp_stack_cubby/runtime"
+      ],
+      "source_id": "profile:rapp-stack-cubby-v1",
+      "target_id": "runtime:clean-room-brainstem",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:runtime:abi",
+      "source": [
+        "docs/decisions/clean-room-runtime.md",
+        "tests/runtime"
+      ],
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "protocol:brainstem-agent-abi",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "tested_local_implementation",
+      "id": "edge:selected:runtime:chat",
+      "source": [
+        "docs/decisions/clean-room-runtime.md",
+        "tests/runtime"
+      ],
+      "source_id": "runtime:clean-room-brainstem",
+      "target_id": "protocol:post-chat",
+      "type": "implements"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:installer-canary",
+      "source": [
+        "kody-w/rapp-installer-canary:README.md:1-8"
+      ],
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "repo:kody-w/rapp-installer-canary",
+      "type": "supersedes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:installer-dev",
+      "source": [
+        "kody-w/rapp-installer-dev:README.md:1-10"
+      ],
+      "source_id": "repo:kody-w/rapp-installer",
+      "target_id": "repo:kody-w/rapp-installer-dev",
+      "type": "supersedes"
+    },
+    {
+      "evidence_strength": "direct_repository",
+      "id": "edge:supersede:store-archive",
+      "source": [
+        "kody-w/rapp-store-archive:manifest.json:1-33"
+      ],
+      "source_id": "repo:kody-w/RAPP_Store",
+      "target_id": "repo:kody-w/rapp-store-archive",
+      "type": "supersedes"
+    }
+  ],
+  "methodology": {
+    "direct_shard_reports": [
+      {
+        "id": "direct-shard-0",
+        "sha256": "0e5cf66a974433fcd469755f0858bf895579e245c32de916ad21e2dfa565cdcc"
+      },
+      {
+        "id": "direct-shard-1",
+        "sha256": "4a9734da9caf037f3ad84bdc600c293198eff65625c6838b2ab6d6378a510dbd"
+      },
+      {
+        "id": "direct-shard-2",
+        "sha256": "975e138f2e7fca020e73a6d09a55f66ac3fb45897881b90f12e4e1387d02baf7"
+      },
+      {
+        "id": "direct-shard-3",
+        "sha256": "e4230759f5fda5a2c00530e235090d3fd50170f11b884934a98c1f631968a5d1"
+      },
+      {
+        "id": "direct-shard-4",
+        "sha256": "d39f4019cacebc26bd62587c1cd72c081cad1dc59b2e9f258b60de3ac5fa376e"
+      },
+      {
+        "id": "direct-shard-5",
+        "sha256": "16955ca16f19481a613bc1485cbe82e16396e6ee074a34e24c023dfc5da1c11d"
+      },
+      {
+        "id": "direct-shard-6",
+        "sha256": "9db61c5a11691c525d0f66152b16eec2a4e889b214aeaaf61f80aeee1985b50c"
+      },
+      {
+        "id": "direct-shard-7",
+        "sha256": "aba7b0bab6d6b9a56cdee116e2f93c5decf4a5209c2ad20ff0642cff3677af09"
+      }
+    ],
+    "edge_policy": "Edges require repository-local evidence or an explicit project contract; synthesis and spine-only edges are labeled and never upgraded to direct evidence.",
+    "head_semantics": "Repository evidence is pinned to evidence_head_sha; current_head_sha/head_drift are observational.",
+    "local_product_semantics": "The product node is local and non-antecedent; it is not counted as a public audited repository.",
+    "repo_policy": "Exactly one audited repository node is generated from each SOURCE_CENSUS.json repository object.",
+    "runtime_origin": "The selected runtime is original clean-room implementation. Microsoft remains reference-only.",
+    "spine_policy": "The spine is used only for labeled cross-check edges after direct evidence."
+  },
+  "non_repo_nodes": [
+    {
+      "description": "The sole ordinary local-chat and enrolled iMessage principal.",
+      "id": "actor:local-owner",
+      "name": "Local OS owner",
+      "node_type": "actor",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Exact offline transport/recovery artifact selected by the lock.",
+      "id": "artifact:brainstem-egg-2.3-cubby",
+      "name": "brainstem-egg/2.3-cubby",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Directly observed incompatible JSON, ZIP, pointer, cartridge, twin-backup, and executable egg families.",
+      "id": "artifact:legacy-egg-families",
+      "name": "Observed legacy/incompatible egg families",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Application assembly preserving controller and internal-agent semantics.",
+      "id": "artifact:rapp-application-1.0",
+      "name": "rapp-application/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Normative one-gesture cartridge experience; not selected as a chain substitute.",
+      "id": "artifact:rapp-cart-1.0",
+      "name": "rapp-cart/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Deterministic reviewed build boundary selected for CUBBY.",
+      "id": "artifact:rapp-cubby-1.0",
+      "name": "rapp-cubby/1.0",
+      "node_type": "artifact",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Public counts, versions, commit, digests, and pass/fail only.",
+      "id": "artifact:release-receipt",
+      "name": "Sanitized release receipt",
+      "node_type": "artifact",
+      "primary_plane": "security/release",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "One reviewed executable agent implementing the selected ABI.",
+      "id": "artifact:single-file-agent",
+      "name": "Single-file BasicAgent",
+      "node_type": "artifact",
+      "primary_plane": "agents",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Separate multicellular-being artifact family; excluded from CUBBY.",
+      "id": "artifact:wrapped-leviathan-egg",
+      "name": "Wrapped-organism Leviathan egg",
+      "node_type": "artifact",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Canonical visual/operator mark with no executable or security semantics.",
+      "id": "concept:kite-operator-mark",
+      "name": "Kited-twin operator mark",
+      "node_type": "concept",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "The ecosystem orientation target indexed by maps and mirrors; never a source authority.",
+      "id": "concept:rapp-ecosystem",
+      "name": "RAPP ecosystem inventory",
+      "node_type": "concept",
+      "primary_plane": "governance",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "A static identity/card/invitation repository that does not prove a local runtime.",
+      "id": "concept:static-planted-twin",
+      "name": "Static planted twin/front door",
+      "node_type": "concept",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "MIT behavioral and license reference pin only; not a selected source baseline or adapted implementation.",
+      "id": "external:microsoft-aibast-29e49d0",
+      "name": "Microsoft aibast source pin",
+      "node_type": "external_source",
+      "primary_plane": "kernel/runtime",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Operator-wide static twin discovery.",
+      "id": "network:estate",
+      "name": "Estate discovery network",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Aggregation of estates and neighborhoods.",
+      "id": "network:metropolis",
+      "name": "Metropolis",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Admitted twins sharing signed and optionally sealed events.",
+      "id": "network:neighborhood",
+      "name": "Neighborhood",
+      "node_type": "network",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Locked, build-blocked, unattested coherent target profile.",
+      "id": "profile:rapp-stack-cubby-v1",
+      "name": "rapp-stack-cubby/macos-arm64-python311/1.0",
+      "node_type": "profile",
+      "primary_plane": "governance",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "name, metadata, perform, optional system_context and tool conversion.",
+      "id": "protocol:brainstem-agent-abi",
+      "name": "BasicAgent ABI",
+      "node_type": "protocol",
+      "primary_plane": "kernel/runtime",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "The sole v1 capability endpoint.",
+      "id": "protocol:post-chat",
+      "name": "Loopback POST /chat",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Signed outer wrapper selected for twin traffic.",
+      "id": "protocol:rapp-commons-event-1.0",
+      "name": "rapp-commons-event/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Kernel pin and organism distribution family.",
+      "id": "protocol:rapp-distro-1.0",
+      "name": "rapp-distro/1.0",
+      "node_type": "protocol",
+      "primary_plane": "distribution",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Canonical location-independent RAPPID claim.",
+      "id": "protocol:rapp-eternity-1.0",
+      "name": "rapp-eternity/1.0",
+      "node_type": "protocol",
+      "primary_plane": "identity",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Signed fleet operation profile over twin chat.",
+      "id": "protocol:rapp-fleet-chat-1.0",
+      "name": "rapp-fleet-chat/1.0",
+      "node_type": "protocol",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Intermittent-link frame envelope and transport model.",
+      "id": "protocol:rapp-frame-2.0",
+      "name": "rapp-frame/2.0",
+      "node_type": "protocol",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "The species-root wire requiring response and assistant_response plus identity/mode echoes.",
+      "id": "protocol:rapp-frozen-chat-wire",
+      "name": "Frozen RAPP chat response contract",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Conversation trust, consent, memory, and delivery contract.",
+      "id": "protocol:rapp-messaging-1.0",
+      "name": "rapp-messaging/1.0",
+      "node_type": "protocol",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "iMessage transport profile narrowed to one owner DM.",
+      "id": "protocol:rapp-messaging-imessage-1.0",
+      "name": "rapp-messaging-imessage/1.0",
+      "node_type": "protocol",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Estate/metropolis aggregation claim.",
+      "id": "protocol:rapp-metropolis-1.0",
+      "name": "rapp-metropolis/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Normative, intentionally implementation-free Moment wire.",
+      "id": "protocol:rapp-moment-1.0",
+      "name": "rapp-moment/1.0",
+      "node_type": "protocol",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Capstone neighborhood, pairing, transport, and sealing contract.",
+      "id": "protocol:rapp-neighborhood-1.0",
+      "name": "rapp-neighborhood-protocol/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "AES-GCM/PBKDF2 body sealing codec.",
+      "id": "protocol:rapp-sealed-1.0",
+      "name": "rapp-sealed/1.0",
+      "node_type": "protocol",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Repository-as-static-API convention.",
+      "id": "protocol:rapp-static-api-1.0",
+      "name": "rapp-static-api/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Bindings catalog, 2025 protocol, truncated hash implementation.",
+      "id": "protocol:rapp-static-mcp-js-1.0",
+      "name": "JavaScript rapp-static-mcp/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "_frame catalog, 2024 protocol, full SHA implementation.",
+      "id": "protocol:rapp-static-mcp-python-1.0",
+      "name": "Python rapp-static-mcp/1.0",
+      "node_type": "protocol",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Complete inner addressed twin request.",
+      "id": "protocol:rapp-twin-chat-1.0",
+      "name": "rapp-twin-chat/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Signed response bound to request nonce.",
+      "id": "protocol:rapp-twin-chat-response-1.0",
+      "name": "rapp-twin-chat-response/1.0",
+      "node_type": "protocol",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Card, mnemonic, binder, and federation claim.",
+      "id": "protocol:rappcards-1.1.2",
+      "name": "RAPPcards 1.1.2",
+      "node_type": "protocol",
+      "primary_plane": "identity",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Always-on cloud body for agents and memory.",
+      "id": "runtime:azure-functions-body",
+      "name": "Azure Functions agent body",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Enterprise data/application encoding and hatcher.",
+      "id": "runtime:dataverse-twin",
+      "name": "Dataverse vTwin",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Builds, hatches, supervises, signs, and aggregates child twins.",
+      "id": "runtime:global-controller",
+      "name": "Local global controller",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Supervised transport adapter with durable local state.",
+      "id": "runtime:imessage-adapter",
+      "name": "Owner-only iMessage adapter",
+      "node_type": "runtime",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Dedicated workspace, venv, identity/key references, agents, and state.",
+      "id": "runtime:isolated-installed-twin",
+      "name": "Isolated installed twin",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "A twin materialized by historical hatchers without implying CUBBY containment or isolation conformance.",
+      "id": "runtime:legacy-hatched-twin",
+      "name": "Legacy hatcher output",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "One controller coordinating enrolled brainstem nodes.",
+      "id": "runtime:leviathan-controller",
+      "name": "Fleet Leviathan controller",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "One enrolled fleet body mapping bounded operations to local chat.",
+      "id": "runtime:leviathan-node",
+      "name": "Fleet Leviathan node",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Managed enterprise presentation and deployment destination.",
+      "id": "runtime:m365-surface",
+      "name": "Copilot Studio / M365 surface",
+      "node_type": "runtime",
+      "primary_plane": "cloud/enterprise",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Newly authored project runtime; Microsoft is behavioral/license reference only and supplies no adapted runtime source.",
+      "id": "runtime:clean-room-brainstem",
+      "implementation_origin": "original_clean_room",
+      "name": "Original clean-room local runtime",
+      "node_type": "runtime",
+      "primary_plane": "kernel/runtime",
+      "reference_policy": "No external runtime source copied or adapted.",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "An admitted peer that verifies and consumes events.",
+      "id": "runtime:neighborhood-peer",
+      "name": "Receiving neighborhood twin",
+      "node_type": "runtime",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Issues/Discussions/Actions/Pages social implementation.",
+      "id": "runtime:rappterbook-social-platform",
+      "name": "Rappterbook GitHub-native platform",
+      "node_type": "runtime",
+      "primary_plane": "UX/observability/evolution",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Preflight, artifact, scanner, attestation, publication, and rollback controls.",
+      "id": "runtime:release-gate",
+      "name": "Release and rollback gate",
+      "node_type": "runtime",
+      "primary_plane": "security/release",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Always-on relay for neighborhood room events.",
+      "id": "runtime:resident-relay",
+      "name": "Resident event relay",
+      "node_type": "runtime",
+      "primary_plane": "neighborhood/estate/metropolis",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Offline-restored child validated before replacement.",
+      "id": "runtime:restored-isolated-twin",
+      "name": "Restored isolated twin",
+      "node_type": "runtime",
+      "primary_plane": "twin lifecycle",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "One being composed of cells across estates; distinct from fleet control.",
+      "id": "runtime:wrapped-organism",
+      "name": "Wrapped-organism Leviathan",
+      "node_type": "runtime",
+      "primary_plane": "fleet/leviathan",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Local private session, memory, replay, and delivery state.",
+      "id": "store:memory",
+      "name": "Private memory store",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": true
+    },
+    {
+      "description": "Public index of application bundles.",
+      "id": "store:rapplication",
+      "name": "Rapplication catalog",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Public index of single-file agents.",
+      "id": "store:rar-source",
+      "name": "RAR source-agent registry",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Public index of output overlays.",
+      "id": "store:sense",
+      "name": "Sense catalog",
+      "node_type": "store",
+      "primary_plane": "memory/storage",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Static public origin for catalogs and front doors.",
+      "id": "transport:github-pages",
+      "name": "GitHub Pages static transport",
+      "node_type": "transport",
+      "primary_plane": "substrate",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Slow read/write medium for frames and public events.",
+      "id": "transport:github-raw-issues",
+      "name": "GitHub raw/Issues transport",
+      "node_type": "transport",
+      "primary_plane": "chat/network",
+      "selected_for_cubby": false
+    },
+    {
+      "description": "Supervised stdio bridge to Messages; unresolved dependency pin.",
+      "id": "transport:imsg-json-rpc",
+      "name": "Pinned imsg JSON-RPC transport",
+      "node_type": "transport",
+      "primary_plane": "messaging",
+      "selected_for_cubby": true
+    },
+    {
+      "antecedent_public_repository": false,
+      "description": "The complete working product/context repository, absent from the antecedent public account snapshot and represented separately from 307 audited public repository nodes.",
+      "id": "product:local/rapp-stack-cubby",
+      "included_in_source_census_count": false,
+      "name": "RAPP Stack CUBBY local product source",
+      "node_type": "local_product",
+      "path": ".",
+      "primary_plane": "distribution",
+      "selected_for_cubby": true
+    }
+  ],
+  "orphan_explanation": "Repositories without a direct normalized relationship remain explicit audited inventory nodes; absence of an edge is not absence from the census.",
+  "output_schema": "rapp-system-graph/1.0",
+  "schema": "rapp-system-graph-overlay/1.0"
+}

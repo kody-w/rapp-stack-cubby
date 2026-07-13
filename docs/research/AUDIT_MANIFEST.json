@@ -1,0 +1,1337 @@
+{
+  "coverage": {
+    "all_current_public_names_accounted": true,
+    "audit_complete": true,
+    "audited_repository_count": 307,
+    "classification_counts": {
+      "A": 84,
+      "C": 39,
+      "I": 76,
+      "L": 20,
+      "U": 88
+    },
+    "head_drift_counts": {
+      "empty_repository": 5,
+      "new_repository_inspected_at_current_head": 3,
+      "observed_changed_since_evidence": 12,
+      "post_window_drift": 5,
+      "unchanged": 282
+    },
+    "repository_count": 307,
+    "unique_repository_names": 307
+  },
+  "drift_review": {
+    "complete": true,
+    "records": [
+      {
+        "classification": "A",
+        "current_head_sha": "42c48ca7f5578b724c7d13a1128c5c4d5c236733",
+        "evidence_head_sha": "2db8a88e5a4e847b3b25f8313a1e7a193d0f72c4",
+        "name": "localFirstTools",
+        "review": {
+          "capability_changes": "No capability change; refreshed generated health/content evidence only.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "scripts/health_check.mjs",
+              "data/reports/health-check-latest.md"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 2,
+            "changed_file_count": 3,
+            "commit_count": 2,
+            "locator": "GitHub REST GET /repos/kody-w/localFirstTools/compare/2db8a88e5a4e847b3b25f8313a1e7a193d0f72c4...42c48ca7f5578b724c7d13a1128c5c4d5c236733",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Only scheduled Hacker News and health-report data changed; the local-first gallery/protocol capability is unchanged.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "42c48ca7f5578b724c7d13a1128c5c4d5c236733",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head; README badge alone is not a license conclusion.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/localFirstTools/pages",
+            "source": {
+              "branch": "main",
+              "path": "/"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/localFirstTools/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "PROTOCOL.md",
+              "manifest.json"
+            ]
+          },
+          "tree": {
+            "file_count": 4625,
+            "locator": "GitHub REST GET /repos/kody-w/localFirstTools/git/trees/42c48ca7f5578b724c7d13a1128c5c4d5c236733?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "de492efcd12cfeeda3c35b1de1be86a15ce868db",
+        "evidence_head_sha": "96b1a97f4e92c0c37285a929e0039ead0bc68ce3",
+        "name": "localFirstTools-main",
+        "review": {
+          "capability_changes": "No capability change; autonomous state/feed observations advanced.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "scripts/rappter_engine.py",
+              "apps/ghost-state.json"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 7,
+            "changed_file_count": 9,
+            "commit_count": 7,
+            "locator": "GitHub REST GET /repos/kody-w/localFirstTools-main/compare/96b1a97f4e92c0c37285a929e0039ead0bc68ce3...de492efcd12cfeeda3c35b1de1be86a15ce868db",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Seven automation commits changed activity, federation, ghost, molt, and feed state only; the static agent-consumable gallery remains the same capability.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "de492efcd12cfeeda3c35b1de1be86a15ce868db",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/localFirstTools-main/pages",
+            "source": {
+              "branch": "main",
+              "path": "/"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/localFirstTools-main/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              ".well-known/agent-protocol",
+              "apps/manifest.json",
+              "package.json"
+            ]
+          },
+          "tree": {
+            "file_count": 1068,
+            "locator": "GitHub REST GET /repos/kody-w/localFirstTools-main/git/trees/de492efcd12cfeeda3c35b1de1be86a15ce868db?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "cf116bb203ddf9636d3dceed253637182e260d58",
+        "evidence_head_sha": "87b8b724d6f3fd5a084ceedc097c8c4463d86009",
+        "name": "localtoolsdev",
+        "review": {
+          "capability_changes": "No capability change; generated health/content evidence refreshed.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "scripts/health_check.mjs",
+              "data/reports/health-check-latest.md"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 2,
+            "changed_file_count": 3,
+            "commit_count": 2,
+            "locator": "GitHub REST GET /repos/kody-w/localtoolsdev/compare/87b8b724d6f3fd5a084ceedc097c8c4463d86009...cf116bb203ddf9636d3dceed253637182e260d58",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Only Hacker News and health-report outputs changed; this remains an adjacent local-first tool corpus.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "cf116bb203ddf9636d3dceed253637182e260d58",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head; nested v86 licenses do not license the repository.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": null,
+            "configured": false,
+            "inspected_via": "GitHub REST GET /repos/kody-w/localtoolsdev/pages",
+            "source": null,
+            "status": "not_configured",
+            "url": null,
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "manifest.json"
+            ]
+          },
+          "tree": {
+            "file_count": 4591,
+            "locator": "GitHub REST GET /repos/kody-w/localtoolsdev/git/trees/cf116bb203ddf9636d3dceed253637182e260d58?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "I",
+        "current_head_sha": "bfe158952cbeb13568cdf69013a6a7456c30f837",
+        "evidence_head_sha": "75c702623e85e15b6ee830c8917a1142831282d9",
+        "name": "mars-barn-opus",
+        "review": {
+          "capability_changes": "Expanded simulation evidence with deterministic cohort/readiness and cascade analysis; no local selected implementation changed.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "src/mission_readiness.py",
+              "src/readiness_report.py",
+              "src/colony.py"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 1,
+            "changed_file_count": 28,
+            "commit_count": 1,
+            "locator": "GitHub REST GET /repos/kody-w/mars-barn-opus/compare/75c702623e85e15b6ee830c8917a1142831282d9...bfe158952cbeb13568cdf69013a6a7456c30f837",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification I and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "A 28-file implementation expansion adds deterministic mission-readiness cohorts, extinction-cascade analysis, reports, twin pairing, browser coverage, and tests.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "bfe158952cbeb13568cdf69013a6a7456c30f837",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/mars-barn-opus/pages",
+            "source": {
+              "branch": "main",
+              "path": "/docs"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/mars-barn-opus/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "data/engine-manifest.json",
+              "data/frames/manifest.json",
+              "package.json"
+            ]
+          },
+          "tree": {
+            "file_count": 1630,
+            "locator": "GitHub REST GET /repos/kody-w/mars-barn-opus/git/trees/bfe158952cbeb13568cdf69013a6a7456c30f837?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "1b85b42349963693c322e83d751ad39c939e6b6e",
+        "evidence_head_sha": "5fc33ec3d5e0a60802656de38be3652bc28e4b34",
+        "name": "mars-chain-node",
+        "review": {
+          "capability_changes": "No capability change; consensus data advanced.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "docs/api/consensus.json",
+              ".github/workflows/verify.yml"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 2,
+            "changed_file_count": 1,
+            "commit_count": 2,
+            "locator": "GitHub REST GET /repos/kody-w/mars-chain-node/compare/5fc33ec3d5e0a60802656de38be3652bc28e4b34...1b85b42349963693c322e83d751ad39c939e6b6e",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Two commits updated only the published consensus observation; node protocol and verification workflow are unchanged.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "1b85b42349963693c322e83d751ad39c939e6b6e",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": null,
+            "configured": false,
+            "inspected_via": "GitHub REST GET /repos/kody-w/mars-chain-node/pages",
+            "source": null,
+            "status": "not_configured",
+            "url": null,
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "chain/genesis.json",
+              "chain/state.json"
+            ]
+          },
+          "tree": {
+            "file_count": 13,
+            "locator": "GitHub REST GET /repos/kody-w/mars-chain-node/git/trees/1b85b42349963693c322e83d751ad39c939e6b6e?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "789f9334050c40d115216d37f20f9b77e8429d12",
+        "evidence_head_sha": "f7d6f5603c0e144ab2a97692f382e6b170332308",
+        "name": "rapp-moonshots",
+        "review": {
+          "capability_changes": "Adds a tested adjacent voice/gaze/gesture interaction and sensor-safe PWA reference; no local selected implementation changed.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "moonshots/003-impossible-interface-tournament/adaptive-orb/src/core.mjs",
+              "moonshots/003-impossible-interface-tournament/adaptive-orb/tests/core.test.mjs"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 42,
+            "changed_file_count": 104,
+            "commit_count": 42,
+            "locator": "GitHub REST GET /repos/kody-w/rapp-moonshots/compare/f7d6f5603c0e144ab2a97692f382e6b170332308...789f9334050c40d115216d37f20f9b77e8429d12",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Large 42-commit/104-file drift adds the completed Impossible Interface Tournament and Adaptive Orb voice/gaze/gesture mobile PWA with deterministic evidence, privacy lifecycle, tests, and rollback material.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "789f9334050c40d115216d37f20f9b77e8429d12",
+          "license": {
+            "conclusion": "MIT",
+            "finding": "MIT text: Copyright (c) 2026 Kody Wildfeuer.",
+            "inspected_paths": [
+              "LICENSE"
+            ]
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rapp-moonshots/pages",
+            "source": {
+              "branch": "main",
+              "path": "/"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/rapp-moonshots/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "moonshots.json",
+              "moonshots/003-impossible-interface-tournament/README.md",
+              "moonshots/003-impossible-interface-tournament/JUDGING.md",
+              "moonshots/003-impossible-interface-tournament/RESULTS.json"
+            ]
+          },
+          "tree": {
+            "file_count": 177,
+            "locator": "GitHub REST GET /repos/kody-w/rapp-moonshots/git/trees/789f9334050c40d115216d37f20f9b77e8429d12?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "25e60c3bb1b665a6fcd654277a1ea0dfdd65d254",
+        "evidence_head_sha": "6532d7e8df09c5906b6aadedfe5677cb11b4afdf",
+        "name": "rappter-plays-pokemon",
+        "review": {
+          "capability_changes": "Extends the adjacent autonomous-player implementation with deterministic route guidance; no local selected implementation changed.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "pokemon_agent.py",
+              "src/rappter_plays_pokemon/cli.py",
+              "tests/test_pokemon_agent.py"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 4,
+            "changed_file_count": 2,
+            "commit_count": 4,
+            "locator": "GitHub REST GET /repos/kody-w/rappter-plays-pokemon/compare/6532d7e8df09c5906b6aadedfe5677cb11b4afdf...25e60c3bb1b665a6fcd654277a1ea0dfdd65d254",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Four commits add bounded Rock Tunnel route guidance to the existing ROM-free supervised BasicAgent and cover it with tests; security and local-only boundaries remain.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "25e60c3bb1b665a6fcd654277a1ea0dfdd65d254",
+          "license": {
+            "conclusion": "MIT",
+            "finding": "MIT text: Copyright (c) 2026 Kody W.",
+            "inspected_paths": [
+              "LICENSE"
+            ]
+          },
+          "pages": {
+            "build_type": null,
+            "configured": false,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rappter-plays-pokemon/pages",
+            "source": null,
+            "status": "not_configured",
+            "url": null,
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "pyproject.toml",
+              "pokemon_agent.py:__manifest__"
+            ]
+          },
+          "tree": {
+            "file_count": 18,
+            "locator": "GitHub REST GET /repos/kody-w/rappter-plays-pokemon/git/trees/25e60c3bb1b665a6fcd654277a1ea0dfdd65d254?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "C",
+        "current_head_sha": "d1f0c0d2bb8cb41df5632594a7111d2f0269fd49",
+        "evidence_head_sha": "fe0e63e1ffc77ef5061186f1e2dbbd1829bd4a17",
+        "name": "rappterbook",
+        "review": {
+          "capability_changes": "No new load-bearing capability selected; generated social, simulation, Dynamics, Twitter, and evolution state advanced.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "engine/run.py",
+              "engine/registry.py",
+              "scripts/brainstem/brainstem.py",
+              "scripts/pii_scan.py"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 51,
+            "changed_file_count": 300,
+            "commit_count": 51,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook/compare/fe0e63e1ffc77ef5061186f1e2dbbd1829bd4a17...d1f0c0d2bb8cb41df5632594a7111d2f0269fd49",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification C and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Notable large 51-commit drift is dominated by 299 generated Pages/API/data files plus one federation document; current core engine, egg spec, registry, brainstem, PII scanner, license, and Pages deployment were directly rechecked.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "d1f0c0d2bb8cb41df5632594a7111d2f0269fd49",
+          "license": {
+            "conclusion": "MIT",
+            "finding": "MIT text: Copyright (c) 2026 kody-w.",
+            "inspected_paths": [
+              "LICENSE"
+            ]
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rappterbook/pages",
+            "source": {
+              "branch": "main",
+              "path": "/docs"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/rappterbook/",
+            "workflow_paths": [
+              ".github/workflows/deploy-pages.yml"
+            ]
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "EGG_SPEC.md",
+              "state/manifest.json"
+            ]
+          },
+          "tree": {
+            "file_count": 7188,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook/git/trees/d1f0c0d2bb8cb41df5632594a7111d2f0269fd49?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "A",
+        "current_head_sha": "75a61c43ea33d563dc00a9f249929fa8aef29aff",
+        "evidence_head_sha": "a4de58be0be2c866001a869384191d13138c2d47",
+        "name": "rappterbook-agent-exchange",
+        "review": {
+          "capability_changes": "No capability change; generated simulation state advanced.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "src/exchange.py",
+              "scripts/channel_health.py"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 7,
+            "changed_file_count": 16,
+            "commit_count": 7,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook-agent-exchange/compare/a4de58be0be2c866001a869384191d13138c2d47...75a61c43ea33d563dc00a9f249929fa8aef29aff",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification A and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Seven commits changed deterministic simulation/channel/pulse state and rendered Pages data; the exchange and channel-health implementation remain unchanged.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "75a61c43ea33d563dc00a9f249929fa8aef29aff",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rappterbook-agent-exchange/pages",
+            "source": {
+              "branch": "main",
+              "path": "/docs"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/rappterbook-agent-exchange/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "state/channel_health.json"
+            ]
+          },
+          "tree": {
+            "file_count": 479,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook-agent-exchange/git/trees/75a61c43ea33d563dc00a9f249929fa8aef29aff?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "I",
+        "current_head_sha": "6da27b309760f2b2c0b97dae0a1ad15a906c4fd3",
+        "evidence_head_sha": "8f46b2dfa37e24b968d6a3735880049fe61d26b3",
+        "name": "rappterbook-first-bond",
+        "review": {
+          "capability_changes": "Expands the adjacent bond prototype and its truthful validation gates; remains an unvalidated prototype and is not selected locally.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "docs/bond-core.mjs",
+              "docs/bond-app.mjs",
+              "tests/bond-core.test.mjs"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 10,
+            "changed_file_count": 12,
+            "commit_count": 10,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook-first-bond/compare/8f46b2dfa37e24b968d6a3735880049fe61d26b3...6da27b309760f2b2c0b97dae0a1ad15a906c4fd3",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification I and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Ten commits advance the prototype to frame 4, adding bounded/abortable source handling, strict 1 KiB bond state, explicit Keep/Wait decisions, icon study tooling, and tests while retaining pending human release gates.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "6da27b309760f2b2c0b97dae0a1ad15a906c4fd3",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rappterbook-first-bond/pages",
+            "source": {
+              "branch": "main",
+              "path": "/docs"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/rappterbook-first-bond/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "evolution.json"
+            ]
+          },
+          "tree": {
+            "file_count": 13,
+            "locator": "GitHub REST GET /repos/kody-w/rappterbook-first-bond/git/trees/6da27b309760f2b2c0b97dae0a1ad15a906c4fd3?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "I",
+        "current_head_sha": "87da5bd529aa89ec8ef1cba719bdd86dcdaa77f1",
+        "evidence_head_sha": "c0ce913df40a8773d062d56f0fcb4fc58f71309a",
+        "name": "rappterverse",
+        "review": {
+          "capability_changes": "Hardens the adjacent autonomous-world state/replay/PII model; no local selected implementation changed.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "scripts/agent_dispatch.py",
+              "scripts/state_reconciler.py",
+              "scripts/pii_scan.py",
+              "scripts/test_state_integrity.py",
+              "src/js/rappter-vm.js"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 26,
+            "changed_file_count": 112,
+            "commit_count": 26,
+            "locator": "GitHub REST GET /repos/kody-w/rappterverse/compare/c0ce913df40a8773d062d56f0fcb4fc58f71309a...87da5bd529aa89ec8ef1cba719bdd86dcdaa77f1",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification I and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Twenty-six commits include state actions and a broad replay-safety hardening pass across workflows, dispatch, reconciliation, PII scanning, tests, and frontend state; legacy source lineages are pinned explicitly.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "87da5bd529aa89ec8ef1cba719bdd86dcdaa77f1",
+          "license": {
+            "conclusion": "NOASSERTION",
+            "finding": "No root license file at inspected head.",
+            "inspected_paths": []
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/rappterverse/pages",
+            "source": {
+              "branch": "main",
+              "path": "/docs"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/rappterverse/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "docs/manifest.json",
+              "agents/nova-prime-001.agent.json"
+            ]
+          },
+          "tree": {
+            "file_count": 1085,
+            "locator": "GitHub REST GET /repos/kody-w/rappterverse/git/trees/87da5bd529aa89ec8ef1cba719bdd86dcdaa77f1?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      },
+      {
+        "classification": "C",
+        "current_head_sha": "c1b12083a0183d459b0ed711c06a666213e6ccdd",
+        "evidence_head_sha": "2057a17fcbf7f6b88879c26ff06fb695cbf002b9",
+        "name": "RAR",
+        "review": {
+          "capability_changes": "No capability change; generated Rappterpedia stream data advanced.",
+          "code": {
+            "finding": "present",
+            "inspected_paths": [
+              "build_registry.py",
+              "security_scan.py",
+              "agents/@rapp/basic_agent.py"
+            ]
+          },
+          "comparison": {
+            "ahead_by": 7,
+            "changed_file_count": 44,
+            "commit_count": 7,
+            "locator": "GitHub REST GET /repos/kody-w/RAR/compare/2057a17fcbf7f6b88879c26ff06fb695cbf002b9...c1b12083a0183d459b0ed711c06a666213e6ccdd",
+            "status": "ahead"
+          },
+          "completed": true,
+          "disposition": "Retain classification C and existing evidence pin; record this exact-head review separately from antecedent locators.",
+          "evidence_summary": "Seven commits add only Rappterpedia Dream Catcher stream frames; registry builder, BasicAgent contract, protocol pointer, license, and Pages remain unchanged.",
+          "inspection_completed_at": "2026-07-13T09:16:13.263539Z",
+          "inspection_head_sha": "c1b12083a0183d459b0ed711c06a666213e6ccdd",
+          "license": {
+            "conclusion": "MIT",
+            "finding": "MIT text: Copyright (c) 2026 Kody Wildfeuer.",
+            "inspected_paths": [
+              "LICENSE"
+            ]
+          },
+          "pages": {
+            "build_type": "legacy",
+            "configured": true,
+            "inspected_via": "GitHub REST GET /repos/kody-w/RAR/pages",
+            "source": {
+              "branch": "main",
+              "path": "/"
+            },
+            "status": "built",
+            "url": "https://kody-w.github.io/RAR/",
+            "workflow_paths": []
+          },
+          "readme": {
+            "inspected": true,
+            "path": "README.md"
+          },
+          "specification_or_manifest": {
+            "finding": "present",
+            "inspected_paths": [
+              "NEIGHBORHOOD_PROTOCOL.md",
+              "pyproject.toml"
+            ]
+          },
+          "tree": {
+            "file_count": 6391,
+            "locator": "GitHub REST GET /repos/kody-w/RAR/git/trees/c1b12083a0183d459b0ed711c06a666213e6ccdd?recursive=1",
+            "recursive_tree_truncated": false
+          }
+        }
+      }
+    ],
+    "required_count": 12
+  },
+  "empty_repositories": [
+    "BigNerdRanch",
+    "copilotsdktown",
+    "inventwithpython",
+    "LPTHW",
+    "Treehouse"
+  ],
+  "existence_cutoff": "2026-07-13T08:57:20.399000Z",
+  "external_reports_required": false,
+  "methodology": {
+    "assignment": "Case-insensitive repository-name order; sorted_index modulo 8.",
+    "authority": "Authenticated GitHub API inventory and direct repository-local inspection; indexes are navigation only.",
+    "evidence_pinning": "Existing evidence remains at evidence_head_sha. current_head_sha/head_drift never move old line citations.",
+    "local_context": "Every shard and the raw sanitized snapshot are checked in; no external crawler report is needed.",
+    "observation_window": "The snapshot is a bounded, non-atomic observation window. Inventory and head request/response times are retained; each head applies at its own observed_at."
+  },
+  "new_repository_inspections": [
+    {
+      "classification": "I",
+      "evidence_head_sha": "58362a43bbf02d3909aacb6617b745f0fca8d0ad",
+      "inspection": {
+        "classification_decision": "I",
+        "classification_evidence": "Local-first Circle/Pocket Quest PWA with signed replicas, bounded protocol, verified BasicAgent sources, tests, and live workflow-backed Pages.",
+        "code": {
+          "finding": "present",
+          "inspected_paths": [
+            "src/protocol.ts",
+            "src/scanner.ts",
+            "public/agents/quest_master_agent.py"
+          ]
+        },
+        "inspection_head_sha": "58362a43bbf02d3909aacb6617b745f0fca8d0ad",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": true,
+          "url": "https://kody-w.github.io/rapp-heir/",
+          "workflow": ".github/workflows/pages.yml"
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "present",
+          "inspected_paths": [
+            "PROTOCOL.md",
+            "public/agents/manifest.json",
+            "package.json"
+          ]
+        },
+        "tree": {
+          "file_count": 72,
+          "locator": "GitHub REST GET /repos/kody-w/rapp-heir/git/trees/58362a43bbf02d3909aacb6617b745f0fca8d0ad?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "rapp-heir"
+    },
+    {
+      "classification": "I",
+      "evidence_head_sha": "27bdbc5a2c76920f1e6745f578a928ca4625a2b3",
+      "inspection": {
+        "classification_decision": "I",
+        "classification_evidence": "Canonical RAPP BasicAgent cartridge for a ROM-free local PyBoy/Copilot playthrough, with supervised runtime, tests, and explicit legal-content boundary.",
+        "code": {
+          "finding": "present",
+          "inspected_paths": [
+            "agent.py",
+            "src/rapp_play_pokemon/brainstem.py",
+            "src/rapp_play_pokemon/cli.py"
+          ]
+        },
+        "inspection_head_sha": "27bdbc5a2c76920f1e6745f578a928ca4625a2b3",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": false,
+          "url": null,
+          "workflow": null
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "present",
+          "inspected_paths": [
+            "agent.py:CARTRIDGE_MANIFEST",
+            "pyproject.toml"
+          ]
+        },
+        "tree": {
+          "file_count": 22,
+          "locator": "GitHub REST GET /repos/kody-w/rapp-play-pokemon/git/trees/27bdbc5a2c76920f1e6745f578a928ca4625a2b3?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "rapp-play-pokemon"
+    },
+    {
+      "classification": "I",
+      "evidence_head_sha": "7bc0d2911d231de4e2bb04a425b6a2b8a86e8263",
+      "inspection": {
+        "classification_decision": "I",
+        "classification_evidence": "Replayable synthetic RAPPterverse datasets/world-pack sources with schemas, deterministic generators, default-deny publication policy, scanners, tests, and live catalog Pages.",
+        "code": {
+          "finding": "present",
+          "inspected_paths": [
+            "generators/d01/generate.py",
+            "scripts/governance/scanners.py",
+            "scripts/build_site.py"
+          ]
+        },
+        "inspection_head_sha": "7bc0d2911d231de4e2bb04a425b6a2b8a86e8263",
+        "license": {
+          "conclusion": "Apache-2.0 AND CC-BY-4.0",
+          "inspected_paths": [
+            "LICENSE-CODE",
+            "LICENSE-DATA",
+            "NOTICE"
+          ]
+        },
+        "pages": {
+          "configured": true,
+          "url": "https://kody-w.github.io/rappterverse-data/",
+          "workflow": ".github/workflows/pages.yml"
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "present",
+          "inspected_paths": [
+            "catalog/catalog.json",
+            "policies/publication-policy.json",
+            "schemas/v1/manifests/dataset-manifest.schema.json"
+          ]
+        },
+        "tree": {
+          "file_count": 178,
+          "locator": "GitHub REST GET /repos/kody-w/rappterverse-data/git/trees/7bc0d2911d231de4e2bb04a425b6a2b8a86e8263?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "rappterverse-data"
+    },
+    {
+      "classification": "A",
+      "evidence_head_sha": "e784b329613b5f23c7fdcb41956c57ca5208259f",
+      "inspection": {
+        "classification_decision": "A",
+        "classification_evidence": "Implemented deterministic public-docs-subset Dynamics 365 simulator with generated OData fixtures, injected stateful twin runtime, tests, and live Pages.",
+        "code": {
+          "finding": "present",
+          "inspected_paths": [
+            "build.py",
+            "site/twin-core.mjs",
+            "site/app.mjs"
+          ]
+        },
+        "inspection_head_sha": "e784b329613b5f23c7fdcb41956c57ca5208259f",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": true,
+          "url": "https://kody-w.github.io/static-dynamics-365/",
+          "workflow": ".github/workflows/pages.yml"
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "present",
+          "inspected_paths": [
+            "manifest.json",
+            "registry.json",
+            "API.md"
+          ]
+        },
+        "tree": {
+          "file_count": 78,
+          "locator": "GitHub REST GET /repos/kody-w/static-dynamics-365/git/trees/e784b329613b5f23c7fdcb41956c57ca5208259f?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "static-dynamics-365"
+    },
+    {
+      "classification": "A",
+      "evidence_head_sha": "147f25a05b1c37ab8a3f9b5c060a8a58dcecfe86",
+      "inspection": {
+        "classification_decision": "A",
+        "classification_evidence": "Two-file MIT-licensed declaration for a proposed static Oracle Fusion Procurement simulator; no manifest, code, tests, workflow, or Pages implementation exists at the observed head.",
+        "code": {
+          "finding": "absent at exact head",
+          "inspected_paths": []
+        },
+        "inspection_head_sha": "147f25a05b1c37ab8a3f9b5c060a8a58dcecfe86",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": false,
+          "url": null,
+          "workflow": null
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "absent; repository contains only README.md and LICENSE",
+          "inspected_paths": []
+        },
+        "tree": {
+          "file_count": 2,
+          "locator": "GitHub REST GET /repos/kody-w/static-oracle-fusion/git/trees/147f25a05b1c37ab8a3f9b5c060a8a58dcecfe86?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "static-oracle-fusion"
+    },
+    {
+      "classification": "A",
+      "evidence_head_sha": "ad5c130a290f6b9011a1ec7ad4eb1bc0093fdbcc",
+      "inspection": {
+        "classification_decision": "A",
+        "classification_evidence": "Two-file MIT-licensed declaration for a proposed static SAP S/4HANA simulator; no manifest, code, tests, workflow, or Pages implementation exists at the observed head.",
+        "code": {
+          "finding": "absent at exact head",
+          "inspected_paths": []
+        },
+        "inspection_head_sha": "ad5c130a290f6b9011a1ec7ad4eb1bc0093fdbcc",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": false,
+          "url": null,
+          "workflow": null
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "absent; repository contains only README.md and LICENSE",
+          "inspected_paths": []
+        },
+        "tree": {
+          "file_count": 2,
+          "locator": "GitHub REST GET /repos/kody-w/static-sap-s4hana/git/trees/ad5c130a290f6b9011a1ec7ad4eb1bc0093fdbcc?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "static-sap-s4hana"
+    },
+    {
+      "classification": "A",
+      "evidence_head_sha": "22bb877254036a62b59b36359b32903cd33bc344",
+      "inspection": {
+        "classification_decision": "A",
+        "classification_evidence": "Two-file MIT-licensed declaration for a proposed static ServiceNow/ITSM simulator; no manifest, code, tests, workflow, or Pages implementation exists at the observed head.",
+        "code": {
+          "finding": "absent at exact head",
+          "inspected_paths": []
+        },
+        "inspection_head_sha": "22bb877254036a62b59b36359b32903cd33bc344",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": false,
+          "url": null,
+          "workflow": null
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "absent; repository contains only README.md and LICENSE",
+          "inspected_paths": []
+        },
+        "tree": {
+          "file_count": 2,
+          "locator": "GitHub REST GET /repos/kody-w/static-servicenow/git/trees/22bb877254036a62b59b36359b32903cd33bc344?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "static-servicenow"
+    },
+    {
+      "classification": "A",
+      "evidence_head_sha": "fbc770494e98222cdf7bbc14bec04fd3ec4008a2",
+      "inspection": {
+        "classification_decision": "A",
+        "classification_evidence": "Two-file MIT-licensed declaration for a proposed static Zuora billing simulator; no manifest, code, tests, workflow, or Pages implementation exists at the observed head.",
+        "code": {
+          "finding": "absent at exact head",
+          "inspected_paths": []
+        },
+        "inspection_head_sha": "fbc770494e98222cdf7bbc14bec04fd3ec4008a2",
+        "license": {
+          "conclusion": "MIT",
+          "inspected_paths": [
+            "LICENSE"
+          ]
+        },
+        "pages": {
+          "configured": false,
+          "url": null,
+          "workflow": null
+        },
+        "readme": {
+          "inspected": true,
+          "path": "README.md"
+        },
+        "specification_or_manifest": {
+          "finding": "absent; repository contains only README.md and LICENSE",
+          "inspected_paths": []
+        },
+        "tree": {
+          "file_count": 2,
+          "locator": "GitHub REST GET /repos/kody-w/static-zuora/git/trees/fbc770494e98222cdf7bbc14bec04fd3ec4008a2?recursive=1",
+          "recursive_tree_truncated": false
+        }
+      },
+      "name": "static-zuora"
+    }
+  ],
+  "owner": "kody-w",
+  "post_window_drift": {
+    "repositories": [
+      {
+        "current_head_sha": "10a2c560b8297560a12ea7773a611761a793ad60",
+        "evidence_head_sha": "27bdbc5a2c76920f1e6745f578a928ca4625a2b3",
+        "head_observed_at": "2026-07-13T09:08:41.014522Z",
+        "name": "rapp-play-pokemon"
+      },
+      {
+        "current_head_sha": "cff8bb0358ce10449ee1d72018a7624009aa3599",
+        "evidence_head_sha": "7bc0d2911d231de4e2bb04a425b6a2b8a86e8263",
+        "head_observed_at": "2026-07-13T09:09:00.073570Z",
+        "name": "rappterverse-data"
+      },
+      {
+        "current_head_sha": "d0db9364441aeef2371454d24dad17c674ede045",
+        "evidence_head_sha": "147f25a05b1c37ab8a3f9b5c060a8a58dcecfe86",
+        "head_observed_at": "2026-07-13T09:09:07.346449Z",
+        "name": "static-oracle-fusion"
+      },
+      {
+        "current_head_sha": "68197c7152a7a8f2208da902cbedd79d64daf1c8",
+        "evidence_head_sha": "ad5c130a290f6b9011a1ec7ad4eb1bc0093fdbcc",
+        "head_observed_at": "2026-07-13T09:09:07.885603Z",
+        "name": "static-sap-s4hana"
+      },
+      {
+        "current_head_sha": "f77c3373b4af27bec2aac0a577e8e25fffe63333",
+        "evidence_head_sha": "22bb877254036a62b59b36359b32903cd33bc344",
+        "head_observed_at": "2026-07-13T09:09:08.307005Z",
+        "name": "static-servicenow"
+      }
+    ],
+    "repository_count": 5,
+    "semantics": "Movement after an earlier pinned inspection is recorded separately and does not rewrite that inspection."
+  },
+  "raw_inventory": {
+    "canonical_repositories_sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae",
+    "file_sha256": "02a196b5866f1b6d9854b2abc607768b3120e5f33ac0b8b919ab394174a35858",
+    "head_observations_sha256": "ceab5a6ee61fb3127f3e81808b35c5b5e8c571077ad52e8e9d465bdb2e4bd021",
+    "inventory_records_sha256": "ede143debd6a87f1cd6daee5186cdec01eeb9cfc5cda7a2fca84b4e8aaccd718",
+    "path": "docs/research/public-account-snapshot.json",
+    "query": {
+      "api_version": "2022-11-28",
+      "endpoint": "GET /users/kody-w/repos",
+      "parameters": {
+        "direction": "asc",
+        "per_page": 100,
+        "sort": "full_name",
+        "type": "owner"
+      },
+      "tool": "gh version 2.88.1 (2026-03-12)"
+    },
+    "raw_shards": [
+      {
+        "first_repository": "agency-agents",
+        "last_repository": "VSProjects",
+        "path": "docs/research/raw/shard-0.json",
+        "repository_count": 39,
+        "sha256": "97499b9f3c1871bc636e485f9215e04dba815ff27a4067866a98c7006b57d71d",
+        "shard": 0,
+        "size": 124152
+      },
+      {
+        "first_repository": "agent-ranker",
+        "last_repository": "wildhaven-ai-homes-twin",
+        "path": "docs/research/raw/shard-1.json",
+        "repository_count": 39,
+        "sha256": "bd59f927712c32a6ce474f001cee8f469fa846cc4ae0780cdf3d63e90a245754",
+        "shard": 1,
+        "size": 125509
+      },
+      {
+        "first_repository": "agentbookfactory",
+        "last_repository": "zion",
+        "path": "docs/research/raw/shard-2.json",
+        "repository_count": 39,
+        "sha256": "65e0467a1e6bbbb6ccfdbd3fe7fc0d1c77c0191f6cee41139720b8e604620063",
+        "shard": 2,
+        "size": 125314
+      },
+      {
+        "first_repository": "AgenticPlaygroundLab",
+        "last_repository": "v86",
+        "path": "docs/research/raw/shard-3.json",
+        "repository_count": 38,
+        "sha256": "62687a1adcde7d4c6fe2f434dd1994a88b0da7908493c50ab6d5d7290a48cc6a",
+        "shard": 3,
+        "size": 121878
+      },
+      {
+        "first_repository": "Agents",
+        "last_repository": "vbrainstem",
+        "path": "docs/research/raw/shard-4.json",
+        "repository_count": 38,
+        "sha256": "1a04f3d63cea0ee1733dbb225d4c4489ded459d236b4dc484422e502c3adcada",
+        "shard": 4,
+        "size": 121040
+      },
+      {
+        "first_repository": "Agents-for-python",
+        "last_repository": "vneighborhood-design-studio",
+        "path": "docs/research/raw/shard-5.json",
+        "repository_count": 38,
+        "sha256": "8fd0c0857bbdc5cb5f6869b83cab4a7091bb1923ab13cdf25af771896384c1e1",
+        "shard": 5,
+        "size": 123433
+      },
+      {
+        "first_repository": "agents-library-tracker",
+        "last_repository": "vneighborhood-research-lab",
+        "path": "docs/research/raw/shard-6.json",
+        "repository_count": 38,
+        "sha256": "880b52e722dd0f31b59e1e30e2a6b5b2ed3c0bc2c148e11ea6e33ae34a358fd7",
+        "shard": 6,
+        "size": 122655
+      },
+      {
+        "first_repository": "agents.v1",
+        "last_repository": "VoidRAPP",
+        "path": "docs/research/raw/shard-7.json",
+        "repository_count": 38,
+        "sha256": "46bebacdfc75efb0bf4a897bfc11fc1c53de0e49d422b2290fc55d4777617813",
+        "shard": 7,
+        "size": 121964
+      }
+    ],
+    "repository_count": 307
+  },
+  "schema": "rapp-audit-manifest/1.0",
+  "shard_count": 8,
+  "shards": [
+    {
+      "first_repository": "agency-agents",
+      "last_repository": "VSProjects",
+      "path": "docs/research/shards/shard-0.json",
+      "repository_count": 39,
+      "sha256": "470f783e416c806f81e688d7e07bd903c48fb1af5ed8d374d80450c68ac0b577",
+      "shard": 0,
+      "size": 81099
+    },
+    {
+      "first_repository": "agent-ranker",
+      "last_repository": "wildhaven-ai-homes-twin",
+      "path": "docs/research/shards/shard-1.json",
+      "repository_count": 39,
+      "sha256": "5b2a888203396f714c493cdf70de317b5bb4ce52d87dd2face3d1fa2ff624418",
+      "shard": 1,
+      "size": 80184
+    },
+    {
+      "first_repository": "agentbookfactory",
+      "last_repository": "zion",
+      "path": "docs/research/shards/shard-2.json",
+      "repository_count": 39,
+      "sha256": "4c85829f2ca34aff275b34b044c658c824d8c2062b856ffb73a0c342c23202b1",
+      "shard": 2,
+      "size": 86445
+    },
+    {
+      "first_repository": "AgenticPlaygroundLab",
+      "last_repository": "v86",
+      "path": "docs/research/shards/shard-3.json",
+      "repository_count": 38,
+      "sha256": "770e70446450a45b8226dd3bab2d4e51f3f3df8d23ca98f6bbef8dd5e6ce4c45",
+      "shard": 3,
+      "size": 80642
+    },
+    {
+      "first_repository": "Agents",
+      "last_repository": "vbrainstem",
+      "path": "docs/research/shards/shard-4.json",
+      "repository_count": 38,
+      "sha256": "099e54bd13de2004b85f638c43c8a058246dfd05f5d9e3724965392fad08dd9c",
+      "shard": 4,
+      "size": 87710
+    },
+    {
+      "first_repository": "Agents-for-python",
+      "last_repository": "vneighborhood-design-studio",
+      "path": "docs/research/shards/shard-5.json",
+      "repository_count": 38,
+      "sha256": "111f029d839068d21a711521bc69daab5c0a79627be411b8f8538cb5ca58853f",
+      "shard": 5,
+      "size": 89791
+    },
+    {
+      "first_repository": "agents-library-tracker",
+      "last_repository": "vneighborhood-research-lab",
+      "path": "docs/research/shards/shard-6.json",
+      "repository_count": 38,
+      "sha256": "d9b0ac55b563fa6d08bb63377685d3895256df4dee1b69fd472943db89038137",
+      "shard": 6,
+      "size": 84188
+    },
+    {
+      "first_repository": "agents.v1",
+      "last_repository": "VoidRAPP",
+      "path": "docs/research/shards/shard-7.json",
+      "repository_count": 38,
+      "sha256": "bebd2da43c929450ec2c311630c2bd3b3e5d46addd7f55ceaaedef64ad7f8094",
+      "shard": 7,
+      "size": 82895
+    }
+  ],
+  "source_census": {
+    "path": "SOURCE_CENSUS.json",
+    "sha256": "395ca4535f54fde1551d5547400a4643c8e26786f20f3eda0d24d1c9c46d0b90"
+  }
+}

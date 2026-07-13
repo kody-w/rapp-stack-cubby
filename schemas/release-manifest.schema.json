@@ -1,0 +1,87 @@
+{
+  "$id": "urn:rapp:schema:release-manifest:1.0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifacts": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "filename": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+            "type": "string"
+          },
+          "kind": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "size": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "filename",
+          "kind",
+          "sha256",
+          "size"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "development_only": {
+      "type": "boolean"
+    },
+    "release": {
+      "type": "boolean"
+    },
+    "schema": {
+      "const": "rapp-release-manifest/1.0"
+    },
+    "signed": {
+      "type": "boolean"
+    },
+    "source_commit": {
+      "pattern": "^(?:WORKTREE|[0-9a-f]{40})$",
+      "type": "string"
+    },
+    "source_git_tree": {
+      "anyOf": [
+        {
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_tree_digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:rc[0-9]+)?$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "source_commit",
+    "source_git_tree",
+    "source_tree_digest",
+    "artifacts",
+    "signed",
+    "release",
+    "development_only",
+    "version"
+  ],
+  "title": "Final external source revision and artifact binding",
+  "type": "object"
+}

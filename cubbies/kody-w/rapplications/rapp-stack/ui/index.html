@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAPP Stack Cubby — local product handoff</title>
+  <style>
+    :root { color-scheme: light dark; font: 16px/1.55 system-ui, sans-serif; }
+    body { margin: 0 auto; max-width: 52rem; padding: 2rem; }
+    h1, h2 { line-height: 1.15; }
+    code { border: 1px solid currentColor; border-radius: .25rem; padding: .1rem .3rem; }
+    .state { border-left: .35rem solid #bf8700; padding: .5rem 1rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>RAPP Stack Cubby</h1>
+    <p class="state"><strong>Local development product.</strong> Nothing on this
+      page is a publication, release, live attestation, or running service.</p>
+    <p>The repository is the product: it carries the normalized context,
+      runtime, actual agents, controller, schemas, tests, dependency locks,
+      packaging tools, hatch tools, and operations needed for a handoff.</p>
+    <h2>Artifact path</h2>
+    <p><code>source repository</code> → <code>rapp-cubby/1.0</code> →
+      <code>rapp-application/1.0</code> → Store ZIP and
+      <code>brainstem-egg/2.3-cubby</code> →
+      <code>rapp-installed-twin/1.0</code>.</p>
+    <h2>Safety boundary</h2>
+    <p>Generated keys, messages, enrollment data, journals, and installed
+      state stay outside source and artifacts. Hatch verifies all bytes before
+      extraction and does not start the product.</p>
+    <h2>Handoff</h2>
+    <p>Begin with <code>AI_CONTEXT.md</code>, then follow
+      <code>docs/operations/HANDOFF.md</code> and the packaging and hatch
+      runbooks. Use the command-line verifier for current local truth.</p>
+  </main>
+</body>
+</html>
