@@ -495,7 +495,7 @@
         "provenance": "generated_local",
         "sha256": "cd7cf2b9a6a605a60ca15a0801aa9f92c30010bf236310ab80629603252b33c8"
       },
-      "manifest_sha256": "082bc7da8719a4a090e002394ae5f7a81d65b96ae4a796f239aff135dd36df9f",
+      "manifest_sha256": "91615fb06950fb9e526a8b52a1dedcaff74709e58978bfc087cfb19082311b4b",
       "receipt_template": {
         "path": "cubbies/kody-w/catalog/controller-receipt-template.json",
         "provenance": "original_new",
@@ -530,7 +530,7 @@
         {
           "path": "src/rapp_stack_cubby/constants.py",
           "provenance": "original_new",
-          "sha256": "ea2724d5983ddbb38a8c9057d39e14935e6e3e92339cfc004e290c9f1f2bb983"
+          "sha256": "d3a82c9eef2b02988e72b992fcc5ff96ce100147f20543ed7b824f0dde45ce94"
         },
         {
           "path": "src/rapp_stack_cubby/context.py",
@@ -726,17 +726,17 @@
         {
           "path": ".github/workflows/promote.yml",
           "provenance": "original_new",
-          "sha256": "bc0ebd5625d6487877954ce0b0ef62307dbb52a738cd27284b5c443b8aa21111"
+          "sha256": "00fad19e809fcfd56081d774beb7f48497619d617521f7efd217bb1cb018dd53"
         },
         {
           "path": ".github/workflows/release.yml",
           "provenance": "original_new",
-          "sha256": "043849fc8697c78061b5ffb1535578acdb56ba235e27ae0caa5270cdf4fa12ff"
+          "sha256": "7d6f17253e2645c9834905c34618d390db1e27e2ce4023fe4796020265a1327f"
         },
         {
           "path": "CHANGELOG.md",
           "provenance": "original_new",
-          "sha256": "097989e785872121d62420293b02853e3fbc4eb745c21ab029f8e409ea56918b"
+          "sha256": "e0278789b42295263d6f3a3bb99c56d503c631afceff8ae50d2d9eb24407f821"
         },
         {
           "path": "GITHUB_ACTIONS_LOCK.json",
@@ -746,12 +746,12 @@
         {
           "path": "RELEASE_CHECKLIST.md",
           "provenance": "original_new",
-          "sha256": "68ec11c92f3cf2c4d7101b387ebe3d788e0f30b5657b74886bfcf0d3fedeb708"
+          "sha256": "41826067505d158189d0031f615accc45c8e83e599377d0b1d4388e2e1df9916"
         },
         {
           "path": "RELEASE_STATUS.json",
           "provenance": "original_new",
-          "sha256": "739a1764c788e64c0a490b3520f9186b4909f56c76672181edb12bfc89dc10c8"
+          "sha256": "683c9b74ab8eb402fbbe22f643038858f36edd0d68e55a2ddbb7ccf467b5dae4"
         },
         {
           "path": "RELEASE_TRUST.json",
@@ -761,7 +761,7 @@
         {
           "path": "VERSION",
           "provenance": "original_new",
-          "sha256": "1bc1aaf37f71a3d4627cbd2dce8dd56ef613c80e233d68daed6a95501ed52ea1"
+          "sha256": "aab0bb3d9c1a2af748f4c7bd2fee53b34df73026e5be36f3adcc4cadb33bdbee"
         },
         {
           "path": "docs/.nojekyll",
@@ -776,32 +776,32 @@
         {
           "path": "docs/api/v1/architecture.json",
           "provenance": "generated_local",
-          "sha256": "7aba77f7ad143e8a27469929644aeabb26662fc2ae0daa79e78e23d7177ad9c8"
+          "sha256": "4fde16b48e39f547d0f43e3f1809c4e41a3c09c6d2507aa5691f5dce1fd202d0"
         },
         {
           "path": "docs/api/v1/capabilities.json",
           "provenance": "generated_local",
-          "sha256": "90caed6aade341311bca590b5ae9e9e76ed1c60e9e57715c60b6cc06c3b3a22a"
+          "sha256": "4ee3d6c67a15bc94f175ffc4498bbb0f22b2ad0779f5e2a11b1b54226d314c97"
         },
         {
           "path": "docs/api/v1/context.json",
           "provenance": "generated_local",
-          "sha256": "25c81d770ae1559acd01a5f0c987419899935e94df6b3bbf66da9449b5f74f3f"
+          "sha256": "ac853bc8e9e84e926191c5f96640f3301080d493c2440e2e10df013716f4321e"
         },
         {
           "path": "docs/api/v1/downloads.json",
           "provenance": "generated_local",
-          "sha256": "91b93789a0a787e27012cb4574431480c7958f225a57417524315ac0f1476c18"
+          "sha256": "0ceea5fae089f36c746b82c65efca4ebc388bbb818246eb82757cdc54c2e2763"
         },
         {
           "path": "docs/api/v1/prompts.json",
           "provenance": "generated_local",
-          "sha256": "b4bbceeec679226065d93069be0cee262fff56bc907c72dd3e68f1b15bf57976"
+          "sha256": "c6ceb33dce55d1c62e9dfbaa39cf1d567c1e7b6e78cb6c9647af776e5e1fedec"
         },
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "3d1a6e4805b56d8c279fdf2a31930cf4b5c330853ec68df88dd7b9d3047f94d6"
+          "sha256": "1a2c02e7175db4440e7f2342a21aeb8d57f006d1f6540adc5d40be9e09ba3f87"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -821,12 +821,12 @@
         {
           "path": "docs/decisions/static-pages-public-boundary.md",
           "provenance": "original_new",
-          "sha256": "77d798857c145fb672563404d8485b5819f18062e702b6c450a4e20391db3b84"
+          "sha256": "218c84a15cdc904929d3f704daa9d535219a18800cbc3b026646c3f4a8af9a3d"
         },
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "6c965d135e7c912aa6e19b8935f8d3796368570ae5ba694829c6b586e6c1ce53"
+          "sha256": "7b4b9559e9c62f1e2743c6da9b8329705bd72a844885f958baa055fe7efb3cf0"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -846,7 +846,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "fd721e22200ef131857db5f323c6366fcf1d0ef5d7fb2b4c9410b49b2ccd056a"
+          "sha256": "57f1ee95045425e9ebb514898f9e67846e858f00d830a30bda37704a3fabfd0e"
         },
         {
           "path": "docs/robots.txt",
@@ -871,7 +871,7 @@
         {
           "path": "scripts/configure-repository.sh",
           "provenance": "original_new",
-          "sha256": "8f7bcf9aed8cf63055125b7ab7cd532ac5d569b26a2973706a1c073b30d37aa2"
+          "sha256": "ad1b338693ebebc30b58720d31d8704f5238e7631973639cfdbee2613dd8a7e0"
         },
         {
           "path": "scripts/pages-build.sh",
@@ -931,7 +931,7 @@
         {
           "path": "tests/packaging/test_release_scripts.py",
           "provenance": "original_new",
-          "sha256": "23460c3e1a1ca6a1e810c11d792f859e593b9f68bb2295e9b67de2fc40623701"
+          "sha256": "2912b7bd428555940da940ad28c6f39534322fb1c8f4ab72d6e4855c0cabf667"
         },
         {
           "path": "tests/pages/__init__.py",
@@ -941,10 +941,10 @@
         {
           "path": "tests/pages/test_pages.py",
           "provenance": "original_new",
-          "sha256": "02bb1acc7bc4296b6fcd1b129784f0762ee5a49244a8aa652c174a1f073b8fc0"
+          "sha256": "160ad63ccae61a0c26c0af2fef5d9e21fe1bc0ab5e4ccaa10a91a88aa3fcbc6b"
         }
       ],
-      "manifest_sha256": "874cf1e15be468728dbb4f335796d775023b896784019bd2efed02b32df8fe36",
+      "manifest_sha256": "56732171444ef2979d0c64cad558b4c4df62d2bc7f3b1f45c6eb1da80d51d901",
       "release_status": "pending",
       "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
     },
@@ -1446,8 +1446,8 @@
     }
   ],
   "project": {
-    "candidate_tag": "v0.1.0-rc.3",
-    "candidate_version": "0.1.0rc3",
+    "candidate_tag": "v0.1.0-rc.4",
+    "candidate_version": "0.1.0rc4",
     "final_release_sha": null,
     "newly_authored_code_license": "MIT",
     "pages_url": "https://kody-w.github.io/rapp-stack-cubby/",

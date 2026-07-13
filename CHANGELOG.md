@@ -3,6 +3,19 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc4 — release candidate
+
+### Fixed
+
+- Release run `29261541865` exposed that the immutable-releases endpoint is
+  unavailable on this personal public repository. Release authorization now
+  falls back only on endpoint 404 and proves the exact active, no-bypass
+  deletion/update tag ruleset; all other API errors still fail closed.
+- Repository setup now uses versioned environment APIs and supports an
+  explicit sole-owner mode without an impossible self-review requirement,
+  while retaining strict reviewer mode and all CI, branch, tag, and
+  environment-tag protections. Product behavior is unchanged.
+
 ## 0.1.0rc3 — release candidate
 
 ### Fixed

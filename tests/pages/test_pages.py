@@ -252,7 +252,7 @@ class PagesApiTests(unittest.TestCase):
                     checksums=output / "SHA256SUMS",
                     source_root=source,
                     github_attestation=attestation,
-                    release_tag="v0.1.0-rc.3",
+                    release_tag="v0.1.0-rc.4",
                 )
 
     def test_rendering_is_deterministic(self) -> None:
@@ -535,6 +535,30 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("scripts/prepare-release.sh", workflows["release.yml"])
         self.assertIn("name: release", workflows["release.yml"])
         self.assertIn("check-runs", workflows["release.yml"])
+        self.assertIn("--include", workflows["release.yml"])
+        self.assertIn("IMMUTABLE_HTTP_STATUS", workflows["release.yml"])
+        self.assertIn(
+            "immutable_releases/enforcement", workflows["release.yml"]
+        )
+        self.assertIn("immutable-release-tags", workflows["release.yml"])
+        self.assertIn(
+            "repos/${GITHUB_REPOSITORY}/rulesets", workflows["release.yml"]
+        )
+        self.assertIn(
+            '.conditions.ref_name.include == ["refs/tags/*"]',
+            workflows["release.yml"],
+        )
+        self.assertIn(".bypass_actors == []", workflows["release.yml"])
+        self.assertIn('.target == "tag"', workflows["release.yml"])
+        self.assertIn('.enforcement == "active"', workflows["release.yml"])
+        self.assertIn(
+            '([.rules[].type] | sort) == ["deletion","update"]',
+            workflows["release.yml"],
+        )
+        self.assertLess(
+            workflows["release.yml"].index("immutable_releases/enforcement"),
+            workflows["release.yml"].index("immutable-release-tags"),
+        )
         self.assertIn("scripts/postflight-release.sh", workflows["release.yml"])
         self.assertIn(
             'test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"',
@@ -605,12 +629,12 @@ class VersionTests(unittest.TestCase):
             )["product_version"],
         ]
 
-        self.assertEqual(version, "0.1.0rc3")
+        self.assertEqual(version, "0.1.0rc4")
         self.assertEqual(values, [version] * len(values))
         status = json.loads(
             (REPOSITORY_ROOT / "RELEASE_STATUS.json").read_text()
         )
-        self.assertEqual(status["tag"], "v0.1.0-rc.3")
+        self.assertEqual(status["tag"], "v0.1.0-rc.4")
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing exact version tag (v0.1.0-rc.3)
+        description: Existing exact version tag (v0.1.0-rc.4)
         required: true
         type: string
       commit:
@@ -38,7 +38,7 @@ jobs:
           INPUT_COMMIT: ${{ inputs.commit }}
           INPUT_TAG: ${{ inputs.tag }}
         run: |
-          test "${INPUT_TAG}" = "v0.1.0-rc.3"
+          test "${INPUT_TAG}" = "v0.1.0-rc.4"
           case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
           test "${#INPUT_COMMIT}" -eq 40
           test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"
@@ -86,13 +86,64 @@ jobs:
           fi
           SUCCESS_COUNT="$(gh api \
             -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
             "repos/${GITHUB_REPOSITORY}/commits/${RELEASE_COMMIT}/check-runs" \
             --jq '[.check_runs[] | select(.name == "verify" and .conclusion == "success" and .app.slug == "github-actions")] | length')"
           case "${SUCCESS_COUNT}" in *[!0-9]*|'') exit 2 ;; esac
           test "${SUCCESS_COUNT}" -gt 0
-          gh api -H "Accept: application/vnd.github+json" \
+          if IMMUTABLE_PROBE="$(gh api --include \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
             "repos/${GITHUB_REPOSITORY}/immutable_releases/enforcement" \
-            >/dev/null
+            2>&1)"; then
+            IMMUTABLE_ENABLED="$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "repos/${GITHUB_REPOSITORY}/immutable_releases/enforcement" \
+              --jq '.enabled')"
+            if [ "${IMMUTABLE_ENABLED}" != true ]; then
+              echo "error: immutable releases are supported but not enabled" >&2
+              exit 2
+            fi
+          else
+            IMMUTABLE_PROBE_EXIT=$?
+            IMMUTABLE_HTTP_STATUS="$(printf '%s\n' "${IMMUTABLE_PROBE}" |
+              awk '$1 ~ /^HTTP\// && $2 ~ /^[0-9][0-9][0-9]$/ { status=$2 } END { print status }')"
+            if [ "${IMMUTABLE_HTTP_STATUS}" != 404 ]; then
+              printf '%s\n' "${IMMUTABLE_PROBE}" >&2
+              echo "error: immutable-releases API probe failed (HTTP ${IMMUTABLE_HTTP_STATUS:-unknown}, exit ${IMMUTABLE_PROBE_EXIT})" >&2
+              exit 2
+            fi
+            RULESET_IDS="$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "repos/${GITHUB_REPOSITORY}/rulesets" \
+              --jq '.[] | select(.name == "immutable-release-tags") | .id')"
+            case "${RULESET_IDS}" in
+              '') echo "error: immutable-release-tags ruleset is missing" >&2; exit 2 ;;
+            esac
+            RULESET_COUNT="$(printf '%s\n' "${RULESET_IDS}" | awk 'END { print NR }')"
+            if [ "${RULESET_COUNT}" -ne 1 ]; then
+              echo "error: duplicate immutable tag rulesets exist" >&2
+              exit 2
+            fi
+            RULESET_VALID="$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "repos/${GITHUB_REPOSITORY}/rulesets/${RULESET_IDS}" \
+              --jq '(.name == "immutable-release-tags") and
+                (.target == "tag") and
+                (.enforcement == "active") and
+                (.bypass_actors == []) and
+                (.conditions.ref_name.include == ["refs/tags/*"]) and
+                (.conditions.ref_name.exclude == []) and
+                ((.rules | length) == 2) and
+                (([.rules[].type] | sort) == ["deletion","update"])')"
+            if [ "${RULESET_VALID}" != true ]; then
+              echo "error: immutable-release-tags ruleset is not exact and active" >&2
+              exit 2
+            fi
+          fi
       - name: Set up exact Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
