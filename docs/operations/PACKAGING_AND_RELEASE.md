@@ -25,6 +25,35 @@ generation, and release verification use that snapshot. A final path-by-path
 manifest recheck catches live source movement without scanning generated
 output, so a repository-root `dist/` build cannot become its own source.
 
+## Repository protection setup
+
+For a personal repository with one owner, configure release environments
+without an impossible self-review gate:
+
+```sh
+scripts/configure-repository.sh \
+  --repo OWNER/REPOSITORY \
+  --sole-owner
+```
+
+Strict reviewer mode remains the default for repositories with another user
+or team available:
+
+```sh
+scripts/configure-repository.sh \
+  --repo OWNER/REPOSITORY \
+  --reviewer-user-id USER_API_ID \
+  --reviewer-team-id TEAM_API_ID
+```
+
+The modes are mutually exclusive. Both preserve required `verify` CI,
+disabled branch force-push/deletion, the active no-bypass
+`immutable-release-tags` deletion/update ruleset, and the `v*` tag-only
+release/promotion environment policy. Environment calls use the versioned
+GitHub REST API. The script enables and verifies immutable releases when that
+endpoint is supported; only an endpoint 404 selects the exact tag-ruleset
+proof. Other API errors fail.
+
 ## Phase A — source commit, candidate build, offline proof
 
 1. Regenerate catalogs, command manifest, context, Pages, provenance/locks,
