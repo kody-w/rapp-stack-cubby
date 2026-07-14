@@ -57,6 +57,22 @@
             }
           ]
         },
+        "child_health_attempts": {
+          "maximum": 75,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "child_health_last_category": {
+          "enum": [
+            "not_attempted",
+            "transport_unavailable",
+            "response_invalid",
+            "status_not_ok",
+            "not_ready",
+            "instance_mismatch",
+            "ready"
+          ]
+        },
         "child_stderr_sha256": {
           "pattern": "^[0-9a-f]{64}$",
           "type": "string"
@@ -72,6 +88,28 @@
         "child_stdout_size": {
           "minimum": 0,
           "type": "integer"
+        },
+        "controller_client_category": {
+          "enum": [
+            "not_started",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "timed_out",
+            "invalid_output",
+            "status_unavailable"
+          ]
+        },
+        "controller_client_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "controller_error_code": {
           "enum": [
@@ -175,6 +213,8 @@
         "stage_code",
         "process_return_code",
         "process_category",
+        "controller_client_return_code",
+        "controller_client_category",
         "controller_error_code",
         "controller_log_size",
         "controller_log_sha256",
@@ -182,6 +222,8 @@
         "child_process_return_code",
         "child_process_category",
         "child_health_timeout_seconds",
+        "child_health_attempts",
+        "child_health_last_category",
         "child_stdout_size",
         "child_stdout_sha256",
         "child_stderr_size",

@@ -107,7 +107,8 @@ class ControllerAdoptionTests(unittest.TestCase):
                         ),
                         "_process_start_identity": lambda pid: "c" * 64,
                         "_wait_health": (
-                            lambda port, instance, timeout, child, start_identity: True
+                            lambda port, instance, timeout, child, start_identity, *,
+                            diagnostics: True
                         ),
                     },
                 ):
@@ -276,7 +277,8 @@ class ControllerAdoptionTests(unittest.TestCase):
                         "_validate_python": reject_installed_python,
                         "_preflight_model": Mock(),
                         "_wait_health": (
-                            lambda port, instance, timeout, child, start_identity: True
+                            lambda port, instance, timeout, child, start_identity, *,
+                            diagnostics: True
                         ),
                     },
                 ):
@@ -435,7 +437,8 @@ class ControllerAdoptionTests(unittest.TestCase):
                         ),
                         "_process_start_identity": lambda pid: "d" * 64,
                         "_wait_health": (
-                            lambda port, instance, timeout, child, start_identity: True
+                            lambda port, instance, timeout, child, start_identity, *,
+                            diagnostics: True
                         ),
                     },
                 ):

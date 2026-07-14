@@ -25,8 +25,8 @@
       "executable": false,
       "mode": "0644",
       "path": ".github/workflows/ci.yml",
-      "sha256": "1fe1f938b64fc7d7c9cd4c809c3ea2eb965c34b8347fec1354350051e9d1de46",
-      "size": 2606
+      "sha256": "d8551bddaa244426a098ae6dd296568f8efa8221ce19dde7d9cae0e305d421df",
+      "size": 5428
     },
     {
       "executable": false,
@@ -39,14 +39,14 @@
       "executable": false,
       "mode": "0644",
       "path": ".github/workflows/promote.yml",
-      "sha256": "8398ca59592d5dd9080b3581ef9d51a39f1d7d4c777e91fa6a26ea8c56ff9db1",
+      "sha256": "851a1319ac210343e3731e4cdc3df7a5c76289b733f4f89a5f441a56892781e7",
       "size": 15288
     },
     {
       "executable": false,
       "mode": "0644",
       "path": ".github/workflows/release.yml",
-      "sha256": "a446c9d82a157758e14c01aa0e2ba6a570286c19b05079be46e6272c764125c0",
+      "sha256": "b4f953050ff837ed48959c14003af5e12ac6b19211f697fa77b9186afcd22565",
       "size": 20602
     },
     {
@@ -74,8 +74,8 @@
       "executable": false,
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "eced448a9937fb01e8c93958a662f52fbfee86c43fa94704d25b55f2b088b3a9",
-      "size": 8645
+      "sha256": "f16bf8501b36b177b9a46bd38900b84c21ca7e8716b54dd2e1871e7bedec4965",
+      "size": 10243
     },
     {
       "executable": false,
@@ -151,15 +151,15 @@
       "executable": false,
       "mode": "0644",
       "path": "PROVENANCE.json",
-      "sha256": "1d11f781c1de834e68c65e631fe8c7b6f1b976897ec99a953ff4ecb939c5cc40",
+      "sha256": "ef0bb746d347a86d8e1db00a57204a19a5cfe4e48df4eeca92d86f9ec66eedb9",
       "size": 170512
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "PUBLICATION_SCAN_POLICY.json",
-      "sha256": "f4cac2cbf8af175105be278f4c25b74dbd447516567c7e0a611f594b619f1b31",
-      "size": 33601
+      "sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2",
+      "size": 34930
     },
     {
       "executable": false,
@@ -179,14 +179,14 @@
       "executable": false,
       "mode": "0644",
       "path": "RELEASE_CHECKLIST.md",
-      "sha256": "63d52b85b4c4248850b0abc066610837944c25d0612bd39af4f39958bd16ad34",
+      "sha256": "a25c7c7c20fc557c4dd1bab2bf2fc5c1f395bff15f732026d61a69f8b7f4423d",
       "size": 5268
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "RELEASE_STATUS.json",
-      "sha256": "cc6a9db11d4e5e1fc5e70aa894538cbcdc98f4f1c5bfea5175f07a8349bbda70",
+      "sha256": "e725ef3e732a87ccc200a0c7641c59ece404474ad608ec40b613cb0136eb9f3e",
       "size": 457
     },
     {
@@ -221,14 +221,14 @@
       "executable": false,
       "mode": "0644",
       "path": "STACK_LOCK.json",
-      "sha256": "2282bf5ad6270931a40816998aff270cb41fcb155d64fa7abc00be8ee977bf86",
+      "sha256": "c0d07f96def6bc21517bf807b5ea41c1d185a0c2b3a8e8e2e270f3c10993da19",
       "size": 69390
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "STORE_INDEX.json",
-      "sha256": "05a9301cc131b75ebe56268ca713ba0fe0face67c3bf59dcec59cb5c18a71c58",
+      "sha256": "9dce11174c092686351315dddd4c06e1e7486281bebdae5f951a80bd2c27a593",
       "size": 437
     },
     {
@@ -263,7 +263,7 @@
       "executable": false,
       "mode": "0644",
       "path": "VERSION",
-      "sha256": "61c4bec77d2d71dafe7039f8162f9f8b9039d297d7bc3e3006beab879214225a",
+      "sha256": "1c008e65cd24b36babadc31ca13029c55fb2720d269a89e804adaefaf1946834",
       "size": 10
     },
     {
@@ -284,14 +284,14 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
-      "sha256": "6320273e20b52f05f8fdba20190f91ceafdd66212e5019b4ddb1f81f89cf91be",
-      "size": 256119
+      "sha256": "cbf0ad6cfb70a676e562ddcb1359cd099fbb7993541e2a54892f052f8bd1a6c7",
+      "size": 259781
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/catalog/controller-catalog.json",
-      "sha256": "d96cfbc894ae9b937dabd4dbe05d3dbe4168c7d216d946d5efd90d999b0a4bf4",
+      "sha256": "dd157882dcd0c8c6668c4ccab9da1b0e1e7a19cad335775246aac689e308a166",
       "size": 1264
     },
     {
@@ -305,7 +305,7 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/cubby.json",
-      "sha256": "e6fff0fc03184473c5f9a9d32f6d0278448f9dc4d617c7607c7d9bad0bfc1f78",
+      "sha256": "61bbfa49ecef28b92d9beaed8a29830d2a12fbab6979c0774a0b7f8f7507b3b7",
       "size": 756
     },
     {
@@ -319,22 +319,22 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/index_entry.json",
-      "sha256": "47a881197222746946b539b5a2e86c919292df20acb94ebbc94387e6c1cc9429",
+      "sha256": "7edbf3bc2037aa65eb06dd3759a3e7601c55dac5477cdebf927704cb441cfea3",
       "size": 502
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/manifest.json",
-      "sha256": "faf3683031fc1bb756363d5bc007f8deb07cc12de6cd208597bcc239f9d9292f",
+      "sha256": "11fb1110ad858f769222cdcceba1dfe024fa6eaff660552a793e5dd52cbc6a87",
       "size": 4135
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/singleton/rapp_stack_cubby_agent.py",
-      "sha256": "6320273e20b52f05f8fdba20190f91ceafdd66212e5019b4ddb1f81f89cf91be",
-      "size": 256119
+      "sha256": "cbf0ad6cfb70a676e562ddcb1359cd099fbb7993541e2a54892f052f8bd1a6c7",
+      "size": 259781
     },
     {
       "executable": false,
@@ -480,42 +480,42 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/architecture.json",
-      "sha256": "b5bd634c6a84625e1e36ca007ad9dd24bac4487c729bc5dde7f97ea402227c2d",
+      "sha256": "1cad72bb111c3ceaf12de95c19a798e09baf28b398c581bcfe9fa6e970c0175d",
       "size": 190898
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/capabilities.json",
-      "sha256": "c2c519dd8642e7f0b1d1d52621444c20d2820c22b0f2e9bb4a700f9c39d1241e",
+      "sha256": "79b64d9b88a9087c4ec2242c183d808657df243f3c4ef60e4efb600a8fd43263",
       "size": 205489
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/context.json",
-      "sha256": "b4b58fec6ac30d8be1cb55b4075f3289bfdfcd3a66453af94b2804affd16f7c5",
+      "sha256": "bc7d6662bcec1a5fb8e5181ffc9ff2c6a7dcaaef0e8665d0a1b19001104f1544",
       "size": 205020
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/downloads.json",
-      "sha256": "fb9b85b11bf22ec6a46f906649e88f59bb3e0ddbfdf86de85d6dfaa42cea7640",
+      "sha256": "5095a3adeba7cf726f8118d54643ef4a874f7ebdfc5327cb715069aebee66c23",
       "size": 8607
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/prompts.json",
-      "sha256": "297ff7d5e05d78751d5fd380b75de4252047d0dc69d7642c7d577a16ee8b40d3",
+      "sha256": "480249f0b7e1fff121168255a3303a786dd15fd2034315e78815735a3b7261dd",
       "size": 4717
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/api/v1/status.json",
-      "sha256": "97780d47a2f9a952722c958fabfbb254335d49d6b761d4c82867b7da4d99b773",
+      "sha256": "2c4f21945306566c1d73147a994b0147647453f4b02b8bb5a49d8fce3058ed34",
       "size": 3886
     },
     {
@@ -760,14 +760,14 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/decisions/static-pages-public-boundary.md",
-      "sha256": "23a0f08499054ec05d8b0a7cd6d547ab04b562c3d092a612a5df18c2b290c2f9",
+      "sha256": "1a7c0e3d75f50cca963321e7bba91e40447ab58f7d93ed816e6258a3cd580aab",
       "size": 1776
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "docs/index.html",
-      "sha256": "02b45b4c83738e79835c1bed321514e419c39cacc929da00c4c8c3197fe88e5a",
+      "sha256": "12f01120c6a236583de4ef25b803746f3fe059fa02b1876387f7e2990983ea9e",
       "size": 23582
     },
     {
@@ -893,7 +893,7 @@
       "executable": false,
       "mode": "0644",
       "path": "docs/pages-manifest.json",
-      "sha256": "10af4216e70a4742cd65aa1f563ccf26f91871c2e70178a1006ab591a3255d9a",
+      "sha256": "4ed51bf6f0f7f7ecd6e940972c73c6db0e1486f0e2e1e685802dac70713f48d1",
       "size": 15964
     },
     {
@@ -1054,14 +1054,14 @@
       "executable": false,
       "mode": "0644",
       "path": "pyproject.toml",
-      "sha256": "ce7775c8f3c055755ec8a0e94e7eb4568e772832283e96d9dc1fbbc537e34852",
+      "sha256": "2ff0f53333cf27e7922210bb826217e4807c8c3466d8b0a1a61f33db393b7665",
       "size": 718
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "rapp-super-rar.json",
-      "sha256": "8a7c440306635951a69f5083025b5a78109582240b8795f8829a7803be6804fa",
+      "sha256": "a390005ecfbf9cba4d087d5af29a6b6d7352014a9b237ed101c23c93d0845b22",
       "size": 1156
     },
     {
@@ -1187,8 +1187,8 @@
       "executable": false,
       "mode": "0644",
       "path": "schemas/controller-state.schema.json",
-      "sha256": "d9c2d0ad5e1eb285ef00a7a267f266928c9be99903b91957b10dcdd61f32fbcc",
-      "size": 10031
+      "sha256": "7966268a1aa11456d657a9984d5baca9ef5d0f29c4c799ac0e7892de7d67d336",
+      "size": 10893
     },
     {
       "executable": false,
@@ -1215,8 +1215,8 @@
       "executable": false,
       "mode": "0644",
       "path": "schemas/demo-receipt.schema.json",
-      "sha256": "ba2b613297662f463de3eeb36b044906d31034f36c4c65470c2c04acb411e2bc",
-      "size": 1504
+      "sha256": "f7c444b1a3b7c2eab2f2e383f3fbb58db3a2a6c38caaef78b1b3f34c739d5e5f",
+      "size": 7374
     },
     {
       "executable": false,
@@ -1278,8 +1278,8 @@
       "executable": false,
       "mode": "0644",
       "path": "schemas/installed-offline-attestation.schema.json",
-      "sha256": "4bc2a8aa13c265cd576f182fe36c4ec4281be04b7ac52e6d068f738f4be4b59f",
-      "size": 6201
+      "sha256": "279c40cf8db30b70c69cf209f2706dfbf839e260f19953b974754ff8b570238a",
+      "size": 7275
     },
     {
       "executable": false,
@@ -1754,7 +1754,7 @@
       "executable": false,
       "mode": "0644",
       "path": "src/rapp_stack_cubby/constants.py",
-      "sha256": "321373363d351e4f6f4916b67163ac5e8ab306c59dc27596df032c450c0339bf",
+      "sha256": "8e532130542323ef371b0069cf453307338de170a393b32066eba059e64526f5",
       "size": 2172
     },
     {
@@ -1789,8 +1789,8 @@
       "executable": false,
       "mode": "0644",
       "path": "src/rapp_stack_cubby/demo.py",
-      "sha256": "1577a4f6a9fd0be2d1989c05e0854a296426e2eeadcfd7e7cb4426e652c98093",
-      "size": 52669
+      "sha256": "0e2b656f327e5415a421f499ad32c45552a1fec5b1fbeac9b41f878bc100dd08",
+      "size": 55556
     },
     {
       "executable": false,
@@ -2181,15 +2181,15 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/controller/test_adoption.py",
-      "sha256": "3bf9da0cb7ab902d1e36dedc261be9ad1f384477475c0628753e1f4dd6b43edc",
-      "size": 20810
+      "sha256": "3fe21fee2c82475fa269bc98b1b05bfc2aee9003151e029acb6a477476a59736",
+      "size": 20942
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "tests/controller/test_attestation.py",
-      "sha256": "4f89d396ea9fa84b4d9a542bddb380c7ffcaa02b90cfd0f30453bfc4f386dfc7",
-      "size": 12963
+      "sha256": "d1cefd003eaeaa8d4f8a79f7c8ae941ec0d0d455a055fa19332e9405fca11c92",
+      "size": 13003
     },
     {
       "executable": false,
@@ -2230,15 +2230,15 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/controller/test_process.py",
-      "sha256": "8a80d658b9c55839f3e707083ff7c889325620d348a71525711d32fc67fad76f",
-      "size": 22038
+      "sha256": "bae27fae332262342b74228c6152af8188db3548c981d6db8bdcac60947bdb84",
+      "size": 35021
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "tests/controller/test_recovery_security.py",
-      "sha256": "c2fc86c531b003f506287442a5609d6eb034b8dde21f80f61ad34122c52ddfcf",
-      "size": 17060
+      "sha256": "2164addfe25f614610da4f743a647dd47f594b23bc3e945f1f13f2edbd6e4efb",
+      "size": 17100
     },
     {
       "executable": false,
@@ -2391,7 +2391,7 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/packaging/test_promotion.py",
-      "sha256": "6e90fe0dcff0eca2bd92aeb793d5ebf096683f1e246a0b180f8cba99cb5521f9",
+      "sha256": "458f33dd26734c6755134793907c552f012a7fd9412dcb2227bb08051f8d88c6",
       "size": 8053
     },
     {
@@ -2405,7 +2405,7 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/packaging/test_release_scripts.py",
-      "sha256": "e05842f7d5c0eee3c4d6951cdda309f60b020e6ee54f39478e1273c5c1d20fd5",
+      "sha256": "85af6b7dc74d1273e09987a9157d3905ef9289be938e6d63c2a2bff72ed4f792",
       "size": 10137
     },
     {
@@ -2426,7 +2426,7 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/packaging/test_rollback_script.py",
-      "sha256": "dbec108e0b7f2ff5a91b3f14764c2aa23354a7e03e73f9d14abc7517255331ae",
+      "sha256": "bf421d09dc8a5af1808bd2029d10f0154c4cbf1d81d3e5c8945c6fef57d8133c",
       "size": 6615
     },
     {
@@ -2447,8 +2447,8 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/pages/test_pages.py",
-      "sha256": "19bddfce057a1cfa7e5161501fb2bb7b145756c43377092c16059a8f6dafd4e8",
-      "size": 31326
+      "sha256": "4e980ab4121edbb5275c986b0be54bb78afd80e1c71a17f9defd0add2483c35d",
+      "size": 32615
     },
     {
       "executable": false,
@@ -2622,8 +2622,8 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/test_doctor_demo.py",
-      "sha256": "0903deb84fb184381723b301fad1bb52ac12dea182a1e9e53e076acd4ddc0329",
-      "size": 38056
+      "sha256": "5efcc12bbadeb2ac2a1dd68b52397aa833a1eccc95a92e2549ccae1231226c2b",
+      "size": 53621
     },
     {
       "executable": false,
@@ -2670,6 +2670,6 @@
   ],
   "repository_url": "https://github.com/kody-w/rapp-stack-cubby.git",
   "schema": "rapp-release-source-manifest/1.0",
-  "source_tree_digest": "a6ca3dddac961ab78de0d2d8c0e181ce69b7c7e720fa28c8161a9995c4d4634d",
-  "total_bytes": 7756410
+  "source_tree_digest": "f83901601db2659b562d3555b11ba0737b6eb54da210e4aad466fe3ea2556760",
+  "total_bytes": 7810225
 }

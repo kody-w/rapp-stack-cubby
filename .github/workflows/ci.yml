@@ -51,6 +51,80 @@ jobs:
           PYTHON: ${{ env.pythonLocation }}/bin/python
           RAPP_DEPENDENCY_CACHE: ${{ runner.temp }}/rapp-cache
         run: scripts/fetch-dependencies.sh
+      - name: Run full signed development demo
+        env:
+          PYTHON: ${{ env.pythonLocation }}/bin/python
+          RAPP_DEPENDENCY_CACHE: ${{ runner.temp }}/rapp-cache
+        run: |
+          RECEIPT="${RUNNER_TEMP}/development-demo-receipt.json"
+          if (
+            scripts/demo-product.sh \
+              --python "${PYTHON}" \
+              --work-dir "${RUNNER_TEMP}/development-demo-work" \
+              --dependency-cache "${RAPP_DEPENDENCY_CACHE}" \
+              --install-dir "${RUNNER_TEMP}/development-demo-install" \
+              --controller-dir "${RUNNER_TEMP}/development-demo-controller" \
+              --receipt "${RECEIPT}" \
+              --source-date-epoch "1783892570" \
+              --cleanup &&
+            "${PYTHON}" - "${RECEIPT}" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          value = json.loads(pathlib.Path(sys.argv[1]).read_text())
+          required = {
+              "hatched",
+              "installed_adopted",
+              "attestation_child_started",
+              "signed_self_test",
+              "child_stopped",
+              "archived",
+              "unarchived",
+              "no_orphan",
+              "cleanup",
+          }
+          assert value["ok"] is True
+          assert value["offline"] is True
+          assert value["published"] is False
+          assert value["cleanup_requested"] is True
+          assert all(value["stages"].get(stage) is True for stage in required)
+          diagnostics = value["diagnostics"]
+          assert set(diagnostics) == {
+              "child_stage",
+              "child_health_attempts",
+              "child_health_last_category",
+              "child_health_timeout_seconds",
+              "child_process_category",
+              "child_process_return_code",
+              "child_stdout_size",
+              "child_stdout_sha256",
+              "child_stderr_size",
+              "child_stderr_sha256",
+              "controller_client_category",
+              "controller_client_return_code",
+              "controller_log_sha256",
+              "controller_log_size",
+              "controller_error_code",
+              "process_category",
+              "process_return_code",
+              "stage_code",
+          }
+          assert diagnostics["stage_code"] == "complete"
+          assert diagnostics["child_stage"] == "purged"
+          assert 1 <= diagnostics["child_health_attempts"] <= 75
+          assert diagnostics["child_health_last_category"] == "ready"
+          assert 75 <= diagnostics["child_health_timeout_seconds"] <= 90
+          PY
+          ) >/dev/null 2>&1; then
+            :
+          else
+            status=$?
+            if [ -f "${RECEIPT}" ]; then
+              cat "${RECEIPT}"
+            fi
+            exit "${status}"
+          fi
       - name: Build twice on one locked runner toolchain
         env:
           PYTHON: ${{ env.pythonLocation }}/bin/python

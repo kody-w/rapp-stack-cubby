@@ -3,6 +3,33 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc12 — release candidate
+
+### Fixed
+
+- Pre-tag pull-request run `29304286160` was safely blocked by the full signed
+  development demo after source, build, signed development release, egg,
+  hatch, and install proof passed and lifecycle reached the child readiness
+  window. Demo and installed-attestation diagnostics now preserve only a
+  bounded health-attempt count and finite last-result category, including
+  when failed child cleanup leaves the guarded process in `starting`.
+- Protected release run `29300424649` exhausted the full 75-second installed
+  child health window while the persisted child remained alive with empty
+  stderr. Its 23-byte stdout SHA-256
+  `44667ccbb99a366dd6308b6751b1396cd64d5fe27c7c57bbc7d54aeebaf81a5a`
+  binds exactly to the loopback URL emitted only after startup, import, origin,
+  and bind validation. Child `/health` probes now receive up to 15 seconds
+  each, capped by the remaining unchanged 75-second total budget.
+- The development demo now drives its installed lifecycle controller through
+  the validated setup Python and installed source/site-packages bootstrap used
+  by protected release while retaining installed-Python static verification
+  and the isolated launch probe. Normal macOS pull-request/main CI runs this
+  full signed development hatch, adopted signed-only SelfTest, lifecycle, and
+  cleanup gate from runner-temporary paths before candidate tagging.
+- Content-free installed-attestation failures now report finite controller
+  client category and return-code fields independently from global controller
+  process status.
+
 ## 0.1.0rc11 — release candidate
 
 ### Fixed

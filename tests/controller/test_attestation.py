@@ -311,7 +311,8 @@ class OfflineAttestationTests(unittest.TestCase):
                     ),
                     "_process_start_identity": lambda pid: "d" * 64,
                     "_wait_health": (
-                        lambda port, instance, timeout, child, start_identity: True
+                        lambda port, instance, timeout, child, start_identity, *,
+                        diagnostics: True
                     ),
                 },
             ):

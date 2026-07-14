@@ -209,7 +209,19 @@ _MAX_LOG_BYTES = 1024 * 1024
 _LOG_BACKUPS = 3
 _CHILD_COLD_START_BUDGET_SECONDS = 75.0
 _CHILD_STARTUP_POLL_INTERVAL_SECONDS = 1.0
-_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS = 2.0
+_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS = 15.0
+_CHILD_HEALTH_MAX_ATTEMPTS = 75
+_CHILD_HEALTH_CATEGORIES = frozenset(
+    {
+        "not_attempted",
+        "transport_unavailable",
+        "response_invalid",
+        "status_not_ok",
+        "not_ready",
+        "instance_mismatch",
+        "ready",
+    }
+)
 _CHILD_PROVIDER_TIMEOUT = 30.0
 _ATTESTATION_MODE = "offline-self-test"
 _ATTESTATION_MODEL = "attestation-self-test/1.0"
@@ -4149,7 +4161,45 @@ def _content_free_log_summary(path):
     return {"sha256": digest.hexdigest(), "size": size}
 
 
-def _child_process_diagnostics(child, workspace, *, launch_failed=False):
+def _finite_child_health_diagnostics(value=None):
+    source = value if isinstance(value, dict) else {}
+    attempts = source.get("health_attempts", 0)
+    category = source.get("health_last_category", "not_attempted")
+    valid_attempts = (
+        isinstance(attempts, int)
+        and not isinstance(attempts, bool)
+        and 0 <= attempts <= _CHILD_HEALTH_MAX_ATTEMPTS
+    )
+    valid_category = (
+        isinstance(category, str)
+        and category in _CHILD_HEALTH_CATEGORIES
+    )
+    valid_pair = (
+        attempts == 0 and category == "not_attempted"
+    ) or (
+        isinstance(attempts, int)
+        and not isinstance(attempts, bool)
+        and attempts > 0
+        and category != "not_attempted"
+    )
+    if not (valid_attempts and valid_category and valid_pair):
+        return {
+            "health_attempts": 0,
+            "health_last_category": "not_attempted",
+        }
+    return {
+        "health_attempts": attempts,
+        "health_last_category": category,
+    }
+
+
+def _child_process_diagnostics(
+    child,
+    workspace,
+    *,
+    launch_failed=False,
+    health_diagnostics=None,
+):
     if launch_failed:
         return_code = None
         category = "launch_failed"
@@ -4181,6 +4231,7 @@ def _child_process_diagnostics(child, workspace, *, launch_failed=False):
     )
     return {
         "health_timeout_seconds": _CHILD_COLD_START_BUDGET_SECONDS,
+        **_finite_child_health_diagnostics(health_diagnostics),
         "process_return_code": return_code,
         "process_category": category,
         "stdout_size": stdout["size"],
@@ -4239,7 +4290,11 @@ def _http_json(port, method, path, payload=None, timeout=_HTTP_TIMEOUT):
     return decoded
 
 
-def _health_probe(port, timeout=_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS):
+def _health_probe(
+    port,
+    timeout=_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS,
+    observation=None,
+):
     try:
         payload = _http_json(
             port,
@@ -4248,7 +4303,13 @@ def _health_probe(port, timeout=_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS):
             timeout=min(_HTTP_TIMEOUT, float(timeout)),
         )
         return payload
-    except RuntimeError:
+    except RuntimeError as error:
+        if isinstance(observation, dict):
+            observation["category"] = (
+                "transport_unavailable"
+                if error.args == ("http_unavailable",)
+                else "response_invalid"
+            )
         return None
 
 
@@ -4315,15 +4376,37 @@ def _wait_health(
     clock=time.monotonic,
     probe=None,
     pause=None,
+    diagnostics=None,
 ):
+    health_diagnostics = _finite_child_health_diagnostics()
+    if isinstance(diagnostics, dict):
+        diagnostics.clear()
+        diagnostics.update(health_diagnostics)
+
+    def record(category):
+        health_diagnostics["health_attempts"] += 1
+        health_diagnostics["health_last_category"] = (
+            category
+            if isinstance(category, str)
+            and category in _CHILD_HEALTH_CATEGORIES
+            and category != "not_attempted"
+            else "response_invalid"
+        )
+        if isinstance(diagnostics, dict):
+            diagnostics.clear()
+            diagnostics.update(health_diagnostics)
+
     def health_probe(remaining):
-        return _health_probe(
+        observation = {}
+        payload = _health_probe(
             port,
             timeout=min(
                 _CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS,
                 remaining,
             ),
+            observation=observation,
         )
+        return payload, observation.get("category")
 
     def wait_for_process(delay):
         if child is None:
@@ -4334,7 +4417,6 @@ def _wait_health(
         except subprocess.TimeoutExpired:
             return
 
-    readiness_probe = probe or health_probe
     wait_for_retry = pause or wait_for_process
     deadline = clock() + timeout
     while True:
@@ -4343,13 +4425,31 @@ def _wait_health(
         remaining = deadline - clock()
         if remaining <= 0:
             break
-        payload = readiness_probe(remaining)
-        if (
-            payload
-            and payload.get("status") == "ok"
-            and payload.get("ready") is True
-            and payload.get("instance_id") == instance_id
-        ):
+        try:
+            if probe is None:
+                payload, error_category = health_probe(remaining)
+            else:
+                payload = probe(remaining)
+                error_category = None
+        except Exception:
+            record("response_invalid")
+            raise
+        if error_category is not None:
+            category = error_category
+        elif payload is None:
+            category = "transport_unavailable"
+        elif not isinstance(payload, dict):
+            category = "response_invalid"
+        elif payload.get("status") != "ok":
+            category = "status_not_ok"
+        elif payload.get("ready") is not True:
+            category = "not_ready"
+        elif payload.get("instance_id") != instance_id:
+            category = "instance_mismatch"
+        else:
+            category = "ready"
+        record(category)
+        if category == "ready":
             if not _startup_process_intact(child, start_identity):
                 return False
             return clock() <= deadline
@@ -4898,6 +4998,7 @@ def _start_locked(
     child = None
     process = None
     launch_failed = False
+    health_diagnostics = _finite_child_health_diagnostics()
     try:
         child = subprocess.Popen(
             command,
@@ -4929,7 +5030,10 @@ def _start_locked(
             "code": "start_failed",
             "at": _utc_now(),
             **_child_process_diagnostics(
-                None, workspace, launch_failed=True
+                None,
+                workspace,
+                launch_failed=True,
+                health_diagnostics=health_diagnostics,
             ),
         }
         with contextlib.suppress(BaseException):
@@ -4967,13 +5071,24 @@ def _start_locked(
         starting = _write_state(twin_directory, starting)
         if phase_callback is not None:
             phase_callback("starting", process=process)
-        if not _wait_health(
-            selected_port,
-            instance_id,
-            _CHILD_COLD_START_BUDGET_SECONDS,
-            child,
-            start_identity,
-        ):
+        ready = False
+        try:
+            ready = _wait_health(
+                selected_port,
+                instance_id,
+                _CHILD_COLD_START_BUDGET_SECONDS,
+                child,
+                start_identity,
+                diagnostics=health_diagnostics,
+            )
+        finally:
+            process.update(
+                _finite_child_health_diagnostics(health_diagnostics)
+            )
+            starting = dict(starting)
+            starting["process"] = dict(process)
+            starting = _write_state(twin_directory, starting)
+        if not ready:
             _error("health_failed")
         if (
             _process_start_identity(child.pid) != start_identity
@@ -4985,7 +5100,9 @@ def _start_locked(
         running = _write_state(twin_directory, running)
     except BaseException as error:
         failure_diagnostics = _child_process_diagnostics(
-            child, workspace
+            child,
+            workspace,
+            health_diagnostics=health_diagnostics,
         )
         cleanup_succeeded = False
         if child is not None:

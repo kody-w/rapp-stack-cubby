@@ -252,7 +252,7 @@ class PagesApiTests(unittest.TestCase):
                     checksums=output / "SHA256SUMS",
                     source_root=source,
                     github_attestation=attestation,
-                    release_tag="v0.1.0-rc.11",
+                    release_tag="v0.1.0-rc.12",
                 )
 
     def test_rendering_is_deterministic(self) -> None:
@@ -557,6 +557,40 @@ class WorkflowTests(unittest.TestCase):
             all("runs-on: macos-15" in value for value in workflows.values())
         )
         self.assertIn("permissions:\n  contents: read", workflows["ci.yml"])
+        ci = workflows["ci.yml"]
+        demo_gate = ci.index("name: Run full signed development demo")
+        self.assertLess(
+            ci.index("name: Fetch only locked build inputs"),
+            demo_gate,
+        )
+        self.assertLess(
+            demo_gate,
+            ci.index("name: Build twice on one locked runner toolchain"),
+        )
+        for expected in (
+            'PYTHON: ${{ env.pythonLocation }}/bin/python',
+            '--work-dir "${RUNNER_TEMP}/development-demo-work"',
+            '--dependency-cache "${RAPP_DEPENDENCY_CACHE}"',
+            '--install-dir "${RUNNER_TEMP}/development-demo-install"',
+            '--controller-dir "${RUNNER_TEMP}/development-demo-controller"',
+            '--receipt "${RECEIPT}"',
+            "--cleanup",
+            'cat "${RECEIPT}"',
+            '"hatched"',
+            '"installed_adopted"',
+            '"signed_self_test"',
+            '"child_stopped"',
+            '"archived"',
+            '"unarchived"',
+            '"no_orphan"',
+            '"cleanup"',
+            '"diagnostics"',
+            '"child_health_attempts"',
+            '"child_health_last_category"',
+            '"ready"',
+        ):
+            self.assertIn(expected, ci[demo_gate:])
+        self.assertIn("timeout-minutes: 45", ci)
         self.assertIn("path: ./docs", workflows["pages.yml"])
         self.assertIn("include-hidden-files: true", workflows["pages.yml"])
         self.assertIn("mode=preserve", workflows["pages.yml"])
@@ -760,12 +794,12 @@ class VersionTests(unittest.TestCase):
             )["product_version"],
         ]
 
-        self.assertEqual(version, "0.1.0rc11")
+        self.assertEqual(version, "0.1.0rc12")
         self.assertEqual(values, [version] * len(values))
         status = json.loads(
             (REPOSITORY_ROOT / "RELEASE_STATUS.json").read_text()
         )
-        self.assertEqual(status["tag"], "v0.1.0-rc.11")
+        self.assertEqual(status["tag"], "v0.1.0-rc.12")
 
 
 if __name__ == "__main__":
