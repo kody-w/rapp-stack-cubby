@@ -63,6 +63,54 @@ _CONTROLLER_STARTUP_TIMEOUT_SECONDS: Final = 75.0
 _CONTROLLER_STARTUP_POLL_INTERVAL_SECONDS: Final = 1.0
 _CONTROLLER_HEALTH_REQUEST_TIMEOUT_SECONDS: Final = 2.0
 _CONTROLLER_HEALTH_PROCESS_TIMEOUT_SECONDS: Final = 5.0
+_INSTALLED_CHILD_HEALTH_BUDGET_SECONDS: Final = 75.0
+_CONTROLLER_ACTION_TIMEOUT_SECONDS: Final = 90.0
+_RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS: Final = 180.0
+_UNCLASSIFIED_CONTROLLER_ERROR_CODE: Final = "unclassified"
+_CONTROLLER_ERROR_CODES: Final = frozenset(
+    {
+        "adopt_invalid",
+        "archive_exists",
+        "attestation_python_invalid",
+        "busy",
+        "child_rejected",
+        "commit_invalid",
+        "confirmation_required",
+        "controller_root_invalid",
+        "development_digest_required",
+        "development_hatch_disabled",
+        "duplicate_identity",
+        "health_failed",
+        "http_unavailable",
+        "idempotency_conflict",
+        "idempotency_key_required",
+        "identity_invalid",
+        "invalid_action",
+        "key_rotation_failed",
+        "manifest_invalid",
+        "message_invalid",
+        "model_invalid",
+        "mutation_disabled",
+        "not_archived",
+        "not_found",
+        "not_running",
+        "not_stopped",
+        "process_identity_mismatch",
+        "provider_auth_invalid",
+        "purged",
+        "python_invalid",
+        "repository_invalid",
+        "response_invalid",
+        "self_test_failed",
+        "source_invalid",
+        "source_mismatch",
+        "start_failed",
+        "state_invalid",
+        "transition_failed",
+        "transport_epoch_changed",
+        _UNCLASSIFIED_CONTROLLER_ERROR_CODE,
+    }
+)
 
 
 class DemoError(RuntimeError):
@@ -89,6 +137,16 @@ class _ContentFreeProcessFailure(DemoError):
         self.return_code = return_code
 
 
+class _ControllerActionFailure(DemoError):
+    def __init__(self, code: object) -> None:
+        super().__init__("controller_action_failed")
+        self.controller_error_code = (
+            code
+            if isinstance(code, str) and code in _CONTROLLER_ERROR_CODES
+            else _UNCLASSIFIED_CONTROLLER_ERROR_CODE
+        )
+
+
 @dataclass(slots=True)
 class _AttestationDiagnostics:
     stage_code: str = "initialization"
@@ -97,6 +155,7 @@ class _AttestationDiagnostics:
     process_category: str = "not_started"
     controller_log_size: int = 0
     controller_log_sha256: str = hashlib.sha256(b"").hexdigest()
+    controller_error_code: str | None = None
     child_process_return_code: int | None = None
     child_process_category: str = "not_started"
     child_health_timeout_seconds: float | None = None
@@ -107,6 +166,8 @@ class _AttestationDiagnostics:
     installed_source_digest: str | None = None
 
     def observe_error(self, error: BaseException) -> None:
+        if isinstance(error, _ControllerActionFailure):
+            self.controller_error_code = error.controller_error_code
         if (
             self.process_category == "not_started"
             and isinstance(error, _ContentFreeProcessFailure)
@@ -200,7 +261,9 @@ class _AttestationDiagnostics:
         if (
             isinstance(health_timeout, (int, float))
             and not isinstance(health_timeout, bool)
-            and 75 <= health_timeout <= 90
+            and _INSTALLED_CHILD_HEALTH_BUDGET_SECONDS
+            <= health_timeout
+            <= _CONTROLLER_ACTION_TIMEOUT_SECONDS
         ):
             self.child_health_timeout_seconds = float(health_timeout)
         if isinstance(failure, dict):
@@ -240,6 +303,7 @@ class _AttestationDiagnostics:
             "child_stdout_size": self.child_stdout_size,
             "controller_log_sha256": self.controller_log_sha256,
             "controller_log_size": self.controller_log_size,
+            "controller_error_code": self.controller_error_code,
             "process_category": self.process_category,
             "process_return_code": self.process_return_code,
             "stage_code": self.stage_code,
@@ -601,21 +665,23 @@ def _run_installed_lifecycle(
     install_instance_rappid: str | None = None
     stopped = False
     purged = False
+    common = [
+        str(controller_python),
+        "-m",
+        "rapp_stack_cubby",
+        "controller",
+        "--url",
+        url + "/chat",
+        "--auth-token-file",
+        str(token_file),
+        "--timeout",
+        f"{_CONTROLLER_ACTION_TIMEOUT_SECONDS:g}",
+    ]
     try:
         diagnostic.stage_code = "controller_readiness"
         _wait_controller(
             controller_python, source, env, url, token_file, process
         )
-        common = [
-            str(controller_python),
-            "-m",
-            "rapp_stack_cubby",
-            "controller",
-            "--url",
-            url + "/chat",
-            "--auth-token-file",
-            str(token_file),
-        ]
         adopt_command = [
             *common,
             "--idempotency-key",
@@ -870,14 +936,7 @@ def _run_installed_lifecycle(
             try:
                 _run_json(
                     [
-                        str(controller_python),
-                        "-m",
-                        "rapp_stack_cubby",
-                        "controller",
-                        "--url",
-                        url + "/chat",
-                        "--auth-token-file",
-                        str(token_file),
+                        *common,
                         "--idempotency-key",
                         "demo-rollback-stop",
                         "stop",
@@ -1102,7 +1161,7 @@ def _run_json(
     *,
     cwd: Path,
     env: Mapping[str, str],
-    timeout: float = 180.0,
+    timeout: float = _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
     try:
         result = subprocess.run(
@@ -1160,8 +1219,8 @@ def _controller_result(value: Mapping[str, Any]) -> dict[str, Any]:
     result = value.get("controller_result")
     if not isinstance(result, dict) or result.get("ok") is not True:
         error = result.get("error") if isinstance(result, dict) else None
-        code = error.get("code") if isinstance(error, Mapping) else "invalid"
-        raise DemoError(f"controller action failed safely: {code}")
+        code = error.get("code") if isinstance(error, Mapping) else None
+        raise _ControllerActionFailure(code)
     return result
 
 

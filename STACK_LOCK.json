@@ -324,7 +324,7 @@
         {
           "path": "schemas/installed-offline-attestation.schema.json",
           "provenance": "original_new",
-          "sha256": "d7404d97758b64dff4a52ff21668ce3dfafba17712b8b831728ac82db4ee34ee"
+          "sha256": "4bc2a8aa13c265cd576f182fe36c4ec4281be04b7ac52e6d068f738f4be4b59f"
         },
         {
           "path": "schemas/installed-twin.schema.json",
@@ -487,7 +487,7 @@
           "sha256": "28e7711fc80f96cdfc10bf6ed90d0eee1d2803c8e9aabda521386488da61cf3c"
         }
       ],
-      "manifest_sha256": "9fe02fcc4bf8723c3e226017155256d054622f365c4db42572442edd6d3b3f01"
+      "manifest_sha256": "4cb0a4fed974d986a823031ecc784c018734a1b82520bf1e62b828f67d60b94a"
     },
     "controller_manifest": {
       "catalog": {
@@ -495,7 +495,7 @@
         "provenance": "generated_local",
         "sha256": "d96cfbc894ae9b937dabd4dbe05d3dbe4168c7d216d946d5efd90d999b0a4bf4"
       },
-      "manifest_sha256": "a760fce3032062241f811cd2387adbd62360197800c49f688929589080428841",
+      "manifest_sha256": "34292d2f4eefb58f434788cd97d38f56b95414baab83fabf3aa0de3446cc5053",
       "receipt_template": {
         "path": "cubbies/kody-w/catalog/controller-receipt-template.json",
         "provenance": "original_new",
@@ -530,7 +530,7 @@
         {
           "path": "src/rapp_stack_cubby/constants.py",
           "provenance": "original_new",
-          "sha256": "0cd023dfa6f62afcec29b54871b7d771df49ce9e095ef3079f3d0bc40c3c8786"
+          "sha256": "321373363d351e4f6f4916b67163ac5e8ab306c59dc27596df032c450c0339bf"
         },
         {
           "path": "src/rapp_stack_cubby/context.py",
@@ -576,7 +576,7 @@
         {
           "path": "src/rapp_stack_cubby/demo.py",
           "provenance": "original_new",
-          "sha256": "bc9ab916ed0f715285d68c1f91db159df65d9ca62f297a7a6376851a060ae093"
+          "sha256": "1577a4f6a9fd0be2d1989c05e0854a296426e2eeadcfd7e7cb4426e652c98093"
         },
         {
           "path": "src/rapp_stack_cubby/dependencies.py",
@@ -684,7 +684,7 @@
           "sha256": "cf5d5fd78decbd2ec2df35a347ecd5bdad604699cec6a627814d939afc62bf3c"
         }
       ],
-      "manifest_sha256": "eee23753b0e9d7ae2a7490b9c797bd8832069e47d249e6baaac425d39c3783ed",
+      "manifest_sha256": "05f5dc43ef830ffa0d18f9802fcabdbe2e597c7d9eea8ce0512d2a6e90c2b007",
       "policy": "Original runtime, protocol, imsg tooling/privacy scanner, and dependency-verification files; adapted bridge files are tracked separately in PROVENANCE.json."
     },
     "packaging_implementation": {
@@ -726,17 +726,17 @@
         {
           "path": ".github/workflows/promote.yml",
           "provenance": "original_new",
-          "sha256": "7a788e71a8075b8551ca6460238e6ebe0534da9bcecd7facfd1dda035e52f044"
+          "sha256": "8398ca59592d5dd9080b3581ef9d51a39f1d7d4c777e91fa6a26ea8c56ff9db1"
         },
         {
           "path": ".github/workflows/release.yml",
           "provenance": "original_new",
-          "sha256": "d829a29f26fbdcc25787439a9822f1b60769412fd2aeb786751ad13e79ad8ea3"
+          "sha256": "a446c9d82a157758e14c01aa0e2ba6a570286c19b05079be46e6272c764125c0"
         },
         {
           "path": "CHANGELOG.md",
           "provenance": "original_new",
-          "sha256": "4fcc5e75ee19b784c6b1b340f188b68eba64b70ccb0482a6dfe17ab529db0fcd"
+          "sha256": "eced448a9937fb01e8c93958a662f52fbfee86c43fa94704d25b55f2b088b3a9"
         },
         {
           "path": "GITHUB_ACTIONS_LOCK.json",
@@ -746,12 +746,12 @@
         {
           "path": "RELEASE_CHECKLIST.md",
           "provenance": "original_new",
-          "sha256": "cd860d3f3b33dea4c35b74c3d70dff0ccf09a0f35c353e4de81cbe9bc9d25cf2"
+          "sha256": "63d52b85b4c4248850b0abc066610837944c25d0612bd39af4f39958bd16ad34"
         },
         {
           "path": "RELEASE_STATUS.json",
           "provenance": "original_new",
-          "sha256": "c5e3fa958610a68efe640c43b117a39dfbe9a41ec4ca4cd9b07eaee215976209"
+          "sha256": "cc6a9db11d4e5e1fc5e70aa894538cbcdc98f4f1c5bfea5175f07a8349bbda70"
         },
         {
           "path": "RELEASE_TRUST.json",
@@ -761,7 +761,7 @@
         {
           "path": "VERSION",
           "provenance": "original_new",
-          "sha256": "a0695611b13db63f5ee069e4113e157621ecabb3ec5d2c8c95f4c4494319facb"
+          "sha256": "61c4bec77d2d71dafe7039f8162f9f8b9039d297d7bc3e3006beab879214225a"
         },
         {
           "path": "docs/.nojekyll",
@@ -776,32 +776,32 @@
         {
           "path": "docs/api/v1/architecture.json",
           "provenance": "generated_local",
-          "sha256": "bb834712f9b55b06aeb32cbd54708c8fd0eff6c7faf4f048e0423db676d9df1b"
+          "sha256": "b5bd634c6a84625e1e36ca007ad9dd24bac4487c729bc5dde7f97ea402227c2d"
         },
         {
           "path": "docs/api/v1/capabilities.json",
           "provenance": "generated_local",
-          "sha256": "fb14018461c158982e2efdcd57c242c9b0709671aa02bf296901dbc8179fb512"
+          "sha256": "c2c519dd8642e7f0b1d1d52621444c20d2820c22b0f2e9bb4a700f9c39d1241e"
         },
         {
           "path": "docs/api/v1/context.json",
           "provenance": "generated_local",
-          "sha256": "7c67cf67eb29c1c2cb7c532960bc70f23d383ecf44e6170ac637d9da22e3ac93"
+          "sha256": "b4b58fec6ac30d8be1cb55b4075f3289bfdfcd3a66453af94b2804affd16f7c5"
         },
         {
           "path": "docs/api/v1/downloads.json",
           "provenance": "generated_local",
-          "sha256": "c6ba5355aaa9d6f8af268915cb8b5290a92b479c84a7befbc691767ae66fa13c"
+          "sha256": "fb9b85b11bf22ec6a46f906649e88f59bb3e0ddbfdf86de85d6dfaa42cea7640"
         },
         {
           "path": "docs/api/v1/prompts.json",
           "provenance": "generated_local",
-          "sha256": "e2e9d56abf56c3efe6ac20e8c96560d323ec0e995e87217cc1c39aa6607065a1"
+          "sha256": "297ff7d5e05d78751d5fd380b75de4252047d0dc69d7642c7d577a16ee8b40d3"
         },
         {
           "path": "docs/api/v1/status.json",
           "provenance": "generated_local",
-          "sha256": "9e2484f2e2653046d303d48bf9c00e762647af67e84190567102d12de5b1712c"
+          "sha256": "97780d47a2f9a952722c958fabfbb254335d49d6b761d4c82867b7da4d99b773"
         },
         {
           "path": "docs/assets/favicon.svg",
@@ -821,12 +821,12 @@
         {
           "path": "docs/decisions/static-pages-public-boundary.md",
           "provenance": "original_new",
-          "sha256": "a4ec5415e9bec595d50efe3d6a3b063fd669256074bb448d372b2d3607820aaf"
+          "sha256": "23a0f08499054ec05d8b0a7cd6d547ab04b562c3d092a612a5df18c2b290c2f9"
         },
         {
           "path": "docs/index.html",
           "provenance": "original_new",
-          "sha256": "373534c176296ec4c9ce7108bea72ff57fa9e45f231052e8c4872db81b33c81d"
+          "sha256": "02b45b4c83738e79835c1bed321514e419c39cacc929da00c4c8c3197fe88e5a"
         },
         {
           "path": "docs/operations/EXACT_COMMIT_PROMOTION.md",
@@ -846,7 +846,7 @@
         {
           "path": "docs/pages-manifest.json",
           "provenance": "generated_local",
-          "sha256": "d42d728f4848ebfe148fe0cb2df0b65788160fb2e43a6032bb0109ea37945ecd"
+          "sha256": "10af4216e70a4742cd65aa1f563ccf26f91871c2e70178a1006ab591a3255d9a"
         },
         {
           "path": "docs/robots.txt",
@@ -931,7 +931,7 @@
         {
           "path": "tests/packaging/test_release_scripts.py",
           "provenance": "original_new",
-          "sha256": "2f4ad65ca3b0e584fce020faa1ee8722090fd204aee61232aae2f17f7cf92e2b"
+          "sha256": "e05842f7d5c0eee3c4d6951cdda309f60b020e6ee54f39478e1273c5c1d20fd5"
         },
         {
           "path": "tests/pages/__init__.py",
@@ -941,10 +941,10 @@
         {
           "path": "tests/pages/test_pages.py",
           "provenance": "original_new",
-          "sha256": "c3e36aa51aee88085c20b3a25e869e51c9bdd570fa620d1481ae9ebe6dca9e29"
+          "sha256": "19bddfce057a1cfa7e5161501fb2bb7b145756c43377092c16059a8f6dafd4e8"
         }
       ],
-      "manifest_sha256": "06a6eee7dfba04eb9f44b5b6e8bb3774a6f04e648beb21cd830c055a13342fdd",
+      "manifest_sha256": "115f398c8dd2866449f726b764d7418d6b6e407eddd1802fe3f1201e20cac21d",
       "release_status": "pending",
       "site_url": "https://kody-w.github.io/rapp-stack-cubby/"
     },
@@ -1446,8 +1446,8 @@
     }
   ],
   "project": {
-    "candidate_tag": "v0.1.0-rc.10",
-    "candidate_version": "0.1.0rc10",
+    "candidate_tag": "v0.1.0-rc.11",
+    "candidate_version": "0.1.0rc11",
     "final_release_sha": null,
     "newly_authored_code_license": "MIT",
     "pages_url": "https://kody-w.github.io/rapp-stack-cubby/",
