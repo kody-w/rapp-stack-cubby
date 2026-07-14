@@ -1367,7 +1367,7 @@
         {
           "path": "PUBLICATION_SCAN_POLICY.json",
           "provenance": "original_new",
-          "sha256": "cb75ca66433cf370aedb76c786f8fd3efcf539cd430f126ac4237d4aba346c37"
+          "sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2"
         },
         {
           "path": "RELEASE_TRUST.json",
@@ -2061,7 +2061,7 @@
           {
             "path": "PUBLICATION_SCAN_POLICY.json",
             "provenance": "original_new",
-            "sha256": "cb75ca66433cf370aedb76c786f8fd3efcf539cd430f126ac4237d4aba346c37"
+            "sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2"
           },
           {
             "path": "RAPP_END_TO_END.md",
@@ -2106,7 +2106,7 @@
           {
             "path": "STACK_LOCK.json",
             "provenance": "original_new",
-            "sha256": "fa38290c368c6b8f80a28373cc3d4f80951082279792e49d4b84b1801d445a30"
+            "sha256": "c0d07f96def6bc21517bf807b5ea41c1d185a0c2b3a8e8e2e270f3c10993da19"
           },
           {
             "path": "STORE_INDEX.json",

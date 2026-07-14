@@ -953,7 +953,7 @@
       "files": [
         {
           "path": "PUBLICATION_SCAN_POLICY.json",
-          "sha256": "cb75ca66433cf370aedb76c786f8fd3efcf539cd430f126ac4237d4aba346c37"
+          "sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2"
         },
         {
           "path": "schemas/publication-scan-policy.schema.json",
@@ -988,7 +988,7 @@
       "history_release_requirement": "real commit and complete reachable history; development without HEAD records not_available_development",
       "network_used": false,
       "policy_path": "PUBLICATION_SCAN_POLICY.json",
-      "policy_sha256": "cb75ca66433cf370aedb76c786f8fd3efcf539cd430f126ac4237d4aba346c37",
+      "policy_sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2",
       "receipt_schema": "rapp-publication-scan-receipt/1.0",
       "status": "implemented_gate_execution_unresolved"
     },

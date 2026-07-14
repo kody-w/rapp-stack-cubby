@@ -151,15 +151,15 @@
       "executable": false,
       "mode": "0644",
       "path": "PROVENANCE.json",
-      "sha256": "9eb12b5e7813f12714ed557ceaa57d89c95e6a449e3f9219b96851fe29791e71",
+      "sha256": "ef0bb746d347a86d8e1db00a57204a19a5cfe4e48df4eeca92d86f9ec66eedb9",
       "size": 170512
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "PUBLICATION_SCAN_POLICY.json",
-      "sha256": "cb75ca66433cf370aedb76c786f8fd3efcf539cd430f126ac4237d4aba346c37",
-      "size": 34487
+      "sha256": "669a9c02e821e2cb2f6d0cebf07c3143099ff96269e3025e802a4c53886e99b2",
+      "size": 34930
     },
     {
       "executable": false,
@@ -221,7 +221,7 @@
       "executable": false,
       "mode": "0644",
       "path": "STACK_LOCK.json",
-      "sha256": "fa38290c368c6b8f80a28373cc3d4f80951082279792e49d4b84b1801d445a30",
+      "sha256": "c0d07f96def6bc21517bf807b5ea41c1d185a0c2b3a8e8e2e270f3c10993da19",
       "size": 69390
     },
     {
@@ -2670,6 +2670,6 @@
   ],
   "repository_url": "https://github.com/kody-w/rapp-stack-cubby.git",
   "schema": "rapp-release-source-manifest/1.0",
-  "source_tree_digest": "5bb044d6529f4d243f64823759f012f433892a69bb3eec4e40666c83fee1b0cd",
-  "total_bytes": 7809782
+  "source_tree_digest": "f83901601db2659b562d3555b11ba0737b6eb54da210e4aad466fe3ea2556760",
+  "total_bytes": 7810225
 }
