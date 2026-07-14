@@ -64,6 +64,18 @@ _CONTROLLER_STARTUP_POLL_INTERVAL_SECONDS: Final = 1.0
 _CONTROLLER_HEALTH_REQUEST_TIMEOUT_SECONDS: Final = 2.0
 _CONTROLLER_HEALTH_PROCESS_TIMEOUT_SECONDS: Final = 5.0
 _INSTALLED_CHILD_HEALTH_BUDGET_SECONDS: Final = 75.0
+_INSTALLED_CHILD_HEALTH_MAX_ATTEMPTS: Final = 75
+_CHILD_HEALTH_CATEGORIES: Final = frozenset(
+    {
+        "not_attempted",
+        "transport_unavailable",
+        "response_invalid",
+        "status_not_ok",
+        "not_ready",
+        "instance_mismatch",
+        "ready",
+    }
+)
 _CONTROLLER_ACTION_TIMEOUT_SECONDS: Final = 90.0
 _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS: Final = 180.0
 _CONTROLLER_CLIENT_CATEGORIES: Final = frozenset(
@@ -184,6 +196,8 @@ class _AttestationDiagnostics:
     child_process_return_code: int | None = None
     child_process_category: str = "not_started"
     child_health_timeout_seconds: float | None = None
+    child_health_attempts: int = 0
+    child_health_last_category: str = "not_attempted"
     child_stdout_size: int = 0
     child_stdout_sha256: str = hashlib.sha256(b"").hexdigest()
     child_stderr_size: int = 0
@@ -292,6 +306,32 @@ class _AttestationDiagnostics:
             <= _CONTROLLER_ACTION_TIMEOUT_SECONDS
         ):
             self.child_health_timeout_seconds = float(health_timeout)
+        for source in (failure, process):
+            if not isinstance(source, dict):
+                continue
+            attempts = source.get("health_attempts")
+            category = source.get("health_last_category")
+            valid_attempts = (
+                isinstance(attempts, int)
+                and not isinstance(attempts, bool)
+                and 0 <= attempts <= _INSTALLED_CHILD_HEALTH_MAX_ATTEMPTS
+            )
+            valid_category = (
+                isinstance(category, str)
+                and category in _CHILD_HEALTH_CATEGORIES
+            )
+            valid_pair = (
+                attempts == 0 and category == "not_attempted"
+            ) or (
+                isinstance(attempts, int)
+                and not isinstance(attempts, bool)
+                and attempts > 0
+                and category != "not_attempted"
+            )
+            if valid_attempts and valid_category and valid_pair:
+                self.child_health_attempts = attempts
+                self.child_health_last_category = category
+                break
         if isinstance(failure, dict):
             category = failure.get("process_category")
             return_code = failure.get("process_return_code")
@@ -321,6 +361,10 @@ class _AttestationDiagnostics:
             "child_process_return_code": self.child_process_return_code,
             "child_health_timeout_seconds": (
                 self.child_health_timeout_seconds
+            ),
+            "child_health_attempts": self.child_health_attempts,
+            "child_health_last_category": (
+                self.child_health_last_category
             ),
             "child_stage": self.child_stage,
             "child_stderr_sha256": self.child_stderr_sha256,
@@ -400,6 +444,7 @@ def run_demo(
     built: dict[str, Any] | None = None
     installed: dict[str, Any] | None = None
     lifecycle: dict[str, Any] = {}
+    diagnostic = _AttestationDiagnostics()
     failure: Exception | None = None
     try:
         if test_seam is None or not test_seam.skip_repository_checks:
@@ -492,6 +537,7 @@ def run_demo(
                 cleanup=cleanup,
                 trusted_development=True,
                 host_controller_python=selected_python,
+                diagnostics=diagnostic,
             )
         else:
             lifecycle = dict(test_seam.lifecycle(install_root, controller_root))
@@ -529,6 +575,7 @@ def run_demo(
             stages["cleanup"] = False
     except Exception as error:
         failure = error
+        diagnostic.observe_error(error)
         _best_effort_failure_cleanup(
             install_root,
             controller_root,
@@ -557,6 +604,7 @@ def run_demo(
         "stages": stages,
         "cleanup_requested": cleanup,
         "failure_code": None if failure is None else "demo_failed",
+        "diagnostics": diagnostic.public(),
     }
     _write_receipt(receipt, result)
     if failure is not None:
@@ -765,6 +813,7 @@ def _run_installed_lifecycle(
                 env=env,
             )
         )
+        diagnostic.capture_child_start(state_root, instance_rappid)
         if not (
             started.get("status") == "running"
             and started.get("signed_only") is True

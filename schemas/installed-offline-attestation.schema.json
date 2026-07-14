@@ -57,6 +57,22 @@
             }
           ]
         },
+        "child_health_attempts": {
+          "maximum": 75,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "child_health_last_category": {
+          "enum": [
+            "not_attempted",
+            "transport_unavailable",
+            "response_invalid",
+            "status_not_ok",
+            "not_ready",
+            "instance_mismatch",
+            "ready"
+          ]
+        },
         "child_stderr_sha256": {
           "pattern": "^[0-9a-f]{64}$",
           "type": "string"
@@ -206,6 +222,8 @@
         "child_process_return_code",
         "child_process_category",
         "child_health_timeout_seconds",
+        "child_health_attempts",
+        "child_health_last_category",
         "child_stdout_size",
         "child_stdout_sha256",
         "child_stderr_size",

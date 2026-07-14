@@ -1,6 +1,230 @@
 {
   "$id": "urn:rapp:schema:product-demo-receipt:1.0",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "diagnostics": {
+      "additionalProperties": false,
+      "properties": {
+        "child_stage": {
+          "enum": [
+            "not_adopted",
+            "adopted",
+            "running",
+            "attested",
+            "stopped",
+            "archived",
+            "unarchived",
+            "purged"
+          ]
+        },
+        "child_process_category": {
+          "enum": [
+            "not_started",
+            "running",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "status_unavailable"
+          ]
+        },
+        "child_process_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "child_health_timeout_seconds": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": 75,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "child_health_attempts": {
+          "maximum": 75,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "child_health_last_category": {
+          "enum": [
+            "not_attempted",
+            "transport_unavailable",
+            "response_invalid",
+            "status_not_ok",
+            "not_ready",
+            "instance_mismatch",
+            "ready"
+          ]
+        },
+        "child_stderr_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "child_stderr_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "child_stdout_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "child_stdout_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "controller_client_category": {
+          "enum": [
+            "not_started",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "timed_out",
+            "invalid_output",
+            "status_unavailable"
+          ]
+        },
+        "controller_client_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "controller_error_code": {
+          "enum": [
+            "adopt_invalid",
+            "archive_exists",
+            "attestation_python_invalid",
+            "busy",
+            "child_rejected",
+            "commit_invalid",
+            "confirmation_required",
+            "controller_root_invalid",
+            "development_digest_required",
+            "development_hatch_disabled",
+            "duplicate_identity",
+            "health_failed",
+            "http_unavailable",
+            "idempotency_conflict",
+            "idempotency_key_required",
+            "identity_invalid",
+            "invalid_action",
+            "key_rotation_failed",
+            "manifest_invalid",
+            "message_invalid",
+            "model_invalid",
+            "mutation_disabled",
+            "not_archived",
+            "not_found",
+            "not_running",
+            "not_stopped",
+            "process_identity_mismatch",
+            "provider_auth_invalid",
+            "purged",
+            "python_invalid",
+            "repository_invalid",
+            "response_invalid",
+            "self_test_failed",
+            "source_invalid",
+            "source_mismatch",
+            "start_failed",
+            "state_invalid",
+            "transition_failed",
+            "transport_epoch_changed",
+            "unclassified",
+            null
+          ]
+        },
+        "controller_log_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "controller_log_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "process_category": {
+          "enum": [
+            "not_started",
+            "running",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "timed_out",
+            "invalid_output",
+            "status_unavailable"
+          ]
+        },
+        "process_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stage_code": {
+          "enum": [
+            "initialization",
+            "host_python_validation",
+            "install_static_verification",
+            "installed_python_probe",
+            "controller_auth",
+            "controller_spawn",
+            "controller_readiness",
+            "installed_adoption",
+            "child_start",
+            "signed_self_test",
+            "child_stop",
+            "child_archive",
+            "child_unarchive",
+            "child_status",
+            "child_purge",
+            "lifecycle_verification",
+            "complete"
+          ]
+        }
+      },
+      "required": [
+        "stage_code",
+        "process_return_code",
+        "process_category",
+        "controller_client_return_code",
+        "controller_client_category",
+        "controller_error_code",
+        "controller_log_size",
+        "controller_log_sha256",
+        "child_stage",
+        "child_process_return_code",
+        "child_process_category",
+        "child_health_timeout_seconds",
+        "child_health_attempts",
+        "child_health_last_category",
+        "child_stdout_size",
+        "child_stdout_sha256",
+        "child_stderr_size",
+        "child_stderr_sha256"
+      ],
+      "type": "object"
+    }
+  },
   "additionalProperties": false,
   "properties": {
     "attestation_mode": {
@@ -11,6 +235,9 @@
     },
     "cleanup_requested": {
       "type": "boolean"
+    },
+    "diagnostics": {
+      "$ref": "#/$defs/diagnostics"
     },
     "failure_code": {
       "anyOf": [
@@ -70,7 +297,8 @@
     "installed_source_digest_matches",
     "stages",
     "cleanup_requested",
-    "failure_code"
+    "failure_code",
+    "diagnostics"
   ],
   "title": "Content-free local product demo receipt",
   "type": "object"

@@ -11,16 +11,44 @@ from ._support import (
     ControllerEnvironment,
     IDENTITY_HASH,
     RAPPID,
+    REPOSITORY_ROOT,
     decoded,
 )
 
 
 class ControllerProcessTests(unittest.TestCase):
+    def test_child_health_state_schema_has_finite_ranges(self):
+        schema = json.loads(
+            (
+                REPOSITORY_ROOT / "schemas/controller-state.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        expected_categories = {
+            "not_attempted",
+            "transport_unavailable",
+            "response_invalid",
+            "status_not_ok",
+            "not_ready",
+            "instance_mismatch",
+            "ready",
+        }
+        properties = schema["properties"]
+        failure = properties["last_start_failure"]["properties"]
+        process = properties["process"]["anyOf"][1]["properties"]
+        for source in (failure, process):
+            self.assertEqual(
+                set(source["health_last_category"]["enum"]),
+                expected_categories,
+            )
+            self.assertEqual(source["health_attempts"]["minimum"], 0)
+            self.assertEqual(source["health_attempts"]["maximum"], 75)
+
     def test_child_readiness_allows_cold_start_after_legacy_window(self):
         elapsed = 0.0
         probe_times = []
         child = Mock()
         child.poll.return_value = None
+        diagnostics = {}
 
         def clock():
             return elapsed
@@ -50,18 +78,24 @@ class ControllerProcessTests(unittest.TestCase):
                 clock=clock,
                 probe=probe,
                 pause=pause,
+                diagnostics=diagnostics,
             )
 
         self.assertTrue(ready)
         self.assertGreater(elapsed, 12.0)
         self.assertLess(elapsed, budget)
         self.assertEqual(probe_times[-1], elapsed)
+        self.assertEqual(
+            diagnostics,
+            {"health_attempts": 14, "health_last_category": "ready"},
+        )
 
     def test_child_readiness_times_out_at_named_cold_start_bound(self):
         elapsed = 0.0
         child = Mock()
         child.poll.return_value = None
         probe = Mock(return_value=None)
+        diagnostics = {}
 
         def clock():
             return elapsed
@@ -82,11 +116,19 @@ class ControllerProcessTests(unittest.TestCase):
                 clock=clock,
                 probe=probe,
                 pause=pause,
+                diagnostics=diagnostics,
             )
 
         self.assertFalse(ready)
         self.assertEqual(elapsed, budget)
         self.assertEqual(probe.call_count, int(budget))
+        self.assertEqual(
+            diagnostics,
+            {
+                "health_attempts": int(budget),
+                "health_last_category": "transport_unavailable",
+            },
+        )
 
     def test_real_health_probes_use_request_cap_and_remaining_budget(self):
         elapsed = 0.0
@@ -101,7 +143,7 @@ class ControllerProcessTests(unittest.TestCase):
             nonlocal elapsed
             elapsed += delay
 
-        def health_probe(port, timeout):
+        def health_probe(port, timeout, observation=None):
             nonlocal elapsed
             self.assertEqual(port, 43204)
             request_timeouts.append(timeout)
@@ -152,7 +194,10 @@ class ControllerProcessTests(unittest.TestCase):
                 },
             ]
         )
-        health_probe = Mock(side_effect=lambda port, timeout: next(responses))
+        health_probe = Mock(
+            side_effect=lambda port, timeout, observation=None: next(responses)
+        )
+        diagnostics = {}
 
         def pause(delay):
             nonlocal elapsed
@@ -172,6 +217,7 @@ class ControllerProcessTests(unittest.TestCase):
                     child,
                     clock=lambda: elapsed,
                     pause=pause,
+                    diagnostics=diagnostics,
                 )
 
         self.assertTrue(ready)
@@ -181,12 +227,112 @@ class ControllerProcessTests(unittest.TestCase):
             [15.0, 15.0],
         )
         self.assertGreaterEqual(child.poll.call_count, 4)
+        self.assertEqual(
+            diagnostics,
+            {"health_attempts": 2, "health_last_category": "ready"},
+        )
+
+    def test_health_payload_categories_are_finite(self):
+        cases = (
+            (object(), "response_invalid"),
+            ({"status": "bad"}, "status_not_ok"),
+            ({"status": "ok", "ready": False}, "not_ready"),
+            (
+                {
+                    "status": "ok",
+                    "ready": True,
+                    "instance_id": "other-child",
+                },
+                "instance_mismatch",
+            ),
+        )
+        with ControllerEnvironment() as environment:
+            for payload, expected in cases:
+                elapsed = 0.0
+                diagnostics = {}
+                child = Mock()
+                child.poll.return_value = None
+
+                def pause(delay):
+                    nonlocal elapsed
+                    elapsed += delay
+
+                with self.subTest(category=expected):
+                    ready = environment.globals["_wait_health"](
+                        43206,
+                        "expected-child",
+                        1.0,
+                        child,
+                        clock=lambda: elapsed,
+                        probe=Mock(return_value=payload),
+                        pause=pause,
+                        diagnostics=diagnostics,
+                    )
+                    self.assertFalse(ready)
+                    self.assertEqual(
+                        diagnostics,
+                        {
+                            "health_attempts": 1,
+                            "health_last_category": expected,
+                        },
+                    )
+
+    def test_real_health_errors_are_mapped_without_error_content(self):
+        cases = (
+            ("http_unavailable", "transport_unavailable"),
+            ("response_invalid", "response_invalid"),
+            ("opaque-runtime-error-content", "response_invalid"),
+        )
+        with ControllerEnvironment() as environment:
+            for error_code, expected in cases:
+                elapsed = 0.0
+                diagnostics = {}
+                child = Mock()
+                child.poll.return_value = None
+
+                def pause(delay):
+                    nonlocal elapsed
+                    elapsed += delay
+
+                with self.subTest(error_code=error_code), patch.dict(
+                    environment.globals,
+                    {
+                        "_http_json": Mock(
+                            side_effect=RuntimeError(error_code)
+                        )
+                    },
+                ):
+                    ready = environment.globals["_wait_health"](
+                        43207,
+                        "expected-child",
+                        1.0,
+                        child,
+                        clock=lambda: elapsed,
+                        pause=pause,
+                        diagnostics=diagnostics,
+                    )
+                    self.assertFalse(ready)
+                    self.assertEqual(
+                        diagnostics,
+                        {
+                            "health_attempts": 1,
+                            "health_last_category": expected,
+                        },
+                    )
+                    if error_code not in {
+                        "http_unavailable",
+                        "response_invalid",
+                    }:
+                        self.assertNotIn(
+                            error_code, json.dumps(diagnostics)
+                        )
 
     def test_child_readiness_fails_fast_when_process_exits(self):
         child = Mock()
         child.poll.return_value = 9
         probe = Mock(side_effect=AssertionError("probe must not run"))
         pause = Mock(side_effect=AssertionError("pause must not run"))
+        diagnostics = {}
 
         with ControllerEnvironment() as environment:
             ready = environment.globals["_wait_health"](
@@ -199,11 +345,19 @@ class ControllerProcessTests(unittest.TestCase):
                 clock=lambda: 0.0,
                 probe=probe,
                 pause=pause,
+                diagnostics=diagnostics,
             )
 
         self.assertFalse(ready)
         probe.assert_not_called()
         pause.assert_not_called()
+        self.assertEqual(
+            diagnostics,
+            {
+                "health_attempts": 0,
+                "health_last_category": "not_attempted",
+            },
+        )
 
     def test_child_readiness_fails_fast_on_identity_mismatch(self):
         child = Mock()
@@ -211,6 +365,7 @@ class ControllerProcessTests(unittest.TestCase):
         child.poll.return_value = None
         probe = Mock(side_effect=AssertionError("probe must not run"))
         pause = Mock(side_effect=AssertionError("pause must not run"))
+        diagnostics = {}
 
         with ControllerEnvironment() as environment:
             with patch.dict(
@@ -231,10 +386,18 @@ class ControllerProcessTests(unittest.TestCase):
                         clock=lambda: 0.0,
                         probe=probe,
                         pause=pause,
+                        diagnostics=diagnostics,
                     )
 
         probe.assert_not_called()
         pause.assert_not_called()
+        self.assertEqual(
+            diagnostics,
+            {
+                "health_attempts": 0,
+                "health_last_category": "not_attempted",
+            },
+        )
 
     def test_start_requires_explicit_model_before_process_creation(self):
         with ControllerEnvironment() as environment:
@@ -295,7 +458,32 @@ class ControllerProcessTests(unittest.TestCase):
         fake_child.pid = 54321
         fake_child.poll.return_value = None
         popen = Mock(return_value=fake_child)
-        wait_health = Mock(return_value=True)
+        def health_ready(
+            port,
+            instance,
+            timeout,
+            child,
+            start_identity,
+            *,
+            diagnostics,
+        ):
+            del port, instance, timeout, child, start_identity
+            self.assertEqual(
+                diagnostics,
+                {
+                    "health_attempts": 0,
+                    "health_last_category": "not_attempted",
+                },
+            )
+            diagnostics.update(
+                {
+                    "health_attempts": 3,
+                    "health_last_category": "ready",
+                }
+            )
+            return True
+
+        wait_health = Mock(side_effect=health_ready)
         with ControllerEnvironment() as environment:
             environment.create_twin()
             provider_token = environment.create_provider_token()
@@ -419,6 +607,10 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(wait_arguments[2], health_timeout)
         self.assertIs(wait_arguments[3], fake_child)
         self.assertEqual(wait_arguments[4], "c" * 64)
+        self.assertEqual(
+            wait_health.call_args.kwargs["diagnostics"],
+            {"health_attempts": 3, "health_last_category": "ready"},
+        )
         self.assertIs(popen.call_args.kwargs["shell"], False)
         self.assertTrue(popen.call_args.kwargs["start_new_session"])
         self.assertNotIn(
@@ -436,6 +628,10 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(
             state["process"]["health_timeout_seconds"],
             health_timeout,
+        )
+        self.assertEqual(state["process"]["health_attempts"], 3)
+        self.assertEqual(
+            state["process"]["health_last_category"], "ready"
         )
         self.assertEqual(result["health_timeout_seconds"], health_timeout)
         self.assertEqual(status["health_timeout_seconds"], health_timeout)
@@ -470,9 +666,21 @@ class ControllerProcessTests(unittest.TestCase):
             observed_starting = {}
 
             def fail_health(
-                port, instance, timeout, child, start_identity
+                port,
+                instance,
+                timeout,
+                child,
+                start_identity,
+                *,
+                diagnostics,
             ):
                 del port, instance, timeout, child, start_identity
+                diagnostics.update(
+                    {
+                        "health_attempts": 5,
+                        "health_last_category": "transport_unavailable",
+                    }
+                )
                 state = json.loads(
                     (
                         environment.controller_data
@@ -540,6 +748,10 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(
             failure["process_category"], "exited_nonzero"
         )
+        self.assertEqual(failure["health_attempts"], 5)
+        self.assertEqual(
+            failure["health_last_category"], "transport_unavailable"
+        )
         self.assertEqual(failure["stdout_size"], len(stdout_bytes))
         self.assertEqual(failure["stderr_size"], len(stderr_bytes))
         self.assertEqual(
@@ -553,6 +765,83 @@ class ControllerProcessTests(unittest.TestCase):
         serialized_failure = json.dumps(failure)
         self.assertNotIn(stdout_bytes.decode().strip(), serialized_failure)
         self.assertNotIn(stderr_bytes.decode().strip(), serialized_failure)
+
+    def test_failed_health_persists_diagnostics_when_cleanup_fails(self):
+        fake_child = Mock()
+        fake_child.pid = 54323
+        fake_child.poll.return_value = None
+
+        def fail_health(
+            port,
+            instance,
+            timeout,
+            child,
+            start_identity,
+            *,
+            diagnostics,
+        ):
+            del port, instance, timeout, child, start_identity
+            diagnostics.update(
+                {
+                    "health_attempts": 5,
+                    "health_last_category": "response_invalid",
+                }
+            )
+            return False
+
+        with ControllerEnvironment() as environment:
+            environment.create_twin()
+            provider_token = environment.create_provider_token()
+            with patch.object(
+                environment.globals["subprocess"],
+                "Popen",
+                return_value=fake_child,
+            ), patch.dict(
+                environment.globals,
+                {
+                    "_validate_python": (
+                        lambda: "/opt/homebrew/bin/python3.11"
+                    ),
+                    "_preflight_model": (
+                        lambda python, source, model, token_file: model
+                    ),
+                    "_process_start_identity": lambda pid: "c" * 64,
+                    "_wait_health": fail_health,
+                    "_terminate_spawned": Mock(
+                        side_effect=RuntimeError(
+                            "opaque cleanup content that must not persist"
+                        )
+                    ),
+                },
+            ):
+                result = decoded(
+                    environment.agent,
+                    action="start",
+                    rappid=RAPPID,
+                    model="synthetic-test-model",
+                    github_token_file=str(provider_token),
+                    port=43213,
+                    idempotency_key="start-health-cleanup-failure",
+                )
+            state = json.loads(
+                (
+                    environment.controller_data
+                    / "twins/active"
+                    / IDENTITY_HASH
+                    / "state.json"
+                ).read_text(encoding="utf-8")
+            )
+
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["error"]["code"], "health_failed")
+        self.assertEqual(state["runtime_status"], "starting")
+        self.assertEqual(state["process"]["health_attempts"], 5)
+        self.assertEqual(
+            state["process"]["health_last_category"],
+            "response_invalid",
+        )
+        serialized = json.dumps(state)
+        self.assertNotIn("opaque cleanup content", serialized)
 
     def test_stop_escalates_only_the_recorded_process_group(self):
         process = {

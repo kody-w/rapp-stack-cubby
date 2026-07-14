@@ -2,7 +2,7 @@
   "applications": [
     {
       "application_id": "rapp-stack",
-      "application_manifest_sha256": "2a44a4fe399d1666fb3ad764cabf2c3e7344c7eb1a2097b0a98bdff6b6924d60",
+      "application_manifest_sha256": "11fb1110ad858f769222cdcceba1dfe024fa6eaff660552a793e5dd52cbc6a87",
       "application_manifest_size": 4135,
       "development_only": true
     }

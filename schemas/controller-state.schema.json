@@ -100,6 +100,22 @@
           "minimum": 75,
           "type": "number"
         },
+        "health_attempts": {
+          "maximum": 75,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "health_last_category": {
+          "enum": [
+            "not_attempted",
+            "transport_unavailable",
+            "response_invalid",
+            "status_not_ok",
+            "not_ready",
+            "instance_mismatch",
+            "ready"
+          ]
+        },
         "process_category": {
           "enum": [
             "running",
@@ -190,6 +206,22 @@
               "maximum": 90,
               "minimum": 75,
               "type": "number"
+            },
+            "health_attempts": {
+              "maximum": 75,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "health_last_category": {
+              "enum": [
+                "not_attempted",
+                "transport_unavailable",
+                "response_invalid",
+                "status_not_ok",
+                "not_ready",
+                "instance_mismatch",
+                "ready"
+              ]
             },
             "signed_only": {
               "const": true

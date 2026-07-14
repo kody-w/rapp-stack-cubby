@@ -13,6 +13,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 from rapp_stack_cubby.cli import main
+from rapp_stack_cubby.context import validate_schema_instance
 from rapp_stack_cubby.demo import (
     DemoError,
     DemoTestSeam,
@@ -254,6 +255,22 @@ class ProductDemoTests(unittest.TestCase):
             self.assertEqual(value["schema"], "rapp-product-demo-receipt/1.0")
             self.assertFalse(value["imessage_sent"])
             self.assertFalse(value["published"])
+            self.assertEqual(
+                value["diagnostics"]["child_health_attempts"], 0
+            )
+            self.assertEqual(
+                value["diagnostics"]["child_health_last_category"],
+                "not_attempted",
+            )
+            schema_path = (
+                REPOSITORY_ROOT / "schemas/demo-receipt.schema.json"
+            )
+            schema = json.loads(schema_path.read_text(encoding="utf-8"))
+            self.assertFalse(
+                validate_schema_instance(
+                    value, schema, schema_path=schema_path
+                )
+            )
             self.assertNotIn("HOME", receipt.read_text(encoding="utf-8"))
             self.assertEqual(os.environ.get("HOME"), before_home)
             self.assertFalse((install / "rapp-stack-cubby-demo").exists())
@@ -352,6 +369,7 @@ class ProductDemoTests(unittest.TestCase):
                 "rapp_stack_cubby.demo._run_installed_lifecycle",
                 lifecycle,
             ):
+                receipt_path = root / "receipt.json"
                 result = run_demo(
                     repository,
                     python=selected_python,
@@ -359,14 +377,99 @@ class ProductDemoTests(unittest.TestCase):
                     dependency_cache=directories["cache"],
                     install_dir=directories["install"],
                     controller_dir=directories["controller"],
-                    receipt_path=root / "receipt.json",
+                    receipt_path=receipt_path,
                 )
+                serialized = receipt_path.read_text(encoding="utf-8")
 
         self.assertTrue(result["ok"])
+        diagnostic = lifecycle.call_args.kwargs["diagnostics"]
+        self.assertIsInstance(diagnostic, _AttestationDiagnostics)
+        self.assertEqual(result["diagnostics"], diagnostic.public())
         self.assertEqual(
             lifecycle.call_args.kwargs["host_controller_python"],
             selected_python,
         )
+        for forbidden in (
+            str(root),
+            str(selected_python),
+            "controller.log",
+            "port",
+            "token",
+        ):
+            self.assertNotIn(forbidden, serialized)
+
+    def test_demo_failure_receipt_has_only_fixed_diagnostics(self):
+        arbitrary_detail = (
+            "opaque exception content that must never be serialized"
+        )
+        with PackagingWorkspace() as workspace:
+            source, cache = workspace.copy_repository_with_fake_dependencies()
+            work = workspace.root / "demo-failure-work"
+            install = workspace.root / "demo-failure-install"
+            controller = workspace.root / "demo-failure-controller"
+            receipt = workspace.root / "demo-failure-receipt.json"
+            for path in (work, install, controller):
+                path.mkdir(mode=0o700)
+
+            def fail_lifecycle(install_root, controller_root):
+                del install_root, controller_root
+                raise RuntimeError(arbitrary_detail)
+
+            seam = DemoTestSeam(
+                hatch=HatchTestSeam(create_fake_installed_environment),
+                lifecycle=fail_lifecycle,
+                skip_repository_checks=True,
+            )
+            with self.assertRaisesRegex(
+                DemoError, "product demo failed safely"
+            ):
+                run_demo(
+                    source,
+                    python=Path(sys.executable).resolve(),
+                    work_dir=work,
+                    dependency_cache=cache,
+                    install_dir=install,
+                    controller_dir=controller,
+                    receipt_path=receipt,
+                    cleanup=True,
+                    test_seam=seam,
+                )
+            value = json.loads(receipt.read_text(encoding="utf-8"))
+
+        expected_keys = {
+            "child_stage",
+            "child_health_attempts",
+            "child_health_last_category",
+            "child_health_timeout_seconds",
+            "child_process_category",
+            "child_process_return_code",
+            "child_stdout_size",
+            "child_stdout_sha256",
+            "child_stderr_size",
+            "child_stderr_sha256",
+            "controller_client_category",
+            "controller_client_return_code",
+            "controller_log_sha256",
+            "controller_log_size",
+            "controller_error_code",
+            "process_category",
+            "process_return_code",
+            "stage_code",
+        }
+        schema_path = REPOSITORY_ROOT / "schemas/demo-receipt.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        self.assertFalse(value["ok"])
+        self.assertEqual(value["failure_code"], "demo_failed")
+        self.assertEqual(set(value["diagnostics"]), expected_keys)
+        self.assertFalse(
+            validate_schema_instance(value, schema, schema_path=schema_path)
+        )
+        serialized = json.dumps(value)
+        for forbidden in (
+            arbitrary_detail,
+            str(workspace.root),
+        ):
+            self.assertNotIn(forbidden, serialized)
 
 
 class InstalledAttestationTests(unittest.TestCase):
@@ -416,6 +519,8 @@ class InstalledAttestationTests(unittest.TestCase):
                     {
                         "last_start_failure": {
                             "health_timeout_seconds": 75.0,
+                            "health_attempts": 5,
+                            "health_last_category": "response_invalid",
                             "process_category": "exited_nonzero",
                             "process_return_code": 72,
                         }
@@ -437,6 +542,10 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertEqual(
             public["child_health_timeout_seconds"], 75.0
         )
+        self.assertEqual(public["child_health_attempts"], 5)
+        self.assertEqual(
+            public["child_health_last_category"], "response_invalid"
+        )
         self.assertEqual(
             public["child_stdout_size"], len(secret_stdout)
         )
@@ -454,6 +563,94 @@ class InstalledAttestationTests(unittest.TestCase):
         serialized = json.dumps(public)
         self.assertNotIn(secret_stdout.decode().strip(), serialized)
         self.assertNotIn(secret_stderr.decode().strip(), serialized)
+        schema = json.loads(
+            (
+                REPOSITORY_ROOT
+                / "schemas/installed-offline-attestation.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        properties = schema["properties"]["diagnostics"]["properties"]
+        self.assertEqual(
+            set(properties["child_health_last_category"]["enum"]),
+            {
+                "not_attempted",
+                "transport_unavailable",
+                "response_invalid",
+                "status_not_ok",
+                "not_ready",
+                "instance_mismatch",
+                "ready",
+            },
+        )
+        self.assertEqual(properties["child_health_attempts"]["minimum"], 0)
+        self.assertEqual(properties["child_health_attempts"]["maximum"], 75)
+
+    def test_child_health_diagnostics_reject_unvalidated_state_values(self):
+        identity_hash = "e" * 64
+        rappid = f"rappid:@kody-w/child:{identity_hash}"
+        arbitrary_category = "opaque-health-category-content"
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-invalid-health-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            state_root = Path(temporary)
+            twin = state_root / "twins/active" / identity_hash
+            twin.mkdir(parents=True)
+            (twin / "state.json").write_text(
+                json.dumps(
+                    {
+                        "process": {
+                            "health_attempts": True,
+                            "health_last_category": arbitrary_category,
+                            "health_timeout_seconds": 75.0,
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            diagnostic = _AttestationDiagnostics()
+            diagnostic.capture_child_start(state_root, rappid)
+            public = diagnostic.public()
+
+        self.assertEqual(public["child_health_attempts"], 0)
+        self.assertEqual(
+            public["child_health_last_category"], "not_attempted"
+        )
+        self.assertNotIn(arbitrary_category, json.dumps(public))
+
+    def test_child_health_diagnostics_capture_starting_process(self):
+        identity_hash = "f" * 64
+        rappid = f"rappid:@kody-w/child:{identity_hash}"
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-starting-health-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            state_root = Path(temporary)
+            twin = state_root / "twins/active" / identity_hash
+            twin.mkdir(parents=True)
+            (twin / "state.json").write_text(
+                json.dumps(
+                    {
+                        "runtime_status": "starting",
+                        "process": {
+                            "health_attempts": 5,
+                            "health_last_category": "transport_unavailable",
+                            "health_timeout_seconds": 75.0,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            diagnostic = _AttestationDiagnostics()
+            diagnostic.capture_child_start(state_root, rappid)
+            public = diagnostic.public()
+
+        self.assertEqual(public["child_health_attempts"], 5)
+        self.assertEqual(
+            public["child_health_last_category"],
+            "transport_unavailable",
+        )
+        self.assertEqual(public["child_health_timeout_seconds"], 75.0)
 
     def test_controller_failure_code_is_typed_allowlisted_and_redacted(self):
         arbitrary_code = "opaque-controller-detail"
@@ -887,6 +1084,27 @@ class InstalledAttestationTests(unittest.TestCase):
                         }
                     }
                 if "start" in command:
+                    twin = (
+                        controller
+                        / "state/twins/active"
+                        / instance.rsplit(":", 1)[-1]
+                    )
+                    twin.mkdir(parents=True, mode=0o700)
+                    (twin / "state.json").write_text(
+                        json.dumps(
+                            {
+                                "runtime_status": "starting",
+                                "process": {
+                                    "health_attempts": 5,
+                                    "health_last_category": (
+                                        "response_invalid"
+                                    ),
+                                    "health_timeout_seconds": 75.0,
+                                },
+                            }
+                        ),
+                        encoding="utf-8",
+                    )
                     return {
                         "controller_result": {
                             "error": {
@@ -959,6 +1177,13 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertEqual(
             diagnostic.public()["controller_error_code"],
             "health_failed",
+        )
+        self.assertEqual(
+            diagnostic.public()["child_health_attempts"], 5
+        )
+        self.assertEqual(
+            diagnostic.public()["child_health_last_category"],
+            "response_invalid",
         )
         self.assertNotIn(
             "private child startup detail",
@@ -1117,6 +1342,8 @@ class InstalledAttestationTests(unittest.TestCase):
             set(diagnostic),
             {
                 "child_stage",
+                "child_health_attempts",
+                "child_health_last_category",
                 "child_health_timeout_seconds",
                 "child_process_category",
                 "child_process_return_code",
@@ -1143,6 +1370,10 @@ class InstalledAttestationTests(unittest.TestCase):
         )
         self.assertIsNone(diagnostic["controller_client_return_code"])
         self.assertIsNone(diagnostic["child_health_timeout_seconds"])
+        self.assertEqual(diagnostic["child_health_attempts"], 0)
+        self.assertEqual(
+            diagnostic["child_health_last_category"], "not_attempted"
+        )
         self.assertEqual(
             diagnostic["child_process_category"], "not_started"
         )

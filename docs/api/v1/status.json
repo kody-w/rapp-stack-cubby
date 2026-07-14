@@ -57,7 +57,7 @@
     "repositories_audited": 307,
     "selected_capabilities": 61,
     "streamable_controllers": 1,
-    "tests": 473
+    "tests": 480
   },
   "release": {
     "candidate_publication_scan_sha256": null,

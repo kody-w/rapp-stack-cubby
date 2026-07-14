@@ -7,6 +7,12 @@ publicly released.
 
 ### Fixed
 
+- Pre-tag pull-request run `29304286160` was safely blocked by the full signed
+  development demo after source, build, signed development release, egg,
+  hatch, and install proof passed and lifecycle reached the child readiness
+  window. Demo and installed-attestation diagnostics now preserve only a
+  bounded health-attempt count and finite last-result category, including
+  when failed child cleanup leaves the guarded process in `starting`.
 - Protected release run `29300424649` exhausted the full 75-second installed
   child health window while the persisted child remained alive with empty
   stderr. Its 23-byte stdout SHA-256

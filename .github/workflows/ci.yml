@@ -89,6 +89,32 @@ jobs:
           assert value["published"] is False
           assert value["cleanup_requested"] is True
           assert all(value["stages"].get(stage) is True for stage in required)
+          diagnostics = value["diagnostics"]
+          assert set(diagnostics) == {
+              "child_stage",
+              "child_health_attempts",
+              "child_health_last_category",
+              "child_health_timeout_seconds",
+              "child_process_category",
+              "child_process_return_code",
+              "child_stdout_size",
+              "child_stdout_sha256",
+              "child_stderr_size",
+              "child_stderr_sha256",
+              "controller_client_category",
+              "controller_client_return_code",
+              "controller_log_sha256",
+              "controller_log_size",
+              "controller_error_code",
+              "process_category",
+              "process_return_code",
+              "stage_code",
+          }
+          assert diagnostics["stage_code"] == "complete"
+          assert diagnostics["child_stage"] == "purged"
+          assert 1 <= diagnostics["child_health_attempts"] <= 75
+          assert diagnostics["child_health_last_category"] == "ready"
+          assert 75 <= diagnostics["child_health_timeout_seconds"] <= 90
           PY
           ) >/dev/null 2>&1; then
             :

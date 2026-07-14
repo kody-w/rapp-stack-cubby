@@ -584,6 +584,10 @@ class WorkflowTests(unittest.TestCase):
             '"unarchived"',
             '"no_orphan"',
             '"cleanup"',
+            '"diagnostics"',
+            '"child_health_attempts"',
+            '"child_health_last_category"',
+            '"ready"',
         ):
             self.assertIn(expected, ci[demo_gate:])
         self.assertIn("timeout-minutes: 45", ci)

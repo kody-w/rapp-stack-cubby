@@ -312,7 +312,8 @@ class ControllerRecoverySecurityTests(unittest.TestCase):
                     ),
                     "_process_start_identity": lambda pid: "c" * 64,
                     "_wait_health": (
-                        lambda port, instance, timeout, child, start_identity: True
+                        lambda port, instance, timeout, child, start_identity, *,
+                        diagnostics: True
                     ),
                     "_observed_runtime": observed,
                     "_group_alive": lambda pgid: False,
