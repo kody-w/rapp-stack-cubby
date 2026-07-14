@@ -3,6 +3,18 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc11 — release candidate
+
+### Fixed
+
+- Release run `29296311089` reached adopted child startup with empty logs and
+  persisted `starting` process state carrying the 75-second health budget, but
+  the lifecycle controller client still used its 30-second default timeout.
+  Every installed lifecycle controller action, including rollback stop, now
+  uses an explicit 90-second timeout below the 180-second subprocess bound.
+  Controller rejections now expose only a finite allowlisted error code, with
+  all unknown values mapped to `unclassified`.
+
 ## 0.1.0rc10 — release candidate
 
 ### Fixed

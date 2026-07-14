@@ -2,7 +2,7 @@
   "applications": [
     {
       "application_id": "rapp-stack",
-      "application_manifest_sha256": "bd526aee0ad98e6d39cae6eeec919553b00f91c8c5bde1b1c8c745fe47b8a5fb",
+      "application_manifest_sha256": "faf3683031fc1bb756363d5bc007f8deb07cc12de6cd208597bcc239f9d9292f",
       "application_manifest_size": 4135,
       "development_only": true
     }
@@ -11,5 +11,5 @@
   "release_specific": false,
   "schema": "rapp-store-index/1.0",
   "source_tree_digest_binding": "rapp-release-source-manifest.json",
-  "version": "0.1.0rc10"
+  "version": "0.1.0rc11"
 }

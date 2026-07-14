@@ -18,9 +18,16 @@ from rapp_stack_cubby.demo import (
     DemoTestSeam,
     InstalledAttestationError,
     _AttestationDiagnostics,
+    _CONTROLLER_ACTION_TIMEOUT_SECONDS,
+    _CONTROLLER_ERROR_CODES,
     _CONTROLLER_STARTUP_TIMEOUT_SECONDS,
+    _ControllerActionFailure,
     _ContentFreeProcessFailure,
+    _INSTALLED_CHILD_HEALTH_BUDGET_SECONDS,
+    _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS,
+    _controller_result,
     _probe_installed_python,
+    _run_json,
     _run_installed_lifecycle,
     _validate_host_controller_python,
     _wait_controller,
@@ -337,6 +344,78 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertNotIn(secret_stdout.decode().strip(), serialized)
         self.assertNotIn(secret_stderr.decode().strip(), serialized)
 
+    def test_controller_failure_code_is_typed_allowlisted_and_redacted(self):
+        arbitrary_code = "opaque-controller-detail"
+        arbitrary_message = "private controller rejection detail"
+        diagnostic = _AttestationDiagnostics()
+
+        with self.assertRaises(_ControllerActionFailure) as raised:
+            _controller_result(
+                {
+                    "controller_result": {
+                        "error": {
+                            "code": arbitrary_code,
+                            "message": arbitrary_message,
+                        },
+                        "ok": False,
+                    }
+                }
+            )
+        diagnostic.observe_error(raised.exception)
+        public = diagnostic.public()
+        serialized = json.dumps(public)
+
+        self.assertEqual(
+            raised.exception.controller_error_code,
+            "unclassified",
+        )
+        self.assertEqual(str(raised.exception), "controller_action_failed")
+        self.assertIn(
+            raised.exception.controller_error_code,
+            _CONTROLLER_ERROR_CODES,
+        )
+        self.assertEqual(public["controller_error_code"], "unclassified")
+        self.assertNotIn(arbitrary_code, serialized)
+        self.assertNotIn(arbitrary_message, serialized)
+        schema = json.loads(
+            (
+                REPOSITORY_ROOT
+                / "schemas/installed-offline-attestation.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        schema_codes = set(
+            schema["properties"]["diagnostics"]["properties"][
+                "controller_error_code"
+            ]["enum"]
+        )
+        self.assertEqual(
+            schema_codes,
+            {*_CONTROLLER_ERROR_CODES, None},
+        )
+        with self.assertRaises(_ControllerActionFailure) as malformed:
+            _controller_result({})
+        self.assertEqual(
+            malformed.exception.controller_error_code,
+            "unclassified",
+        )
+
+    def test_controller_action_timeout_bounds_child_health_and_process(self):
+        self.assertEqual(_INSTALLED_CHILD_HEALTH_BUDGET_SECONDS, 75.0)
+        self.assertEqual(_CONTROLLER_ACTION_TIMEOUT_SECONDS, 90.0)
+        self.assertEqual(_RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS, 180.0)
+        self.assertGreater(
+            _CONTROLLER_ACTION_TIMEOUT_SECONDS,
+            _INSTALLED_CHILD_HEALTH_BUDGET_SECONDS,
+        )
+        self.assertLess(
+            _CONTROLLER_ACTION_TIMEOUT_SECONDS,
+            _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS,
+        )
+        self.assertEqual(
+            _run_json.__kwdefaults__["timeout"],
+            _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS,
+        )
+
     def test_controller_readiness_allows_cold_start_within_bound(self):
         elapsed = 0.0
         probe_times: list[float] = []
@@ -492,6 +571,19 @@ class InstalledAttestationTests(unittest.TestCase):
                             "signed_twin_chat_verified": True,
                         }
                     )
+                elif "demo-stop-attestation" in command:
+                    return {
+                        "controller_result": {
+                            "error": {
+                                "code": "process_identity_mismatch",
+                                "message": (
+                                    "The recorded process no longer belongs "
+                                    "to this twin."
+                                ),
+                            },
+                            "ok": False,
+                        }
+                    }
                 elif "stop" in command:
                     result["status"] = "stopped"
                 elif "unarchive" in command:
@@ -560,6 +652,157 @@ class InstalledAttestationTests(unittest.TestCase):
         )
         self.assertEqual(wait.call_args.args[0], host_python)
         self.assertEqual(probe.call_args.args[0], installed_python)
+        lifecycle_calls = [
+            command for command in calls if "controller" in command
+        ]
+        expected_keys = {
+            "demo-adopt-installed",
+            "demo-start-attestation",
+            "demo-signed-self-test",
+            "demo-stop-attestation",
+            "demo-stop-attestation-recovery",
+            "demo-archive",
+            "demo-unarchive",
+            "demo-status",
+            "demo-cleanup-archive",
+            "demo-cleanup-purge",
+        }
+        self.assertEqual(len(lifecycle_calls), len(expected_keys))
+        self.assertEqual(
+            {
+                command[command.index("--idempotency-key") + 1]
+                for command in lifecycle_calls
+            },
+            expected_keys,
+        )
+        for command in lifecycle_calls:
+            self.assertEqual(command.count("--timeout"), 1)
+            self.assertEqual(
+                command[command.index("--timeout") + 1],
+                f"{_CONTROLLER_ACTION_TIMEOUT_SECONDS:g}",
+            )
+
+    def test_controller_start_rejection_rolls_back_with_explicit_timeout(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".attestation-rollback-timeout-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            install = root / "install"
+            controller = root / "controller"
+            for path in (
+                install / "source",
+                install / "state/home",
+                controller,
+            ):
+                path.mkdir(parents=True, mode=0o700)
+            token = controller / "auth/token.json"
+            host_python = Path(sys.executable)
+            source_digest = "a" * 64
+            instance = "rappid:@kody-w/attestation:" + "b" * 64
+            product = "rappid:@kody-w/product:" + "c" * 64
+            diagnostic = _AttestationDiagnostics()
+            calls: list[list[str]] = []
+
+            def run_json(argv, **kwargs):
+                del kwargs
+                command = list(argv)
+                calls.append(command)
+                if "controller-auth" in command:
+                    token.parent.mkdir(
+                        parents=True, exist_ok=True, mode=0o700
+                    )
+                    token.write_text("{}\n", encoding="utf-8")
+                    token.chmod(0o600)
+                    return {"token_file": str(token)}
+                if "adopt" in command:
+                    return {
+                        "controller_result": {
+                            "adopted": True,
+                            "instance_rappid": instance,
+                            "ok": True,
+                            "product_rappid": product,
+                            "source_tree_digest": source_digest,
+                        }
+                    }
+                if "start" in command:
+                    return {
+                        "controller_result": {
+                            "error": {
+                                "code": "health_failed",
+                                "message": "private child startup detail",
+                            },
+                            "ok": False,
+                        }
+                    }
+                if "demo-rollback-stop" in command:
+                    return {
+                        "controller_result": {
+                            "ok": True,
+                            "status": "stopped",
+                        }
+                    }
+                raise AssertionError("unexpected lifecycle command")
+
+            process = Mock(pid=71003)
+            process.poll.return_value = None
+            with patch(
+                "rapp_stack_cubby.demo._validate_host_controller_python",
+                return_value=host_python,
+            ), patch(
+                "rapp_stack_cubby.demo._probe_installed_python"
+            ), patch(
+                "rapp_stack_cubby.demo.verify_install",
+                return_value={
+                    "instance_rappid": (
+                        "rappid:@kody-w/installed:" + "d" * 64
+                    ),
+                    "source_tree_digest": source_digest,
+                },
+            ), patch(
+                "rapp_stack_cubby.demo._run_json",
+                side_effect=run_json,
+            ), patch(
+                "rapp_stack_cubby.demo.subprocess.Popen",
+                return_value=process,
+            ), patch(
+                "rapp_stack_cubby.demo._wait_controller"
+            ), patch(
+                "rapp_stack_cubby.demo._terminate_exact_process"
+            ), patch(
+                "rapp_stack_cubby.demo._terminate_recorded_children"
+            ), self.assertRaises(_ControllerActionFailure) as raised:
+                _run_installed_lifecycle(
+                    install,
+                    controller,
+                    cleanup=True,
+                    trusted_development=False,
+                    host_controller_python=host_python,
+                    diagnostics=diagnostic,
+                )
+
+        rollback = next(
+            command
+            for command in calls
+            if "demo-rollback-stop" in command
+        )
+        self.assertEqual(rollback.count("--timeout"), 1)
+        self.assertEqual(
+            rollback[rollback.index("--timeout") + 1],
+            f"{_CONTROLLER_ACTION_TIMEOUT_SECONDS:g}",
+        )
+        self.assertEqual(
+            raised.exception.controller_error_code,
+            "health_failed",
+        )
+        self.assertEqual(
+            diagnostic.public()["controller_error_code"],
+            "health_failed",
+        )
+        self.assertNotIn(
+            "private child startup detail",
+            json.dumps(diagnostic.public()),
+        )
 
     def test_invalid_host_python_is_rejected_without_execution(self):
         with tempfile.TemporaryDirectory(
@@ -716,6 +959,7 @@ class InstalledAttestationTests(unittest.TestCase):
                 "child_stderr_sha256",
                 "controller_log_sha256",
                 "controller_log_size",
+                "controller_error_code",
                 "process_category",
                 "process_return_code",
                 "stage_code",
@@ -723,6 +967,7 @@ class InstalledAttestationTests(unittest.TestCase):
         )
         self.assertEqual(diagnostic["stage_code"], "controller_readiness")
         self.assertEqual(diagnostic["child_stage"], "not_adopted")
+        self.assertIsNone(diagnostic["controller_error_code"])
         self.assertIsNone(diagnostic["child_health_timeout_seconds"])
         self.assertEqual(
             diagnostic["child_process_category"], "not_started"
