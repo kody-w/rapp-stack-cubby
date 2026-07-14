@@ -73,6 +73,28 @@
           "minimum": 0,
           "type": "integer"
         },
+        "controller_client_category": {
+          "enum": [
+            "not_started",
+            "exited_zero",
+            "exited_nonzero",
+            "signaled",
+            "launch_failed",
+            "timed_out",
+            "invalid_output",
+            "status_unavailable"
+          ]
+        },
+        "controller_client_return_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "controller_error_code": {
           "enum": [
             "adopt_invalid",
@@ -175,6 +197,8 @@
         "stage_code",
         "process_return_code",
         "process_category",
+        "controller_client_return_code",
+        "controller_client_category",
         "controller_error_code",
         "controller_log_size",
         "controller_log_sha256",

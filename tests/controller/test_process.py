@@ -88,6 +88,100 @@ class ControllerProcessTests(unittest.TestCase):
         self.assertEqual(elapsed, budget)
         self.assertEqual(probe.call_count, int(budget))
 
+    def test_real_health_probes_use_request_cap_and_remaining_budget(self):
+        elapsed = 0.0
+        request_timeouts = []
+        child = Mock()
+        child.poll.return_value = None
+
+        def clock():
+            return elapsed
+
+        def pause(delay):
+            nonlocal elapsed
+            elapsed += delay
+
+        def health_probe(port, timeout):
+            nonlocal elapsed
+            self.assertEqual(port, 43204)
+            request_timeouts.append(timeout)
+            elapsed += timeout
+            return None
+
+        with ControllerEnvironment() as environment:
+            budget = environment.globals[
+                "_CHILD_COLD_START_BUDGET_SECONDS"
+            ]
+            request_cap = environment.globals[
+                "_CHILD_HEALTH_REQUEST_TIMEOUT_SECONDS"
+            ]
+            with patch.dict(
+                environment.globals,
+                {"_health_probe": health_probe},
+            ):
+                ready = environment.globals["_wait_health"](
+                    43204,
+                    "never-ready-child",
+                    budget,
+                    child,
+                    clock=clock,
+                    pause=pause,
+                )
+
+        self.assertFalse(ready)
+        self.assertEqual(request_cap, 15.0)
+        self.assertEqual(request_timeouts, [15.0, 15.0, 15.0, 15.0, 11.0])
+        self.assertEqual(elapsed, budget)
+        self.assertGreaterEqual(child.poll.call_count, 2 * len(request_timeouts))
+
+    def test_real_health_probe_rejects_wrong_instance_before_match(self):
+        elapsed = 0.0
+        child = Mock()
+        child.poll.return_value = None
+        responses = iter(
+            [
+                {
+                    "status": "ok",
+                    "ready": True,
+                    "instance_id": "other-child",
+                },
+                {
+                    "status": "ok",
+                    "ready": True,
+                    "instance_id": "expected-child",
+                },
+            ]
+        )
+        health_probe = Mock(side_effect=lambda port, timeout: next(responses))
+
+        def pause(delay):
+            nonlocal elapsed
+            elapsed += delay
+
+        with ControllerEnvironment() as environment:
+            with patch.dict(
+                environment.globals,
+                {"_health_probe": health_probe},
+            ):
+                ready = environment.globals["_wait_health"](
+                    43205,
+                    "expected-child",
+                    environment.globals[
+                        "_CHILD_COLD_START_BUDGET_SECONDS"
+                    ],
+                    child,
+                    clock=lambda: elapsed,
+                    pause=pause,
+                )
+
+        self.assertTrue(ready)
+        self.assertEqual(health_probe.call_count, 2)
+        self.assertEqual(
+            [call.kwargs["timeout"] for call in health_probe.call_args_list],
+            [15.0, 15.0],
+        )
+        self.assertGreaterEqual(child.poll.call_count, 4)
+
     def test_child_readiness_fails_fast_when_process_exits(self):
         child = Mock()
         child.poll.return_value = 9

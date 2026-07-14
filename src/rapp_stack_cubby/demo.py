@@ -66,6 +66,18 @@ _CONTROLLER_HEALTH_PROCESS_TIMEOUT_SECONDS: Final = 5.0
 _INSTALLED_CHILD_HEALTH_BUDGET_SECONDS: Final = 75.0
 _CONTROLLER_ACTION_TIMEOUT_SECONDS: Final = 90.0
 _RUN_JSON_SUBPROCESS_TIMEOUT_SECONDS: Final = 180.0
+_CONTROLLER_CLIENT_CATEGORIES: Final = frozenset(
+    {
+        "not_started",
+        "exited_zero",
+        "exited_nonzero",
+        "signaled",
+        "launch_failed",
+        "timed_out",
+        "invalid_output",
+        "status_unavailable",
+    }
+)
 _UNCLASSIFIED_CONTROLLER_ERROR_CODE: Final = "unclassified"
 _CONTROLLER_ERROR_CODES: Final = frozenset(
     {
@@ -128,13 +140,24 @@ class InstalledAttestationError(DemoError):
 class _ContentFreeProcessFailure(DemoError):
     def __init__(
         self,
-        category: str,
+        category: object,
         *,
         return_code: int | None = None,
     ) -> None:
         super().__init__("content_free_process_failed")
-        self.category = category
-        self.return_code = return_code
+        self.controller_client_category = (
+            category
+            if isinstance(category, str)
+            and category in _CONTROLLER_CLIENT_CATEGORIES
+            and category != "not_started"
+            else "status_unavailable"
+        )
+        self.controller_client_return_code = (
+            return_code
+            if isinstance(return_code, int)
+            and not isinstance(return_code, bool)
+            else None
+        )
 
 
 class _ControllerActionFailure(DemoError):
@@ -153,6 +176,8 @@ class _AttestationDiagnostics:
     child_stage: str = "not_adopted"
     process_return_code: int | None = None
     process_category: str = "not_started"
+    controller_client_return_code: int | None = None
+    controller_client_category: str = "not_started"
     controller_log_size: int = 0
     controller_log_sha256: str = hashlib.sha256(b"").hexdigest()
     controller_error_code: str | None = None
@@ -168,12 +193,13 @@ class _AttestationDiagnostics:
     def observe_error(self, error: BaseException) -> None:
         if isinstance(error, _ControllerActionFailure):
             self.controller_error_code = error.controller_error_code
-        if (
-            self.process_category == "not_started"
-            and isinstance(error, _ContentFreeProcessFailure)
-        ):
-            self.process_return_code = error.return_code
-            self.process_category = error.category
+        if isinstance(error, _ContentFreeProcessFailure):
+            self.controller_client_return_code = (
+                error.controller_client_return_code
+            )
+            self.controller_client_category = (
+                error.controller_client_category
+            )
 
     def observe_process(self, process: subprocess.Popen[bytes]) -> None:
         try:
@@ -301,6 +327,10 @@ class _AttestationDiagnostics:
             "child_stderr_size": self.child_stderr_size,
             "child_stdout_sha256": self.child_stdout_sha256,
             "child_stdout_size": self.child_stdout_size,
+            "controller_client_category": self.controller_client_category,
+            "controller_client_return_code": (
+                self.controller_client_return_code
+            ),
             "controller_log_sha256": self.controller_log_sha256,
             "controller_log_size": self.controller_log_size,
             "controller_error_code": self.controller_error_code,
@@ -461,6 +491,7 @@ def run_demo(
                 controller_root,
                 cleanup=cleanup,
                 trusted_development=True,
+                host_controller_python=selected_python,
             )
         else:
             lifecycle = dict(test_seam.lifecycle(install_root, controller_root))

@@ -7,7 +7,7 @@
       "filename": "rapp-stack-cubby.egg",
       "kind": "cubby-egg",
       "label": "CUBBY egg",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/rapp-stack-cubby.egg"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/rapp-stack-cubby.egg"
     },
     {
       "availability": "pending",
@@ -15,7 +15,7 @@
       "filename": "rapp-stack-cubby-store.zip",
       "kind": "store-zip",
       "label": "Store ZIP",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/rapp-stack-cubby-store.zip"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/rapp-stack-cubby-store.zip"
     },
     {
       "availability": "pending",
@@ -23,7 +23,7 @@
       "filename": "SHA256SUMS",
       "kind": "checksums",
       "label": "SHA-256 sidecar",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/SHA256SUMS"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/SHA256SUMS"
     },
     {
       "availability": "pending",
@@ -31,7 +31,7 @@
       "filename": "SBOM.spdx.json",
       "kind": "sbom",
       "label": "SPDX SBOM",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/SBOM.spdx.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/SBOM.spdx.json"
     },
     {
       "availability": "pending",
@@ -39,7 +39,7 @@
       "filename": "candidate-publication-scan.json",
       "kind": "publication-scan",
       "label": "Candidate publication scan",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/candidate-publication-scan.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/candidate-publication-scan.json"
     },
     {
       "availability": "pending",
@@ -47,7 +47,7 @@
       "filename": "candidate-publication-scan.json.sig",
       "kind": "detached-signature",
       "label": "Candidate scan signature",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/candidate-publication-scan.json.sig"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/candidate-publication-scan.json.sig"
     },
     {
       "availability": "pending",
@@ -55,7 +55,7 @@
       "filename": "release-manifest.json",
       "kind": "release-manifest",
       "label": "Release manifest",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/release-manifest.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/release-manifest.json"
     },
     {
       "availability": "pending",
@@ -63,7 +63,7 @@
       "filename": "release-manifest.json.sig",
       "kind": "detached-signature",
       "label": "Pinned release signature",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/release-manifest.json.sig"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/release-manifest.json.sig"
     },
     {
       "availability": "pending",
@@ -71,7 +71,7 @@
       "filename": "release-provenance.json",
       "kind": "provenance",
       "label": "Release provenance",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/release-provenance.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/release-provenance.json"
     },
     {
       "availability": "pending",
@@ -79,7 +79,7 @@
       "filename": "rapp-super-rar.json",
       "kind": "super-rar-index",
       "label": "super-RAR index",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/rapp-super-rar.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/rapp-super-rar.json"
     },
     {
       "availability": "pending",
@@ -87,7 +87,7 @@
       "filename": "store-index.json",
       "kind": "store-index",
       "label": "Store index",
-      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/store-index.json"
+      "url": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/store-index.json"
     },
     {
       "availability": "pending",
@@ -183,7 +183,7 @@
     "raw_inventory_sha256": "b714ecc753e8f3545c43697a9d430837fed54752edd040c65eb6d267541cceae",
     "snapshot_semantics": "bounded non-atomic observation window; each head is paired with its own API response time"
   },
-  "exact_hashes": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.11/SHA256SUMS",
+  "exact_hashes": "https://github.com/kody-w/rapp-stack-cubby/releases/download/v0.1.0-rc.12/SHA256SUMS",
   "release": {
     "candidate_publication_scan_sha256": null,
     "final_publication_scan_sha256": null,
@@ -199,8 +199,8 @@
     "source_git_tree": null,
     "source_tree_digest": null,
     "state": "pending",
-    "tag": "v0.1.0-rc.11",
-    "version": "0.1.0rc11"
+    "tag": "v0.1.0-rc.12",
+    "version": "0.1.0rc12"
   },
   "schema": "rapp-pages-downloads/1.0",
   "status": "pending",

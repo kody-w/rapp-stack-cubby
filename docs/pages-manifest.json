@@ -23,37 +23,37 @@
     {
       "kind": "json",
       "path": "api/v1/architecture.json",
-      "sha256": "b5bd634c6a84625e1e36ca007ad9dd24bac4487c729bc5dde7f97ea402227c2d",
+      "sha256": "1cad72bb111c3ceaf12de95c19a798e09baf28b398c581bcfe9fa6e970c0175d",
       "size": 190898
     },
     {
       "kind": "json",
       "path": "api/v1/capabilities.json",
-      "sha256": "c2c519dd8642e7f0b1d1d52621444c20d2820c22b0f2e9bb4a700f9c39d1241e",
+      "sha256": "79b64d9b88a9087c4ec2242c183d808657df243f3c4ef60e4efb600a8fd43263",
       "size": 205489
     },
     {
       "kind": "json",
       "path": "api/v1/context.json",
-      "sha256": "b4b58fec6ac30d8be1cb55b4075f3289bfdfcd3a66453af94b2804affd16f7c5",
+      "sha256": "bc7d6662bcec1a5fb8e5181ffc9ff2c6a7dcaaef0e8665d0a1b19001104f1544",
       "size": 205020
     },
     {
       "kind": "json",
       "path": "api/v1/downloads.json",
-      "sha256": "fb9b85b11bf22ec6a46f906649e88f59bb3e0ddbfdf86de85d6dfaa42cea7640",
+      "sha256": "5095a3adeba7cf726f8118d54643ef4a874f7ebdfc5327cb715069aebee66c23",
       "size": 8607
     },
     {
       "kind": "json",
       "path": "api/v1/prompts.json",
-      "sha256": "297ff7d5e05d78751d5fd380b75de4252047d0dc69d7642c7d577a16ee8b40d3",
+      "sha256": "480249f0b7e1fff121168255a3303a786dd15fd2034315e78815735a3b7261dd",
       "size": 4717
     },
     {
       "kind": "json",
       "path": "api/v1/status.json",
-      "sha256": "97780d47a2f9a952722c958fabfbb254335d49d6b761d4c82867b7da4d99b773",
+      "sha256": "2e3d9c24649c57c628db928593217d1af777d6775003fa0a8484167f3fd77d83",
       "size": 3886
     },
     {
@@ -263,13 +263,13 @@
     {
       "kind": "markdown",
       "path": "decisions/static-pages-public-boundary.md",
-      "sha256": "23a0f08499054ec05d8b0a7cd6d547ab04b562c3d092a612a5df18c2b290c2f9",
+      "sha256": "1a7c0e3d75f50cca963321e7bba91e40447ab58f7d93ed816e6258a3cd580aab",
       "size": 1776
     },
     {
       "kind": "html",
       "path": "index.html",
-      "sha256": "02b45b4c83738e79835c1bed321514e419c39cacc929da00c4c8c3197fe88e5a",
+      "sha256": "f30bea2a38cc783be5fea72ce51397c3168fdad5c3045d888a785c5ac7975691",
       "size": 23582
     },
     {
@@ -377,7 +377,7 @@
     {
       "kind": "manifest",
       "path": "pages-manifest.json",
-      "sha256": "4fba5138d30f563a05fb4a4bbae2cf56f7314cbcfd0d49c2d611548cca20b96c",
+      "sha256": "96f93fc525e3b0c2e813b1b6da67d5bd0739b17218ce6c1ebf5ac7bf4ef4c912",
       "size": 15964
     },
     {

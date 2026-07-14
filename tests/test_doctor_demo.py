@@ -19,6 +19,7 @@ from rapp_stack_cubby.demo import (
     InstalledAttestationError,
     _AttestationDiagnostics,
     _CONTROLLER_ACTION_TIMEOUT_SECONDS,
+    _CONTROLLER_CLIENT_CATEGORIES,
     _CONTROLLER_ERROR_CODES,
     _CONTROLLER_STARTUP_TIMEOUT_SECONDS,
     _ControllerActionFailure,
@@ -257,6 +258,116 @@ class ProductDemoTests(unittest.TestCase):
             self.assertEqual(os.environ.get("HOME"), before_home)
             self.assertFalse((install / "rapp-stack-cubby-demo").exists())
 
+    def test_demo_uses_selected_python_for_installed_lifecycle_host(self):
+        with tempfile.TemporaryDirectory(
+            prefix=".demo-host-python-",
+            dir=REPOSITORY_ROOT.parent,
+        ) as temporary:
+            root = Path(temporary)
+            repository = root / "repository"
+            repository.mkdir(mode=0o700)
+            directories = {
+                name: root / name
+                for name in ("work", "cache", "install", "controller")
+            }
+            for path in directories.values():
+                path.mkdir(mode=0o700)
+            selected_python = Path(sys.executable).resolve(strict=True)
+            source_digest = "a" * 64
+            lifecycle_result = {
+                "controller_authenticated": True,
+                "installed_adopted": True,
+                "attestation_child_started": True,
+                "signed_self_test": True,
+                "child_stopped": True,
+                "archived": True,
+                "unarchived": True,
+                "no_orphan": True,
+                "purged": False,
+            }
+
+            def build_release(
+                source,
+                cache,
+                output,
+                **kwargs,
+            ):
+                del source, cache, kwargs
+                output.mkdir(mode=0o700)
+                (output / "rapp-stack-cubby.egg").write_bytes(b"fixture")
+                return {
+                    "release_manifest_sha256": "b" * 64,
+                    "source_tree_digest": source_digest,
+                }
+
+            def hatch(
+                egg,
+                install_root,
+                python,
+                **kwargs,
+            ):
+                del egg, kwargs
+                self.assertEqual(python, selected_python)
+                install_root.mkdir(mode=0o700)
+                return {"source_tree_digest": source_digest}
+
+            lifecycle = Mock(return_value=lifecycle_result)
+            with patch(
+                "rapp_stack_cubby.demo.verify_repository",
+                return_value=Mock(ok=True),
+            ), patch(
+                "rapp_stack_cubby.demo.context_summary"
+            ), patch(
+                "rapp_stack_cubby.demo.check_pages",
+                return_value=Mock(ok=True),
+            ), patch(
+                "rapp_stack_cubby.demo.validate_source_manifest"
+            ), patch(
+                "rapp_stack_cubby.demo.verify_dependency_cache",
+                return_value={"verified": True},
+            ), patch(
+                "rapp_stack_cubby.demo._write_development_trust",
+                return_value=(root / "key", root / "trust"),
+            ), patch(
+                "rapp_stack_cubby.demo.build_release",
+                side_effect=build_release,
+            ), patch(
+                "rapp_stack_cubby.demo.verify_release",
+                return_value={
+                    "development_only": True,
+                    "release": False,
+                    "signed": True,
+                    "verified": True,
+                },
+            ), patch(
+                "rapp_stack_cubby.demo.verify_artifact",
+                return_value={"artifact_type": "cubby-egg"},
+            ), patch(
+                "rapp_stack_cubby.demo.hatch_egg",
+                side_effect=hatch,
+            ), patch(
+                "rapp_stack_cubby.demo.verify_install",
+                return_value={"source_tree_digest": source_digest},
+            ), patch(
+                "rapp_stack_cubby.demo._run_installed_lifecycle",
+                lifecycle,
+            ):
+                result = run_demo(
+                    repository,
+                    python=selected_python,
+                    work_dir=directories["work"],
+                    dependency_cache=directories["cache"],
+                    install_dir=directories["install"],
+                    controller_dir=directories["controller"],
+                    receipt_path=root / "receipt.json",
+                )
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(
+            lifecycle.call_args.kwargs["host_controller_python"],
+            selected_python,
+        )
+
 
 class InstalledAttestationTests(unittest.TestCase):
     def test_host_python_is_canonicalized_before_controller_override(self):
@@ -398,6 +509,56 @@ class InstalledAttestationTests(unittest.TestCase):
             malformed.exception.controller_error_code,
             "unclassified",
         )
+
+    def test_controller_client_failure_is_independent_and_finite(self):
+        diagnostic = _AttestationDiagnostics(
+            process_category="running",
+            process_return_code=None,
+        )
+        failure = _ContentFreeProcessFailure(
+            "exited_nonzero",
+            return_code=23,
+        )
+
+        diagnostic.observe_error(failure)
+        public = diagnostic.public()
+
+        self.assertEqual(
+            failure.controller_client_category,
+            "exited_nonzero",
+        )
+        self.assertEqual(failure.controller_client_return_code, 23)
+        self.assertEqual(
+            public["controller_client_category"],
+            "exited_nonzero",
+        )
+        self.assertEqual(public["controller_client_return_code"], 23)
+        self.assertEqual(public["process_category"], "running")
+        self.assertIsNone(public["process_return_code"])
+        schema = json.loads(
+            (
+                REPOSITORY_ROOT
+                / "schemas/installed-offline-attestation.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        schema_categories = set(
+            schema["properties"]["diagnostics"]["properties"][
+                "controller_client_category"
+            ]["enum"]
+        )
+        self.assertEqual(
+            schema_categories,
+            set(_CONTROLLER_CLIENT_CATEGORIES),
+        )
+        unknown = _ContentFreeProcessFailure(
+            "private-arbitrary-category",
+            return_code=True,
+        )
+        self.assertEqual(
+            unknown.controller_client_category,
+            "status_unavailable",
+        )
+        self.assertIsNone(unknown.controller_client_return_code)
 
     def test_controller_action_timeout_bounds_child_health_and_process(self):
         self.assertEqual(_INSTALLED_CHILD_HEALTH_BUDGET_SECONDS, 75.0)
@@ -862,8 +1023,14 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertEqual(argv, [str(python), "-I", "-S", "-c", "pass"])
         self.assertIs(runner.call_args.kwargs["stdout"], subprocess.DEVNULL)
         self.assertIs(runner.call_args.kwargs["stderr"], subprocess.DEVNULL)
-        self.assertEqual(raised.exception.return_code, 9)
-        self.assertEqual(raised.exception.category, "exited_nonzero")
+        self.assertEqual(
+            raised.exception.controller_client_return_code,
+            9,
+        )
+        self.assertEqual(
+            raised.exception.controller_client_category,
+            "exited_nonzero",
+        )
 
     def test_readiness_failure_receipt_and_cli_diagnostics_are_redacted(self):
         secret = b"message=private key=secret account-id=private-id\n"
@@ -957,6 +1124,8 @@ class InstalledAttestationTests(unittest.TestCase):
                 "child_stdout_sha256",
                 "child_stderr_size",
                 "child_stderr_sha256",
+                "controller_client_category",
+                "controller_client_return_code",
                 "controller_log_sha256",
                 "controller_log_size",
                 "controller_error_code",
@@ -968,6 +1137,11 @@ class InstalledAttestationTests(unittest.TestCase):
         self.assertEqual(diagnostic["stage_code"], "controller_readiness")
         self.assertEqual(diagnostic["child_stage"], "not_adopted")
         self.assertIsNone(diagnostic["controller_error_code"])
+        self.assertEqual(
+            diagnostic["controller_client_category"],
+            "not_started",
+        )
+        self.assertIsNone(diagnostic["controller_client_return_code"])
         self.assertIsNone(diagnostic["child_health_timeout_seconds"])
         self.assertEqual(
             diagnostic["child_process_category"], "not_started"

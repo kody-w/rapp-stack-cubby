@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing exact version tag (v0.1.0-rc.11)
+        description: Existing exact version tag (v0.1.0-rc.12)
         required: true
         type: string
       commit:
@@ -38,7 +38,7 @@ jobs:
           INPUT_COMMIT: ${{ inputs.commit }}
           INPUT_TAG: ${{ inputs.tag }}
         run: |
-          test "${INPUT_TAG}" = "v0.1.0-rc.11"
+          test "${INPUT_TAG}" = "v0.1.0-rc.12"
           case "${INPUT_COMMIT}" in *[!0-9a-f]*|'') exit 2 ;; esac
           test "${#INPUT_COMMIT}" -eq 40
           test "${DISPATCH_REF}" = "refs/tags/${INPUT_TAG}"

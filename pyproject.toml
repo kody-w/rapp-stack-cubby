@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapp-stack-cubby"
-version = "0.1.0rc11"
+version = "0.1.0rc12"
 description = "Contract verifier and isolated local runtime for the RAPP stack CUBBY"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
