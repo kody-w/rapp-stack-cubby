@@ -4,8 +4,8 @@
       "kind": "controller-agent",
       "name": "RappStackCubbyController",
       "rank": 0,
-      "sha256": "4c3938bde01f63fe6ea25abe153f0edebf9095fcfe58af95bcac1cc3e2a9fd62",
-      "size": 256101,
+      "sha256": "6320273e20b52f05f8fdba20190f91ceafdd66212e5019b4ddb1f81f89cf91be",
+      "size": 256119,
       "sources": [
         "cubbies/kody-w/agents/rapp_stack_cubby_agent.py"
       ],
@@ -15,8 +15,8 @@
       "kind": "rapplication",
       "name": "rapp-stack",
       "rank": 10,
-      "sha256": "e61c9734388b565a7277819bba3000667aa6d540e1468d9c584029304a5ac7aa",
-      "size": 4134,
+      "sha256": "bd526aee0ad98e6d39cae6eeec919553b00f91c8c5bde1b1c8c745fe47b8a5fb",
+      "size": 4135,
       "sources": [
         "cubbies/kody-w/rapplications/rapp-stack/manifest.json"
       ],
@@ -38,5 +38,5 @@
   "schema": "rapp-super-rar/1.0",
   "source_tree_digest_binding": "rapp-release-source-manifest.json",
   "streamable_entry_count": 1,
-  "version": "0.1.0rc9"
+  "version": "0.1.0rc10"
 }

@@ -4789,7 +4789,6 @@ def _start_locked(
             != adoption["runtime_tree_sha256"]
         ):
             _error("adopt_invalid")
-        python = _validate_python(python_path)
         attestation_python = state.get("attestation_python")
         if (
             attestation_mode == _ATTESTATION_MODE
@@ -4802,6 +4801,8 @@ def _start_locked(
             )
             python = validated["path"]
             uses_attestation_python = True
+        else:
+            python = _validate_python(python_path)
     else:
         python = _validate_python()
     if attestation_mode is None:
