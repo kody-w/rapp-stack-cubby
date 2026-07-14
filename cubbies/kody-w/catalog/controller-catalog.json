@@ -50,6 +50,6 @@
   "schema": "rapp-controller-catalog/1.0",
   "source": {
     "path": "cubbies/kody-w/agents/rapp_stack_cubby_agent.py",
-    "sha256": "4c3938bde01f63fe6ea25abe153f0edebf9095fcfe58af95bcac1cc3e2a9fd62"
+    "sha256": "6320273e20b52f05f8fdba20190f91ceafdd66212e5019b4ddb1f81f89cf91be"
   }
 }

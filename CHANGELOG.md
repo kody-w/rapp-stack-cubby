@@ -3,6 +3,18 @@
 All notable product changes will be documented here. The repository is not yet
 publicly released.
 
+## 0.1.0rc10 — release candidate
+
+### Fixed
+
+- Release run `29292402986` adopted the verified install but reported child
+  process `not_started` because startup probed the copied runner Python before
+  selecting the stored attestation host Python. Offline self-test start now
+  verifies the install manifest, runtime digest, and installed Python static
+  inventory, hash, and mode before validating and selecting the stored host
+  Python without probing the copied executable. Normal/live start still
+  validates and executes the installed Python.
+
 ## 0.1.0rc9 — release candidate
 
 ### Fixed

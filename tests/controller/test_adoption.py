@@ -197,7 +197,7 @@ class ControllerAdoptionTests(unittest.TestCase):
                     blocked_start["error"]["code"], "source_mismatch"
                 )
 
-    def test_runner_framework_attestation_uses_verified_host_python_and_installed_paths(
+    def test_runner_framework_start_keeps_static_checks_and_uses_host_python(
         self,
     ):
         def copied_framework_fixture(
@@ -250,8 +250,18 @@ class ControllerAdoptionTests(unittest.TestCase):
                     idempotency_key="framework-adopt",
                 )
                 self.assertTrue(adopted["ok"], adopted)
+                active = (
+                    environment.controller_data
+                    / "twins/active"
+                    / adopted["identity_hash"]
+                )
+                installed_python = active / "runtime/venv/bin/python"
+                provider_token = environment.create_provider_token()
                 child = Mock(pid=60124)
                 child.poll.return_value = None
+                reject_installed_python = Mock(
+                    side_effect=RuntimeError("python_invalid")
+                )
                 with patch.object(
                     environment.globals["subprocess"],
                     "Popen",
@@ -263,14 +273,56 @@ class ControllerAdoptionTests(unittest.TestCase):
                 ), patch.dict(
                     environment.globals,
                     {
-                        "_validate_python": (
-                            lambda selected=None: str(selected)
-                        ),
+                        "_validate_python": reject_installed_python,
+                        "_preflight_model": Mock(),
                         "_wait_health": (
                             lambda port, instance, timeout, child, start_identity: True
                         ),
                     },
                 ):
+                    normal = decoded(
+                        environment.agent,
+                        action="start",
+                        rappid=adopted["instance_rappid"],
+                        model="runner-live-model",
+                        github_token_file=str(provider_token),
+                        idempotency_key="framework-normal-start",
+                    )
+                    self.assertFalse(normal["ok"], normal)
+                    self.assertEqual(
+                        normal["error"]["code"], "python_invalid"
+                    )
+                    reject_installed_python.assert_called_once_with(
+                        installed_python
+                    )
+                    popen.assert_not_called()
+
+                    reject_installed_python.reset_mock()
+                    original_python = installed_python.read_bytes()
+                    original_mode = stat.S_IMODE(
+                        installed_python.stat().st_mode
+                    )
+                    installed_python.write_bytes(
+                        original_python + b"\ntampered\n"
+                    )
+                    tampered = decoded(
+                        environment.agent,
+                        action="start",
+                        rappid=adopted["instance_rappid"],
+                        model="attestation-self-test/1.0",
+                        attestation_mode="offline-self-test",
+                        idempotency_key="framework-tampered-start",
+                    )
+                    self.assertFalse(tampered["ok"], tampered)
+                    self.assertEqual(
+                        tampered["error"]["code"], "adopt_invalid"
+                    )
+                    reject_installed_python.assert_not_called()
+                    popen.assert_not_called()
+                    installed_python.write_bytes(original_python)
+                    installed_python.chmod(original_mode)
+
+                    reject_installed_python.reset_mock()
                     started = decoded(
                         environment.agent,
                         action="start",
@@ -279,11 +331,7 @@ class ControllerAdoptionTests(unittest.TestCase):
                         attestation_mode="offline-self-test",
                         idempotency_key="framework-start",
                     )
-                active = (
-                    environment.controller_data
-                    / "twins/active"
-                    / adopted["identity_hash"]
-                )
+                    reject_installed_python.assert_not_called()
                 state = json.loads(
                     (active / "state.json").read_text(encoding="utf-8")
                 )
