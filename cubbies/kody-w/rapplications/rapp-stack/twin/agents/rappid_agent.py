@@ -180,7 +180,7 @@ class Rappid(BasicAgent):
                 return _response(
                     action,
                     valid=match is not None,
-                    format="rapp-eternity/1.0" if match else "invalid",
+                    format="rapp/1" if match else "invalid",
                 )
             if action == "parse":
                 return self._parse(kwargs.get("rappid", kwargs.get("value")))
@@ -215,7 +215,7 @@ class Rappid(BasicAgent):
         if match:
             return _response(
                 "parse",
-                format="rapp-eternity/1.0",
+                format="rapp/1",
                 canonical=True,
                 owner=match.group("owner"),
                 slug=match.group("slug"),

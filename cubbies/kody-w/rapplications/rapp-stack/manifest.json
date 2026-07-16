@@ -34,8 +34,8 @@
     {
       "mode": "0644",
       "path": "twin/agents/rappid_agent.py",
-      "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f",
-      "size": 9686
+      "sha256": "4a3730887e7fd6c57443f891f6fe515dfd09220ab27747b743c9521b0243ae77",
+      "size": 9664
     },
     {
       "mode": "0644",

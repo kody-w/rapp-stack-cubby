@@ -151,7 +151,7 @@
       "executable": false,
       "mode": "0644",
       "path": "PROVENANCE.json",
-      "sha256": "1d11f781c1de834e68c65e631fe8c7b6f1b976897ec99a953ff4ecb939c5cc40",
+      "sha256": "cf8fe22cd3813fb5fde1f2356ba451fadcd8185ae7d0e87b6a83b143e4a310f0",
       "size": 170512
     },
     {
@@ -221,14 +221,14 @@
       "executable": false,
       "mode": "0644",
       "path": "STACK_LOCK.json",
-      "sha256": "2282bf5ad6270931a40816998aff270cb41fcb155d64fa7abc00be8ee977bf86",
+      "sha256": "fd2a69ef38cda9b958dcf2a8bc4043c5f89d2612f5fdd9523c7ab73f09e4042f",
       "size": 69390
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "STORE_INDEX.json",
-      "sha256": "05a9301cc131b75ebe56268ca713ba0fe0face67c3bf59dcec59cb5c18a71c58",
+      "sha256": "1f6b03bf6276a92c3a620f010dcdae019eaf220dfbe6af102648402a1e2b12ca",
       "size": 437
     },
     {
@@ -326,7 +326,7 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/manifest.json",
-      "sha256": "faf3683031fc1bb756363d5bc007f8deb07cc12de6cd208597bcc239f9d9292f",
+      "sha256": "c51dcc1649db32170f85f0e7fa314b8afb0bbe55f49a475ab4d5d852cef29617",
       "size": 4135
     },
     {
@@ -375,8 +375,8 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rappid_agent.py",
-      "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f",
-      "size": 9686
+      "sha256": "4a3730887e7fd6c57443f891f6fe515dfd09220ab27747b743c9521b0243ae77",
+      "size": 9664
     },
     {
       "executable": false,
@@ -424,7 +424,7 @@
       "executable": false,
       "mode": "0644",
       "path": "cubbies/kody-w/rapplications/rapp-stack/twin/catalog/agent-catalog.json",
-      "sha256": "50ecd310a43a583fe6d00678ba7ff6739347733ce54e14a97ea0f84b431118e5",
+      "sha256": "946f6a7eaf7c6aee040f9e21a7aa6874c1015ba40e6fa077c9694d79b36dd3de",
       "size": 9928
     },
     {
@@ -1061,15 +1061,15 @@
       "executable": false,
       "mode": "0644",
       "path": "rapp-super-rar.json",
-      "sha256": "8a7c440306635951a69f5083025b5a78109582240b8795f8829a7803be6804fa",
+      "sha256": "c760ff2f823accaac0084eb00267d87bb5520880ae9502808f305a8ab0b0a3a4",
       "size": 1156
     },
     {
       "executable": false,
       "mode": "0644",
       "path": "rappid.json",
-      "sha256": "5e198e97aef0222af32e707d9cf7b5a6d591217d1533557af3a60aeae9c8300d",
-      "size": 372
+      "sha256": "f28a540396532384770051139c9662f174fefa950651f5f19e5a733f3ae67e60",
+      "size": 361
     },
     {
       "executable": false,
@@ -1362,8 +1362,8 @@
       "executable": false,
       "mode": "0644",
       "path": "schemas/rappid.schema.json",
-      "sha256": "d74d4db8bdf1b1c97742bfa2e74044ccc85de6646606c183ade93198bcfc5fcb",
-      "size": 792
+      "sha256": "e17a1374abe46af47c06eeb77024f828467d86812bf9c9bf3c3e152e0b276e63",
+      "size": 781
     },
     {
       "executable": false,
@@ -1922,8 +1922,8 @@
       "executable": false,
       "mode": "0644",
       "path": "src/rapp_stack_cubby/packaging/identity.py",
-      "sha256": "288826911ba9b15808bfba83033cb9f629da48b34e93a60f3732ec92fb217c85",
-      "size": 4426
+      "sha256": "7b690702ad08ee2dc18f5d2ac8255c49256ad86cdce5a13ea11256678ec08d8c",
+      "size": 4415
     },
     {
       "executable": false,
@@ -2293,8 +2293,8 @@
       "executable": false,
       "mode": "0644",
       "path": "tests/fixtures/product-identity.json",
-      "sha256": "51664d1740222f93727b3551a7922794391febb4f618651446660bba3d1faf4d",
-      "size": 848
+      "sha256": "60740bddf40ce203bff662c01aef6e83d22a9ec9da858b9b357f0d3d4e514828",
+      "size": 837
     },
     {
       "executable": false,
@@ -2670,6 +2670,6 @@
   ],
   "repository_url": "https://github.com/kody-w/rapp-stack-cubby.git",
   "schema": "rapp-release-source-manifest/1.0",
-  "source_tree_digest": "a6ca3dddac961ab78de0d2d8c0e181ce69b7c7e720fa28c8161a9995c4d4634d",
-  "total_bytes": 7756410
+  "source_tree_digest": "f273e2a13615141a7d901961392262dbb865f1bb0dfad85dabafa8b5bcf59ee6",
+  "total_bytes": 7756344
 }

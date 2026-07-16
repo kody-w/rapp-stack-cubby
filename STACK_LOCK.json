@@ -68,7 +68,7 @@
       "agent_catalog": {
         "path": "cubbies/kody-w/rapplications/rapp-stack/twin/catalog/agent-catalog.json",
         "provenance": "generated_local",
-        "sha256": "50ecd310a43a583fe6d00678ba7ff6739347733ce54e14a97ea0f84b431118e5"
+        "sha256": "946f6a7eaf7c6aee040f9e21a7aa6874c1015ba40e6fa077c9694d79b36dd3de"
       },
       "files": [
         {
@@ -99,7 +99,7 @@
         {
           "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rappid_agent.py",
           "provenance": "original_new",
-          "sha256": "f527daec588839a614990b4a65cfdfcda386bc7924cb5bb3c8fd01230ed1269f"
+          "sha256": "4a3730887e7fd6c57443f891f6fe515dfd09220ab27747b743c9521b0243ae77"
         },
         {
           "path": "cubbies/kody-w/rapplications/rapp-stack/twin/agents/rapplication_agent.py",
@@ -137,7 +137,7 @@
         "provenance": "generated_local",
         "sha256": "8b00634647c7a6437d94f70f16f732668c9a1649db6eafb0e454ca6d38cb3d49"
       },
-      "manifest_sha256": "e5ac61881dce94a11a544a075eff084a14b52cb27d153b523de91616e70474ef",
+      "manifest_sha256": "f0b1e85ccd2d67501e72bca1add599c06d580db179ed5b09a7918b618d0fb324",
       "policy": "Actual agents and soul are newly authored and survive deterministic Store/egg/hatch round trips; catalogs are generated local metadata. Final public release attestation remains unresolved.",
       "soul": {
         "path": "cubbies/kody-w/rapplications/rapp-stack/twin/soul.md",
@@ -384,7 +384,7 @@
         {
           "path": "schemas/rappid.schema.json",
           "provenance": "original_new",
-          "sha256": "d74d4db8bdf1b1c97742bfa2e74044ccc85de6646606c183ade93198bcfc5fcb"
+          "sha256": "e17a1374abe46af47c06eeb77024f828467d86812bf9c9bf3c3e152e0b276e63"
         },
         {
           "path": "schemas/rapplication.schema.json",
@@ -487,7 +487,7 @@
           "sha256": "28e7711fc80f96cdfc10bf6ed90d0eee1d2803c8e9aabda521386488da61cf3c"
         }
       ],
-      "manifest_sha256": "4cb0a4fed974d986a823031ecc784c018734a1b82520bf1e62b828f67d60b94a"
+      "manifest_sha256": "4f6c194670b89f114cda04b0feae9f2004fd58dc600d9865859dbe89321d2485"
     },
     "controller_manifest": {
       "catalog": {
