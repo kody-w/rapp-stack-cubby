@@ -15,7 +15,7 @@
       "kind": "rapplication",
       "name": "rapp-stack",
       "rank": 10,
-      "sha256": "faf3683031fc1bb756363d5bc007f8deb07cc12de6cd208597bcc239f9d9292f",
+      "sha256": "c51dcc1649db32170f85f0e7fa314b8afb0bbe55f49a475ab4d5d852cef29617",
       "size": 4135,
       "sources": [
         "cubbies/kody-w/rapplications/rapp-stack/manifest.json"
