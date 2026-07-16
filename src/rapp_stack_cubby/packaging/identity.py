@@ -10,7 +10,7 @@ from typing import Any
 from .common import PackagingError, canonical_json_bytes
 
 BIRTH_SCHEMA = "rapp-birth/1.0"
-RAPPID_SCHEMA = "rapp-eternity/1.0"
+RAPPID_SCHEMA = "rapp/1"
 OWNER = "kody-w"
 SLUG = "rapp-stack-cubby"
 _RAPPID_RE = re.compile(

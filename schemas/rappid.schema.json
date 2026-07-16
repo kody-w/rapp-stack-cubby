@@ -19,7 +19,7 @@
       "type": "string"
     },
     "schema": {
-      "const": "rapp-eternity/1.0"
+      "const": "rapp/1"
     },
     "slug": {
       "const": "rapp-stack-cubby"

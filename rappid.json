@@ -3,6 +3,6 @@
   "identity_hash": "8019c0b7a40f31c046796b7a30f55dfd3b4331d91875276dc5c572176ec19c83",
   "owner": "kody-w",
   "rappid": "rappid:@kody-w/rapp-stack-cubby:8019c0b7a40f31c046796b7a30f55dfd3b4331d91875276dc5c572176ec19c83",
-  "schema": "rapp-eternity/1.0",
+  "schema": "rapp/1",
   "slug": "rapp-stack-cubby"
 }
